@@ -1,4 +1,4 @@
-/// <reference types= "Cypress" />
+/// <reference types= "cypress" />
 
 import { SigninPage } from "../PageObject/PageAction/SigninPage";
 import { AdditionalCurrencies } from "../PageObject/PageAction/AdditionalCurrencies";
@@ -8,10 +8,10 @@ const newRecipient = new AdditionalCurrencies
 
 describe('Additional Currencies ',function(){
 
-    let userName = 'qwerty_admin_2'
+    let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('https://webapp4.volopa.com/')
+        cy.visit('https://webapp3.volopa.com/')
         cy.viewport(1440,1000)
     })
     // Currency is SGD

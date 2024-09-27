@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "cypress": "^13.14.2",
+    "cypress-file-upload": "^5.0.8",
+    "cypress-if": "^1.12.0",
+    "cypress-iframe": "^1.0.1"
+  },
+  "dependencies": {
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1"
+  }
+}

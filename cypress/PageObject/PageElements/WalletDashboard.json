@@ -1,0 +1,44 @@
+{
+    "walletDashboardLocators":{
+        "totalCompanyBalance":".ant-typography.light-green.medium.fs-28px",
+        "walletBalance":"span[class='ant-typography dark-green medium fs-28px']",
+        "cardsBalance":".ant-typography.dark-green.medium.fs-28px.pointer",
+        "convertBalances":".slick-slide.slick-active.slick-current div div div .ant-card.ant-card-bordered.ant-card-hoverable.b-g.center-align-text.hover-no-border",
+        "fundCard":"[class='ant-typography muli semi-bold fs-18px']",
+        "fundWallet":"[class='ant-typography muli semi-bold fs-18px']",
+        "RecentActivity":"[class='ant-typography dark-green medium fs-25px']",
+        "walletBreakdown":".ant-col-md-20 > :nth-child(1) > .ant-col-24 > .fs-25px",
+        "rateChecker":".ant-col-sm-18 > :nth-child(1) > .ant-col > .ant-typography",
+        "recentFundingHistory":".ant-col-sm-20 > :nth-child(1) > .ant-col > .ant-typography",
+
+        "totalCompanyBalanceValue":".ant-col-lg-10 > :nth-child(2) > .ant-col > .ant-typography",
+        "walletBalanceValue":"div[class='ant-col'] [class='ant-typography  bold fs-28px']",
+        "cardsBalanceValue":"div[class='ant-col'] [class='ant-typography  bold fs-28px pointer']",
+
+        "cardDashboard":"[id='rc-tabs-0-tab-/cards/dashboard']",
+
+        "convertTo":"#convertToCurrency",
+        "convertFrom":"#convertFromCurrency",
+        "convertFromValue":"#convertFromValue",
+        "convertBtn":"button[type='submit']",
+        "assertion1":".ant-modal-body > :nth-child(1) > .ant-col",
+        "value1":".m-t-10 > [style='flex: 1 1 auto;'] > [style='margin-left: -4px; margin-right: -4px; row-gap: 8px;'] > [style='padding-left: 4px; padding-right: 4px; flex: 1 1 auto;'] > .ant-input-number > .ant-input-number-input-wrap > .ant-input-number-input",
+        "value2":".m-t-20 > [style='flex: 1 1 auto;'] > [style='margin-left: -4px; margin-right: -4px; row-gap: 8px;'] > [style='padding-left: 4px; padding-right: 4px; flex: 1 1 auto;'] > .ant-input-number > .ant-input-number-input-wrap > .ant-input-number-input",
+        "istrecent":"div[class='slick-slide slick-active slick-current'] div[class='ant-col right-align-text'] div:nth-child(2)",
+        "dashboard":".ant-row-space-around > .ant-col > .ant-space > [style=''] > .ant-btn",
+        "Valuee1":":nth-child(2) > .ant-col > .ant-space-vertical > :nth-child(2) > .ant-space > :nth-child(2) > .ant-typography",
+        "Valuee2":".ant-row-space-between > :nth-child(1) > .ant-space-vertical > :nth-child(2) > .ant-space > :nth-child(2) > .ant-typography",
+
+        "markAsRead":"a[class='medium fs-18px']",
+        "noRecentActivities":"div[class='ant-card ant-card-bordered'] span[class='ant-typography muli semi-bold fs-18px']",
+
+        "showAllBtn":"button[class='ant-btn ant-btn-link medium fs-18px'] span",
+
+        "convertBalancesPage":"[id='rc-tabs-0-tab-/wallet/convert-balances']",
+        "fundCardSelection":"[data-testid='container'] > .ant-card-body > :nth-child(1) > .ant-col",
+        "fundWalletPage":"[id='rc-tabs-0-tab-/wallet/fund']",
+        "walletDashboard":"[id='rc-tabs-0-tab-/wallet/dashboard']",
+        "crossBtn":".ant-modal-close-x"
+
+    }
+}

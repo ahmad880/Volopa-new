@@ -1,0 +1,28 @@
+{
+    "fundWalletLocators":{
+        "fundWallet":".ant-tabs-nav-list > :nth-child(2)",
+        "fundWalletNavbar":"[id='rc-tabs-0-tab-/wallet/fund']",
+        "fundWalletHeading":".ant-typography.medium.dark-green.fs-28px",
+        "fundWalletByAmount":".ant-col-md-12 > .ant-typography",
+        "walletBalance":".ant-col-sm-24 > .ant-typography.medium",
+        "viewAllBtn":".m-t-10 > .ant-col > .ant-btn > span",
+
+        "calculatorheading":"span[class='ant-typography fs-18px medium dark-green']",
+        "currency1":"#currency",
+        "amount1":"#amount",
+        "description1":"#description",
+        "confirmbutton":".ant-col [class='ant-btn ant-btn-primary']",
+        "popupheading":".ant-typography.ant-typography-success.medium.fs-18px.center-align-text",
+        "popupconfirmbutton":"div[class='ant-space ant-space-horizontal ant-space-align-center'] div:nth-child(1) button:nth-child(1) span:nth-child(1)",
+        "popupconfirmxpath":".ant-space > :nth-child(2) > .ant-btn > span",
+        "bankpagetital":".title.w-100",
+        "searchbaryapli":"input[placeholder='Search all 63 banks']",
+        "reviewdetailheading":".title.w-100",
+        "amountverify":".pb-2.currency-style",
+        "continubutton":".button-primary.mt-4.mb-2",
+        "approvepaymnttital":".title.w-100",
+        "linkonline":"p[class='link font-size-16 mt-4'] strong",
+        "validationamoungt":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(3) > tr:nth-child(2) > td:nth-child(6) > span:nth-child(1)",
+        "rowInCompanyWalletBalance":"[class='ant-table-row ant-table-row-level-0 row-filled medium fs-18px ']"
+    }
+}

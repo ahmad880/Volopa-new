@@ -1,0 +1,123 @@
+{
+    "signupLocators":{
+        "signUpButton":"body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > form:nth-child(1) > div:nth-child(5) > div:nth-child(1) > a:nth-child(1)",
+       
+       
+        "userAccount":"[class='breadcrumb-border active highlighted']",
+        "setUpUserAccount":"div[class='col-sm-6'] h2",
+        "bussinesEmail":"div[class='form-group field-signupbusinessapi-emailprimary required'] div[class='col-sm-4']",
+        "bussinesEmailInput":"#signupbusinessapi-emailprimary",
+        "password":"div[class='form-group field-signupbusinessapi-password required'] div[class='col-sm-4']",
+        "passwordInput":"#signupbusinessapi-password",
+        "confirmPassword":"div[class='form-group field-signupbusinessapi-passwordconfirm required'] div[class='col-sm-4']",
+        "confirmPasswordInput":"#signupbusinessapi-passwordconfirm",
+        "securityQuestion":"div[class='form-group field-signupbusinessapi-securityquestion required'] div[class='col-sm-4']",
+        "securityQuestionInput":"#signupbusinessapi-securityquestion",
+        "securityAnswer":"div[class='form-group field-signupbusinessapi-securityanswer required'] div[class='col-sm-4']",
+        "securityAnswerInput":"#signupbusinessapi-securityanswer",
+        "hearAboutUs":"div[class='form-group field-signupbusinessapi-hearaboutusid required'] div[class='col-sm-4']",
+        "hearAboutUsInput":"#signupbusinessapi-hearaboutusid",
+        "nextButton":"button[type='submit']",
+
+
+        "personalDetailsHeader":".breadcrumb-border.active.highlighted",
+        "personalDetails":"div[class='col-sm-6'] h2",
+        "title":"div[class='form-group field-signupbusinessapi-title required'] div[class='col-sm-4']",
+        "titleInput":"#signupbusinessapi-title",
+        "firstName":"div[class='form-group field-signupbusinessapi-firstname required'] div[class='col-sm-4']",
+        "firstNameInput":"#signupbusinessapi-firstname",
+        "lastName":"div[class='form-group field-signupbusinessapi-lastname required'] div[class='col-sm-4']",
+        "lastNameInput":"#signupbusinessapi-lastname",
+        "dOB":"#signupbusinessapi-dob",
+        "mobileNumber":"div[class='form-group field-signupbusinessapi-telephonemobile required'] div[class='col-sm-4']",
+        "mobileNumberInput":"#signupbusinessapi-telephonemobile",
+
+
+
+        "companyDetails":".breadcrumb-border.active.highlighted",
+        "aboutYourBusiness":"div[class='row'] h2",
+        "companyType":"div[class='form-group field-signupbusinessapi-companytype required'] div[class='col-sm-4']",
+        "companyTypeInput":"#signupbusinessapi-companytype",
+        "companyName":"div[class='form-group field-signupbusinessapi-companyname required'] div[class='row text-align-center-flex']",
+        "companyNameInput":"#signupbusinessapi-companyname",
+        "yourPosition":"div[class='form-group field-signupbusinessapi-position'] div[class='col-sm-4']",
+        "yourPositionInput":"#signupbusinessapi-position",
+        "countryOfCompany":"div[class='form-group field-signupbusinessapi-companyregistrationcountry'] div[class='col-sm-4']",
+        "countryOfCompanyInput":"#signupbusinessapi-companyregistrationcountry",
+        "registrationNumber":"div[class='form-group field-signupbusinessapi-companynumber'] div[class='col-sm-4']",
+        "registrationNumberInput":"#signupbusinessapi-companynumber",
+        "businessCategory":"div[class='form-group field-signupbusinessapi-companyindustrytype required'] div[class='col-sm-4']",
+        "businessCategoryInput":"#signupbusinessapi-companyindustrytype",
+        "companyDescription":"div[class='form-group field-signupbusinessapi-companydescription required'] div[class='col-sm-4']",
+        "companyDescriptionInput":"#signupbusinessapi-companydescription",
+        "registeredAddress":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(10) > div:nth-child(1) > h2:nth-child(1)",
+        "address":"div[class='form-group field-signupbusinessapi-companyaddress required'] div[class='row text-align-center-flex']",
+        "addressInput":"#signupbusinessapi-companyaddress",
+        "city":"div[class='form-group field-signupbusinessapi-companycity required'] div[class='col-sm-4']",
+        "cityInput":"#signupbusinessapi-companycity",
+        "postcode":"div[class='form-group field-signupbusinessapi-companypostcode required'] div[class='col-sm-4']",
+        "postcodeInput":"#signupbusinessapi-companypostcode",
+        "country":"div[class='form-group field-signupbusinessapi-companycountry required'] div[class='col-sm-4']",
+        "countryInput":"#signupbusinessapi-companycountry",
+        "tradingAddress":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(16) > div:nth-child(1) > h2:nth-child(1)",
+        "addressCheckbox":"input[type='checkbox']",
+
+
+        "prepaidCards":"div[class='col-md-6 gray-bg padding right-side'] img[alt='question-mark']",
+
+
+        "expectedUsage":".breadcrumb-border.active.highlighted",
+        "first12Months":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)",
+        "first12MonthsInput":"#signupbusinessapi-estimatedcardamount",
+        "nonATMTransactions":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
+        "nonATMTransactionsInput":"#signupbusinessapi-estimatedmonthlycardnonatmamount",
+        "aTMWithdrawals":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
+        "aTMWithdrawalsInput":"#signupbusinessapi-estimatedmonthlycardatmamount",
+        "loadedEachCard":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
+        "loadedEachCardInput":"#signupbusinessapi-estimatedmonthlycardloadamount"
+    },
+
+    "signupErrorLocators":{
+        "blankEmailError":"div[class='form-group field-signupbusinessapi-emailprimary required has-error'] div[class='help-block']",
+        "blankPasswordError":"div[class='form-group field-signupbusinessapi-password required has-error'] div[class='help-block']",
+        "securityQuestionError":"div[class='form-group field-signupbusinessapi-securityquestion required has-error'] div[class='help-block']",
+        "securityAnswerError":"div[class='form-group field-signupbusinessapi-securityanswer required has-error'] div[class='help-block']",
+        "hearAboutUsError":"div[class='form-group field-signupbusinessapi-hearaboutusid required has-error'] div[class='help-block']",
+
+
+        "titleError":"div[class='form-group field-signupbusinessapi-title required has-error'] div[class='help-block']",
+        "firstNameError":"div[class='form-group field-signupbusinessapi-firstname required has-error'] div[class='help-block']",
+        "lastNameError":"div[class='form-group field-signupbusinessapi-lastname required has-error'] div[class='help-block']",
+        "dOBError":"div[class='form-group field-signupbusinessapi-dob required has-error'] div[class='help-block']",
+        "telephoneError":"div[class='form-group field-signupbusinessapi-telephonemobile required has-error'] div[class='help-block']",
+
+
+        "companyTypeError":"div[class='form-group field-signupbusinessapi-companytype required has-error'] div[class='help-block']",
+        "companyNameError":"div[class='form-group field-signupbusinessapi-companyname required has-error'] div[class='help-block']",
+        "position":"div[class='form-group field-signupbusinessapi-position has-error'] div[class='help-block']",
+        "registrationCountryError":"div[class='form-group field-signupbusinessapi-companyregistrationcountry has-error'] div[class='help-block']",
+        "companyNumberError":"div[class='form-group field-signupbusinessapi-companynumber has-error'] div[class='help-block']",
+        "companyIndustryError":"div[class='form-group field-signupbusinessapi-companyindustrytype required has-error'] div[class='help-block']",
+        "companyDescriptionError":"div[class='form-group field-signupbusinessapi-companydescription required has-error'] div[class='help-block']",
+        "registeredAddressError":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(10) > div:nth-child(1) > h2:nth-child(1)",
+        "companyAddressError":"div[class='form-group field-signupbusinessapi-companyaddress required has-error'] div[class='help-block']",
+        "companyCityError":"div[class='form-group field-signupbusinessapi-companycity required has-error'] div[class='help-block']",
+        "companyPostcodeError":"div[class='form-group field-signupbusinessapi-companypostcode required has-error'] div[class='help-block']",
+        "companyCountryError":"div[class='form-group field-signupbusinessapi-companycountry required has-error'] div[class='help-block']",
+        
+        
+        "internationalPayments":"[class='text-center service-title']",
+        
+        
+        "tellUsABit":"body > div:nth-child(1) > div:nth-child(3) > form:nth-child(1) > div:nth-child(2) > div:nth-child(1) > h2:nth-child(1)",
+        "estimatedCard":".has-error [class='help-block']",
+
+
+        "editButton":"#submitBusinessForm div:nth-child(3) div:nth-child(2) a",
+
+
+        "worngEmailError":"div[class='form-group field-signupbusinessapi-emailprimary required has-error'] div[class='help-block']",
+        "worngPasswordError":"div[class='form-group field-signupbusinessapi-password required has-error'] div[class='help-block']",
+        "worngConfrimPassword":"div[class='form-group field-signupbusinessapi-passwordconfirm required has-error'] div[class='help-block']"
+    }
+}

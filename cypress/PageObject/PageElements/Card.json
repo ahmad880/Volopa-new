@@ -1,0 +1,38 @@
+{
+    "cardPageLocators":{
+    "menuButton":"#Component_8_63",
+    "cardButton":".navbar-overlay > :nth-child(1) > .ant-row > :nth-child(3) > .ant-card > .ant-card-body",
+    "cardDashboard":".ant-col-xs-21",
+    "convet_balance":".slick-current > :nth-child(1) > [tabindex='-1'] > .m-t-10 > .ant-card > .ant-card-body",
+    "card_selection":"[data-testid='container'] > .ant-card-body > :nth-child(1) > .ant-col",
+    "confirmCard":"[data-row-key='1706'] > :nth-child(6) > .ant-btn",
+    "convert_balance_page":".ant-card-body > :nth-child(1) > .ant-col > .ant-typography",
+    "convertTo":"#convertToCurrency",
+    "convertFrom":"#convertFromCurrency",
+    "value":"#convertFromValue",
+    "convertButton":".right-align-text > .ant-btn",
+    "conversion_complete":".ant-modal-body > :nth-child(1) > .ant-col > .ant-typography",
+    "cancelButton":".ant-row-space-around > .ant-col > .ant-space > .ant-space-item > .ant-btn",
+    
+
+
+
+
+
+    "fundCard":"[data-index='1'] > :nth-child(1) > [tabindex='-1'] > .m-t-10 > .ant-card > .ant-card-body",
+    "card_selection1":"[data-testid='container'] > .ant-card-body > :nth-child(1) > .ant-col",
+    "confirmCard1":"[data-row-key='1706'] > :nth-child(6) > .ant-btn",
+    "new_card_fund":".ant-card-body > :nth-child(1) > .ant-col > .ant-typography",
+    "convertTo1":"#currency",
+    "amount":"#amount",
+    "description":"#description",
+    "confirmButton":":nth-child(2) > .ant-btn",
+  
+   "dropdown":".rc-virtual-list",
+    "itemLocator":".ant-select-item-option-content",
+
+
+    "withdrawCard":"[data-index='2'] > :nth-child(1) > [tabindex='-1'] > .m-t-10 > .ant-card > .ant-card-body"
+
+    }
+}

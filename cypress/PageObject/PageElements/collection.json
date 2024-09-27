@@ -1,0 +1,10 @@
+{
+    "collectionLocators":{
+        "menuButton":"#Component_8_63",
+        "loadingIcon":".ant-spin-dot.ant-spin-dot-spin",
+        "collectionFromMenu":"body > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1)",
+        "collectionHeading":"div[id='rc-tabs-0-tab-/collections/dashboard']",
+        "accountHeader":"div[id='rc-tabs-0-tab-/collections/accounts']"
+
+    }
+}

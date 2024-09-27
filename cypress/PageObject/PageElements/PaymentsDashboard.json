@@ -1,0 +1,23 @@
+{
+    "paymentsDashboardLocators":{
+        "menuBtn":"button[class='ant-btn ant-btn-link ant-btn-icon-only ant-dropdown-trigger m-t-15 grey']",
+        "paymentsDashboardBtn":".navbar-overlay > :nth-child(1) > .ant-row > :nth-child(2) > .ant-card > .ant-card-body",
+        "paymentsDashbordHeading":"[id='rc-tabs-0-tab-/payments/dashboard']",
+        "AddARecipient":".slick-current > :nth-child(1) > [tabindex='-1'] > .m-t-10 > .ant-card > .ant-card-body",
+        "recipientListPageHeading":".ant-tabs-tab.ant-tabs-tab-active",
+        "newPayment":"[data-index='1'] > :nth-child(1) > [tabindex='-1'] > .m-t-10 > .ant-card > .ant-card-body",
+        "createAPayment":":nth-child(1) > .ant-col > .ant-typography",
+        "newBatchPayment":"[data-index='2'] > :nth-child(1) > [tabindex='-1'] > .m-t-10 > .ant-card > .ant-card-body",
+        "batchPaymentHeading":".ant-col > .ant-typography",
+        "recentActivity":"[class='ant-typography dark-green medium fs-25px']",
+        "recentActivities":".ant-collapse-header",
+        "frequentRecipientsList":"[class='ant-table-row ant-table-row-level-0 row-border medium fs-18px ']",
+        "viewAllBtn":".ant-btn.ant-btn-link.fs-18px.medium.pointer",
+        "payBtn":"[data-row-key='0'] > [style='text-align: right;'] > .ant-btn > span",
+        "recentPayments":":nth-child(2) > .ant-row-space-between > :nth-child(1)",
+        "recentPaymentsSection":".m-t-40 > :nth-child(2)",
+        "paymentHistoryHeading":":nth-child(1) > .ant-col > .ant-typography",
+        "repeatBtn":"tbody tr:nth-child(2) td:nth-child(5) button:nth-child(1)"
+
+    }
+}

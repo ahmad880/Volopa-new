@@ -1,0 +1,30 @@
+{
+    "accountingConfigurationLocators":{
+        "walletHeading":"div[id='rc-tabs-0-tab-/wallet/dashboard']",
+        "menubutton":"#Component_8_63",
+        "accountingFromMenu":"body > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1)",
+        "configurationHeading":"div[id='rc-tabs-0-tab-/accounting/configuration']",
+        "whichProduct":"div[class='ant-row'] div[class='ant-col ant-col-24'] span[class='ant-typography fs-20px bold dark-green']",
+        "cardTransactions":"div[class='ant-row'] div[class='ant-col ant-col-24'] span[class='ant-typography fs-18px regular']",
+        "istradioButton":".ant-radio-wrapper",
+        "bankFeeds":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1)",
+        "istToggle":"[role='switch']",
+        "expenseInformation":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
+        "secondToggle":":nth-child(3) > .ant-col > :nth-child(1) > :nth-child(2) > .ant-space-vertical > :nth-child(2) > .ant-switch",
+        "whichCard":"div[class='ant-col'] span[class='ant-typography fs-20px bold dark-green']",
+        "allCard":"body div[id='root'] main[class='ant-layout-content content'] div[class='ant-row'] div[class='ant-row'] div:nth-child(1) div:nth-child(1) div:nth-child(1) span:nth-child(1)",
+        "allCardRadio":"[class='app-checkdot-btn']",
+        "AccountField":".ant-space-item > .ant-select > .ant-select-selector > .ant-select-selection-item",
+        "createNewAccount":"div[class='ant-col ant-col-10'] button[type='button']",
+        "volopaCategory":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1)",
+        "accountCode":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)",
+        "vatCode":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > span:nth-child(1)",
+        "trackingCodes":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1)",
+        "trackingCategories":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)",
+        "addTrackingCode":"body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(5) > div:nth-child(1) > button:nth-child(1)",
+        "saveSetting":".ant-spin-container > :nth-child(3) > .ant-col > .ant-btn",
+        "disconnectStatement":".ant-typography.muli.light.fs-18px",
+        "here":"button[class='ant-btn ant-btn-link dark-green underline muli bold fs-18px'] span"
+
+    }
+}

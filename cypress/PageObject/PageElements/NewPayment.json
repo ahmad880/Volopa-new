@@ -1,0 +1,23 @@
+{
+    "newPaymentPageLocators":{
+        "newPaymentHeader":".ant-tabs-nav-list > :nth-child(3)",
+        "createAPayment":":nth-child(1) > .ant-col > .ant-typography",
+        "searchField":".ant-select-selector",
+        "addRecipientPageHeading":":nth-child(1) > .ant-col > .ant-typography",
+        "addRecipient":"button[class='ant-btn ant-btn-primary ant-btn-sm bg-light-green'] span",
+        "enterPaymentDetailsHeading":".ant-card-body > :nth-child(1) > [style=''] > .ant-typography",
+        "selectCurrency":"#currency",
+        "sendAmount":"#youSend",
+        "fundingMethodHeading":".ant-row-space-between > :nth-child(1) > :nth-child(1) > .ant-col > .ant-space > [style=''] > .ant-typography",
+        "fundingMethodField":"#fundingMethod",
+        "fxRateTimer":"[class='ant-progress-text']",
+        "createAPaymentPageHeading":"[data-testid='container'] > .ant-card-body > :nth-child(1) > .ant-col > .ant-typography",
+        "settelmentRegular":":nth-child(4) > .ant-col > .ant-space > [style=''] > .ant-btn",
+        "settelmentPeriority":":nth-child(2) > .ant-btn",
+        "loadingIcon":".ant-spin-dot.ant-spin-dot-spin",
+        "amount":"#youSend",
+        "reasonForPaymentDropDown":":nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector",
+        "selectReasonForPayment":"[class='ant-select-item ant-select-item-option']",
+        "paymentReferences":"#paymentReference"
+    }
+}

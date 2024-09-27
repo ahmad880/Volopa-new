@@ -1,0 +1,49 @@
+{
+    "fundingHistoryLocators":{
+        "fundingHistory":"[id='rc-tabs-0-tab-/wallet/funding-history']",
+        "mainHeading":":nth-child(1) > .ant-col > .ant-typography",
+        "searchField":".ant-input",
+        "nextPageArrow":"li[title='Next Page'] button[type='button']",
+        "rowFirst":"[class='ant-table-row ant-table-row-level-0 row-border medium fs-18px ']",
+        "pageFilters":".ant-select-selector",
+        "allRows":"[class='ant-table-row ant-table-row-level-0 medium fs-18px '], [class='ant-table-row ant-table-row-level-0 row-border medium fs-18px ']",
+        "defaultPagination":"span[title='20 / page']",
+        "clickOnCelenderIcon":"div[id='root'] th:nth-child(1)",
+        "celender":".ant-picker-content",
+        "selectedDate":"[data-row-key='0'] > :nth-child(2)",
+        "sortingIcon":"[class='ant-table-column-sorter ant-table-column-sorter-full']",
+        "clickOnAwaitingFund":"[class='ant-typography ant-typography-warning']",
+        "cancelFunding":":nth-child(2) > .ant-btn",
+        "completeFund":"[class='ant-typography']",
+        "returnBtn":"button[class='ant-btn ant-btn-primary']",
+
+
+        "fundingHistory0":".m-t-10 > .ant-row > .ant-col",
+        "fundingHistory1":".ant-col-24 > .ant-tabs > .ant-tabs-nav > .ant-tabs-nav-wrap > .ant-tabs-nav-list > :nth-child(4)",
+        "fundingHistoryPage":":nth-child(1) > .ant-col > .ant-typography",
+        "searchInput":".ant-input",
+        "searchButton":".ant-btn > .anticon",
+        "transactionRow":"[data-row-key]",
+        "noData":".ant-table-expanded-row-fixed",
+        "noDataDescription":".ant-empty-description",
+        "adminColumn": " > :nth-child(4)",
+
+        "pageSelector":".ant-pagination-item-1 > a",
+        "nextPageButton":".ant-pagination-next > .ant-pagination-item-link",
+
+        "amountButton":"[aria-label='Amount sortable'] > .ant-table-column-sorters > .ant-table-column-title",
+        "amountColumn":".ant-typography",
+        "statusColumn":" > :nth-child(8)",
+        "status":":nth-child(2) > .ant-row > .ant-col > .ant-typography",
+        "cancelButton":":nth-child(2) > .ant-btn",
+        "returnButton":".ant-spin-container > .ant-row-end > .ant-col > .ant-space > [style=''] > .ant-btn",
+        "SubmissionDateButton":"[aria-label='Submission Date sortable'] > .ant-table-column-sorters > .ant-table-column-title",
+        "dateColumn":".ant-table-row > td:nth-child(2)",
+        "adminButton":"th:nth-child(4)",
+        "adminColumnSorting":".ant-table-row > td:nth-child(4)",
+        "fundingMethodButton":".ant-table-column-title > .ant-typography",
+        "fundingMethodColumn":".ant-table-row > td:nth-child(7)",
+        "StatusButton":"[aria-label='Status sortable'] > .ant-table-column-sorters",
+        "statusColumnSorting":".ant-table-row > td:nth-child(8)"
+    }
+}

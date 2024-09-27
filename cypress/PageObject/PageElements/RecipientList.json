@@ -1,0 +1,33 @@
+{
+    "recipientListPageLocators":{
+        "recipientListHeader":".ant-tabs-nav-list > :nth-child(2)",
+        "recipientListPageHeading":".ant-tabs-tab.ant-tabs-tab-active",
+        "searchField":".ant-input",
+        "addRecipient":".ant-table-thead > tr > :nth-child(5) > .ant-btn",
+        "addRecipientPageHeading":":nth-child(1) > .ant-col > .ant-typography",
+        "payBtn":"[data-row-key='0'] > :nth-child(5) > .ant-btn",
+        "newPaymentPageHeading":":nth-child(1) > .ant-col > .ant-typography",
+        "individual":"[style=''] > .ant-card > .ant-card-body",
+        "recipientCountry":"label[for='beneficiaryCountry'] span[class='ant-typography muli semi-bold fs-24px dark-green']",
+        "accNumber":"#accNumber",
+        "iBAN":"#iban",
+        "sWIFT":"#swift",
+        "bankDetails":".ant-card-body > :nth-child(1) > :nth-child(1) > .ant-space",
+        "firstName":"#firstName",
+        "lastName":"#lastName",
+        "address":"#address",
+        "city":"#beneficiaryCity",
+        "postcode":"#postcode",
+        "submitBtn":"#submit",
+        "recipientCountryError":".ant-form-item-explain-error",
+        "recipientListRows":"[class='ant-table-row ant-table-row-level-0 row-border medium fs-18px pointer ']",
+        "recipientDetailsPageHeading":":nth-child(1) > .ant-col > .ant-typography",
+        "removeBtn":":nth-child(2) > .ant-btn",
+        "removeBtn1":".ant-popover-buttons > .ant-btn-primary",
+        "veiwHistoryBtn":":nth-child(2) > .ant-col > .ant-btn",
+        "paymentHistoryPageHeading":":nth-child(2) > :nth-child(1) > [data-testid='container'] > .ant-card-body > :nth-child(1) > .ant-col > .ant-typography",
+        "nextPageArrow":".ant-pagination-next > .ant-pagination-item-link",
+        "defaultPagination":"span[title='10 / page']",
+        "pageFilters":".ant-select-selector"
+    }
+}

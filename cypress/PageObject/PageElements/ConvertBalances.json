@@ -1,0 +1,15 @@
+{
+    "convertBalances":{
+        "convertBalance":"[id='rc-tabs-0-tab-/wallet/convert-balances']",
+        "mainHeading":".ant-typography.medium.dark-green.fs-28px",
+        "companyWalletBalance":"span[class='ant-typography medium fs-18px dark-green']",
+        "viewAllCurrenciesBtn":"button[class='ant-btn ant-btn-link medium fs-18px right-align-text'] span",
+        "convertTo":":nth-child(2) > [style='padding-left: 4px; padding-right: 4px; flex: 0 0 90px;'] > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector",
+        "convertFrom":":nth-child(4) > [style='padding-left: 4px; padding-right: 4px; flex: 0 0 90px;'] > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector",
+        "convertToValue":"#convertToValue",
+        "convertFromValue":"#convertFromValue",
+        "convertBtn":".right-align-text > .ant-btn",
+        "insufficientPopUp":".ant-modal-body > :nth-child(1) > .ant-col",
+        "convertMoreBtn":".ant-space > :nth-child(2) > .ant-btn"
+    }
+}

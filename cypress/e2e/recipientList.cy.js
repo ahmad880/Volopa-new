@@ -1,4 +1,4 @@
-/// <reference types = "Cypress"/>
+/// <reference types = "cypress"/>
 
 import { SigninPage } from "../PageObject/PageAction/SigninPage"
 import { RecipientList } from "../PageObject/PageAction/RecipientList"
@@ -14,7 +14,7 @@ describe('Recipient List',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp5.volopa.com/')
+        cy.visit('https://webapp3.volopa.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)

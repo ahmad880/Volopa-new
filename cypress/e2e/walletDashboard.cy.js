@@ -1,4 +1,4 @@
-/// <reference types = "Cypress"/>
+/// <reference types = "cypress"/>
 
 import { SigninPage } from "../PageObject/PageAction/SigninPage"
 import { WalletDashboard } from "../PageObject/PageAction/WalletDashboard"
@@ -9,10 +9,10 @@ const walletpage = new WalletDashboard
 const fundWallet = new FundWallet
 
 describe('WalletDashboard',function(){
-    let userName = 'qwerty_admin_1'
+    let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp2.volopa.com/')
+        cy.visit('https://webapp3.volopa.com/')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })

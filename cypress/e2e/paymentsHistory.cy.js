@@ -12,7 +12,7 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Payments History',function(){
-    let userName = 'qwerty_admin_2'
+    let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp3.volopa.com/')

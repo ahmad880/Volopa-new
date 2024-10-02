@@ -99,7 +99,7 @@ export class BatchPayments {
         cy.get('[class="ant-select-item ant-select-item-option"]').eq(0).should('be.visible').then(option => {
             const selectedValue = option.text(); // Get the text of the selected option
             option.click(); // Click to select the option
-
+            cy.wrap(selectedValue).as('selectedValue')
             // Log the selected value
             cy.log(`Selected value: ${selectedValue}`);
         });

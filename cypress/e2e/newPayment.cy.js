@@ -51,7 +51,7 @@ describe('New Payment',function(){
     it('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('Y17{enter}')
+        newPayment.validateSearchField('qa tester{enter}')
         newPayment.selectCurrency("AUD")
         newPayment.validateFxRateTimer()
     })

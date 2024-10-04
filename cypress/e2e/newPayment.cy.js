@@ -39,12 +39,12 @@ describe('New Payment',function(){
     it('TC_NP_004 - Verify that user is able to navigate Create a Payment page', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('Y17{enter}')
+        newPayment.validateSearchField('qa tester{enter}')
     })
     it('TC_NP_005 - Verify that Funding Method (Easy Transfer and Push Funds) is not available for currencies other than GBP and Euro', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('Y17{enter}')
+        newPayment.validateSearchField('qa tester{enter}')
         newPayment.selectCurrency("AUD")
         newPayment.checkFundingMethod()
     })
@@ -58,7 +58,7 @@ describe('New Payment',function(){
     it('TC_NP_007 - Verify that user is able to navigate "Recipient List" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('Y17{enter}')
+        newPayment.validateSearchField('qa tester{enter}')
         cy.get('.ant-row-nspace-between > :nth-child(1) > .ant-typography').should('contain.text','Recipient Details')
         cy.get('[style="padding-left: 12px; padding-right: 12px; flex: 1 1 auto;"] > .ant-row > .ant-col').should('be.visible').click()
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('contain.text','Recipient Details')
@@ -98,7 +98,7 @@ describe('New Payment',function(){
     it('TC_NP_009 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('Y17{enter}')
+        newPayment.validateSearchField('qa tester{enter}')
         newPayment.selectCurrency("USD")
         newPayment.validatePayTheRecipient()
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click()//new payment
@@ -106,7 +106,7 @@ describe('New Payment',function(){
     it('TC_NP_010 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('Ali{enter}')
+        newPayment.validateSearchField('qa tester{enter}')
         newPayment.selectCurrency("EUR")
         cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector').should('be.visible').click()
         cy.get("div[title='Payment of Salaries']").click()

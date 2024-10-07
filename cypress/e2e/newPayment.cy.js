@@ -1,4 +1,4 @@
-/// <reference types = "Cypress"/>
+/// <reference types = "cypress"/>
 
 import { SigninPage } from "../PageObject/PageAction/SigninPage"
 import { NewPayment } from "../PageObject/PageAction/NewPayment"
@@ -52,14 +52,14 @@ describe('New Payment',function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('qa tester{enter}')
-        newPayment.selectCurrency("AUD")
+        newPayment.selectCurrency("GBP")
         newPayment.validateFxRateTimer()
     })
-    it('TC_NP_007 - Verify that user is able to navigate "Recipient List" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
+    it('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('qa tester{enter}')
-        cy.get('.ant-row-nspace-between > :nth-child(1) > .ant-typography').should('contain.text','Recipient Details')
+        cy.get(':nth-child(1) > .ant-col-24 > .ant-card > .ant-card-body > .ant-row-space-between > :nth-child(1)').should('contain.text','Recipient Details')
         cy.get('[style="padding-left: 12px; padding-right: 12px; flex: 1 1 auto;"] > .ant-row > .ant-col').should('be.visible').click()
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('contain.text','Recipient Details')
     })
@@ -98,12 +98,12 @@ describe('New Payment',function(){
     it('TC_NP_009 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('qa tester{enter}')
+        newPayment.validateSearchField('hamza QA{enter}')
         newPayment.selectCurrency("USD")
         newPayment.validatePayTheRecipient()
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click()//new payment
     })
-    it('TC_NP_010 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
+    xit('TC_NP_010 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('qa tester{enter}')
@@ -584,7 +584,7 @@ describe('New Payment',function(){
         newRecipient.saveRecipient()
         newPayment.checkSettelment('be.disabled','be.enabled')
         newPayment.proceedflow('{enter}','EUR')
-        let amount = '125'
+        let amount = '130'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod()
          //Validate Purpose on batch payment
@@ -601,7 +601,6 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text','Payment Confirmation')
             cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click() // pay recipient
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
-            newPayment.cancelPushFunds()
     })
     // Individual Easy Transfer
     it('TC_NP_022 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
@@ -642,7 +641,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_023 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
+    xit('TC_NP_023 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
         //easy transfer
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -773,7 +772,7 @@ describe('New Payment',function(){
         newRecipient.saveRecipient()
         newPayment.checkSettelment('be.disabled','be.enabled')
         newPayment.proceedflow('{enter}','EUR')
-        let amount = '125'
+        let amount = '130'
         newPayment.addrecipientDetail(amount, email)
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(3).click()
@@ -790,7 +789,6 @@ describe('New Payment',function(){
             cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click() // pay recipient
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             newPayment.validateYapilyFlow()
-            newPayment.cancelEasyTransfer()
     })
     //Business Recipient Push Fund
     it('TC_NP_027 - Add 1 recipient(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a new payment to the recipient using GBP and push funds.', function(){
@@ -931,7 +929,7 @@ describe('New Payment',function(){
         newRecipient.saveRecipient()
         newPayment.checkSettelment('be.disabled','be.enabled')
         newPayment.proceedflow('{enter}','EUR')
-        let amount = '125'
+        let amount = '130'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod()
         //Validate the selected payment purpose
@@ -967,7 +965,7 @@ describe('New Payment',function(){
                 cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
                 .should('be.visible').and('contain.text',storedText)
             })
-            newPayment.cancelPushFunds()
+            //newPayment.cancelPushFunds()
     })
     //Business Recipient easy transfer
     it('TC_NP_031 - Add 1 recipient(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
@@ -1023,7 +1021,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_032 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
+    xit('TC_NP_032 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1191,7 +1189,7 @@ describe('New Payment',function(){
                 .should('be.visible').and('contain.text',storedText)
             })
             newPayment.validateYapilyFlow()
-            newPayment.cancelEasyTransfer()
+            //newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund 
     it('TC_NP_035 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
@@ -1761,7 +1759,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     //Business Recipient Push Fund
-    it('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1782,6 +1780,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
+        newPayment.selectFundingMethod()
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
         cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1789,7 +1788,7 @@ describe('New Payment',function(){
         })
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{

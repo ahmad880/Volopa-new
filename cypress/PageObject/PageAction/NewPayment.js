@@ -102,7 +102,8 @@ export class NewPayment {
     cancelPushFunds() {
         // Click on view payment
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click();
-        cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist')
+        cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist');
+    
         // Click on the 1st row item
         cy.get('[data-row-key="0"] > :nth-child(2)').should('be.visible').click();
     
@@ -120,27 +121,34 @@ export class NewPayment {
                 // Confirm by clicking the primary 'Yes' button
                 cy.get('button[class="ant-btn ant-btn-primary ant-btn-sm"]').should('be.visible').click();
     
-                // After confirming, check for one of the possible notifications
-                cy.get('body').then(($body) => {
-                    if ($body.find('.ant-notification-notice-error').length > 0) {
-                        // If error notification appears
-                        cy.get('.ant-notification-notice.ant-notification-notice-error.ant-notification-notice-closable')
-                          .should('be.visible');
-                    } else {
-                        // If success notification appears
-                        cy.get('div[class="ant-notification ant-notification-top"] div')
-                          .should('be.visible').and('contain.text','Payment has been successfully cancelled');
-                    }
+                // Assert that one of the two possible messages is displayed
+                cy.get('.ant-notification-notice').should('be.visible').then($notice => {
+                    const noticeText = $notice.text();
+                    expect(noticeText).to.satisfy(text => 
+                        text.includes('Please Contact Support In order to cancel this payment, you need to contact our support team via email (support@volopa.com) or phone (+44 333 400 1287)') ||
+                        text.includes('Payment has been successfully cancelled')
+                    );
                 });
             }
         });
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     cancelEasyTransfer() {
-        cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist')
+        cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist');
+    
         // Click on the 1st row item
         cy.get('[data-row-key="0"] > :nth-child(2)').should('be.visible').click();
-        cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist')
+    
         // Now check if the 'Cancel Payment' button exists and is visible
         cy.get('body').find('.ant-btn.ant-btn-danger').then($button => {
             if ($button.length > 0) {
@@ -155,21 +163,20 @@ export class NewPayment {
                 // Confirm by clicking the primary 'Yes' button
                 cy.get('button[class="ant-btn ant-btn-primary ant-btn-sm"]').should('be.visible').click();
     
-                // After confirming, check for one of the possible notifications
-                cy.get('body').then(($body) => {
-                    if ($body.find('.ant-notification-notice-error').length > 0) {
-                        // If error notification appears
-                        cy.get('.ant-notification-notice.ant-notification-notice-error.ant-notification-notice-closable')
-                          .should('be.visible');
-                    } else {
-                        // If success notification appears
-                        cy.get('div[class="ant-notification ant-notification-top"] div')
-                          .should('be.visible').and('contain.text','Payment has been successfully cancelled');
-                    }
+                // Assert that one of the two possible messages is displayed
+                cy.get('.ant-notification-notice').should('be.visible').then($notice => {
+                    const noticeText = $notice.text();
+                    expect(noticeText).to.satisfy(text => 
+                        text.includes('Please Contact Support In order to cancel this payment, you need to contact our support team via email (support@volopa.com) or phone (+44 333 400 1287)') ||
+                        text.includes('Payment has been successfully cancelled')
+                    );
                 });
             }
         });
-    }
+    }  
+    
+
+    
     
     
     

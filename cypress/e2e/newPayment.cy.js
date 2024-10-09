@@ -63,13 +63,13 @@ describe('New Payment',function(){
         cy.get('[style="padding-left: 12px; padding-right: 12px; flex: 1 1 auto;"] > .ant-row > .ant-col').should('be.visible').click()
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('contain.text','Recipient Details')
     })
-    xit('TC_NP_008 - Verify that user is able to pay the recipient (Not yapily flow - Currencies other than "Euro" and "GBP")', function(){
+    it('TC_NP_008 - Verify that user is able to pay the recipient (Not yapily flow - Currencies other than "Euro" and "GBP")', function(){
         paymentspage.goToPaymentsDashborad()
-        // newPayment.goToNewPaymentPage()
-        // newPayment.validateSearchField('Y17{enter}')
-        // newPayment.selectCurrency("AUD")
-        // newPayment.validatePayTheRecipient()
-        // newPayment.validateVeiwPayment()
+        newPayment.goToNewPaymentPage()
+        newPayment.validateSearchField('hamza QA{enter}')
+        newPayment.selectCurrency("AUD")
+        newPayment.validatePayTheRecipient()
+        newPayment.validateVeiwPayment()
         cy.get('.ant-tabs-nav-list > :nth-child(5)').click()
         cy.get('[data-row-key="0"] > :nth-child(2)').should('exist')
         const date = '[data-row-key="0"] > :nth-child(2)'
@@ -103,10 +103,10 @@ describe('New Payment',function(){
         newPayment.validatePayTheRecipient()
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click()//new payment
     })
-    xit('TC_NP_010 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
+    it('TC_NP_010 - Verify that after paying the recipient, user is able to naviagte to view payment', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('qa tester{enter}')
+        newPayment.validateSearchField('AUD{enter}')
         newPayment.selectCurrency("EUR")
         cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector').should('be.visible').click()
         cy.get("div[title='Payment of Salaries']").click()
@@ -117,8 +117,8 @@ describe('New Payment',function(){
         cy.get("div[class='ant-row ant-row-center m-t-20'] div:nth-child(2) button:nth-child(1)").should('be.visible').click() //pay btn
         cy.get('.ant-typography.ant-typography-success.fs-24px.medium').should('contain.text',' Payment Booked - ')
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
-        cy.get('.title').should('have.text','Choose your bank')
-        cy.get("input[placeholder='Search all 63 banks']").type('Modelo Sandbox')
+        cy.get('[data-test="select-bank-text"]').should('contain.text','Choose your bank:')
+        cy.get('[data-test="search-input"]').type('Modelo Sandbox')
         cy.get('.hover-effect').click()
       
         // cy.get(".pb-2.currency-style").invoke('text').then((ele)=>{
@@ -128,19 +128,20 @@ describe('New Payment',function(){
         //   cy.wrap(amount1).as('Amount')
         // })
         cy.wait(2000)
-        cy.get('.button-primary.mt-4.mb-2').click()
-        cy.get('.title').should('contain','Approve your payment')
-        cy.get("p[class='link font-size-16 mb-10 mt-4'] strong").click()     
+        cy.get('[data-test="footer-continue-button"]').click()
+        cy.get('[data-test="header-title"]').should('contain','Approve your payment')
+        cy.get("strong").click()     
           cy.get('.ozone-heading-1.text-ozone-primary').should('have.text','Model Bank')
-          cy.get('.mt-6.ozone-heading-3').should('have.text','Please login to proceed')
-          cy.get("input[placeholder='username']").type('mits')
+          cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
+          cy.get(':nth-child(1) > .ozone-input').type('mits')
           cy.get('#passwordField').type('mits')
           cy.get('#loginButton').click({force:true})
-          cy.get('.justify-start.ozone-ais-heading-1.text-ozone-primary').should('have.text','Single Domestic Payment Consents (PIS)')
+          cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
           cy.get("#radio-10000109010102").click()
           cy.get('#confirmButton').click({force:true})
           cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
           cy.get(':nth-child(2) > .ant-btn').click()
+          cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible')
         //  cy.get('body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(3) > tr:nth-child(2) > td:nth-child(6) > span:nth-child(1)').click()
         //   cy.get('@Amount').then(Amount=>{
         //   cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
@@ -641,7 +642,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    xit('TC_NP_023 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
+    it('TC_NP_023 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
         //easy transfer
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1021,7 +1022,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    xit('TC_NP_032 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
+    it('TC_NP_032 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a new payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1153,7 +1154,7 @@ describe('New Payment',function(){
         newRecipient.saveRecipient()
         newPayment.checkSettelment('be.disabled','be.enabled')
         newPayment.proceedflow('{enter}','EUR')
-        let amount = '125'
+        let amount = '130'
         newPayment.addrecipientDetail(amount, email)
         //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{

@@ -21,6 +21,11 @@
         "paymentsHistoryBtn":".ant-row-space-between > :nth-child(2) > .ant-btn",
         "manualTradeBtn":".ant-row > :nth-child(2) > .ant-btn",
         "manualTradeHeading":":nth-child(1) > .ant-col > .ant-typography",
-        "specificManualTradeHeading":":nth-child(1) > .ant-col > .ant-typography"
+        "specificManualTradeHeading":":nth-child(1) > .ant-col > .ant-typography",
+        "paymentReportsBtn":":nth-child(3) > .ant-btn > span",
+        "paymentReportsHeading":".ant-col > .ant-typography",
+        "paymentReportsFilterButton":".ant-col-xxl-8 > .ant-space > .ant-space-item > .ant-btn > span",
+        "FromMonthLabel":".m-t-30 > .ant-row > :nth-child(1) > .ant-typography",
+        "ToMonthLabel":".ant-row > :nth-child(2) > .ant-typography"
     }
 }

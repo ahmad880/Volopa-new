@@ -12,10 +12,10 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Payments History',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'qwerty_admin_1'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp3.volopa.com/')
+        cy.visit('/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)
@@ -186,5 +186,69 @@ describe('Payments History',function(){
             const pdfText = textContent.items.map(item => item.str).join(' ');
             expect(pdfText).to.include('15477'); // Replace with the expected text in the PDF
         });
+    })
+
+    it('TC_PH_024 - Verify that by clicking on "Payment Reports" Payments History page, the user navigates to Payment Reports page', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.verifyPaymentReports()
+    })
+    it('TC_PH_025 - Verify that user is able to download "Payment Reports" present in Payment Reports page', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.verifyPaymentReports()
+        paymentsHistory.selectPaymentReport()
+        paymentsHistory.downloadSelectedPaymentReport()
+        paymentsHistory.confirmDownloadReport()
+        paymentsHistory.verifyDownloadReport(path)
+       
+    })
+    it('TC_PH_026 - Verify that user is able to select filters for "Payment Reports" present in Payment Reports page', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.verifyPaymentReports()
+        paymentsHistory.selectReportsFilters('Month{enter}','Jan','Oct')
+        paymentsHistory.verifyPaymentReportsFilter('Jan','Oct')
+    })
+    xit('TC_PH_027 - Verify that on clicking "Cancel", user is able to navigate back to the Payment Reports page', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.verifyPaymentReports()
+        paymentsHistory.selectReportsFilters('Month{enter}','Aug','Sep')
+        paymentsHistory.cancelReportsFilter()
+    })
+    it('TC_PH_028 - Verify that on clicking a recipient, the user is able to navigate to Specific Payment History page', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.navigateToUser()
+        paymentsHistory.verifySpecificPaymentHistoryPage()
+    })
+    it('TC_PH_029 - Verify that on clicking "Download PDF Statement", user is able to download PDF statement', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.navigateToUser()
+        paymentsHistory.verifySpecificPaymentHistoryPage()
+        paymentsHistory.downloadPDFStatement()
+        paymentsHistory.verifyPDFStatement(path)
+              
+    })
+    it('TC_PH_030 - Verify that on clicking "Repeat Batch", user is able to repeat that batch payment and navigates to Batch Payments page', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.navigateToUser()
+        paymentsHistory.verifyRepeatBatch()             
+    })
+    it('TC_PH_031 - Verify that on clicking "Repeat" button, user is able to repeat that payment and navigates to New Payment page', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.navigateToUser()
+        paymentsHistory.verifyRepeatPayment()             
+    })
+    it('TC_PH_032 - Verify that user is able to fill in the fields of Notes and Invoice Reference Number. Also he is able to add attachments. Lastly he is able to save that payment history on clicking "Save" button.', function(){
+        paymentspage.goToPaymentsDashborad()
+        paymentsHistory.goToPaymentsHistory()
+        paymentsHistory.navigateToUser()
+        paymentsHistory.fillData()   
+        paymentsHistory.savePaymentHistory()       
     })
 })

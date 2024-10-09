@@ -17,8 +17,10 @@ export class NewPayment {
     selectCurrency(currency){
         cy.get(variable1.newPaymentPageLocators.enterPaymentDetailsHeading).should('contain.text','Enter Payment Details')
         cy.get(variable1.newPaymentPageLocators.selectCurrency).should('exist').click()
+        cy.wait(2000)
         cy.get('[src*="/static/media/'+currency+'"]').eq(0).should('be.visible').click()
-        cy.get(variable1.newPaymentPageLocators.sendAmount).type('130')
+        cy.wait(2000)
+        cy.get(variable1.newPaymentPageLocators.sendAmount).type('170')
     }
     checkFundingMethod(){
         cy.get(variable1.newPaymentPageLocators.fundingMethodHeading).should('contain.text','Funding Method')

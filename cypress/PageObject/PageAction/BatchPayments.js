@@ -189,10 +189,10 @@ export class BatchPayments {
     }
     proceedflow(fundingCCY,CCYHeading,fundingMethod,methodHeading){
         cy.get('.ant-col-xxl-2 > .ant-row > .ant-col > .ant-btn').click()
-        cy.get('[style="padding-left: 6px; padding-right: 6px;"]').should('contain.text','Select Funding Currency')
+        cy.get('[style="padding-left: 6px; padding-right: 6px; flex: 0 0 250px;"]').should('contain.text','Select Funding Currency')
         cy.get('.ant-select-selector').click().wait(5000).type(fundingCCY)
         cy.get("span[class='ant-select-selection-item'] div[class='ant-space ant-space-horizontal ant-space-align-center']").should('contain.text',CCYHeading)
-        cy.get(':nth-child(2) > [style="padding-left: 6px; padding-right: 6px; flex: 0 0 90px;"] > .ant-select > .ant-select-selector').click().type(fundingMethod)
+        cy.get(':nth-child(2) > [style="padding-left: 6px; padding-right: 6px; flex: 0 0 250px;"]').click().type(fundingMethod)
         cy.get(variable.batchPaymentsPageLocators.loadingIcon).should('not.exist')
         cy.get(':nth-child(1) > .ant-col > .ant-space > .ant-space-item > .ant-typography').click()
         cy.get("div[class='ant-select ant-select-single ant-select-show-arrow'] span[class='ant-select-selection-item']").should('contain.text',methodHeading)

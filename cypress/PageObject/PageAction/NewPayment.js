@@ -73,12 +73,36 @@ export class NewPayment {
         cy.get('.ant-col-xs-24 > :nth-child(3) > .ant-col > .ant-space > [style=""] > .ant-typography').should('be.visible').should('contain.text','Invoice Date')
         cy.get('#invoiceDate').type('2024-06-26')
     }
-    selectFundingMethod(){
-        cy.get('.ant-row-space-between > :nth-child(1) > :nth-child(1) > .ant-col > .ant-space > [style=""] > .ant-typography').should('contain.text','Funding Method')
-        cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist')
+    selectFundingMethod(option) {
+        // Ensure the page has loaded
+        cy.get('.ant-row-space-between > :nth-child(1) > :nth-child(1) > .ant-col > .ant-space > [style=""] > .ant-typography')
+            .should('contain.text', 'Funding Method');
+        cy.get(variable1.newPaymentPageLocators.loadingIcon)
+            .should('not.exist');
+    
+        // Open the dropdown
         cy.get(':nth-child(1) > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .click().wait(1000).type('{downarrow}{downarrow}{enter}')
+            .click();
+    
+        // Ensure the option is a string and not null or undefined
+        if (typeof option === 'string' && option.trim() !== '') {
+            // Search and select the option passed as a parameter
+            cy.get('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')  // Find visible dropdown
+                .should('be.visible')
+                .within(() => {
+                    cy.get('.ant-select-item-option-content')  // Get all dropdown options
+                        .contains(option)                     // Match the option passed as parameter
+                        .click();                             // Click the matched option
+                });
+    
+            // Verify that the correct option is selected
+            cy.get(':nth-child(1) > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                .should('contain.text', option);              // Validate the selected option is correct
+        } else {
+            throw new Error('Invalid dropdown option. Please provide a valid string.');
+        }
     }
+    
     validateYapilyFlow(){
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').click() //fund via asy transfer btn
         cy.get('.mb-3').should('contain.text','Choose your bank:') //heading

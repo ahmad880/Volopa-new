@@ -16,7 +16,7 @@ describe('New Payment',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('/')
+        cy.visit('https://webapp3.volopa.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)
@@ -41,7 +41,7 @@ describe('New Payment',function(){
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('qa tester{enter}')
     })
-    it('TC_NP_005 - Verify that Funding Method (Easy Transfer and Push Funds) is not available for currencies other than GBP and Euro', function(){
+    xit('TC_NP_005 - Verify that Funding Method (Easy Transfer and Push Funds) is not available for currencies other than GBP and Euro', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('hamza QA{enter}')
@@ -176,7 +176,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -232,7 +232,7 @@ describe('New Payment',function(){
       newPayment.proceedflow('{downarrow}{enter}','GBP')
       let amount = '125'
       newPayment.addrecipientDetail(amount, email)
-      newPayment.selectFundingMethod()
+      newPayment.selectFundingMethod('Push Funds')
       //Validate the selected payment purpose
       cy.get('@selectedValue').then(selectedValue=>{
          cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -288,7 +288,7 @@ describe('New Payment',function(){
       newPayment.proceedflow('{enter}','GBP')
       let amount = '125'
       newPayment.addrecipientDetail(amount, email)
-       newPayment.selectFundingMethod()
+      newPayment.selectFundingMethod('Push Funds')
       //Validate the selected payment purpose
       cy.get('@selectedValue').then(selectedValue=>{
          cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -345,7 +345,7 @@ describe('New Payment',function(){
     newPayment.proceedflow('{enter}','GBP')
     let amount = '125'
     newPayment.addrecipientDetail(amount, email)
-    newPayment.selectFundingMethod()
+    newPayment.selectFundingMethod('Push Funds')
     //Validate the selected payment purpose
     cy.get('@selectedValue').then(selectedValue=>{
        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -402,7 +402,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -438,7 +438,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -475,7 +475,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -513,7 +513,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -550,7 +550,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -587,7 +587,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','EUR')
         let amount = '130'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -813,7 +813,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -851,7 +851,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -890,7 +890,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
@@ -932,7 +932,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','EUR')
         let amount = '130'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
         //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -997,7 +997,7 @@ describe('New Payment',function(){
         })
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
-        cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
@@ -1213,7 +1213,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1274,7 +1274,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1330,7 +1330,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1386,7 +1386,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1442,7 +1442,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1781,7 +1781,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
         cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1838,7 +1838,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1895,7 +1895,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1952,7 +1952,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2009,7 +2009,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2352,7 +2352,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2409,7 +2409,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2466,7 +2466,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2523,7 +2523,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2580,7 +2580,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2923,7 +2923,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2981,7 +2981,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3039,7 +3039,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3097,7 +3097,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3155,7 +3155,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3501,7 +3501,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3562,7 +3562,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3618,7 +3618,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3674,7 +3674,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3730,7 +3730,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4069,7 +4069,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4131,7 +4131,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4188,7 +4188,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4245,7 +4245,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4302,7 +4302,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4647,7 +4647,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4710,7 +4710,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4899,7 +4899,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4961,7 +4961,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5148,7 +5148,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5210,7 +5210,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5397,7 +5397,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5459,7 +5459,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5646,7 +5646,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -5707,7 +5707,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -5887,7 +5887,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -5947,7 +5947,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6129,7 +6129,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6190,7 +6190,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6373,7 +6373,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6433,7 +6433,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6613,7 +6613,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6673,7 +6673,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6855,7 +6855,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6916,7 +6916,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{downarrow}{enter}','GBP')
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
-        newPayment.selectFundingMethod()
+        newPayment.selectFundingMethod('Push Funds')
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {

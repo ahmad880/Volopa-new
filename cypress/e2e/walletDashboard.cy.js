@@ -39,7 +39,7 @@ describe('WalletDashboard',function(){
     it('TC_WD_007 -Validate that clicking on "show all" from wallet breakdown expands the table with more currencies', function(){
         walletpage.clickOnShowAll()
     })
-    it.only('TC_WD_008 -Validate the user can repeat recent transactions as Manual Push Funds from wallet dashboard', function(){
+    it('TC_WD_008 -Validate the user can repeat recent transactions as Manual Push Funds from wallet dashboard', function(){
         //cy.get('tbody tr td:nth-child(3)[class="ant-table-cell"]').should('contain.text','Manual Push Funds')
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_pushGBP()

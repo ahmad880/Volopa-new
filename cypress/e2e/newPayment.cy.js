@@ -48,7 +48,7 @@ describe('New Payment',function(){
         newPayment.selectCurrency("AUD")
         newPayment.checkFundingMethod()
     })
-    it('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
+    it.only('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('hamza QA{enter}')

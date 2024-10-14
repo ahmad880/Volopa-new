@@ -15,7 +15,7 @@ describe('Additional Currencies ',function(){
         cy.viewport(1440,1000)
     })
     // Currency is SGD
-    it('TC-AC-001 - Verify that if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled', function(){
+    it.only('TC-AC-001 - Verify that if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

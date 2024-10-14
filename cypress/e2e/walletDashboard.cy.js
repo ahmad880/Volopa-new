@@ -9,7 +9,7 @@ const walletpage = new WalletDashboard
 const fundWallet = new FundWallet
 
 describe('WalletDashboard',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'alexceaki+0141@gmail.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp3.volopa.com/')
@@ -84,7 +84,7 @@ describe('WalletDashboard',function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
         cy.wait(5000)
-        cy.get('[data-node-key="/wallet/dashboard"]').should('be.visible').click()
+        cy.get('.ant-tabs-nav-list > :nth-child(1)').should('be.visible').click()
         cy.get('.ant-table-row').should('be.visible')
         cy.get('tbody tr td:nth-child(3)[class="ant-table-cell"]').contains('Easy Transfer').if().then(ele=>{
             ele.parents('.ant-table-row').find('[class="ant-btn ant-btn-primary"]').click()

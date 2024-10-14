@@ -7,7 +7,7 @@ const signin = new SigninPage
 const convertBalancesPage = new ConvertBalances
 
 describe('Convert Balances',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'alexceaki+0141@gmail.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp3.volopa.com/')

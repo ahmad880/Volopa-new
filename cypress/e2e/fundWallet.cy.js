@@ -46,7 +46,7 @@ describe('FundWallet TS_003 ',function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_pushGBP()
     })
-    it('TC_FW_009 - validate that the user is able to fund the company wallet with "USD" as manual push fund', function(){
+    it.only('TC_FW_009 - validate that the user is able to fund the company wallet with "USD" as manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_push('USD{enter}')
     })

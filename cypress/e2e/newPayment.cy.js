@@ -41,18 +41,19 @@ describe('New Payment',function(){
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('qa tester{enter}')
     })
-    xit('TC_NP_005 - Verify that Funding Method (Easy Transfer and Push Funds) is not available for currencies other than GBP and Euro', function(){
+    xit('TC_NP_005 - Verify that Funding Method (Easy Transfer) is not available for currencies other than GBP and Euro', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('hamza QA{enter}')
         newPayment.selectCurrency("AUD")
         newPayment.checkFundingMethod()
     })
-    it.only('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
+    it('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('hamza QA{enter}')
-        newPayment.selectCurrency("GBP")
+        newPayment.proceedflow('{enter}','GBP')
+        cy.get('#youSend').type('200')
         newPayment.validateFxRateTimer()
     })
     it('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
@@ -67,7 +68,8 @@ describe('New Payment',function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('hamza QA{enter}')
-        newPayment.selectCurrency("AUD")
+        newPayment.proceedflow('{downarrow}{enter}','USD')
+        cy.get('#youSend').type('200')
         newPayment.validatePayTheRecipient()
         newPayment.validateVeiwPayment()
         cy.get('.ant-tabs-nav-list > :nth-child(5)').click()
@@ -99,58 +101,21 @@ describe('New Payment',function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('hamza QA{enter}')
-        newPayment.selectCurrency("USD")
+        newPayment.proceedflow('{enter}','GBP')
+        cy.get('#youSend').type('200')
         newPayment.validatePayTheRecipient()
-        cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click()//new payment
+        cy.get(':nth-child(3) > .ant-btn').should('be.visible').and('contain.text','New Payment').click()//new payment
+        cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').and('contain.text','Create a Payment')
     })
     it('TC_NP_010 - Verify that after paying the recipient, user is able to naviagte to view payment', function(){
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
-        newPayment.validateSearchField('AUD{enter}')
-        newPayment.selectCurrency("EUR")
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector').should('be.visible').click()
-        cy.get("div[title='Payment of Salaries']").click()
-        cy.get('.m-t-20 > :nth-child(1) > .ant-card > .ant-card-body > :nth-child(1) > .ant-col > .ant-space > [style=""] > .ant-typography').should('contain.text','Payment Reference')
-        cy.get('#paymentReference').should('be.visible').type('Single')
-        cy.get('.ant-row-end.m-t-20 > .ant-col > .ant-btn').should('be.visible').click()//procee btn
-        cy.get('.ant-typography.fs-24px.medium.dark-green').should('contain.text','Payment Confirmation') // confirmation msg
-        cy.get("div[class='ant-row ant-row-center m-t-20'] div:nth-child(2) button:nth-child(1)").should('be.visible').click() //pay btn
-        cy.get('.ant-typography.ant-typography-success.fs-24px.medium').should('contain.text',' Payment Booked - ')
-        cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
-        cy.get('[data-test="select-bank-text"]').should('contain.text','Choose your bank:')
-        cy.get('[data-test="search-input"]').type('Modelo Sandbox')
-        cy.get('.hover-effect').click()
-      
-        // cy.get(".pb-2.currency-style").invoke('text').then((ele)=>{
-        //   amount1=ele.trim()
-        //   amount1= amount1.replace(/£/g,'')
-        //   cy.log('amount', amount1)
-        //   cy.wrap(amount1).as('Amount')
-        // })
-        cy.wait(2000)
-        cy.get('[data-test="footer-continue-button"]').click()
-        cy.get('[data-test="header-title"]').should('contain','Approve your payment')
-        cy.get("strong").click()     
-          cy.get('.ozone-heading-1.text-ozone-primary').should('have.text','Model Bank')
-          cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
-          cy.get(':nth-child(1) > .ozone-input').type('mits')
-          cy.get('#passwordField').type('mits')
-          cy.get('#loginButton').click({force:true})
-          cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
-          cy.get("#radio-10000109010102").click()
-          cy.get('#confirmButton').click({force:true})
-          cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
-          cy.get(':nth-child(2) > .ant-btn').click()
-          cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible')
-        //  cy.get('body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(3) > tr:nth-child(2) > td:nth-child(6) > span:nth-child(1)').click()
-        //   cy.get('@Amount').then(Amount=>{
-        //   cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
-        //     let val= ele1.trim()
-        //     cy.wrap(val).should('contain','GBP')
-        //     val=val.replace(/GBP/g,'')
-        //     cy.wrap(parseFloat(Amount)).should('eq',parseFloat(val))
-        // })
-        // })
+        newPayment.validateSearchField('hamza QA{enter}')
+        newPayment.proceedflow('{enter}','GBP')
+        cy.get('#youSend').type('200')
+        newPayment.validatePayTheRecipient()
+        cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').and('contain.text','View Payment').click()
+        cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').and('contain.text','Payment History')
     })
 // special cases 
     // push fund

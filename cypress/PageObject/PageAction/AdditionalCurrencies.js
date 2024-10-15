@@ -17,28 +17,32 @@ export class AdditionalCurrencies {
         .get(variable1.additionalCurrenciesLocators.countryDropDownHeading).should('be.visible').type(Country)
         cy.get(variable1.additionalCurrenciesLocators.selectCurrency).should('be.visible').click().wait(3000).type(Currencies)
         // cy.get(variable1.additionalCurrenciesLocators.emailHeading).should('be.visible').should('contain.text','Recipient Email Address')
-        // cy.get(variable1.additionalCurrenciesLocators.emailFeild).should('be.visible').type('email@volopa.com')
+        // mailto:cy.get(variable1.additionalcurrencieslocators.emailfeild).should('be.visible').type('email@volopa.com')
     }
     addBankDetails(iban,swift){
         cy.get(variable1.additionalCurrenciesLocators.iBAN).should('be.visible').type(iban)
         cy.get(variable1.additionalCurrenciesLocators.sWIFT).should('be.visible').type(swift)
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
     }
-    individualRecipient(Name){
+    individualRecipient(Name,country){
         cy.get(variable1.additionalCurrenciesLocators.individual).click()
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).should('be.disabled')
         cy.get(variable1.additionalCurrenciesLocators.firstName).type(Name)
         cy.get(variable1.additionalCurrenciesLocators.lastName).type('Individual Automation')
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
+        cy.get(':nth-child(3) > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        cy.get('#beneficiaryCountry').type(country)
     }
-    individualRecipientMexico(Name){
+    individualRecipientMexico(Name,country){
         cy.get(variable1.additionalCurrenciesLocators.individual).click()
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).should('be.disabled')
         cy.get(variable1.additionalCurrenciesLocators.firstName).type(Name)
         cy.get(variable1.additionalCurrenciesLocators.lastName).type('Individual Automation')
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
+        cy.get(':nth-child(3) > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        cy.get('#beneficiaryCountry').type(country)
     }
     postCodeState(){
         cy.get('#postcode').type('54000')
@@ -49,7 +53,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.successMessage).should('be.visible') // success msg
         cy.get(variable1.additionalCurrenciesLocators.payRecipient).click() //Pay this recipient
     }
-    addBusinessRecipient(){
+    addBusinessRecipient(country){
         cy.get(variable1.additionalCurrenciesLocators.businessRecipient).click()
         cy.get(variable1.additionalCurrenciesLocators.businessName).type('Bussines Automation')
         cy.get(variable1.additionalCurrenciesLocators.businessDescription).type('Testing')
@@ -57,6 +61,8 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.businessWebsite).type('testing.com')
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
+        cy.get(':nth-child(3) > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        cy.get('#beneficiaryCountry').type(country)
     }
     addBankDetailsWithAccNo(swift,accNo){
         cy.get(variable1.additionalCurrenciesLocators.sWIFT).should('be.visible').type(swift)

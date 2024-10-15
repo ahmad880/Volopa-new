@@ -1556,7 +1556,7 @@ describe('New Payment',function(){
         newPayment.validateYapilyFlow()
         newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_042 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_042 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1612,7 +1612,7 @@ describe('New Payment',function(){
         newPayment.validateYapilyFlow()
         newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_043 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_043 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1668,7 +1668,7 @@ describe('New Payment',function(){
         newPayment.validateYapilyFlow()
         newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_044 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_044 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1725,7 +1725,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     //Business Recipient Push Fund
-    it('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1782,7 +1782,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_046 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_046 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1839,7 +1839,7 @@ describe('New Payment',function(){
         })
         newPayment.cancelPushFunds()
     })
-    it('TC_NP_047 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_047 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1896,7 +1896,7 @@ describe('New Payment',function(){
         })
         newPayment.cancelPushFunds()
     })
-    it('TC_NP_048 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_048 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -1953,7 +1953,7 @@ describe('New Payment',function(){
         })
         newPayment.cancelPushFunds()
     })
-    it('TC_NP_049 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_049 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2011,7 +2011,7 @@ describe('New Payment',function(){
         newPayment.cancelPushFunds()
     })
     // Business Easy Transfer
-    it('TC_NP_050 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_050 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2068,7 +2068,7 @@ describe('New Payment',function(){
         newPayment.validateYapilyFlow()
         newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_051 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_051 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2125,7 +2125,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_052 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_052 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2182,7 +2182,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_053 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_053 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2238,7 +2238,7 @@ describe('New Payment',function(){
         newPayment.validateYapilyFlow()
         newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_054 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_054 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2296,7 +2296,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund
-    it('TC_NP_55 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_55 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2353,7 +2353,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_56 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_56 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2410,7 +2410,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_57 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_57 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2467,7 +2467,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_58 - Add 1 recipient(individual) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_58 - Add 1 recipient(individual) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2524,7 +2524,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_59 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_59 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2582,7 +2582,7 @@ describe('New Payment',function(){
             newPayment.cancelPushFunds()
     })
     // Individual Easy Transfer
-    it('TC_NP_60 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_60 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2639,7 +2639,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_61 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_61 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2696,7 +2696,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_62 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_62 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2752,7 +2752,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_63 - Add 1 recipient(individual) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_63 - Add 1 recipient(individual) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2808,7 +2808,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_64 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_64 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2866,7 +2866,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     // Business Push Fund
-    it('TC_NP_65 - Add 1 recipient(Business)  from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_65 - Add 1 recipient(Business)  from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2924,7 +2924,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_66 - Add 1 recipient(Business) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_66 - Add 1 recipient(Business) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -2982,7 +2982,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_67 - Add 1 recipient(Business) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_67 - Add 1 recipient(Business) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3040,7 +3040,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_68 - Add 1 recipient(Business) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_68 - Add 1 recipient(Business) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3098,7 +3098,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_69 - Add 1 recipient(Business) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_69 - Add 1 recipient(Business) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3157,7 +3157,7 @@ describe('New Payment',function(){
             newPayment.cancelPushFunds()
     })
     // Business Easy Transfer
-    it('TC_NP_70 - Add 1 recipient(Business) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_70 - Add 1 recipient(Business) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3215,7 +3215,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_71 - Add 1 recipient(Business) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_71 - Add 1 recipient(Business) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3273,7 +3273,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_72 - Add 1 recipient(Business) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_72 - Add 1 recipient(Business) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3330,7 +3330,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_73 - Add 1 recipient(Business) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_73 - Add 1 recipient(Business) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3387,7 +3387,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_74 - Add 1 recipient(Business) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_74 - Add 1 recipient(Business) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3446,7 +3446,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund 
-    it('TC_NP_075 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_075 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3507,7 +3507,7 @@ describe('New Payment',function(){
             })
             newPayment.cancelPushFunds()
     })
-    it('TC_NP_076 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_076 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3563,7 +3563,7 @@ describe('New Payment',function(){
         })
         newPayment.cancelPushFunds()
     })
-    it('TC_NP_077 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_077 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3619,7 +3619,7 @@ describe('New Payment',function(){
         })
         newPayment.cancelPushFunds()
     })
-    it('TC_NP_078 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_078 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3675,7 +3675,7 @@ describe('New Payment',function(){
         })
         newPayment.cancelPushFunds()
     })
-    it('TC_NP_079 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_079 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3732,7 +3732,7 @@ describe('New Payment',function(){
         newPayment.cancelPushFunds()
     })
     // Individual Easy Transfer
-    it('TC_NP_080 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_080 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3788,7 +3788,7 @@ describe('New Payment',function(){
         newPayment.validateYapilyFlow()
         newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_081 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_081 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3844,7 +3844,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_082 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_082 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3900,7 +3900,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_083 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_083 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -3956,7 +3956,7 @@ describe('New Payment',function(){
         newPayment.validateYapilyFlow()
         newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_084 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_084 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'

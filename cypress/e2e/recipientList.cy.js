@@ -14,7 +14,7 @@ describe('Recipient List',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('/')
+        cy.visit('https://webapp3.volopa.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)
@@ -136,11 +136,11 @@ describe('Recipient List',function(){
         recipientListpage.goToRecipientListPage()
         recipientListpage.validateDefaultPaginationFilter()
     })
-    it.only('TC_RL_020 - Verify that user is able to delete recipients', function(){
+    it('TC_RL_020 - Verify that user is able to delete recipients', function(){
         paymentspage.goToPaymentsDashborad()
         recipientListpage.goToRecipientListPage()
         //run the loop to that index (how many recipients you want to delete)
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 1; i++) {
             recipientListpage.deleteRecipient();
             cy.wait(1000); 
         }

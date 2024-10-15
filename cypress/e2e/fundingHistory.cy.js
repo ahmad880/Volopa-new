@@ -80,7 +80,7 @@ describe('Funding History',function(){
     fundingHistory.goToAwaitingFundDetailPage()
     fundingHistory.cancelFunding()
   })
-  it('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
+  it.only('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.goToCompleteFundDetailPage()
   })

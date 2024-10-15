@@ -73,10 +73,21 @@ export class FundingHistory{
   cancelFunding(){
     cy.get(variable.fundingHistoryLocators.cancelFunding).click()
   }
-  goToCompleteFundDetailPage(){
-    cy.get(variable.fundingHistoryLocators.completeFund).contains('Complete').eq(0).click()
-    cy.get(variable.fundingHistoryLocators.cancelFunding).should('be.disabled')
-  }
+  goToCompleteFundDetailPage() {
+    // Declare a flag outside the loop to track if we've clicked the first "Complete" status
+    let foundComplete = false;
+    cy.get('[data-row-key]').each(($row) => {
+        if (!foundComplete) {
+            const statusText = Cypress.$($row).find(':nth-child(8)').text().trim();
+            if (statusText === 'Complete') {
+                cy.wrap($row).click();  
+                foundComplete = true;  
+            }
+        }
+    });
+    cy.get(variable.fundingHistoryLocators.cancelFunding).should('be.disabled');
+}
+
   clickOnReturnBtn(){
     cy.get(variable.fundingHistoryLocators.returnBtn).click()
   }

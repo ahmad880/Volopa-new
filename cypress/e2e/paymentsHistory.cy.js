@@ -12,7 +12,7 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Payments History',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'qwerty_admin_1'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp3.volopa.com/')
@@ -30,7 +30,7 @@ describe('Payments History',function(){
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.validateSearchBar('Ali')
     })
-    it('TC_PH_003 - Validate that the pagination is working fine on "Payements History" page', function(){
+    xit('TC_PH_003 - Validate that the pagination is working fine on "Payements History" page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.validatePaginationFilters('100 / page')

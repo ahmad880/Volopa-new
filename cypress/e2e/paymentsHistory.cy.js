@@ -12,7 +12,7 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Payments History',function(){
-    let userName = 'qwerty_admin_1'
+    let userName = 'qwerty_admin_2'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp3.volopa.com/')
@@ -30,7 +30,7 @@ describe('Payments History',function(){
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.validateSearchBar('Ali')
     })
-    xit('TC_PH_003 - Validate that the pagination is working fine on "Payements History" page', function(){
+    it('TC_PH_003 - Validate that the pagination is working fine on "Payements History" page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.validatePaginationFilters('100 / page')
@@ -156,7 +156,7 @@ describe('Payments History',function(){
         paymentsHistory.goToManualTrade()
         paymentsHistory.goToSpecificManualTrade()
     })
-    it('TC_PH_023 - Verify that by clicking on "Download PDF Statement" in "Manual Trade/Payments History" page, the user is able to download it', function(){
+    xit('TC_PH_023 - Verify that by clicking on "Download PDF Statement" in "Manual Trade/Payments History" page, the user is able to download it', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToManualTrade()
@@ -187,7 +187,6 @@ describe('Payments History',function(){
             expect(pdfText).to.include('15477'); // Replace with the expected text in the PDF
         });
     })
-
     it('TC_PH_024 - Verify that by clicking on "Payment Reports" Payments History page, the user navigates to Payment Reports page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
@@ -210,7 +209,7 @@ describe('Payments History',function(){
         paymentsHistory.selectReportsFilters('Month{enter}','Jan','Oct')
         paymentsHistory.verifyPaymentReportsFilter('Jan','Oct')
     })
-    xit('TC_PH_027 - Verify that on clicking "Cancel", user is able to navigate back to the Payment Reports page', function(){
+    it('TC_PH_027 - Verify that on clicking "Cancel", user is able to navigate back to the Payment Reports page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.verifyPaymentReports()

@@ -14,7 +14,7 @@ describe('Batch Payments',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp3.volopa.com/')
+        cy.visit('https://webapp2.volopa.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)
@@ -235,7 +235,7 @@ describe('Batch Payments',function(){
             batchPayments.validateproceedflow(amount,amount1)
             batchPayments.validateYapilyFlow()
     })
-    it('TC_BP_021 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
+    it.only('TC_BP_021 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
             newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'

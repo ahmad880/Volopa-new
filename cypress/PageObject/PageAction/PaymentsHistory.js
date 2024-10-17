@@ -61,9 +61,36 @@ export class PaymentsHistory {
     cy.get(variable.paymentsHistoryPageLocators.allRows).should('have.length', row)
   }
   validateRepeatBtn(){
+    cy.get('tbody tr:nth-child(2) td:nth-child(4)').invoke('text').then((text) => {
+    const recipientName = text.trim(); // Store the text and remove any extra spaces
+    cy.log(recipientName); // Logs the value for debugging
+    cy.wrap(recipientName).as('recipientName')
+    })
+    cy.get('tbody tr:nth-child(2) td:nth-child(6)').invoke('text').then((text) => {
+      const receiveAmount = text.trim().replace(/[^\d.]/g, '') // Store the text and remove any extra spaces
+      cy.log(receiveAmount) // Logs the value for debugging
+      cy.wrap(receiveAmount).as('receiveAmount')
+    })
     cy.get(variable.paymentsHistoryPageLocators.repeatBtn).should('be.visible').click()
     cy.get(variable.paymentsHistoryPageLocators.repeatYesBtn).should('be.visible').click()
     cy.get(variable.paymentsHistoryPageLocators.createPaymentHeading).should('contain.text','Create a Payment')
+    cy.get('[style="padding-left: 12px; padding-right: 12px; flex: 1 1 auto;"] > .ant-space > :nth-child(1) > .ant-typography')
+    .invoke('text')
+    .then((recipientName1) => {
+    cy.get('@recipientName').then((recipientName) => {
+      expect(recipientName1.trim()).to.equal(recipientName); // Compare the two texts
+    });
+    })
+    cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((receiveAmount1) => {
+    cy.get('@receiveAmount').then((receiveAmount) => {
+      expect(receiveAmount1.trim()).to.equal(receiveAmount); // Compare the two texts
+    });
+    })
+    cy.get(variable.paymentsHistoryPageLocators.loadingIcon).should('not.exist')
+    cy.get('.ant-row-end.m-t-20 > .ant-col > .ant-btn').should('be.visible').click()
+    cy.get(variable.paymentsHistoryPageLocators.paymentConfirmation).should('be.visible').should('contain.text','Payment Confirmation')
+    cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click()
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
   }
   goToDraftPayments(){
     cy.get(variable.paymentsHistoryPageLocators.draftPaymentsBtn).should('be.visible').click()
@@ -97,7 +124,6 @@ export class PaymentsHistory {
     cy.get(variable.paymentsHistoryPageLocators.loadingIcon).should('not.exist')
     cy.get('.ant-row-end > .ant-btn').click()
   }
-
   verifyPaymentReports()
   {
     cy.get(variable.paymentsHistoryPageLocators.paymentReportsBtn).should('be.visible').should('contain.text','Payment Reports').click()

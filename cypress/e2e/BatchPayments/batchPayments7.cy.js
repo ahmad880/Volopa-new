@@ -1,4 +1,4 @@
-/// <reference types = "cypress"/>
+/// <reference types = "Cypress"/>
 
 import { BatchPayments } from "../../PageObject/PageAction/BatchPayments"
 import { SigninPage } from "../../PageObject/PageAction/SigninPage"
@@ -88,7 +88,7 @@ describe('Batch Payments',function(){
          let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+        batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_072 - Add 2 recipients(individual) from the "Add Recipient" page with country = FRANCE and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
@@ -157,7 +157,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+       batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_073 - Add 2 recipients(individual) from the "Add Recipient" page with country = SPAIN and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
@@ -226,7 +226,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+       batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_074 - Add 2 recipients(individual) from the "Add Recipient" page with country = ITALY and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
@@ -295,7 +295,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+       batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_075 - Add 2 recipients(individual) from the "Add Recipient" page with country = MALTA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
@@ -364,7 +364,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+       batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
     //Easy transfer
@@ -434,7 +434,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+       batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
@@ -504,7 +504,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+       batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
@@ -574,7 +574,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+       batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
@@ -644,7 +644,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+       batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
@@ -714,7 +714,7 @@ describe('Batch Payments',function(){
         let amount1= 260
        batchPayments.addrecipientDetail1MXN(amount1, email1)
        batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+       batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })

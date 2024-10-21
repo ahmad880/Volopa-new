@@ -156,17 +156,7 @@ export class NewPayment {
             }
         });
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     cancelEasyTransfer() {
         cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist');
     

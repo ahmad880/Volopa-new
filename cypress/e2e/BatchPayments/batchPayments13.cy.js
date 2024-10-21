@@ -87,10 +87,10 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+        batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_124 - Add 2 recipients(business) from the "Add Recipient" page with country = HONG KONG and currency = HKD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_124 - Add 2 recipients(business) from the "Add Recipient" page with country = HONG KONG and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -160,7 +160,7 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+        batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
     //easy transfer
@@ -232,11 +232,11 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+        batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
-    it('TC_BP_126 - Add 2 recipients(business) from the "Add Recipient" page with country = HONG KONG and currency = HKD. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
+    it('TC_BP_126 - Add 2 recipients(business) from the "Add Recipient" page with country = HONG KONG and currency = USD. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -306,7 +306,7 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+        batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
@@ -380,10 +380,10 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments1('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+        batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_128 - Add 2 recipients(individual) from the "Add Recipient" page with country = MEXICO and currency = USD. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
+    it('TC_BP_128 - Add 2 recipients(individual) from the "Add Recipient" page with country = MEXICO and currency = USD. After adding, make a batch payment to these recipients using GBP and push fund', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -451,12 +451,12 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+        batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
     //easy transfer
-    it('TC_BP_129 - Add 2 recipients(business) from the "Add Recipient" page with country = MEXICO and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_129 - Add 2 recipients(business) from the "Add Recipient" page with country = MEXICO and currency = USD. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -526,10 +526,10 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments2('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{downarrow}{enter}','Push Fund')
+        batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_130 - Add 2 recipients(business) from the "Add Recipient" page with country = MEXICO and currency = MXN. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_130 - Add 2 recipients(business) from the "Add Recipient" page with country = MEXICO and currency = USD. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -599,7 +599,7 @@ describe('Batch Payments',function(){
         let amount1= 260
         batchPayments.addrecipientDetail1MXN(amount1, email1)
         batchPayments.checkSettelments1('be.disabled','be.enabled')
-        batchPayments.proceedflow('{downarrow}{enter}','GBP','{downarrow}{enter}','Easy Transfer')
+        batchPayments.proceedflow('GBP','GBP','Easy Transfer','Easy Transfer')
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })

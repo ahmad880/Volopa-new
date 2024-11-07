@@ -7,7 +7,7 @@ const signin = new SigninPage
 const fundingHistory = new FundingHistory
 
 describe('Funding History',function(){
-  let userName = 'testnew@volopa.com'
+  let userName = 'qwerty_admin_1'
   let password = 'testTest1'
   beforeEach(() => {
     cy.visit('https://webapp3.volopa.com/')
@@ -80,7 +80,7 @@ describe('Funding History',function(){
     fundingHistory.goToAwaitingFundDetailPage()
     fundingHistory.cancelFunding()
   })
-  it.only('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
+  it('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.goToCompleteFundDetailPage()
   })

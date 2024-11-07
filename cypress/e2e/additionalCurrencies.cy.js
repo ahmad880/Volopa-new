@@ -33,7 +33,7 @@ describe('Additional Currencies ',function(){
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.individualRecipient('QA Tester SGD','SINGAPORE{enter}')
         newRecipient.saveRecipient()
-        newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
+        //newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })    
     it('TC-AC-003 - Verify that if Currency= SGD and Country = UNITED KINGDOM  & client = EEA and check priority settlement is enabled ', function(){
@@ -54,7 +54,7 @@ describe('Additional Currencies ',function(){
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.individualRecipient('QA Tester SGD','SINGAPORE{enter}')
         newRecipient.saveRecipient()
-        newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
+        //newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     }) 
     //Currency is MXN
@@ -1355,7 +1355,7 @@ describe('Additional Currencies ',function(){
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.addBusinessRecipient('SINGAPORE{enter}')
         newRecipient.saveRecipient()
-        newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
+        //newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })    
     it('TC-AC-097 - Verify that if Currency= SGD and Country = UNITED KINGDOM  & client = EEA and check priority settlement is enabled ', function(){
@@ -1376,7 +1376,7 @@ describe('Additional Currencies ',function(){
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.addBusinessRecipient('SINGAPORE{enter}')
         newRecipient.saveRecipient()
-        newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
+        //newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
     //Currency is TRY

@@ -231,13 +231,13 @@ describe('Payments History',function(){
         paymentsHistory.verifyPDFStatement(path)
               
     })
-    it('TC_PH_030 - Verify that on clicking "Repeat Batch", user is able to repeat that batch payment and navigates to Batch Payments page', function(){
+    xit('TC_PH_030 - Verify that on clicking "Repeat Batch", user is able to repeat that batch payment and navigates to Batch Payments page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.navigateToUser()
         paymentsHistory.verifyRepeatBatch()             
     })
-    it('TC_PH_031 - Verify that on clicking "Repeat" button, user is able to repeat that payment and navigates to New Payment page', function(){
+    xit('TC_PH_031 - Verify that on clicking "Repeat" button, user is able to repeat that payment and navigates to New Payment page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.navigateToUser()

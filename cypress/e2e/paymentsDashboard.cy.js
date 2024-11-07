@@ -43,7 +43,7 @@ describe('Payments Dashboard',function(){
         paymentspage.goToPaymentsDashborad()
         paymentspage.validateFrequentRecipients()
     })
-    it('TC_PD_008 - Verify that "Pay" button present on Payment Dashboard page in Frequent Recipients section is diecting to New Payment page', function(){
+    it('TC_PD_008 - Verify that "Pay" button present on Payment Dashboard page in Frequent Recipients section is rediecting to New Payment page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentspage.clickOnPayBtn()
     })

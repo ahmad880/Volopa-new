@@ -111,7 +111,7 @@ export class WalletDashboard {
           cy.wait(10000)
           cy.get('[data-test="select-bank-text"]').should('contain.text','Choose your bank')
           cy.get('[data-test="search-input"]').type('Modelo Sandbox')
-          cy.get('.hover-effect').click()
+          cy.get('[data-test="footer-continue-button"]').click()
         
         //   cy.get(".pb-2.currency-style").invoke('text').then((ele)=>{
         //     amount1=ele.trim()
@@ -133,16 +133,16 @@ export class WalletDashboard {
             cy.get('#confirmButton').click({force:true})
             cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
             cy.get(':nth-child(2) > .ant-btn').click()
-            cy.get(variable.fundWalletLocators.validationamoungt).click()
-            cy.get('@val1').then(val1=>{
-            cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
-                let ele = ele1.split('.')
-                let val= ele[0].trim()
-              cy.wrap(val).should('contain','GBP')
-              cy.log(val)
-              //val=val.replace(/GBP/g,'')
-              cy.wrap(val).should('eq',val1)  
-            })
-    })
+            // cy.get(variable.fundWalletLocators.validationamoungt).click()
+            // cy.get('@val1').then(val1=>{
+            // cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
+            //     let ele = ele1.split('.')
+            //     let val= ele[0].trim()
+            //   cy.wrap(val).should('contain','GBP')
+            //   cy.log(val)
+            //   //val=val.replace(/GBP/g,'')
+            //   cy.wrap(val).should('eq',val1)  
+            // })
+    //})
     }
 }

@@ -43,7 +43,7 @@ export class ConvertBalances {
     convertInsufficientBalance(){
         cy.wait(2000)
         cy.get(variable.convertBalances.convertTo).type('GBP{enter}')
-        cy.get(variable.convertBalances.convertFrom).type('CAD{enter}')
+        cy.get(variable.convertBalances.convertFrom).type('PLN{enter}')
         cy.wait(2000)
         cy.get(variable.convertBalances.convertFromValue).type('100')
         cy.get(variable.convertBalances.convertBtn).click()

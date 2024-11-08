@@ -55,8 +55,8 @@ export class FundingHistory{
   }
   validateCelenderIcon(){
     cy.get(variable.fundingHistoryLocators.clickOnCelenderIcon).click()
-    cy.get(variable.fundingHistoryLocators.celender).find("td[title='2024-11-7']").click()
-    cy.get(variable.fundingHistoryLocators.selectedDate).should('contain.text','October 14, 2024')
+    cy.get(variable.fundingHistoryLocators.celender).find("td[title='2024-11-07']").click()
+    cy.get(variable.fundingHistoryLocators.selectedDate).should('contain.text','November 7, 2024')
   }
   validateSortingIcon(){
     cy.get(variable.fundingHistoryLocators.sortingIcon).eq(0).should('exist')

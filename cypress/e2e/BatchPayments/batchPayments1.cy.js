@@ -176,6 +176,7 @@ describe('Batch Payments',function(){
         batchPayments.checkSettelments2('be.disabled','be.enabled')
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
+        batchPayments.cancelPushFunds()
     })
     it('TC_BP_014 - Add 2 recipients(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         newRecipient.goToPaymentsDashborad()

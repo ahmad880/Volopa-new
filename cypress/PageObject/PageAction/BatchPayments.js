@@ -488,7 +488,7 @@ export class BatchPayments {
                 // Verify the confirmation popover
                 cy.get('.ant-popover-inner-content')
                   .should('be.visible')
-                  .and('contain.text', 'Are you sure you want to cancel this payment');
+                  .and('contain.text', 'Are you sure you want to cancel this batch payment?');
                 
                 // Confirm by clicking the primary 'Yes' button
                 cy.get('button[class="ant-btn ant-btn-primary ant-btn-sm"]').should('be.visible').click();

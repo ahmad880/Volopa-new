@@ -19,11 +19,11 @@ describe('Funding History',function(){
   })
   it('TC-FH-002 - Validate that search functionality is working fine on "Your transaction history" page with admin', function(){
       fundingHistory.goToFundingHistoryPage()
-      fundingHistory.validateSearchField('alex')
+      fundingHistory.validateSearchField('testnew')
   })
   it('TC-FH-003 - Validate that search functionality is working fine on "Your transaction history" page with discription', function(){
       fundingHistory.goToFundingHistoryPage()
-      fundingHistory.validateSearchField('Test')
+      fundingHistory.validateSearchField('script')
   })
   it('TC-FH-004 - Validate that the pagination is working fine on "your transaction history" page', function(){
       fundingHistory.goToFundingHistoryPage()
@@ -80,7 +80,7 @@ describe('Funding History',function(){
     fundingHistory.goToAwaitingFundDetailPage()
     fundingHistory.cancelFunding()
   })
-  it.only('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
+  it('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.goToCompleteFundDetailPage()
   })

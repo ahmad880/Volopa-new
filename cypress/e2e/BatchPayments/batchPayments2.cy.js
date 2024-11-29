@@ -378,6 +378,7 @@ describe('Batch Payments',function(){
             batchPayments.proceedflow('EUR','EUR','Easy Transfer','Easy Transfer')
             batchPayments.validateproceedflow(amount,amount1)
             batchPayments.validateYapilyFlow()
+            //batchPayments.cancelEasyTransfer()
     })
     //Business recipient
         // Push Fund

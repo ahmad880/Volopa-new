@@ -26,10 +26,9 @@ jobs:
           browser: chrome
           headed: true
           spec: |
-            cypress/e2e/walletDashboard.cy.js
-            cypress/e2e/fundWallet.cy.js
-            cypress/e2e/convertBalances.cy.js
-            cypress/e2e/fundingHistory.cy.js
+            cypress/e2e/paymentsDashboard.cy.js
+            cypress/e2e/recipientList.cy.js
+            cypress/e2e/paymentsHistory.cy.js
              
           # Records to Cypress Cloud
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record

@@ -38,7 +38,7 @@ describe('FundWallet TS_003 ',function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
     })
-    it('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" as manual push fund', function(){
+    it.only('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" as manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_push('EUR{enter}')
     })

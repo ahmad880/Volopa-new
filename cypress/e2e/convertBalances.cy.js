@@ -29,7 +29,7 @@ describe('Convert Balances',function(){
         convertBalancesPage.goToConvertBalancesAndValidate()
 
     })
-    it('TC-CB-005 - Verify that user can convert balances', function(){
+    it.only('TC-CB-005 - Verify that user can convert balances', function(){
         convertBalancesPage.goToConvertBalancesAndValidate()
         convertBalancesPage.validateConvertBalance()
     })

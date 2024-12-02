@@ -140,7 +140,7 @@ describe('Recipient List',function(){
         paymentspage.goToPaymentsDashborad()
         recipientListpage.goToRecipientListPage()
         //run the loop to that index (how many recipients you want to delete)
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 100; i++) {
             recipientListpage.deleteRecipient();
             cy.wait(1000); 
         }

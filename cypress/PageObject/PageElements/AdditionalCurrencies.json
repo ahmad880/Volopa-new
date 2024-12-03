@@ -27,7 +27,7 @@
         "amountField":"#recipientReceives",
         "amountErrorMsg":".ant-typography.fs-14px.ant-typography-danger",
         "createAPaymentPageHeading":".ant-typography.medium.dark-green.fs-28px",
-        "settelmentRegular":"button[class='ant-btn ant-btn-primary ant-btn-background-ghost']",
+        "settelmentRegular":":nth-child(4) > .ant-col > .ant-space > [style=''] > .ant-btn",
         "settelmentPeriority":":nth-child(2) > .ant-btn",
         "clabe":"#clabe",
         "regularEnabled":"button[class='ant-btn ant-btn-primary']",

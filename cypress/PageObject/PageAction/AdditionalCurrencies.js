@@ -1,5 +1,6 @@
 const variable1= require('../PageElements/AdditionalCurrencies.json')
 const variable= require('../PageElements/PaymentsDashboard.json')
+const variable2 = require('../PageElements/BatchPayments.json')
 
 export class AdditionalCurrencies {
     goToPaymentsDashborad(){
@@ -70,6 +71,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
     }
     checkSettelment(regular,priority){
+        cy.get(variable2.batchPaymentsPageLocators.loadingIcon).should('not.exist')
         cy.get(variable1.additionalCurrenciesLocators.createAPaymentPageHeading).should('be.visible')
         cy.get(variable1.additionalCurrenciesLocators.settelmentRegular).should('be.visible').should(regular)
         cy.get(variable1.additionalCurrenciesLocators.settelmentPeriority).should('be.visible').should(priority)
@@ -127,6 +129,6 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.accountNo).should('be.visible').type(accNo)
         cy.get('#cnaps').should('be.visible').type(cNAPS)
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
-        cy.get('.ant-space-item > .ant-card > .ant-card-body').click()
+        cy.get('.ant-space-item > .ant-card > .ant-card-body > :nth-child(2) > .ant-col > .ant-typography').click()
     }
 }

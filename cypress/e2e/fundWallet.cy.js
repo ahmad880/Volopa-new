@@ -7,7 +7,7 @@ const signin = new SigninPage
 const fundWallet = new FundWallet
 
 describe('FundWallet TS_003 ',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'qwerty_admin_1'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp3.volopa.com/')
@@ -38,7 +38,7 @@ describe('FundWallet TS_003 ',function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
     })
-    it.only('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" as manual push fund', function(){
+    it('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" as manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_push('EUR{enter}')
     })

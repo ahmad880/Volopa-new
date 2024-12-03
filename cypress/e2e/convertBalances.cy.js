@@ -7,7 +7,7 @@ const signin = new SigninPage
 const convertBalancesPage = new ConvertBalances
 
 describe('Convert Balances',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'qwerty_admin_1'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp3.volopa.com/')
@@ -29,7 +29,7 @@ describe('Convert Balances',function(){
         convertBalancesPage.goToConvertBalancesAndValidate()
 
     })
-    it.only('TC-CB-005 - Verify that user can convert balances', function(){
+    it('TC-CB-005 - Verify that user can convert balances', function(){
         convertBalancesPage.goToConvertBalancesAndValidate()
         convertBalancesPage.validateConvertBalance()
     })

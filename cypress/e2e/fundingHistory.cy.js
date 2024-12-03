@@ -7,7 +7,7 @@ const signin = new SigninPage
 const fundingHistory = new FundingHistory
 
 describe('Funding History',function(){
-  let userName = 'testnew@volopa.com'
+  let userName = 'qwerty_admin_1'
   let password = 'testTest1'
   beforeEach(() => {
     cy.visit('https://webapp3.volopa.com/')

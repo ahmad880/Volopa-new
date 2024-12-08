@@ -110,8 +110,8 @@ export class WalletDashboard {
           cy.get(variable.fundWalletLocators.popupconfirmxpath).click()
           cy.wait(10000)
           cy.get('[data-test="select-bank-text"]').should('contain.text','Choose your bank')
-          cy.get('[data-test="search-input"]').type('Modelo Sandbox')
-          cy.get('.hover-effect').click()
+          cy.get('[data-test="search-input"]').type('Modelo')
+          cy.get('.institution-card-alt-styles.flex.w-full.items-center.rounded-lg.mb-2.px-4.py-2.cursor-pointer').should('contain.text','Modelo Sandbox').click()
         
         //   cy.get(".pb-2.currency-style").invoke('text').then((ele)=>{
         //     amount1=ele.trim()
@@ -131,6 +131,7 @@ export class WalletDashboard {
             cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
             cy.get("#radio-10000109010102").click()
             cy.get('#confirmButton').click({force:true})
+            cy.get('.ant-spin-dot').should('not.exist')
             cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
             cy.get(':nth-child(2) > .ant-btn').click()
             cy.get(variable.fundWalletLocators.validationamoungt).click()

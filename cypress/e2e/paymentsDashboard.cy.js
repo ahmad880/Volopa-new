@@ -10,7 +10,11 @@ describe('Payments Dashboard',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp3.volopa.com/')
+        cy.window().then((win) => {
+            win.localStorage.clear();
+            win.sessionStorage.clear();
+        });
+    cy.visit('https://webapp7.volopa.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)

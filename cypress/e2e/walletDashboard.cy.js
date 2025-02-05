@@ -9,10 +9,14 @@ const walletpage = new WalletDashboard
 const fundWallet = new FundWallet
 
 describe('WalletDashboard',function(){
-    let userName = 'qwerty_admin_1'
+    let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp3.volopa.com/')
+        cy.window().then((win) => {
+            win.localStorage.clear();
+            win.sessionStorage.clear();
+        });
+        cy.visit('https://webapp7.volopa.com/')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -80,7 +84,7 @@ describe('WalletDashboard',function(){
         })
         
     })
-    it.only('TC_WD_009 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
+    it('TC_WD_009 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
         cy.wait(5000)

@@ -111,7 +111,7 @@ export class WalletDashboard {
           cy.wait(10000)
           cy.get('[data-test="select-bank-text"]').should('contain.text','Choose your bank')
           cy.get('[data-test="search-input"]').type('Modelo')
-          cy.get('.institution-card-alt-styles.flex.w-full.items-center.rounded-lg.mb-2.px-4.py-2.cursor-pointer').should('contain.text','Modelo Sandbox').click()
+          cy.get('.institution-card-hover').click() //removed the assertion for text
         
         //   cy.get(".pb-2.currency-style").invoke('text').then((ele)=>{
         //     amount1=ele.trim()

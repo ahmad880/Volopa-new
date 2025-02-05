@@ -27,23 +27,20 @@ describe('WalletDashboard',function(){
     it('TC_WD_002 - Validate "Total Companay Balance" on dashboard', function(){
         walletpage.validateCardtotalBalance()
     })
-    xit('TC_WD_003 - Validate "Wallet balance" on wallet dashboard', function(){
-        
-    })
-    it('TC_WD_004 - Validate that clicking on card balance naviagte the user to card section', function(){
+    it('TC_WD_003 - Validate that clicking on card balance naviagte the user to card section', function(){
         walletpage.clickOnCardBalanceAndValidate()
     })
-    it('TC_WD_005 -Validate "Rate Checker"  from Wallet dashboard', function(){
+    it('TC_WD_004 -Validate "Rate Checker"  from Wallet dashboard', function(){
         walletpage.validateRateChecker()
     })
-    it('TC_WD_006 -validate that clicking on "Mark all as read" from recent activities marks all as read', function(){
+    it('TC_WD_005 -validate that clicking on "Mark all as read" from recent activities marks all as read', function(){
         walletpage.validateMarkAsRead()
         walletpage.validateRateChecker()
     })
-    it('TC_WD_007 -Validate that clicking on "show all" from wallet breakdown expands the table with more currencies', function(){
+    it('TC_WD_006 -Validate that clicking on "show all" from wallet breakdown expands the table with more currencies', function(){
         walletpage.clickOnShowAll()
     })
-    it('TC_WD_008 -Validate the user can repeat recent transactions as Manual Push Funds from wallet dashboard', function(){
+    it('TC_WD_007 -Validate the user can repeat recent transactions as Manual Push Funds from wallet dashboard', function(){
         //cy.get('tbody tr td:nth-child(3)[class="ant-table-cell"]').should('contain.text','Manual Push Funds')
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_pushGBP()
@@ -84,7 +81,7 @@ describe('WalletDashboard',function(){
         })
         
     })
-    it('TC_WD_009 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
+    it('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
         cy.wait(5000)
@@ -97,7 +94,7 @@ describe('WalletDashboard',function(){
             walletpage.fundEasyTransfer()
         })
     })
-    it('TC_WD_010 -Validate convert balance,fund card,fund wallet navigations from wallet dashboard', function(){
+    it('TC_WD_09 -Validate convert balance,fund card,fund wallet navigations from wallet dashboard', function(){
         walletpage.navigationChecking()
     })
 })

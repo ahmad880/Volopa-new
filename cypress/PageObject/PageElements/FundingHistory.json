@@ -10,6 +10,7 @@
         "defaultPagination":"span[title='20 / page']",
         "clickOnCelenderIcon":"div[id='root'] th:nth-child(1)",
         "celender":".ant-picker-content",
+        "todaysDate":"ant-picker-today-btn",
         "selectedDate":"[data-row-key='0'] > :nth-child(2)",
         "sortingIcon":"[class='ant-table-column-sorter ant-table-column-sorter-full']",
         "clickOnAwaitingFund":"[class='ant-typography ant-typography-warning']",

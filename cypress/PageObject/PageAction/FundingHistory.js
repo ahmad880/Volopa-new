@@ -54,9 +54,25 @@ export class FundingHistory{
     cy.get(variable.fundingHistoryLocators.defaultPagination).should('contain.text','20 / page')
   }
   validateCelenderIcon(){
-    cy.get(variable.fundingHistoryLocators.clickOnCelenderIcon).click()
-    cy.get(variable.fundingHistoryLocators.celender).find("td[title='2024-12-03']").click()
-    cy.get(variable.fundingHistoryLocators.selectedDate).should('contain.text','December 3, 2024')
+    const todaysDate = new Date(); // Get today's date
+const formattedDate = todaysDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); // Format the date
+
+// Click to open the calendar
+cy.get(variable.fundingHistoryLocators.clickOnCelenderIcon).click();
+
+// Wait for the calendar to be visible
+cy.get(variable.fundingHistoryLocators.celender).should('be.visible');
+
+// Retry clicking on the "Today" button if it doesn't respond
+cy.get('.ant-picker-today-btn')
+  .should('be.visible')
+  .should('contain.text', 'Today')
+  .click({ force: true }); // Forcibly clicks in case of overlap or animation issues
+
+// Validate the selected date matches today's date
+cy.get(variable.fundingHistoryLocators.selectedDate)
+  .should('contain.text', formattedDate);
+
   }
   validateSortingIcon(){
     cy.get(variable.fundingHistoryLocators.sortingIcon).eq(0).should('exist')

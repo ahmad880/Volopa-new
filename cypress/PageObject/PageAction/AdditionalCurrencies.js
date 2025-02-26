@@ -29,7 +29,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.individual).click()
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).should('be.disabled')
         cy.get(variable1.additionalCurrenciesLocators.firstName).type(Name)
-        cy.get(variable1.additionalCurrenciesLocators.lastName).type('Individual Automation')
+        cy.get(variable1.additionalCurrenciesLocators.lastName).type('Automation')
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
         cy.get(':nth-child(3) > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
@@ -65,6 +65,18 @@ export class AdditionalCurrencies {
         cy.get(':nth-child(3) > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
+    addBusinessRecipientforMassTesting(country, businessName){
+        cy.get(variable1.additionalCurrenciesLocators.businessRecipient).click();
+        cy.get(variable1.additionalCurrenciesLocators.businessName).type(businessName);
+        cy.get(variable1.additionalCurrenciesLocators.businessDescription).type('Testing');
+        cy.get(variable1.additionalCurrenciesLocators.businessNature).type('Testing');
+        cy.get(variable1.additionalCurrenciesLocators.businessWebsite).type('testing.com');
+        cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050');
+        cy.get(variable1.additionalCurrenciesLocators.city).type('London');
+        cy.get(':nth-child(3) > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text', 'Recipient Country');
+        cy.get('#beneficiaryCountry').type(country);
+    }
+    
     addBankDetailsWithAccNo(swift,accNo){
         cy.get(variable1.additionalCurrenciesLocators.sWIFT).should('be.visible').type(swift)
         cy.get(variable1.additionalCurrenciesLocators.accountNo).should('be.visible').type(accNo)

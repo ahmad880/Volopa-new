@@ -133,7 +133,7 @@ describe('Mass Recipients ',function(){
     it('TC-Mass recipient for adding business - ', function(){
     signin.Login(userName, password);
 
-    Cypress._.times(30, (index) => {  
+        Cypress._.times(30, (index) => {  
         cy.log(`Iteration ${index + 1} started`);
 
         const randomBusinessName = `Business ${faker.company.name()}`;
@@ -149,5 +149,130 @@ describe('Mass Recipients ',function(){
         console.log(`Iteration ${index + 1} completed with Business Name: ${randomBusinessName}`);
     });
     });
+
+    ///for adding recipient with regular payment method
+    it('TC- Mass Payments add Ind recipient with regular/priority payment method', function(){
+        // Step 1: Login once
+        signin.Login(userName, password);
+    
+        // Step 2: Repeat the process after logging in
+        Cypress._.times(30, (index) => {  
+            cy.log(`Iteration ${index + 1} started`);
+    
+            const randomName = `QA ${faker.person.firstName()} ${faker.person.lastName()}`;
+    
+            newRecipient.goToPaymentsDashborad();
+            newRecipient.gotoRecipientList();
+            newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
+            newRecipient.addAccountandSortcode('54545455','202524')
+            newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+            newRecipient.saveRecipient();
+            newRecipient.checkSettelment('be.enabled', 'be.enabled');
+    
+            cy.log(`Iteration ${index + 1} completed with name: ${randomName}`);
+            console.log(`Iteration ${index + 1} completed with name: ${randomName}`);
+        });
+        });
+    it('TC-Mass Payments add Business recipient with regular/priority payment method ', function(){
+            signin.Login(userName, password);
         
+                Cypress._.times(30, (index) => {  
+                cy.log(`Iteration ${index + 1} started`);
+        
+                const randomBusinessName = `Business ${faker.company.name()}`;
+        
+                newRecipient.goToPaymentsDashborad();
+                newRecipient.gotoRecipientList();
+                newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
+                newRecipient.addAccountandSortcode('54545455','202524')
+                newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+                newRecipient.saveRecipient();
+                newRecipient.checkSettelment('be.enabled', 'be.enabled');
+        
+                console.log(`Iteration ${index + 1} completed with Business Name: ${randomBusinessName}`);
+            });
+        });
+    it('TC- Mass Payments add Ind recipient with regular/priority payment method', function(){
+            // Step 1: Login once
+            signin.Login(userName, password);
+        
+            // Step 2: Repeat the process after logging in
+            Cypress._.times(30, (index) => {  
+                cy.log(`Iteration ${index + 1} started`);
+        
+                const randomName = `QA ${faker.person.firstName()} ${faker.person.lastName()}`;
+        
+                newRecipient.goToPaymentsDashborad();
+                newRecipient.gotoRecipientList();
+                newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
+                newRecipient.addAccountandSortcode('54545455','202524')
+                newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+                newRecipient.saveRecipient();
+                newRecipient.checkSettelment('be.enabled', 'be.enabled');
+        
+                cy.log(`Iteration ${index + 1} completed with name: ${randomName}`);
+                console.log(`Iteration ${index + 1} completed with name: ${randomName}`);
+            });
+        });
+    it('TC-Mass Payments add Business recipient with regular/priority payment method ', function(){
+                signin.Login(userName, password);
+            
+                    Cypress._.times(30, (index) => {  
+                    cy.log(`Iteration ${index + 1} started`);
+            
+                    const randomBusinessName = `Business ${faker.company.name()}`;
+            
+                    newRecipient.goToPaymentsDashborad();
+                    newRecipient.gotoRecipientList();
+                    newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
+                    newRecipient.addAccountandSortcode('54545455','202524')
+                    newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+                    newRecipient.saveRecipient();
+                    newRecipient.checkSettelment('be.enabled', 'be.enabled');
+            
+                    console.log(`Iteration ${index + 1} completed with Business Name: ${randomBusinessName}`);
+                });
+        });
+    it('TC- Mass Payments add Ind recipient with regular/priority payment method', function(){
+            // Step 1: Login once
+            signin.Login(userName, password);
+        
+            // Step 2: Repeat the process after logging in
+            Cypress._.times(30, (index) => {  
+                cy.log(`Iteration ${index + 1} started`);
+        
+                const randomName = `QA ${faker.person.firstName()} ${faker.person.lastName()}`;
+        
+                newRecipient.goToPaymentsDashborad();
+                newRecipient.gotoRecipientList();
+                newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
+                newRecipient.addAccountandSortcode('54545455','202524')
+                newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+                newRecipient.saveRecipient();
+                newRecipient.checkSettelment('be.enabled', 'be.enabled');
+        
+                cy.log(`Iteration ${index + 1} completed with name: ${randomName}`);
+                console.log(`Iteration ${index + 1} completed with name: ${randomName}`);
+            });
+        });
+    it('TC-Mass Payments add Business recipient with regular/priority payment method ', function(){
+                signin.Login(userName, password);
+            
+                    Cypress._.times(30, (index) => {  
+                    cy.log(`Iteration ${index + 1} started`);
+            
+                    const randomBusinessName = `Business ${faker.company.name()}`;
+            
+                    newRecipient.goToPaymentsDashborad();
+                    newRecipient.gotoRecipientList();
+                    newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
+                    newRecipient.addAccountandSortcode('54545455','202524')
+                    newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+                    newRecipient.saveRecipient();
+                    newRecipient.checkSettelment('be.enabled', 'be.enabled');
+            
+                    console.log(`Iteration ${index + 1} completed with Business Name: ${randomBusinessName}`);
+                });
+        });    
+
 })

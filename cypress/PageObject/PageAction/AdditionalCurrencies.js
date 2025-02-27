@@ -143,4 +143,9 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
         cy.get('.ant-space-item > .ant-card > .ant-card-body > :nth-child(2) > .ant-col > .ant-typography').click()
     }
+    addAccountandSortcode(account,sortCode){
+        cy.get('#accNumber').should('be.visible').type(account)
+        cy.get('#sortCode').should('be.visible').type(sortCode)
+        //cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
+    }
 }

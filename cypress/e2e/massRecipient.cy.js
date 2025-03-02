@@ -34,6 +34,7 @@ describe('Mass Recipients ',function(){
             newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
             newRecipient.addBankDetails('GB14BARC20038054413881', 'BUKBGB22');
             newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+            newRecipient.paymentPurpose1();
             newRecipient.saveRecipient();
             newRecipient.checkSettelment('be.disabled', 'be.enabled');
     
@@ -55,6 +56,7 @@ describe('Mass Recipients ',function(){
             newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
             newRecipient.addBankDetails('HU42117730161111101800000000', 'AKKHHUHB');
             newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+            newRecipient.paymentPurpose1();
             newRecipient.saveRecipient();
             newRecipient.checkSettelment('be.disabled', 'be.enabled');
     
@@ -77,6 +79,7 @@ describe('Mass Recipients ',function(){
             newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
             newRecipient.addBankDetails('GB14BARC20038054413881', 'BUKBGB22');
             newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+            newRecipient.paymentPurpose1();
             newRecipient.saveRecipient();
             newRecipient.checkSettelment('be.disabled', 'be.enabled');
     
@@ -99,6 +102,7 @@ describe('Mass Recipients ',function(){
         newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
         newRecipient.addBankDetails('HU42117730161111101800000000', 'AKKHHUHB');
         newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+        newRecipient.paymentPurpose1();
         newRecipient.saveRecipient();
         newRecipient.checkSettelment('be.disabled', 'be.enabled');
 
@@ -122,6 +126,7 @@ describe('Mass Recipients ',function(){
         newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
         newRecipient.addBankDetails('GB14BARC20038054413881', 'BUKBGB22');
         newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+        newRecipient.paymentPurpose1();
         newRecipient.saveRecipient();
         newRecipient.checkSettelment('be.disabled', 'be.enabled');
 
@@ -143,6 +148,7 @@ describe('Mass Recipients ',function(){
         newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
         newRecipient.addBankDetails('HU42117730161111101800000000', 'AKKHHUHB');
         newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+        newRecipient.paymentPurpose1();
         newRecipient.saveRecipient();
         newRecipient.checkSettelment('be.disabled', 'be.enabled');
 
@@ -166,6 +172,7 @@ describe('Mass Recipients ',function(){
             newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
             newRecipient.addAccountandSortcode('54545455','202524')
             newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+            newRecipient.paymentPurpose1();
             newRecipient.saveRecipient();
             newRecipient.checkSettelment('be.enabled', 'be.enabled');
     
@@ -186,6 +193,7 @@ describe('Mass Recipients ',function(){
                 newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
                 newRecipient.addAccountandSortcode('54545455','202524')
                 newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+                newRecipient.paymentPurpose1();
                 newRecipient.saveRecipient();
                 newRecipient.checkSettelment('be.enabled', 'be.enabled');
         
@@ -207,6 +215,7 @@ describe('Mass Recipients ',function(){
                 newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
                 newRecipient.addAccountandSortcode('54545455','202524')
                 newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+                newRecipient.paymentPurpose1();
                 newRecipient.saveRecipient();
                 newRecipient.checkSettelment('be.enabled', 'be.enabled');
         
@@ -227,6 +236,7 @@ describe('Mass Recipients ',function(){
                     newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
                     newRecipient.addAccountandSortcode('54545455','202524')
                     newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+                    newRecipient.paymentPurpose1();
                     newRecipient.saveRecipient();
                     newRecipient.checkSettelment('be.enabled', 'be.enabled');
             
@@ -248,6 +258,7 @@ describe('Mass Recipients ',function(){
                 newRecipient.addRecipient('United Kingdom{enter}', 'GBP{enter}');
                 newRecipient.addAccountandSortcode('54545455','202524')
                 newRecipient.individualRecipient(randomName, 'United Kingdom{enter}');
+                newRecipient.paymentPurpose1();
                 newRecipient.saveRecipient();
                 newRecipient.checkSettelment('be.enabled', 'be.enabled');
         
@@ -268,6 +279,7 @@ describe('Mass Recipients ',function(){
                     newRecipient.addRecipient('UNITED KINGDOM{enter}', 'GBP{enter}');
                     newRecipient.addAccountandSortcode('54545455','202524')
                     newRecipient.addBusinessRecipientforMassTesting('United Kingdom{enter}', randomBusinessName);
+                    newRecipient.paymentPurpose1();
                     newRecipient.saveRecipient();
                     newRecipient.checkSettelment('be.enabled', 'be.enabled');
             

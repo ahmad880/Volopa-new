@@ -148,4 +148,18 @@ export class AdditionalCurrencies {
         cy.get('#sortCode').should('be.visible').type(sortCode)
         //cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
     }
+    paymentPurpose1() {
+        cy.get('#paymentPurpose').click();
+        
+        // Generate a random index between 0 and 5
+        const randomIndex = Cypress._.random(0, 5);
+        
+        cy.get('[class="ant-select-item ant-select-item-option"]')
+          .eq(randomIndex)
+          .should('be.visible')
+          .click();
+    
+        // Log the selected index for debugging
+        console.log(`Selected payment purpose index: ${randomIndex}`);
+    }
 }

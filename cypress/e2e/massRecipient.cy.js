@@ -9,7 +9,7 @@ const newRecipient = new AdditionalCurrencies
 
 describe('Mass Recipients ',function(){
 
-    let userName = 'uk_test_2@volopa.com'
+    let userName = 'eea_test_2@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
         cy.window().then((win) => {

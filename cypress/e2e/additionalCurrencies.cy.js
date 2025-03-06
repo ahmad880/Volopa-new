@@ -1490,16 +1490,44 @@ describe('Additional Currencies ',function(){
     newRecipient.saveRecipient()
     newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-109 -Verify that if Currency= CNY and Country = China', function(){
+
+    //new cases not pushed to gitlab
+    it('TC-AC-109 -Verify that if Currency= CNY and Country = China', function(){
     signin.Login(userName, password)
     newRecipient.goToPaymentsDashborad()
     newRecipient.gotoRecipientList()
     newRecipient.addRecipient('China{enter}' ,'CNY{enter}')
     newRecipient.addBankDetailsChina('AFFLGB22','55555555','103100000026')
-    newRecipient.individualRecipient('CNY to china')
-    newRecipient.paymentPurpose()
+    newRecipient.BusinessCNY('CNY to china','China{enter}')
+    //newRecipient.paymentPurpose()
     newRecipient.saveRecipient()
     //newRecipient.checkSettelment('be.disabled','be.enabled')
     })
+
+    it(' Verify that if Currency= USD and Country = TURKEY &  Client = UK and check priority and regular both settlement are enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        newRecipient.addRecipient('TURKEY{enter}' ,'USD{enter}')
+        newRecipient.addBankDetails('TR690006245145456117494371','CAYTTRIS002')
+        newRecipient.individualRecipient('QA Tester USD TURKEY','TURKEY{enter}')
+        newRecipient.saveRecipient()
+        //newRecipient.checkAmountLimit('5000001','Maximum limit for TRY is 5,000,000.00')
+        cy.get('.ant-spin-dot').should('not.exist')
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    }) 
+
+    it('Verify that if Currency= USD and Country = SINGAPORE  & Client = UK and check priority and regular both settlement are enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        newRecipient.addRecipient('SINGAPORE{enter}' ,'USD{enter}')
+        newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
+        newRecipient.individualRecipient('QA Tester USD SINGAPORE','SINGAPORE{enter}')
+        newRecipient.saveRecipient()
+        //newRecipient.checkAmountLimit('200001','Maximum limit for SGD is 200,000.00')
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    
 
 })

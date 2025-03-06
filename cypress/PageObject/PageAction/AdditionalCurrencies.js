@@ -35,6 +35,14 @@ export class AdditionalCurrencies {
         cy.get(':nth-child(3) > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
+    BusinessCNY(name,country){
+        cy.get('.m-t-20 > .ant-col-xs-24 > :nth-child(1) > .ant-row > .ant-form-item-label > label > .ant-typography').should('be.visible')
+        cy.get(variable1.additionalCurrenciesLocators.businessName).should('be.visible').type(name)
+        cy.get(variable1.additionalCurrenciesLocators.businessDescription).should('be.visible').type('Automation')
+        cy.get(variable1.additionalCurrenciesLocators.address).should('be.visible').type('Automated address')
+        cy.get(variable1.additionalCurrenciesLocators.city).should('be.visible').type('China')
+        cy.get('#beneficiaryCountry').type(country)
+    }
     individualRecipientMexico(Name,country){
         cy.get(variable1.additionalCurrenciesLocators.individual).click()
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).should('be.disabled')

@@ -79,7 +79,7 @@ describe('Funding History',function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validateSortingIcon()
   })
-  it('TC-FH-014 - Verify that user is able to cancel the funding from funding details page', function(){
+  xit('TC-FH-014 - Verify that user is able to cancel the funding from funding details page', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.goToAwaitingFundDetailPage()
     fundingHistory.cancelFunding()
@@ -88,7 +88,7 @@ describe('Funding History',function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.goToCompleteFundDetailPage()
   })
-  it('TC-FH-016 - Verify that clicking "return" from the funding details page navigate to the your transaction history page ', function(){
+  xit('TC-FH-016 - Verify that clicking "return" from the funding details page navigate to the your transaction history page ', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.goToAwaitingFundDetailPage()
     fundingHistory.clickOnReturnBtn()

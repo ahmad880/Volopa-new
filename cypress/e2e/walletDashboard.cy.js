@@ -9,7 +9,7 @@ const walletpage = new WalletDashboard
 const fundWallet = new FundWallet
 
 describe('WalletDashboard',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'qwerty_admin_1'
     let password = 'testTest1'
     beforeEach(() => {
         cy.window().then((win) => {

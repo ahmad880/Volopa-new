@@ -16,7 +16,7 @@ describe('New Payment',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp3.volopa.com/')
+        cy.visit('https://webapp2.volopa.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)

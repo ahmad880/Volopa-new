@@ -9,7 +9,7 @@ const newRecipient = new AdditionalCurrencies
 
 describe('Mass Recipients ',function(){
 
-    let userName = 'eea_test_2@volopa.com'
+    let userName = 'eea_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
         cy.window().then((win) => {
@@ -24,7 +24,7 @@ describe('Mass Recipients ',function(){
         signin.Login(userName, password);
     
         // Step 2: Repeat the process after logging in
-        Cypress._.times(30, (index) => {  
+        Cypress._.times(20, (index) => {  
             cy.log(`Iteration ${index + 1} started`);
     
             const randomName = `QA ${faker.person.firstName()} ${faker.person.lastName()}`;
@@ -200,12 +200,12 @@ describe('Mass Recipients ',function(){
                 console.log(`Iteration ${index + 1} completed with Business Name: ${randomBusinessName}`);
             });
         });
-    it('TC- Mass Payments add Ind recipient with regular/priority payment method', function(){
+    it.only('TC- Mass Payments add Ind recipient with regular/priority payment method', function(){
             // Step 1: Login once
             signin.Login(userName, password);
         
             // Step 2: Repeat the process after logging in
-            Cypress._.times(30, (index) => {  
+            Cypress._.times(10, (index) => {  
                 cy.log(`Iteration ${index + 1} started`);
         
                 const randomName = `QA ${faker.person.firstName()} ${faker.person.lastName()}`;

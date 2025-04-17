@@ -3,38 +3,34 @@ name: Volopa e2e Test
 on:
   # Manual Button Click from Github UI
   workflow_dispatch:
-  # Pushing commit to the master branch
+  # Uncomment this if you want to run it on master push
   # push:
-    # branches: master
-
+  #   branches: [ master ]
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    # Runs tests in parallel with matrix strategy https://docs.cypress.io/guides/guides/parallelization
-    # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
-    # Also see warning here https://github.com/cypress-io/github-action#parallel
     strategy:
-      fail-fast: false # https://github.com/cypress-io/github-action/issues/48
+      fail-fast: false
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: e2e Test on Chrome 
-        # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
+
+      - name: Run Cypress e2e Tests on Chrome
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headed: true
           spec: |
-            cypress/e2e/additionalCurrencies.cy.js
-             
-          # Records to Cypress Cloud
-          # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
-          # record: true
-          # parallel: true # Runs test in parallel using settings above
-      - name: Uploading artifact
-        uses: actions/upload-artifact@v4
+            cypress/e2e/walletDashboard.cy.js # Correct forward slashes for file path
+            cypress/e2e/fundWallet.cy.js
+            cypress/e2e/convertBalances.cy.js
+            cypress/e2e/fundingHistory.cy.js
+
+      - name: Upload HTML Report Artifact
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-execution-report
           path: cypress/reports/html

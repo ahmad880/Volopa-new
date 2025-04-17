@@ -6,7 +6,7 @@ import { FundWallet } from "../PageObject/PageAction/FundWallet"
 const signin = new SigninPage
 const fundWallet = new FundWallet
 
-describe('FundWallet TS_003 ',function(){
+describe('FundWallet ',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
@@ -14,7 +14,7 @@ describe('FundWallet TS_003 ',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp7.volopa.com/')
+        cy.visit('https://webapp07.volopa-dev.com')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })

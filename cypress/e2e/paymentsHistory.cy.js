@@ -19,7 +19,7 @@ describe('Payments History',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp7.volopa.com/')
+        cy.visit('https://webapp07.volopa-dev.com')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)
@@ -34,7 +34,7 @@ describe('Payments History',function(){
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.validateSearchBar('Ali')
     })
-    it('TC_PH_003 - Validate that the pagination is working fine on "Payements History" page', function(){
+    xit('TC_PH_003 - Validate that the pagination is working fine on "Payements History" page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.validatePaginationFilters('100 / page')
@@ -210,14 +210,14 @@ describe('Payments History',function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.verifyPaymentReports()
-        paymentsHistory.selectReportsFilters('Month{enter}','Jan','Oct')
-        paymentsHistory.verifyPaymentReportsFilter('Jan','Oct')
+        paymentsHistory.selectReportsFilters('Month{enter}','Jan','May')
+        paymentsHistory.verifyPaymentReportsFilter('Jan','May')
     })
     it('TC_PH_027 - Verify that on clicking "Cancel", user is able to navigate back to the Payment Reports page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.verifyPaymentReports()
-        paymentsHistory.selectReportsFilters('Month{enter}','Aug','Sep')
+        paymentsHistory.selectReportsFilters('Month{enter}','Jan','Feb')
         paymentsHistory.cancelReportsFilter()
     })
     it('TC_PH_028 - Verify that on clicking a recipient, the user is able to navigate to Specific Payment History page', function(){

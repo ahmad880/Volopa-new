@@ -18,7 +18,7 @@ describe('Recipient List',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp7.volopa.com/')
+        cy.visit('https://webapp07.volopa-dev.com')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)
@@ -144,7 +144,7 @@ describe('Recipient List',function(){
         paymentspage.goToPaymentsDashborad()
         recipientListpage.goToRecipientListPage()
         //run the loop to that index (how many recipients you want to delete)
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 1; i++) {
             recipientListpage.deleteRecipient();
             cy.wait(1000); 
         }

@@ -18,7 +18,7 @@ describe('Additional Currencies ',function(){
     // Currency is SGD
     it('TC-AC-001 - Verify that if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
-        newRecipient.goToPaymentsDashborad()
+        newRecipient.goToPaymentsDashborad() 
         newRecipient.gotoRecipientList()
         newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SGD{enter}')
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')

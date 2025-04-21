@@ -63,20 +63,20 @@ describe('Payments History',function(){
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
     })
-    it('TC_PH_008 - Verify that on clicking "Review" button, user navigates to Payments Summary page', function(){
+    it.only('TC_PH_008 - Verify that on clicking "Review" button for pending approval payment, user navigates to Payments Summary page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
         paymentsHistory.goToReviewPayments()
     })
-    it('TC_PH_009 - Verify that on clicking "Return to Draft Payments" button, user navigates to Draft Payments page', function(){
+    it.only('TC_PH_009 - Verify that on clicking "Return to Draft Payments" button for pending approval payment, user navigates to Draft Payments page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
         paymentsHistory.goToReviewPayments()
         paymentsHistory.goToDraftPaymentsDashboard()
     })
-    it('TC_PH_010 - Verify that on clicking "Delete Draft" button, user is able to delete it and navigates to Draft Payments page', function(){
+    it.only('TC_PH_010 - Verify that on clicking "Delete Draft" button for pending approval payment, user is able to delete it and navigates to Draft Payments page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
@@ -206,7 +206,7 @@ describe('Payments History',function(){
         paymentsHistory.verifyDownloadReport(path)
        
     })
-    it('TC_PH_026 - Verify that user is able to select filters for "Payment Reports" present in Payment Reports page', function(){
+    it.only('TC_PH_026 - Verify that user is able to select filters for "Payment Reports" present in Payment Reports page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.verifyPaymentReports()

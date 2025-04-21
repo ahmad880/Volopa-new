@@ -23,8 +23,7 @@ jobs:
           browser: chrome
           headed: true
           spec: |
-            cypress/e2e/paymentsHistory.cy.js
-            cypress/e2e/additionalCurrencies.cy.js
+            cypress/e2e/newPayment.cy.js
 
       - name: Upload HTML Report Artifact
         if: always()

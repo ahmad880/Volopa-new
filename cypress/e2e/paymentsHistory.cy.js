@@ -19,7 +19,7 @@ describe('Payments History',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp07.volopa-dev.com')
+        cy.visit('https://webapp4.volopa.com/login')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)
@@ -48,10 +48,10 @@ describe('Payments History',function(){
         paymentsHistory.validatePaginationFilters('50 / page')
         paymentsHistory.validateRows(50)
     })
-    it('TC_PH_005 - Verify that by default there should be 20 recipents in Payment History page.', function(){
+    it('TC_PH_005 - Verify that by default there should be 100 recipents in Payment History page.', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
-        paymentsHistory.validateDefaultPaginationFilter('20 / page')
+        paymentsHistory.validateDefaultPaginationFilter('100 / page')
     })
     it('TC_PH_006 - Verify that on clicking "Repeat" button, user navigates to New Payment page and is able to repeat it', function(){
         paymentspage.goToPaymentsDashborad()

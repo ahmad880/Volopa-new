@@ -17,7 +17,7 @@
         "recentPayments":":nth-child(2) > .ant-row-space-between > :nth-child(1)",
         "recentPaymentsSection":".m-t-40 > :nth-child(2)",
         "paymentHistoryHeading":":nth-child(1) > .ant-col > .ant-typography",
-        "repeatBtn":"tbody tr:nth-child(2) td:nth-child(5) button:nth-child(1)"
+        "repeatBtn":"[data-row-key='0'] > [style='text-align: right;'] > .ant-btn > .ant-space > :nth-child(2)"
 
     }
 }

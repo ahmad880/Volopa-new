@@ -35,8 +35,8 @@ export class FundWallet {
           cy.get(variable.fundWalletLocators.popupheading).should('contain','Fund via Easy Transfer (Open Banking)')
           cy.get(variable.fundWalletLocators.popupconfirmxpath).click()
           cy.wait(10000)
-          cy.get('[data-test="select-bank-text"]').should('contain.text','Choose your bank')
-          cy.get('[data-test="search-input"]').type('Modelo')
+          cy.get('[data-testid="select-bank-text"]').should('contain.text','Choose your bank')
+          cy.get('[data-testid="search-input"]').type('Modelo')
           cy.get('.institution-card-hover').click() //removed the assertion for text
         
           // cy.get('[data-test="continue-button-amount-to-pay"]').invoke('text').then((ele)=>{
@@ -46,17 +46,26 @@ export class FundWallet {
           //   cy.wrap(amount1).as('Amount')
           // })
           // cy.wait(2000)
-          cy.get('[data-test="footer-continue-button"]').click()
-          cy.get('[data-test="header-title"]').should('contain','Approve your payment')
-          cy.get('strong').click()     
-          cy.get('.ozone-heading-1').should('have.text','Model Bank')
-          cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
-          cy.get(':nth-child(1) > .ozone-input').type('mits')
-          cy.get('#passwordField').type('mits')
-            cy.get('#loginButton').click({force:true})
-            cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
-            cy.get("#radio-10000109010102").click()
-            cy.get('#confirmButton').click({force:true})
+          cy.get('[data-testid="footer-continue-button"]').click()
+          cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
+          cy.get('a[href^="https://auth1.obie.uk.ozoneapi.io/auth"]')
+          .should('have.attr', 'href')
+          .then(href => {
+            cy.origin('https://auth1.obie.uk.ozoneapi.io', { args: { href } }, ({ href }) => {
+              cy.visit(href); // Visit inside cy.origin
+              cy.get('.ozone-heading-1').should('have.text', 'Model Bank');
+              cy.wait(9000);
+              cy.get('.ozone-heading-3')
+                .should('have.text', 'Please enter your login details to proceed');
+              cy.get(':nth-child(1) > .ozone-input').type('mits');
+              cy.get('#passwordField').type('mits');
+              cy.get('#loginButton').click();
+              cy.get('.ozone-pis-heading-1')
+                .should('have.text', 'Single Domestic Payment Consents (PIS)');
+              cy.get("#radio-10000109010102").click();
+              cy.get('#confirmButton').click({ force: true });
+            });
+          });
             cy.get('.ant-spin-dot').should('not.exist')
             cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
             //Commented below code because there was some issue that needs to be fixed

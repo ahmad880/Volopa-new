@@ -18,7 +18,7 @@ describe('Recipient List',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp07.volopa-dev.com')
+        cy.visit('https://webapp4.volopa.com/login')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)

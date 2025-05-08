@@ -135,7 +135,7 @@ describe('Recipient List',function(){
         cy.wait(2000)
         recipientListpage.validatePaginationFilters('50 / page')
     })
-    it.only('TC_RL_019 - Verify that by default there should be 100 recipents in Recipients List page.', function(){
+    it('TC_RL_019 - Verify that by default there should be 100 recipents in Recipients List page.', function(){
         paymentspage.goToPaymentsDashborad()
         recipientListpage.goToRecipientListPage()
         recipientListpage.validateDefaultPaginationFilter()

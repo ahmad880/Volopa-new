@@ -49,7 +49,7 @@ export class PaymentsHistory {
   }
   validatePaginationFilters(filter){
     cy.get(variable.paymentsHistoryPageLocators.loadingIcon).should('not.exist')
-    cy.get(variable.paymentsHistoryPageLocators.pageFilters).click()
+    cy.get(variable.paymentsHistoryPageLocators.pageFilters).first().click()
     cy.contains(filter).click()
   }
   validateDefaultPaginationFilter(filter){

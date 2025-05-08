@@ -2,7 +2,7 @@
     "paymentsHistoryPageLocators":{
         "paymentsHistoryHeader":".ant-tabs-nav-list > :nth-child(5)",
         "paymentsHistoryHeading":":nth-child(1) > .ant-col > .ant-typography",
-        "SearchBar":"input[placeholder='Search']",
+        "SearchBar":".ant-input",
         "nextPageArrow":"li[title='Next Page'] button[type='button']",
         "rowFirst":"[class='ant-table-row ant-table-row-level-0 row-border medium fs-18px ']",
         "pageFilters":".ant-select-selector",
@@ -21,7 +21,7 @@
         "returnPaymentDashboard":"div[class='ant-modal-root'] div[class='ant-space ant-space-horizontal ant-space-align-center'] div:nth-child(1) button:nth-child(1)",
         "deleteDraftBtn":"button[class='ant-btn ant-btn-primary ant-btn-dangerous']",
         "paymentsHistoryBtn":".ant-row-space-between > :nth-child(2) > .ant-btn",
-        "manualTradeBtn":".ant-row > :nth-child(2) > .ant-btn",
+        "manualTradeBtn":"main[class='ant-layout-content content'] div[class='ant-row'] div:nth-child(1) button:nth-child(1)",
         "manualTradeHeading":":nth-child(1) > .ant-col > .ant-typography",
         "specificManualTradeHeading":":nth-child(1) > .ant-col > .ant-typography",
         "paymentReportsBtn":".ant-row > :nth-child(2) > .ant-btn",

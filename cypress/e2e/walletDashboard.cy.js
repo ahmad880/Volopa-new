@@ -128,18 +128,18 @@ describe('WalletDashboard',function(){
           });
         });
       });
-    it.only('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
+    it('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
-        // cy.wait(5000)
-        // cy.get('.ant-tabs-nav-list > :nth-child(1)').should('be.visible').click()
-        // cy.get('.ant-table-row').should('be.visible')
-        // cy.get('tbody tr td:nth-child(3)[class="ant-table-cell"]').contains('Easy Transfer').if().then(ele=>{
-        //     ele.parents('.ant-table-row').find('[class="ant-btn ant-btn-primary"]').click()
-        //     cy.get('.ant-popover-buttons > .ant-btn-primary').click()
-        //     cy.wait(3000)
-        //     walletpage.fundEasyTransfer()
-        // })
+        cy.wait(5000)
+        cy.get('.ant-tabs-nav-list > :nth-child(1)').should('be.visible').click()
+        cy.get('.ant-table-row').should('be.visible')
+        cy.get('tbody tr td:nth-child(3)[class="ant-table-cell"]').contains('Easy Transfer').if().then(ele=>{
+            ele.parents('.ant-table-row').find('[class="ant-btn ant-btn-primary"]').click()
+            cy.get('.ant-popover-buttons > .ant-btn-primary').click()
+            cy.wait(3000)
+            walletpage.fundEasyTransfer()
+        })
     })
     it('TC_WD_09 -Validate convert balance,fund card,fund wallet navigations from wallet dashboard', function(){
         walletpage.navigationChecking()

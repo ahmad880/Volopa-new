@@ -7,14 +7,14 @@ const signin = new SigninPage
 const convertBalancesPage = new ConvertBalances
 
 describe('Convert Balances',function(){
-    let userName = 'qwerty_admin_1'
+    let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.window().then((win) => {
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp07.volopa-dev.com')
+        cy.visit('https://webapp4.volopa.com/login')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })

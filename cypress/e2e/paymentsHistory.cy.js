@@ -63,22 +63,22 @@ describe('Payments History',function(){
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
     })
-    it.only('TC_PH_008 - Verify that on clicking "Review" button for pending approval payment, user navigates to Payments Summary page', function(){
+    it('TC_PH_008 - Verify that on clicking "Review" button for pending approval payment, user navigates to Payments Summary page', function(){
         paymentspage.goToPaymentsDashborad()
-        paymentsHistory.goToPaymentsHistory()
+        //paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
         paymentsHistory.goToReviewPayments()
     })
-    it.only('TC_PH_009 - Verify that on clicking "Return to Draft Payments" button for pending approval payment, user navigates to Draft Payments page', function(){
+    it('TC_PH_009 - Verify that on clicking "Return to Draft Payments" button for pending approval payment, user navigates to Draft Payments page', function(){
         paymentspage.goToPaymentsDashborad()
-        paymentsHistory.goToPaymentsHistory()
+        //paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
         paymentsHistory.goToReviewPayments()
         paymentsHistory.goToDraftPaymentsDashboard()
     })
-    it.only('TC_PH_010 - Verify that on clicking "Delete Draft" button for pending approval payment, user is able to delete it and navigates to Draft Payments page', function(){
+    it('TC_PH_010 - Verify that on clicking "Delete Draft" button for pending approval payment, user is able to delete it and navigates to Draft Payments page', function(){
         paymentspage.goToPaymentsDashborad()
-        paymentsHistory.goToPaymentsHistory()
+        //paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
         paymentsHistory.goToReviewPayments()
         paymentsHistory.goToDeleteDreft()
@@ -104,11 +104,11 @@ describe('Payments History',function(){
         paymentsHistory.validateRows(10)
         paymentsHistory.validatePaginationFilters('50 / page')
     })
-    it('TC_PH_014 - Verify that by default there should be 10 recipents in Draft Payments page.', function(){
+    it('TC_PH_014 - Verify that by default there should be 100 recipents in Draft Payments page.', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.goToDraftPayments()
-        paymentsHistory.validateDefaultPaginationFilter('10 / page')
+        paymentsHistory.validateDefaultPaginationFilter('100 / page')
     })
     it('TC_PH_015 - Verify that on clicking "Payment History" button present on Draft Payments page, the user is bale to navigate to "Payment History" page', function(){
         paymentspage.goToPaymentsDashborad()
@@ -206,7 +206,7 @@ describe('Payments History',function(){
         paymentsHistory.verifyDownloadReport(path)
        
     })
-    it.only('TC_PH_026 - Verify that user is able to select filters for "Payment Reports" present in Payment Reports page', function(){
+    it('TC_PH_026 - Verify that user is able to select filters for "Payment Reports" present in Payment Reports page', function(){
         paymentspage.goToPaymentsDashborad()
         paymentsHistory.goToPaymentsHistory()
         paymentsHistory.verifyPaymentReports()

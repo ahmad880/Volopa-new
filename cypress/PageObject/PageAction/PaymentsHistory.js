@@ -93,10 +93,12 @@ export class PaymentsHistory {
     cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
   }
   goToDraftPayments(){
+    cy.get(variable.paymentsHistoryPageLocators.draftnavBar).should('contain.text','Draft Payments').click()
     cy.get(variable.paymentsHistoryPageLocators.draftPaymentsBtn).should('be.visible').click()
     cy.get(variable.paymentsHistoryPageLocators.draftPaymentsHeading).should('contain.text','Draft Payments')
   }
   goToReviewPayments(){
+    cy.get('.ant-spin-nested-loading > :nth-child(1) > .ant-spin > .ant-spin-dot').should('not.exist')
     cy.get(variable.paymentsHistoryPageLocators.reviewBtn).eq(1).should('be.visible').click()
     cy.get(variable.paymentsHistoryPageLocators.paymentConfirmation).should('contain.text','Payment Confirmation')
   }
@@ -105,7 +107,7 @@ export class PaymentsHistory {
     cy.get(variable.paymentsHistoryPageLocators.draftPaymentsHeading).should('contain.text','Draft Payments')
   }
   goToDeleteDreft(){
-    cy.get(variable.paymentsHistoryPageLocators.draftPaymentsBtn).should('be.visible')
+    cy.get(variable.paymentsHistoryPageLocators.deleteDraft).should('be.visible')
   }
   goToPaymentsHistoryBtn(){
     cy.get(variable.paymentsHistoryPageLocators.paymentsHistoryBtn).should('be.visible').click()
@@ -136,9 +138,9 @@ export class PaymentsHistory {
     cy.log(monthToRow)
     cy.log(monthToColumn)
     cy.get(variable.paymentsHistoryPageLocators.paymentReportsFilterButton).should('be.visible').should('contain.text','Filter').click()
-    cy.get('#rc_select_4').invoke('removeAttr','unselectable').click()
-    cy.get('#rc_select_4').invoke('removeAttr','readonly').click()
-    cy.get('#rc_select_4').click().type(Month)
+    cy.get('#rc_select_6').invoke('removeAttr','unselectable').click()
+    cy.get('#rc_select_6').invoke('removeAttr','readonly').click()
+    cy.get('#rc_select_6').click().type(Month)
     cy.get(variable.paymentsHistoryPageLocators.FromMonthLabel).should('be.visible')
     cy.get(variable.paymentsHistoryPageLocators.ToMonthLabel).should('be.visible')
     cy.get(':nth-child(1) > .ant-picker > .ant-picker-input > input').click()

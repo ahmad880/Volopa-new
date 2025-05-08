@@ -48,11 +48,11 @@ export class RecipientList {
         cy.get(variable1.recipientListPageLocators.paymentHistoryPageHeading).should('contain.text','Payment History')
     }
     validatePagination(){        
-            cy.get('.ant-select-selector').click()
+        cy.get('.ant-select-selector').first().click();
             cy.contains('100 / page').click().wait(3000)
 
             const isNextButtonEnabled = () => {
-            return cy.get(variable1.recipientListPageLocators.nextPageArrow).then($button => {
+            return cy.get(variable1.recipientListPageLocators.nextPageArrow).first().then($button => {
               return !$button.prop('disabled');
             });
           };
@@ -65,13 +65,13 @@ export class RecipientList {
                 // For example, assert that certain elements exist or have specific content
                 cy.get(variable1.recipientListPageLocators.recipientListRows).eq(0).should('be.visible')
                 // Click the "Next" button
-                cy.get(variable1.recipientListPageLocators.nextPageArrow).should('be.visible').click();
+                cy.get(variable1.recipientListPageLocators.nextPageArrow).first().should('be.visible').click();
         
                 // Recursively call the function to validate the next page
                 validatePages();
               } else {
                 // Assert that the "Next" button is now disabled
-                cy.get(variable1.recipientListPageLocators.nextPageArrow).should('be.disabled');
+                cy.get(variable1.recipientListPageLocators.nextPageArrow).first().should('be.disabled');
       
                 // Assert any element on the last page to confirm arrival (optional)
                // cy.get('.last-page-element').should('exist'); // Replace with actual selector for element on last page
@@ -83,10 +83,10 @@ export class RecipientList {
           validatePages();
     }
     validateDefaultPaginationFilter(){
-        cy.get(variable1.recipientListPageLocators.defaultPagination).should('contain.text','10 / page')
+        cy.get(variable1.recipientListPageLocators.defaultPagination).should('contain.text','100 / page')
     }
     validatePaginationFilters(filter){
-        cy.get(variable1.recipientListPageLocators.pageFilters).click()
+        cy.get(variable1.recipientListPageLocators.pageFilters).first().click()
         cy.contains(filter).click()
     }
     deleteRecipient(){

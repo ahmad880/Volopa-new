@@ -32,19 +32,19 @@
         "pageSelector":".ant-pagination-item-1 > a",
         "nextPageButton":".ant-pagination-next > .ant-pagination-item-link",
 
-        "amountButton":"[aria-label='Amount sortable'] > .ant-table-column-sorters > .ant-table-column-title",
+        "amountButton":"[aria-label='Amount'] > .ant-table-column-sorters",
         "amountColumn":".ant-typography",
         "statusColumn":" > :nth-child(8)",
         "status":":nth-child(2) > .ant-row > .ant-col > .ant-typography",
         "cancelButton":":nth-child(2) > .ant-btn",
         "returnButton":".ant-spin-container > .ant-row-end > .ant-col > .ant-space > [style=''] > .ant-btn",
-        "SubmissionDateButton":"[aria-label='Submission Date sortable'] > .ant-table-column-sorters > .ant-table-column-title",
+        "SubmissionDateButton":"[aria-label='Submission Date'] > .ant-table-column-sorters",
         "dateColumn":".ant-table-row > td:nth-child(2)",
         "adminButton":"th:nth-child(4)",
         "adminColumnSorting":".ant-table-row > td:nth-child(4)",
-        "fundingMethodButton":".ant-table-column-title > .ant-typography",
+        "fundingMethodButton":"[aria-label=''] > .ant-table-column-sorters",
         "fundingMethodColumn":".ant-table-row > td:nth-child(7)",
-        "StatusButton":"[aria-label='Status sortable'] > .ant-table-column-sorters",
+        "StatusButton":"[aria-label='Status'] > .ant-table-column-sorters",
         "statusColumnSorting":".ant-table-row > td:nth-child(8)"
     }
 }

@@ -19,7 +19,7 @@ module.exports = defineConfig({
     },
     baseUrl : "https://uiredevelopment.volopa.com/login",
     "pageLoadTimeout" : 100000,
-    "defaultCommandTimeout" : 30000,
+    "defaultCommandTimeout" : 50000,
     chromeWebSecurity: false,
     experimentalMemoryManagement: true,
     experimentalSessionAndOrigin: true

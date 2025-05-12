@@ -101,7 +101,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
+    it('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

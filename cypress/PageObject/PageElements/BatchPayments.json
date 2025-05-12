@@ -2,7 +2,7 @@
     "batchPaymentsPageLocators":{
         "batchPaymentsHeader":".ant-tabs-nav-list > :nth-child(4)",
         "batchPaymentsHeading":".ant-col > .ant-typography",
-        "multipleRecipient":"[style='padding-left: 8px; padding-right: 8px; flex: 0 0 318px;'] > .ant-card > .ant-card-body",
+        "multipleRecipient":":nth-child(2) > .ant-typography",
         "multipleRecipientHeading":".ant-col > .ant-typography",
         "searchField":".ant-select-selector",
         "searchField1":"[style='margin-left: -8px; margin-right: -8px;'] > .ant-col > .ant-select > .ant-select-selector",

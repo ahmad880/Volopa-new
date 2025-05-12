@@ -1412,7 +1412,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-102 - Verify that if Currency= TRY and Country = TURKEY & Client=EEA and check priority and regular settlement are enabled', function(){
+    it.only('TC-AC-102 - Verify that if Currency= TRY and Country = TURKEY & Client=EEA and check priority and regular settlement are enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

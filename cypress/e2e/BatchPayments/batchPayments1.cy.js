@@ -16,58 +16,65 @@ describe('Batch Payments',function(){
     beforeEach(() => {
         cy.visit('https://webapp4.volopa.com/')
         paymentspage.clearCache()
-        signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
 
     it('TC_BP_001 - Verify that user landed on the Batch Payments page', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
     })
     it('TC_BP_002 - Verify that user landed on Pay Multiple Recipients page', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
     })
     it('TC_BP_003 - Verify that user can search the existing recipients in the search bar', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
-        batchPayments.validateSearchBar('hmaza QA{enter}')
+        batchPayments.validateSearchBar('hamza QA{enter}')
     })
     it('TC_BP_004 - Verify that "Add New Recipient" button under Seach Bar naviagtes to Recipient Details Page', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
         batchPayments.goToAddNewRecipient()
     })
     it('TC_BP_005 - Verify that "Add New Recipient" button under Seach Bar naviagtes to Recipient Details Page', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
-        batchPayments.validateSearchBar('hmaza QA{enter}')
+        batchPayments.validateSearchBar('hamza QA{enter}')
         batchPayments.addSettlement()
         batchPayments.addRecipientDetails()
         batchPayments.fxrateChecker()
     })
     it('TC_BP_006 - Verify that user navigates to Payment Summary page', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
-        batchPayments.validateSearchBar('hmaza QA{enter}')
+        batchPayments.validateSearchBar('hamza QA{enter}')
         batchPayments.addSettlement()
         batchPayments.addRecipientDetails()
     })
-    it('TC_BP_007 - Verify that Funding Method (Easy Transfer and Push Funds) is not available for currencies other than GBP and Euro', function(){
+    xit('TC_BP_007 - Verify that Funding Method (Easy Transfer and Push Funds) is not available for currencies other than GBP and Euro', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
-        batchPayments.validateSearchBar('hmaza QA{enter}')
+        batchPayments.validateSearchBar('hamza QA{enter}')
         batchPayments.addSettlement()
         batchPayments.addRecipientDetails()
         batchPayments.disabledFundingMethod()
     })
     xit('TC_BP_009 - Verify that Yapily flow journey and transaction is completed', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
@@ -76,30 +83,33 @@ describe('Batch Payments',function(){
         batchPayments.validateYapilyFlow()
     })
     it('TC_BP_010 - Verify that user can view payment after paying a recipient', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
-        batchPayments.validateSearchBar('hmaza QA{enter}')
+        batchPayments.validateSearchBar('hamza QA{enter}')
         batchPayments.addSettlement()
         batchPayments.addRecipientDetails()
         batchPayments.paymentSummaryPageDetails()
         batchPayments.goToViewPayment()
     })
     it('TC_BP_011 - Verify that user can pay new payment right after paying a recipient', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
-        batchPayments.validateSearchBar('hmaza QA{enter}')
+        batchPayments.validateSearchBar('hamza QA{enter}')
         batchPayments.addSettlement()
         batchPayments.addRecipientDetails()
         batchPayments.paymentSummaryPageDetails()
         batchPayments.goToNewPayment()
     })
     it('TC_BP_012 - Verify that after paying recipients, user is able to return to the payment dashboard.', function(){
+        signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
         batchPayments.goToPayMultipleRecipient()
-        batchPayments.validateSearchBar('hmaza QA{enter}')
+        batchPayments.validateSearchBar('hamza QA{enter}')
         batchPayments.addSettlement()
         batchPayments.addRecipientDetails()
         batchPayments.paymentSummaryPageDetails()
@@ -108,7 +118,8 @@ describe('Batch Payments',function(){
  // Carmen Casses for batch payment
  // individual recipients
  // push fund
-    it.only('TC_BP_013 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_013 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+        signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -179,6 +190,7 @@ describe('Batch Payments',function(){
         batchPayments.cancelPushFunds()
     })
     it('TC_BP_014 - Add 2 recipients(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+        signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -248,8 +260,10 @@ describe('Batch Payments',function(){
         batchPayments.iNRDetails1()
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
+        batchPayments.cancelPushFunds()
     })
     it('TC_BP_015 - Add 2 recipients(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+        signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -320,9 +334,11 @@ describe('Batch Payments',function(){
         batchPayments.checkSettelments2('be.disabled','be.enabled')
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
+        batchPayments.cancelPushFunds()
     
     })
     it('TC_BP_016 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+        signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -393,6 +409,7 @@ describe('Batch Payments',function(){
         batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_017 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
+        signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'

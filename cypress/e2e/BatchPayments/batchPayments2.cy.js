@@ -1,4 +1,4 @@
-/// <reference types = "Cypress"/>
+/// <reference types = "cypress"/>
 
 import { BatchPayments } from "../../PageObject/PageAction/BatchPayments"
 import { SigninPage } from "../../PageObject/PageAction/SigninPage"
@@ -14,14 +14,14 @@ describe('Batch Payments',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp2.volopa.com/')
+        cy.visit('https://webapp4.volopa.com/')
         paymentspage.clearCache()
-        signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
     // Easy Transfer
     it('TC_BP_018 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED{enter}' ,email)
@@ -91,7 +91,8 @@ describe('Batch Payments',function(){
             batchPayments.validateYapilyFlow()
     })
     it('TC_BP_019 - Add 2 recipients(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('INDIA{downarrow}{enter}' ,'INR{enter}' ,email)
@@ -163,7 +164,8 @@ describe('Batch Payments',function(){
             batchPayments.validateYapilyFlow()
     })
     it('TC_BP_020 - Add 2 recipients(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('CHINA{enter}' ,'CNY{enter}' ,email)
@@ -236,7 +238,8 @@ describe('Batch Payments',function(){
             batchPayments.validateYapilyFlow()
     })
     it('TC_BP_021 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED KINGDOM{enter}' ,'EUR{enter}' ,email)
@@ -307,7 +310,8 @@ describe('Batch Payments',function(){
             batchPayments.validateYapilyFlow()
     })
     it('TC_BP_022 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and easy transfer.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED KINGDOM{enter}' ,'GBP{enter}' ,email)
@@ -383,7 +387,8 @@ describe('Batch Payments',function(){
     //Business recipient
         // Push Fund
     it('TC_BP_023 - Add 2 recipients(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED{enter}' ,email)
@@ -454,7 +459,8 @@ describe('Batch Payments',function(){
             batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_024 - Add 2 recipients(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('INDIA{downarrow}{enter}' ,'INR{enter}' ,email)
@@ -527,7 +533,8 @@ describe('Batch Payments',function(){
             batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_025 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED KINGDOM{enter}' ,'EUR{enter}' ,email)
@@ -599,7 +606,8 @@ describe('Batch Payments',function(){
             batchPayments.validateproceedflow(amount,amount1)
     })
     it('TC_BP_026 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED KINGDOM{enter}' ,'GBP{enter}' ,email)
@@ -674,7 +682,8 @@ describe('Batch Payments',function(){
     })
     //Easy Transfer
     it('TC_BP_027 - Add 2 recipients(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED{enter}' ,email)
@@ -746,7 +755,8 @@ describe('Batch Payments',function(){
             batchPayments.validateYapilyFlow()
     })
     it('TC_BP_028 - Add 2 recipients(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('INDIA{downarrow}{enter}' ,'INR{enter}' ,email)
@@ -820,7 +830,8 @@ describe('Batch Payments',function(){
             batchPayments.validateYapilyFlow()
     })
     it('TC_BP_029 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED KINGDOM{enter}' ,'EUR{enter}' ,email)
@@ -893,7 +904,8 @@ describe('Batch Payments',function(){
             batchPayments.validateYapilyFlow()
     })
     it('TC_BP_030 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and easy transfer', function(){
-            newRecipient.goToPaymentsDashborad()
+        signin.Login(userName, password)    
+        newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED KINGDOM{enter}' ,'GBP{enter}' ,email)

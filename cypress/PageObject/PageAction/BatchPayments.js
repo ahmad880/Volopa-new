@@ -3,10 +3,11 @@ const variable1= require('../PageElements/AdditionalCurrencies.json')
 export class BatchPayments {
     goToBatchPaymentPage(){
         cy.get(variable.batchPaymentsPageLocators.batchPaymentsHeader).click()
-        cy.get(variable.batchPaymentsPageLocators.batchPaymentsHeading).should('contain.text','Batch Payments')
+        cy.get('.ant-card-body > .ant-row > .ant-col > .ant-space').should('be.visible').click()
+        //cy.get(variable.batchPaymentsPageLocators.batchPaymentsHeading).should('contain.text','Pay Multiple Recipients')
     }
     goToPayMultipleRecipient(){
-        cy.get(variable.batchPaymentsPageLocators.multipleRecipient).should('be.visible').click()
+        //cy.get(variable.batchPaymentsPageLocators.multipleRecipient).should('be.visible').click()
         cy.get(variable.batchPaymentsPageLocators.loadingIcon).should('not.exist')
         cy.get(variable.batchPaymentsPageLocators.multipleRecipientHeading).should('contain.text','Pay Multiple Recipients')
     }
@@ -56,12 +57,12 @@ export class BatchPayments {
     validateYapilyFlow(){
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').click() //fund via asy transfer btn
         cy.get('.mb-3').should('contain.text','Choose your bank:') //heading
-        cy.get('[data-test="search-input"]').type('Modelo Sandbox') // search feild
-        cy.get('.hover-effect').click()
+        cy.get('[data-testid="search-input"]').type('Modelo Sandbox') // search feild
+        cy.get('.institution-card-hover').click()
         cy.wait(2000)
-        cy.get('[data-test="footer-continue-button"]').click()
-        cy.get('[data-test="header-title"]').should('contain','Approve your payment')
-        cy.get('strong').click()     
+        cy.get('[data-testid="footer-continue-button"]').click()
+        cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
+        cy.get('[data-testid="auth-continue-to-bank"]').invoke('attr', 'target', '_self').click();   
         cy.get('.ozone-heading-1').should('have.text','Model Bank')
         cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
         cy.get(':nth-child(1) > .ozone-input').type('mits')
@@ -483,12 +484,12 @@ export class BatchPayments {
         cy.get('body').find('.ant-btn.ant-btn-danger').then($button => {
             if ($button.length > 0) {
                 // If the button exists, click on 'Cancel Payment'
-                cy.wrap($button).should('contain.text', 'Cancel Payment').and('be.visible').click();
+                cy.wrap($button).should('contain.text', 'Cancel Batch').and('be.visible').click();
     
                 // Verify the confirmation popover
                 cy.get('.ant-popover-inner-content')
                   .should('be.visible')
-                  .and('contain.text', 'Are you sure you want to cancel this batch payment?');
+                  .and('contain.text', 'Are you sure you want to cancel this Batch?');
                 
                 // Confirm by clicking the primary 'Yes' button
                 cy.get('button[class="ant-btn ant-btn-primary ant-btn-sm"]').should('be.visible').click();

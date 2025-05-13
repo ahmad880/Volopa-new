@@ -989,7 +989,7 @@ describe('New Payment',function(){
         })
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
-        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{

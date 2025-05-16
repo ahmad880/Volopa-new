@@ -18,6 +18,34 @@
         "amount":"#youSend",
         "reasonForPaymentDropDown":":nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector",
         "selectReasonForPayment":"[class='ant-select-item ant-select-item-option']",
-        "paymentReferences":"#paymentReference"
+        "paymentReferences":"#paymentReference",
+        "menuicon":"#Component_8_63",
+        "settingfromMenu":":nth-child(7) > .ant-card > .ant-card-body",
+        "companyAccount":":nth-child(1) > .ant-col > .ant-typography",
+        "notificationSetting":":nth-child(4) > .ant-card > .ant-card-body > .m-t-20",
+        "notificationSettingHeader":".ant-col > .ant-typography",
+        "workflowApproval":"[data-row-key='9'] > :nth-child(1)",
+        "workflowApprovalEdit":"tbody tr:nth-child(6) td:nth-child(3) svg path",
+        "workflowRulesHeading":".ant-card-body > :nth-child(1) > .ant-col > .ant-typography",
+        "currencyEdit":":nth-child(1) > :nth-child(2) > .ant-col > .ant-btn",
+        "approverEdit":".m-t-20 > :nth-child(2) > :nth-child(2) > .ant-col > .ant-btn",
+        "currencyDropdown":".ant-select-selector",
+        "approvalAmount":"#rules_0_check_value",
+        "approverDropdown":"#approvers_0_user_id",
+        "saveapprovalRule":":nth-child(2) > .ant-btn",
+        "successNotification":".ant-notification-notice",
+        "returnpaymentDashbaord":":nth-child(5) > .ant-col > .ant-space > [style=''] > .ant-btn",
+        "Paymentdashboard":".ant-tabs-tab-active",
+        "profileIcon":".ant-avatar",
+        "logout":"div.ant-dropdown.ant-dropdown-placement-bottomRight li:nth-child(4)",
+        "welcomeBack":".ant-typography.fs-18px.medium",
+        "notification":".ant-badge > .ant-btn",
+        "istNotification":".ant-spin-container > :nth-child(1) > :nth-child(1) > .ant-col-24 > .ant-card > .ant-card-body",
+        "draftHeader":"div[id='rc-tabs-0-tab-/payments/drafts']",
+        "deleteCurrency":":nth-child(1) > :nth-child(2) > .m-t-40 > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-btn",
+        "deleteApprover":":nth-child(2) > .ant-row-middle > .m-t-40 > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-btn"
+        
+
+
     }
 }

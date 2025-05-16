@@ -20,8 +20,8 @@ describe('Batch Payments',function(){
     })
     // Easy Transfer
     it('TC_BP_018 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and easy transfer.', function(){
-        signin.Login(userName, password)    
-        newRecipient.goToPaymentsDashborad()
+            signin.Login(userName, password)    
+            newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
             let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
             batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED{enter}' ,email)

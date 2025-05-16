@@ -190,7 +190,74 @@ export class NewPayment {
         });
     }  
     
+    goToSetting(){
+        cy.get(variable1.newPaymentPageLocators.menuicon).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.settingfromMenu).should('be.visible').should('contain.text','Settings').click()
+        cy.get(variable1.newPaymentPageLocators.companyAccount).should('contain.text','Company Account')
+    }
+    goToNotificationSetting(){
+        cy.get(variable1.newPaymentPageLocators.notificationSetting).should('be.visible').should('contain.text','Notification Settings').click()
+        cy.get(variable1.newPaymentPageLocators.notificationSettingHeader).should('be.visible').should('contain.text','Notification Settings')
+    }
+    goToApprovalWorkFlow(){
+        cy.get(variable1.newPaymentPageLocators.workflowApproval).should('be.visible').should('contain.text','Workflow Approvals')
+        cy.get(variable1.newPaymentPageLocators.workflowApprovalEdit).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.workflowRulesHeading).should('contain.text','Workflow Approval Rules')
+    }
+    setCurrencyforApproval(currency,cHeading,amount){
+        cy.get(variable1.newPaymentPageLocators.currencyEdit).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.currencyDropdown).should('be.visible').click()
+        cy.get('.ant-select-selector').eq(0).click().wait(5000).type(currency)
+        cy.get("span[class='ant-select-selection-item'] div[class='ant-space ant-space-horizontal ant-space-align-center']").should('contain.text',cHeading)
+        cy.get(variable1.newPaymentPageLocators.approvalAmount).should('be.visible').type(amount)
+    }
+    setApprover(approver){
+        cy.get(variable1.newPaymentPageLocators.approverEdit).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.approverDropdown).should('be.visible').type(approver)
 
+    }
+    saveApprovalRule(){
+        cy.get(variable1.newPaymentPageLocators.saveapprovalRule).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.successNotification).should('be.visible').should('contain.text','Changes saved successfully')
+    }
+    returnToPaymentDashboard(){
+        cy.get(variable1.newPaymentPageLocators.returnpaymentDashbaord).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.Paymentdashboard).should('be.visible').should('contain.text','Payments Dashboard')
+    }
+    goToDraftPayment(){
+        cy.get(variable1.newPaymentPageLocators.draftHeader).should('be.visible').should('contain.text','Draft Payments').click()
+        cy.get(':nth-child(1) > a > .ant-card > .ant-card-body > :nth-child(2)').should('contain.text','Draft Payments').click()
+    }
+    logout(){
+        cy.get(variable1.newPaymentPageLocators.profileIcon).should('be.visible').click()
+        cy.wait(4000)
+        cy.get(variable1.newPaymentPageLocators.logout).click()
+        cy.get(variable1.newPaymentPageLocators.welcomeBack).should('contain','Welcome Back!')
+    }
+    goToNotification(){
+        cy.get(variable1.newPaymentPageLocators.notification).should('be.visible').click()
+    }
+    approvalNotification(){
+        cy.get(variable1.newPaymentPageLocators.istNotification).should('be.visible').should('contain.text','New payment pending your approval. Click here to review and approve.')
+        cy.get('span').contains('Review').first().click()
+    }
+    approvingSinglePayment(){
+        cy.get('.ant-modal-body').should('be.visible')
+        cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography').should('contain.text','Payment Confirmation')
+        cy.get(':nth-child(3) > .ant-btn').should('be.visible').should('be.enabled').click()
+        cy.get('.ant-modal-body > :nth-child(1)').should('contain.text','Payment Booked - Pending Funds')
+    }
+    validateApprovedPayment(){
+        cy.get(':nth-child(5) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
+        cy.get('[data-row-key="0"] > :nth-child(4)').should('be.visible').should('contain.text','Single')
+    }
+    validateApprovedEasyTransferPayment(){
+        cy.get('[data-row-key="0"] > :nth-child(4)').should('be.visible').should('contain.text','Single')
+    }
+    removeApprovalrule(){
+        cy.get(variable1.newPaymentPageLocators.deleteCurrency).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.deleteApprover).should('be.visible').click()
+    }
     
     
     

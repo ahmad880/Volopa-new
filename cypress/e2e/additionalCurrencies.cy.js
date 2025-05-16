@@ -1398,6 +1398,7 @@ describe('Additional Currencies ',function(){
         newRecipient.addRecipient('TURKEY{enter}' ,'TRY{enter}')
         newRecipient.addBankDetails('TR690006245145456117494371','CAYTTRIS002')
         newRecipient.addBusinessRecipient('TURKEY{enter}')
+        newRecipient.tryIncorpnumber('88878787855')
         newRecipient.saveRecipient()
         //newRecipient.checkAmountLimit('5000001','Maximum limit for TRY is 5,000,000.00')
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
@@ -1412,13 +1413,14 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it.only('TC-AC-102 - Verify that if Currency= TRY and Country = TURKEY & Client=EEA and check priority and regular settlement are enabled', function(){
+    it('TC-AC-102 - Verify that if Currency= TRY and Country = TURKEY & Client=EEA and check priority and regular settlement are enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         newRecipient.addRecipient('TURKEY{enter}' ,'TRY{enter}')
         newRecipient.addBankDetails('TR690006245145456117494371','CAYTTRIS002')
         newRecipient.addBusinessRecipient('TURKEY{enter}')
+        newRecipient.tryIncorpnumber('88878787855')
         newRecipient.saveRecipient()
         //newRecipient.checkAmountLimit('5000001','Maximum limit for TRY is 5,000,000.00')
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')

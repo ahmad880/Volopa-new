@@ -384,7 +384,7 @@ describe('Batch Payments',function(){
         batchPayments.validateproceedflow(amount,amount1)
     })
     //Easy Transfer individual other countries
-    it.only('TC_BP_056 - Add 2 recipients(individual) from the "Add Recipient" page with country = AUSTRALIA and currency = AUD. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
+    it('TC_BP_056 - Add 2 recipients(individual) from the "Add Recipient" page with country = AUSTRALIA and currency = AUD. After adding, make a batch payment to these recipients using GBP and easy transfer', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

@@ -73,6 +73,10 @@ export class AdditionalCurrencies {
         cy.get(':nth-child(7) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
+    tryIncorpnumber(number){
+        cy.get("label[for='incorporationNumber'] span[class='ant-typography muli semi-bold fs-24px dark-green']").should('be.visible').should('contain.text','Business Incorporation Number')
+        cy.get('#incorporationNumber').type(number)
+    }
     addBusinessRecipientforMassTesting(country, businessName){
         cy.get(variable1.additionalCurrenciesLocators.businessRecipient).click();
         cy.get(variable1.additionalCurrenciesLocators.businessName).type(businessName);

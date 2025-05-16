@@ -203,14 +203,69 @@ export class BatchPayments {
     validateproceedflow(amount,amount1){
         cy.get('.row-border > :nth-child(2)').should('be.visible').should('contain.text',amount)
         cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)
-        cy.get(':nth-child(4) > .ant-col-8 > .ant-typography').should('be.visible').should('contain.text',(parseInt(amount1)+parseInt(amount)))
+        const expectedAmount = parseInt(amount1) + parseInt(amount);
+
+        cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount);
+        });
         cy.get(':nth-child(2) > .ant-btn').click()
         cy.get(':nth-child(2) > :nth-child(1) > .ant-card > .ant-card-body').should('be.visible')
         cy.get('.ant-space > :nth-child(2) > .ant-btn').click()
         cy.get('.ant-modal-body').should('be.visible')
-        cy.get('.ant-col-24 > :nth-child(4) > .ant-col-8 > .ant-typography').should('be.visible').should('contain.text',(parseInt(amount1)+parseInt(amount)))
+        const expectedAmount1 = parseInt(amount1) + parseInt(amount);
+
+        cy.get('.ant-col-24 > :nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount1);
+        });
         //cy.get(variable.batchPaymentsPageLocators.paymentSummary).should('contain.text','Payment Summary')
     }
+    validateApprovedproceedflow(amount,amount1){
+        cy.get('.row-border > :nth-child(2)').should('be.visible').should('contain.text',amount)
+        cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)
+        const expectedAmount = parseInt(amount1) + parseInt(amount);
+
+        cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount);
+        });
+        cy.get(':nth-child(2) > .ant-btn').click()
+        cy.get(':nth-child(2) > :nth-child(1) > .ant-card > .ant-card-body').should('be.visible')
+        cy.get('.ant-form > :nth-child(3) > .ant-col > .ant-typography').should('be.visible').should('contain.text','The FX contract for International Payments that are pending approval is not booked. The live FX contract will be displayed to the Approver at the point of approval')
+        cy.get('.ant-space > :nth-child(2) > .ant-btn').should('be.visible').should('contain.text','Submit for Approval').click()
+        cy.get('.ant-modal-body').should('be.visible')
+        cy.get('.ant-modal-body > :nth-child(1)').should('be.visible').should('contain.text','Submitted for Approval')
+        const expectedAmount1 = parseInt(amount1) + parseInt(amount);
+
+        cy.get('.ant-col-24 > :nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount1);
+        });
+        cy.get(':nth-child(5) > .ant-col > .ant-typography').should('be.visible').should('contain.text','Pending Approval')
+
+        cy.get(':nth-child(4) > .ant-col > .ant-space > [style=""] > .ant-btn').should('be.visible').should('be.enabled').click()
+    }
+    approveBatchPayment(){
+        cy.get(':nth-child(3) > .ant-btn').should('be.visible').should('be.enabled').click()
+    }
+    
     addRecipient(Country ,Currencies ,email){
         cy.get(variable1.additionalCurrenciesLocators.addRecipient).should('be.visible').click()
         cy.get(variable1.additionalCurrenciesLocators.selectCountry).should('be.visible').click()

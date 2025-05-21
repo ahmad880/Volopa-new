@@ -17,7 +17,7 @@
 import './commands'
 import 'cypress-if'
 import 'cypress-mochawesome-reporter/register';
-
+import 'cypress-real-events/support';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 

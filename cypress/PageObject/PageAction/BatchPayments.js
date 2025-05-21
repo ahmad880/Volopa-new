@@ -262,6 +262,90 @@ export class BatchPayments {
 
         cy.get(':nth-child(4) > .ant-col > .ant-space > [style=""] > .ant-btn').should('be.visible').should('be.enabled').click()
     }
+
+    validateScheduledproceedflow(amount,amount1, date){
+        cy.get('.row-border > :nth-child(2)').should('be.visible').should('contain.text',amount)
+        cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)
+        const expectedAmount = parseInt(amount1) + parseInt(amount);
+
+        cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount);
+        });
+        function getFutureWorkingDate(n) {
+            const d = new Date();  // today
+            let added = 0;
+          
+            // count n working days
+            while (added < n) {
+              d.setDate(d.getDate() + 1);
+              const dow = d.getDay();       // 0=Sun … 6=Sat
+              if (dow !== 0 && dow !== 6) { // Mon-Fri only
+                added++;
+              }
+            }
+          
+            // sanity: if final date is weekend (can happen when today is weekend)
+            let dow = d.getDay();
+            if (dow === 6) d.setDate(d.getDate() + 2); // Sat → Mon
+            if (dow === 0) d.setDate(d.getDate() + 1); // Sun → Mon
+          
+            // formats
+            const yyyy = d.getFullYear();
+            const mm   = String(d.getMonth() + 1).padStart(2, '0');
+            const dd   = String(d.getDate()).padStart(2, '0');
+          
+            return {
+              dateObj   : d,
+              titleFmt  : `${yyyy}-${mm}-${dd}`,      // for <td title="">
+              displayFmt: `${dd}-${mm}-${yyyy}`,      // DD-MM-YYYY
+              longFmt   : `Scheduled for ${d.toLocaleDateString(
+                            'en-US',
+                            { month:'long', day:'numeric', year:'numeric' }
+                          )}`
+            };
+          }
+
+          const plusDays = date;
+const { titleFmt, displayFmt, longFmt } = getFutureWorkingDate(plusDays);
+
+// 1. open the calendar
+cy.get('.ant-picker-input').click();
+
+// 2. pick the calculated working day
+cy.get(`td[title='${titleFmt}'] div.ant-picker-cell-inner`).click();
+
+// 3. compact DD-MM-YYYY check
+cy.get('.ant-col-9 > .ant-typography')
+  .should('have.text', displayFmt);
+
+        cy.get(':nth-child(2) > .ant-btn').click()
+        cy.get(':nth-child(2) > :nth-child(1) > .ant-card > .ant-card-body').should('be.visible')
+
+        
+        cy.get('.ant-space > :nth-child(2) > .ant-btn').should('be.visible').click()
+        //cy.get('.ant-form > :nth-child(3) > .ant-col > .ant-typography').should('be.visible').should('contain.text','NOTE: Exchange Rate & Amounts are indicative only. Exchange Rates & Amounts are confirmed in time for the scheduled Expected Delivery date.')
+        cy.wait(2500)
+        cy.get('.ant-space > :nth-child(2) > .ant-btn').should('be.visible').should('contain.text','Schedule Payment').click({force: true})
+        cy.get('.ant-modal-body').should('be.visible')
+        cy.get('.ant-modal-body > :nth-child(1)').should('be.visible').should('contain.text','Payment Scheduled')
+        const expectedAmount1 = parseInt(amount1) + parseInt(amount);
+
+        cy.get('.ant-col-24 > :nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount1);
+        });
+
+        cy.get(':nth-child(4) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').should('be.enabled').first().click()
+    }
     approveBatchPayment(){
         cy.get(':nth-child(3) > .ant-btn').should('be.visible').should('be.enabled').click()
     }

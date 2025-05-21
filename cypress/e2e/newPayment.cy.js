@@ -1,5 +1,6 @@
 /// <reference types = "cypress"/>
 
+
 import { SigninPage } from "../PageObject/PageAction/SigninPage"
 import { NewPayment } from "../PageObject/PageAction/NewPayment"
 import { PaymentsDashboard } from "../PageObject/PageAction/PaymentsDashboard"
@@ -16,8 +17,8 @@ describe('New Payment',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp4.volopa.com/login', { timeout: 10000 })
-        paymentspage.clearCache()
+        cy.visit('/', { timeout: 10000 })
+        //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
 
@@ -7172,8 +7173,9 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
             newPayment.cancelEasyTransfer()
     })
+    //Before executing Approval workflow cases, make sure no approval rule is set
     //Approval workflow for single Payment
-    it.only('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
+    it('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7207,7 +7209,7 @@ describe('New Payment',function(){
         newPayment.checkSettelment('be.enabled', 'be.enabled');
         newPayment.proceedflow('{downarrow}{enter}', 'GBP');
     
-        let amount = '300';
+        let amount = '400';
         newPayment.addrecipientDetail(amount, email);
         newPayment.selectFundingMethod('Push Funds');
     
@@ -7326,7 +7328,7 @@ describe('New Payment',function(){
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7480,7 +7482,7 @@ describe('New Payment',function(){
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7634,7 +7636,7 @@ describe('New Payment',function(){
     newPayment.saveApprovalRule();
     });
     //Approval workflow for batch payments
-    it.only('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7796,7 +7798,7 @@ describe('New Payment',function(){
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7958,7 +7960,7 @@ describe('New Payment',function(){
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -8120,7 +8122,487 @@ describe('New Payment',function(){
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
+
+    //Single Schedued payments push funds
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
+        signin.Login(userName, password);
+        // create a Scheduled payment
+        newRecipient.goToPaymentsDashborad();
+        newRecipient.gotoRecipientList();
+        let email = batchPayments.generateRandomString(5) + '@yopmail.com';
+        batchPayments.addRecipient('United States{enter}', 'USD{enter}', email);
+        newRecipient.addBankDetailsWithAccNo('MMMCUS44', '55555555');
+        cy.get('#aba').type('026009593');
+        const lName = batchPayments.generateRandomString(6);
+        batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
+        newRecipient.postCodeState();
+        batchPayments.paymentPurposeGBPEUR();
     
+        cy.get('.ant-select-selector').eq(3).click();
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+            let purposeList = Element.text();
+            cy.log(purposeList);
+            cy.wrap(purposeList).as('purposeList');
+        });
+    
+        newRecipient.saveRecipient();
+        newPayment.checkSettelment('be.enabled', 'be.enabled');
+        newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    
+        let amount = '320';
+        newPayment.addrecipientDetail(amount, email);
+        newPayment.selectFundingMethod('Push Funds');
+    
+        // Validate the selected payment purpose
+        cy.get('@selectedValue').then(selectedValue => {
+            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                .should('be.visible').and('contain.text', selectedValue);
+        });
+    
+        // Validate Purpose on Single payment
+        cy.get('.ant-select-selector').eq(3).click();
+
+        cy.get('.ant-select-dropdown:visible', { timeout: 10000 }).should('be.visible')
+          .find('.ant-select-item-option-content').then(Element => {
+              const list = Element.text();
+              cy.log(list);
+              cy.get('@purposeList').then(purposeList => {
+                  expect(list).to.eq(purposeList);
+                  cy.get('.ant-select-selector').eq(3).click();
+              });
+          });
+    
+        // Validating recipient received amount
+        cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((text) => {
+            const storedText = text;
+            cy.wrap(storedText).as('storedText');
+            cy.log(storedText);
+        });
+        
+        function getFutureWorkingDate(n) {
+            const d = new Date();  // today
+            let added = 0;
+          
+            // count n working days
+            while (added < n) {
+              d.setDate(d.getDate() + 1);
+              const dow = d.getDay();       // 0=Sun … 6=Sat
+              if (dow !== 0 && dow !== 6) { // Mon-Fri only
+                added++;
+              }
+            }
+          
+            // sanity: if final date is weekend (can happen when today is weekend)
+            let dow = d.getDay();
+            if (dow === 6) d.setDate(d.getDate() + 2); // Sat → Mon
+            if (dow === 0) d.setDate(d.getDate() + 1); // Sun → Mon
+          
+            // formats
+            const yyyy = d.getFullYear();
+            const mm   = String(d.getMonth() + 1).padStart(2, '0');
+            const dd   = String(d.getDate()).padStart(2, '0');
+          
+            return {
+              dateObj   : d,
+              titleFmt  : `${yyyy}-${mm}-${dd}`,      // for <td title="">
+              displayFmt: `${dd}-${mm}-${yyyy}`,      // DD-MM-YYYY
+              longFmt   : `Scheduled for ${d.toLocaleDateString(
+                            'en-US',
+                            { month:'long', day:'numeric', year:'numeric' }
+                          )}`
+            };
+          }
+          const plusDays = 2;
+          const { titleFmt, displayFmt, longFmt } = getFutureWorkingDate(plusDays);
+          
+          // 1. open the calendar
+          cy.get('.ant-picker-input').click();
+          
+          // 2. pick the calculated working day
+          cy.get(`td[title='${titleFmt}'] div.ant-picker-cell-inner`).click();
+          
+          // 3. compact DD-MM-YYYY check
+          cy.get("div.ant-row.ant-row-space-between.m-t-20 span.ant-typography.muli.light.fs-18px.dark-green")
+            .should('have.text', displayFmt);
+        
+         
+        cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+        cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text', 'Payment Confirmation');
+    
+        cy.get('@storedText').then(storedText => {
+            cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+                .should('be.visible').and('contain.text', storedText);
+        });
+    
+        cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn')
+            .should('be.visible')
+            .should('contain.text', 'Schedule Payment')
+            .click(); // pay recipient
+    
+        cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+            .should('be.visible')
+            .should('contain.text', 'Payment Scheduled');
+    
+        // Get the selected recipient name and store it as an alias
+        cy.get('[style="margin-left: -12px; margin-right: -12px; row-gap: 12px;"] > :nth-child(2) > :nth-child(1) > :nth-child(2) > .ant-typography')
+            .invoke('text')
+            .then(text => {
+                cy.wrap(text.trim()).as('selectedRecipient');
+            });
+    
+        cy.get('@storedText').then(storedText => {
+            cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+                .should('be.visible').and('contain.text', storedText);
+        });
+    
+        // Return to payment dashboard
+        cy.get(':nth-child(5) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
+        cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text','Draft Payments')
+        
+    
+        // validate the draft payment for submitter
+        cy.get('@selectedRecipient').then(storedText => {
+            cy.get('.ant-table-row > :nth-child(5)')
+                .should('be.visible')
+                .and('contain.text', storedText);
+        });
+    
+        cy.get('@storedText').then(storedText => {
+            cy.get('.ant-table-row > :nth-child(7)')
+                .should('be.visible').and('contain.text', storedText);
+        });
+
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const longFmt1  = `Scheduled for ${new Date(titleFmt).toLocaleDateString('en-US', options)}`;
+        // e.g. "Scheduled for May 21, 2025"
+
+        cy.get('tbody tr:nth-child(2) td:nth-child(4)')
+        .should('be.visible')
+        .and('have.text', longFmt1);
+    
+    }); 
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
+        signin.Login(userName, password);
+        // create a Scheduled payment
+        newRecipient.goToPaymentsDashborad();
+        newRecipient.gotoRecipientList();
+        let email = batchPayments.generateRandomString(5) + '@yopmail.com';
+        batchPayments.addRecipient('United States{enter}', 'USD{enter}', email);
+        newRecipient.addBankDetailsWithAccNo('MMMCUS44', '55555555');
+        cy.get('#aba').type('026009593');
+        const lName = batchPayments.generateRandomString(6);
+        batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
+        newRecipient.postCodeState();
+        batchPayments.paymentPurposeGBPEUR();
+    
+        cy.get('.ant-select-selector').eq(3).click();
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+            let purposeList = Element.text();
+            cy.log(purposeList);
+            cy.wrap(purposeList).as('purposeList');
+        });
+    
+        newRecipient.saveRecipient();
+        newPayment.checkSettelment('be.enabled', 'be.enabled');
+        newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    
+        let amount = '330';
+        newPayment.addrecipientDetail(amount, email);
+        newPayment.selectFundingMethod('Push Funds');
+    
+        // Validate the selected payment purpose
+        cy.get('@selectedValue').then(selectedValue => {
+            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                .should('be.visible').and('contain.text', selectedValue);
+        });
+    
+        // Validate Purpose on Single payment
+        cy.get('.ant-select-selector').eq(3).click();
+
+        cy.get('.ant-select-dropdown:visible', { timeout: 10000 }).should('be.visible')
+          .find('.ant-select-item-option-content').then(Element => {
+              const list = Element.text();
+              cy.log(list);
+              cy.get('@purposeList').then(purposeList => {
+                  expect(list).to.eq(purposeList);
+                  cy.get('.ant-select-selector').eq(3).click();
+              });
+          });
+    
+        // Validating recipient received amount
+        cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((text) => {
+            const storedText = text;
+            cy.wrap(storedText).as('storedText');
+            cy.log(storedText);
+        });
+        
+        function getFutureWorkingDate(n) {
+            const d = new Date();  // today
+            let added = 0;
+          
+            // count n working days
+            while (added < n) {
+              d.setDate(d.getDate() + 1);
+              const dow = d.getDay();       // 0=Sun … 6=Sat
+              if (dow !== 0 && dow !== 6) { // Mon-Fri only
+                added++;
+              }
+            }
+          
+            // sanity: if final date is weekend (can happen when today is weekend)
+            let dow = d.getDay();
+            if (dow === 6) d.setDate(d.getDate() + 2); // Sat → Mon
+            if (dow === 0) d.setDate(d.getDate() + 1); // Sun → Mon
+          
+            // formats
+            const yyyy = d.getFullYear();
+            const mm   = String(d.getMonth() + 1).padStart(2, '0');
+            const dd   = String(d.getDate()).padStart(2, '0');
+          
+            return {
+              dateObj   : d,
+              titleFmt  : `${yyyy}-${mm}-${dd}`,      // for <td title="">
+              displayFmt: `${dd}-${mm}-${yyyy}`,      // DD-MM-YYYY
+              longFmt   : `Scheduled for ${d.toLocaleDateString(
+                            'en-US',
+                            { month:'long', day:'numeric', year:'numeric' }
+                          )}`
+            };
+          }
+          const plusDays = 3;
+          const { titleFmt, displayFmt, longFmt } = getFutureWorkingDate(plusDays);
+          
+          // 1. open the calendar
+          cy.get('.ant-picker-input').click();
+          
+          // 2. pick the calculated working day
+          cy.get(`td[title='${titleFmt}'] div.ant-picker-cell-inner`).click();
+          
+          // 3. compact DD-MM-YYYY check
+          cy.get("div.ant-row.ant-row-space-between.m-t-20 span.ant-typography.muli.light.fs-18px.dark-green")
+            .should('have.text', displayFmt);
+        
+         
+        cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+        cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text', 'Payment Confirmation');
+    
+        cy.get('@storedText').then(storedText => {
+            cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+                .should('be.visible').and('contain.text', storedText);
+        });
+    
+        cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn')
+            .should('be.visible')
+            .should('contain.text', 'Schedule Payment')
+            .click(); // pay recipient
+    
+        cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+            .should('be.visible')
+            .should('contain.text', 'Payment Scheduled');
+    
+        // Get the selected recipient name and store it as an alias
+        cy.get('[style="margin-left: -12px; margin-right: -12px; row-gap: 12px;"] > :nth-child(2) > :nth-child(1) > :nth-child(2) > .ant-typography')
+            .invoke('text')
+            .then(text => {
+                cy.wrap(text.trim()).as('selectedRecipient');
+            });
+    
+        cy.get('@storedText').then(storedText => {
+            cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+                .should('be.visible').and('contain.text', storedText);
+        });
+    
+        // Return to payment dashboard
+        cy.get(':nth-child(5) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
+        cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text','Draft Payments')
+        
+    
+        // validate the draft payment for submitter
+        cy.get('@selectedRecipient').then(storedText => {
+            cy.get('.ant-table-row > :nth-child(5)')
+                .should('be.visible')
+                .and('contain.text', storedText);
+        });
+    
+        cy.get('@storedText').then(storedText => {
+            cy.get('.ant-table-row > :nth-child(7)')
+                .should('be.visible').and('contain.text', storedText);
+        });
+
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const longFmt1  = `Scheduled for ${new Date(titleFmt).toLocaleDateString('en-US', options)}`;
+        // e.g. "Scheduled for May 21, 2025"
+
+        cy.get('tbody tr:nth-child(2) td:nth-child(4)')
+        .should('be.visible')
+        .and('have.text', longFmt1);
+    
+    });
+    //Batch Schedued payments push funds
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
+        signin.Login(userName, password);
+        // create a Scheduled payment
+        newRecipient.goToPaymentsDashborad();
+        newRecipient.gotoRecipientList();
+        let email = batchPayments.generateRandomString(5) + '@yopmail.com';
+        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email);
+        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        const lName = batchPayments.generateRandomString(6);
+        batchPayments.individualRecipient('INDIVIDUAL ET', lName, 'UNITED ARAB EMIRATES{enter}');
+        batchPayments.paymentPurpose();
+        cy.get('.ant-select-selector').eq(3).click();
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+            let purposeList = Element.text();
+            cy.log(purposeList);
+            cy.wrap(purposeList).as('purposeList');
+        });
+        newRecipient.saveRecipient();
+        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+    
+        newRecipient.gotoRecipientList();
+        let email1 = batchPayments.generateRandomString(5) + '@yopmail.com';
+        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email1);
+        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        const lName1 = batchPayments.generateRandomString(6);
+        batchPayments.individualRecipient('INDIVIDUAL AED ET', lName1, 'UNITED ARAB EMIRATES{enter}');
+        batchPayments.paymentPurpose1();
+        cy.get('.ant-select-selector').eq(3).click();
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+            let purposeList1 = Element.text();
+            cy.log(purposeList1);
+            cy.wrap(purposeList1).as('purposeList1');
+        });
+        newRecipient.saveRecipient();
+        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+    
+        cy.reload();
+        batchPayments.goToBatchPaymentPage();
+        batchPayments.goToPayMultipleRecipient();
+        let name = 'INDIVIDUAL ET' + ' ' + lName + '{enter}';
+        batchPayments.validateSearchBar(name);
+        cy.wait(5000);
+        let name1 = 'INDIVIDUAL AED ET' + ' ' + lName1 + '{enter}';
+        batchPayments.validateSearchBar(name1);
+    
+        // Validate Purpose on batch payment
+        cy.get('.ant-select-selector').eq(1).click();
+        cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element => {
+            let list = Element.text();
+            cy.log(list);
+            cy.get('@purposeList').then(purposeList => {
+                expect(list).to.eq(purposeList);
+                cy.get('.ant-select-selector').eq(1).click();
+            });
+        });
+        cy.wait(1000);
+        cy.get('.ant-select-selector').eq(5).click();
+        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
+            let list = Element.text();
+            cy.log(list);
+            cy.get('@purposeList1').then(purposeList1 => {
+                expect(list).to.eq(purposeList1);
+                cy.get('.ant-select-selector').eq(5).click();
+            });
+        });
+    
+        let amount = '510';
+        batchPayments.addrecipientDetail(amount, email);
+        batchPayments.checkSettelments1('be.disabled', 'be.enabled');
+        let amount1 = 520;
+        batchPayments.addrecipientDetail1(amount1, email1);
+        batchPayments.checkSettelments2('be.disabled', 'be.enabled');
+        batchPayments.proceedflow('GBP', 'GBP', 'Push Funds', 'Push Funds');
+        batchPayments.validateScheduledproceedflow(amount, amount1, 2);
+        //validate the draft payment
+
+        cy.get('tbody tr:nth-child(2) td:nth-child(3)').should('be.visible').should('contain.text', 'Batch');
+        cy.get('tbody tr:nth-child(3) td:nth-child(3)').should('be.visible').should('contain.text', 'Batch');
+        cy.get('tbody tr:nth-child(3) td:nth-child(7)').should('be.visible').should('contain.text', amount);
+        cy.get('tbody tr:nth-child(2) td:nth-child(7)').should('be.visible').should('contain.text', amount1);
+    
+    });
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
+        signin.Login(userName, password);
+        // create a Scheduled payment
+        newRecipient.goToPaymentsDashborad();
+        newRecipient.gotoRecipientList();
+        let email = batchPayments.generateRandomString(5) + '@yopmail.com';
+        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email);
+        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        const lName = batchPayments.generateRandomString(6);
+        batchPayments.individualRecipient('INDIVIDUAL ET', lName, 'UNITED ARAB EMIRATES{enter}');
+        batchPayments.paymentPurpose();
+        cy.get('.ant-select-selector').eq(3).click();
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+            let purposeList = Element.text();
+            cy.log(purposeList);
+            cy.wrap(purposeList).as('purposeList');
+        });
+        newRecipient.saveRecipient();
+        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+    
+        newRecipient.gotoRecipientList();
+        let email1 = batchPayments.generateRandomString(5) + '@yopmail.com';
+        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email1);
+        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        const lName1 = batchPayments.generateRandomString(6);
+        batchPayments.individualRecipient('INDIVIDUAL AED ET', lName1, 'UNITED ARAB EMIRATES{enter}');
+        batchPayments.paymentPurpose1();
+        cy.get('.ant-select-selector').eq(3).click();
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+            let purposeList1 = Element.text();
+            cy.log(purposeList1);
+            cy.wrap(purposeList1).as('purposeList1');
+        });
+        newRecipient.saveRecipient();
+        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+    
+        cy.reload();
+        batchPayments.goToBatchPaymentPage();
+        batchPayments.goToPayMultipleRecipient();
+        let name = 'INDIVIDUAL ET' + ' ' + lName + '{enter}';
+        batchPayments.validateSearchBar(name);
+        cy.wait(5000);
+        let name1 = 'INDIVIDUAL AED ET' + ' ' + lName1 + '{enter}';
+        batchPayments.validateSearchBar(name1);
+    
+        // Validate Purpose on batch payment
+        cy.get('.ant-select-selector').eq(1).click();
+        cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element => {
+            let list = Element.text();
+            cy.log(list);
+            cy.get('@purposeList').then(purposeList => {
+                expect(list).to.eq(purposeList);
+                cy.get('.ant-select-selector').eq(1).click();
+            });
+        });
+        cy.wait(1000);
+        cy.get('.ant-select-selector').eq(5).click();
+        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
+            let list = Element.text();
+            cy.log(list);
+            cy.get('@purposeList1').then(purposeList1 => {
+                expect(list).to.eq(purposeList1);
+                cy.get('.ant-select-selector').eq(5).click();
+            });
+        });
+    
+        let amount = '310';
+        batchPayments.addrecipientDetail(amount, email);
+        batchPayments.checkSettelments1('be.disabled', 'be.enabled');
+        let amount1 = 320;
+        batchPayments.addrecipientDetail1(amount1, email1);
+        batchPayments.checkSettelments2('be.disabled', 'be.enabled');
+        batchPayments.proceedflow('GBP', 'GBP', 'Push Funds', 'Push Funds');
+        batchPayments.validateScheduledproceedflow(amount, amount1, 2);
+        //validate the draft payment
+        
+        cy.get('tbody tr:nth-child(2) td:nth-child(3)').should('be.visible').should('contain.text', 'Batch');
+        cy.get('tbody tr:nth-child(3) td:nth-child(3)').should('be.visible').should('contain.text', 'Batch');
+        cy.get('tbody tr:nth-child(3) td:nth-child(7)').should('be.visible').should('contain.text', amount);
+        cy.get('tbody tr:nth-child(2) td:nth-child(7)').should('be.visible').should('contain.text', amount1);
+    
+    });
 
     
  

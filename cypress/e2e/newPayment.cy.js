@@ -8212,7 +8212,7 @@ describe('New Payment',function(){
                           )}`
             };
           }
-          const plusDays = 2;
+          const plusDays = 3;
           const { titleFmt, displayFmt, longFmt } = getFutureWorkingDate(plusDays);
           
           // 1. open the calendar
@@ -8369,7 +8369,7 @@ describe('New Payment',function(){
                           )}`
             };
           }
-          const plusDays = 3;
+          const plusDays = 4;
           const { titleFmt, displayFmt, longFmt } = getFutureWorkingDate(plusDays);
           
           // 1. open the calendar
@@ -8512,7 +8512,7 @@ describe('New Payment',function(){
         batchPayments.addrecipientDetail1(amount1, email1);
         batchPayments.checkSettelments2('be.disabled', 'be.enabled');
         batchPayments.proceedflow('GBP', 'GBP', 'Push Funds', 'Push Funds');
-        batchPayments.validateScheduledproceedflow(amount, amount1, 2);
+        batchPayments.validateScheduledproceedflow(amount, amount1, 3);
         //validate the draft payment
 
         cy.get('tbody tr:nth-child(2) td:nth-child(3)').should('be.visible').should('contain.text', 'Batch');
@@ -8594,7 +8594,7 @@ describe('New Payment',function(){
         batchPayments.addrecipientDetail1(amount1, email1);
         batchPayments.checkSettelments2('be.disabled', 'be.enabled');
         batchPayments.proceedflow('GBP', 'GBP', 'Push Funds', 'Push Funds');
-        batchPayments.validateScheduledproceedflow(amount, amount1, 2);
+        batchPayments.validateScheduledproceedflow(amount, amount1, 4);
         //validate the draft payment
         
         cy.get('tbody tr:nth-child(2) td:nth-child(3)').should('be.visible').should('contain.text', 'Batch');

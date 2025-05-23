@@ -52,5 +52,86 @@ export class massPayments {
         cy.get('button[class="ant-btn ant-btn-primary ant-btn-dangerous"]').should('be.visible').should('be.enabled').click()
         cy.get('.ant-notification-notice').should('be.visible').should('contain.text','File successfully deleted.')
     }
-    
+    reviewFile(){
+        cy.get(':nth-child(4) > .ant-card > .ant-card-body > .ant-row > .ant-col > .ant-btn').should('be.visible').click()
+        cy.get('.ant-typography.dark-green.fs-30px').should('not.exist')
+        cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text','File Summary')
+    }
+    validateValidFile(){
+        cy.get('.ant-spin-container > :nth-child(8)').should('be.visible').should('contain.text','Errored Payments - 0')
+        cy.get(':nth-child(2) > .ant-btn').should('be.visible').should('be.enabled')
+    }
+    goToError(){
+        cy.get('div:nth-child(9)').should('be.visible').should('contain.text','Click here to view which rows these errors occured on')
+        cy.get('.underline').should('be.visible').should('contain.text','Click here').click()
+    }
+    hardcodederrorsforInvalidFile(){
+        //wrong Settlment method
+        cy.get('.ant-table-row > :nth-child(4)').should('be.visible').should('contain.text','regular')
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', "Invalid settlement method 'regular'. Allowed: priority")
+        // missing settlement method
+        cy.get(':nth-child(3) > :nth-child(5)').should('be.visible').should('contain.text', 'Settlement method is required.')
+        //invalid settlment method
+        cy.get(':nth-child(4) > :nth-child(5)').should('be.visible').should('contain.text', "Invalid settlement method 'funky'. Allowed: priority")
+
+        //missing payment reason
+        cy.get(':nth-child(5) > :nth-child(5)').should('be.visible').should('contain.text', 'Payment reason is required and cannot exceed 255 characters.')
+        //missing payment refrence
+        cy.get(':nth-child(6) > :nth-child(5)').should('be.visible').should('contain.text', 'Payment reference is required and cannot exceed 255 characters.')
+        //invalid amount format
+        cy.get(':nth-child(7) > :nth-child(5)').should('be.visible').should('contain.text', 'The payment amount field format is invalid.')
+        //invalid client payee id
+        cy.get(':nth-child(8) > :nth-child(5)').should('be.visible').should('contain.text', 'The client payee ID must be alphanumeric.')
+        //invalid recipient id
+        cy.get(':nth-child(9) > :nth-child(5)').should('be.visible').should('contain.text', 'Invalid recipient ID')
+        // recipient with different currency of same client
+        cy.get(':nth-child(10) > :nth-child(5)').should('be.visible').should('contain.text', "Recipient ID 19113 has currency 'EUR', but the payment file expects 'GBP'.")
+
+    }
+    emptyRecordValidation(){
+        cy.get(':nth-child(4) > .ant-col > .ant-typography').should('be.visible')
+        cy.get('.underline').click()
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'CSV file contains invalid recipient_id or empty record found at row:')
+    }
+    emptyFileValidation(){
+        cy.get(':nth-child(4) > .ant-col > .ant-typography').should('be.visible')
+        cy.get('.underline').click()
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'CSV file is empty or contains no valid data.')
+    }
+    ammededFileHeader(){
+        cy.get(':nth-child(4) > .ant-col > .ant-typography').should('be.visible')
+        cy.get('.underline').click()
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'CSV headers do not match expected format.')
+    }
+    currencyMismatchValidation(){
+        cy.get(':nth-child(4) > .ant-col > .ant-typography').should('be.visible')
+        cy.get('.underline').click()
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'Recipient currency does not match the payment file currency (GBP) at row:')
+    }
+    validateAEAED(){
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', "Invalid purpose of payment code 'AAA' for recipient bank country: AE.")
+        cy.get(':nth-child(3) > :nth-child(5)').should('be.visible').should('contain.text', 'Purpose of payment code is required for recipient bank country: AE.')
+    }
+    validateInrErrors(){
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'Invoice number is required for trade-related purpose of payment code.')
+        cy.get(':nth-child(3) > :nth-child(5)').should('be.visible').should('contain.text', 'Invoice date is required for trade-related purpose of payment code.')
+        cy.get(':nth-child(4) > :nth-child(5)').should('be.visible').should('contain.text', 'Invoice date must be in YYYY-MM-DD format and is required when the currency is INR.')
+        cy.get(':nth-child(5) > :nth-child(5)').should('be.visible').should('contain.text', 'Purpose of payment code is required for currency INR.')
+        cy.get(':nth-child(6) > :nth-child(5)').should('be.visible').should('contain.text', "Invalid purpose of payment code 'wrong' for recipient currency: INR.")
+        cy.get(':nth-child(7) > :nth-child(5)').should('be.visible').should('contain.text', 'Amount exceeds the INR 1,500,000 limit per invoice for trade-related transactions.')
+    }
+    validateCNYerrors(){
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'Purpose of payment code is required for currency CNY.')
+        cy.get(':nth-child(3) > :nth-child(5)').should('be.visible').should('contain.text', "Invalid purpose of payment code 'AAA' for recipient currency: CNY.")
+    }
+    validateSGDerror(){
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'Payment amount exceeds SGD limit of 200,000')
+    }
+    returnFromErrorList(){
+        cy.get('a > .ant-btn').should('be.visible').should('be.enabled').click()
+        //cy.get(':nth-child(4) > .ant-col').should('be.visible').should('contain.text','File Summary')
+    }
+    disableProceedButton(){
+        cy.get('.ant-tooltip-disabled-compatible-wrapper').should('exist')
+    }
 }

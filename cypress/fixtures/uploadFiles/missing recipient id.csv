@@ -1,0 +1,4 @@
+recipient_id,client_payee_id,recipient_type,recipient_name,recipient_bank_country,recipient_account_currency,available_settlement_methods,recipient_email_address,cc_email_address,payment_amount,settlement_method,payment_reason,payments_reference,purpose_of_payment_code,invoice_number,invoice_date,incorporation_number
+,,Business,BUSINESS PF xhcwsx,GB,GBP,priority,qrzyi@yopmail.com,,1,priority,Internal Payment to Company own account,payment refrence 1,pop1,,,
+18794,,Business,BUSINESS PF hhyhrd,GB,GBP,priority,qjgzn@yopmail.com,,2,priority,Internal Payment to Company own account,payment refrence 2,pop2,,,
+18824,,Individual,INDIVIDUAL GBP PF spfdto,GB,GBP,priority,rxsio@yopmail.com,,3,priority,Internal Payment to Company own account,payment refrence 3,pop3,,,

@@ -1,7 +1,6 @@
 recipient_id,client_payee_id,recipient_type,recipient_name,recipient_bank_country,recipient_account_currency,available_settlement_methods,recipient_email_address,cc_email_address,payment_amount,settlement_method,payment_reason,payments_reference,purpose_of_payment_code,invoice_number,invoice_date,incorporation_number
-42410,,Business,CNY to china,CN,CNY,priority,test+3859@qwerty.volopa.online,,15.2,priority,Cross-border capital transfer,refrence 1,CTF,,,
-42989,,Business,CNY to china,CN,CNY,priority,test+3860@qwerty.volopa.online,,20.22,priority,Cross-border capital transfer,refrence 2,CTF,,,
-42996,,Business,CNY to china,CN,CNY,priority,test+3862@qwerty.volopa.online,,50,priority,Cross-border capital transfer,refrence 3,CTF,,,
-43001,,Business,CNY to china,CN,CNY,priority,test+3861@qwerty.volopa.online,,60,priority,Cross-border capital transfer,refrence 4,CTF,,,
-49372,,Business,Test CNY neww,CN,CNY,priority,,,100,priority,Cross-border goods trade,refrence 7,GOD,,,
-56019,,Business,john,GB,CNY,priority,test-zt@example.com,,100,priority,Cross-border goods trade,refrence 8,,,,
+18005,,Business,INDIVIDUAL ET fbaxro,CN,CNY,priority,rcaaf@yopmail.com,,50,priority,Cross-border capital transfer,ref1,,,,
+18006,,Business,INDIVIDUAL CNY ET oxwzzr,CN,CNY,priority,euwia@yopmail.com,,100,priority,Cross-border capital transfer,ref2,AAA,,,
+18822,,Business,INDIVIDUAL PF agosyh,CN,CNY,priority,cqhxv@yopmail.com,,150,priority,Cross-border goods trade,ref3,GOD,,,
+18827,,Business,INDIVIDUAL PF hybzos,CN,CNY,priority,hnrti@yopmail.com,,200,priority,Cross-border goods trade,ref4,GOD,,,
+19006,,Business,INDIVIDUAL PF cfhspi,CN,CNY,priority,bnuea@yopmail.com,,250,priority,Cross-border goods trade,ref5,GOD,,,

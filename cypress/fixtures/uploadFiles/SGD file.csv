@@ -1,0 +1,4 @@
+recipient_id,client_payee_id,recipient_type,recipient_name,recipient_bank_country,recipient_account_currency,available_settlement_methods,recipient_email_address,cc_email_address,payment_amount,settlement_method,payment_reason,payments_reference,purpose_of_payment_code,invoice_number,invoice_date,incorporation_number
+18248,,Individual,INDIVIDUAL Singapore  arupou,SG,SGD,priority or regular,nogzc@yopmail.com,,200001,regular,Internal Payment to Company own account,ref1,,,,
+18258,,Individual,INDIVIDUAL Singapore  tetjto,SG,SGD,priority or regular,rmfvk@yopmail.com,,60,priority,Internal Payment to Company own account,ref2,,,,
+18259,,Individual,INDIVIDUAL Singapore  pkhpye,SG,SGD,priority or regular,ehltx@yopmail.com,,100,priority,Internal Payment to Company own account,ref3,,,,

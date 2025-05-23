@@ -1,0 +1,5 @@
+recipient_id,client_payee_id,recipient_type,recipient_name,recipient_bank_country,recipient_account_currency,available_settlement_methods,recipient_email_address,cc_email_address,payment_amount,settlement_method,payment_reason,payments_reference,purpose_of_payment_code,invoice_number,invoice_date,incorporation_number
+18001,,Individual,INDIVIDUAL PF vudtne,AE,AED,priority,eklcx@yopmail.com,,50,priority,Agency Commission,ref1,ACM,,,
+18002,,Individual,INDIVIDUAL AED PF tgtsbj,AE,AED,priority,jskqk@yopmail.com,,50,priority,Air transport,ref2,AAA,,,
+18797,,Individual,INDIVIDUAL AED PF tfcuxk,AE,AED,priority,eabhh@yopmail.com,,100,priority,Agency Commission,ref3,,,,
+18798,,Individual,INDIVIDUAL AED PF bfjitj,AE,AED,priority,udufk@yopmail.com,,100,priority,Agency Commission,ref4,ACM,,,

@@ -31,12 +31,12 @@ describe('Mass Payment',function(){
         cy.viewport(1440,1000)
     })
 
-it('Verify that user have access to File upload Feature', function(){
+it.only('Verify that user have access to File upload Feature', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
 })
-it('verify that download templates are available and downloadable for all available currencies', () => {
+it.only('verify that download templates are available and downloadable for all available currencies', () => {
 
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
@@ -72,13 +72,13 @@ it('verify that download templates are available and downloadable for all availa
   // Step 6: Delete all downloaded files at the end
   cy.task('deleteDownloads');
 });
-it('Verify that Completing the file upload template guide is navigating to the correct place', function(){
+it.only('Verify that Completing the file upload template guide is navigating to the correct place', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
     massP.guidenavigation()
 })
-it('Verify that the user is able to upload the file', function(){
+it.only('Verify that the user is able to upload the file', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -90,7 +90,7 @@ it('Verify that the user is able to upload the file', function(){
     cy.wait(1000)
     cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
  })
- it('Verify that the user is able to delete the uploaded file', function(){
+ it.only('Verify that the user is able to delete the uploaded file', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -103,20 +103,20 @@ it('Verify that the user is able to upload the file', function(){
      cy.wait(2000)
     massP.deleteUploadedFile()
  })
- it('Verify that the user is able to navigate to Files in progress', function(){
+ it.only('Verify that the user is able to navigate to Files in progress', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
     massP.gotoFilesinProgress() 
  })
- it('Verify that the user is correctly redirected from file in progress modal to file upload page', function(){
+ it.only('Verify that the user is correctly redirected from file in progress modal to file upload page', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
     massP.gotoFilesinProgress()
     massP.navigatingBackFromFip()
  })
- it('Verify that the user is able to delet the Files in progress from modal', function(){
+ it.only('Verify that the user is able to delete the Files in progress from modal', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -128,6 +128,169 @@ it('Verify that the user is able to upload the file', function(){
     cy.wait(3000)
     massP.gotoFilesinProgress()
     massP.deleteFip()
+ })
+ it('Verify that the user is able to upload the valid file(no errors)', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/Valid GBP file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.validateValidFile()
+ })
+ it('Verify that system throws correct validation message on file', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/Invalid File.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.goToError()
+    massP.hardcodederrorsforInvalidFile()
+ })
+ it('Verify that system throws correct error if there is an empty row within the file record and stop processing', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/Empty Record.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    //massP.goToError()
+    massP.emptyRecordValidation()
+    massP.returnFromErrorList()
+    massP.disableProceedButton()
+ })
+ it('Verify that system throws correct if there is an missing recipient id within the file record and stop processing', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/missing recipient id.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    //massP.goToError()
+    massP.emptyRecordValidation()
+    massP.returnFromErrorList()
+    massP.disableProceedButton()
+ })
+ it('Verify that system throws correct error if there is an no record/empty file and stop processing', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/empty file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    //massP.goToError()
+    massP.emptyFileValidation()
+    massP.returnFromErrorList()
+    massP.disableProceedButton()
+ })
+ it('Verify that system throws correct error if files header are ammended/changed and stop processing', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/ammeded header file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    //massP.goToError()
+    massP.ammededFileHeader()
+    massP.returnFromErrorList()
+    massP.disableProceedButton()
+ })
+ it('Verify that system throws correct error if there is currency mismatch and stop processing', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/currency mismatch file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    //massP.goToError()
+    massP.currencyMismatchValidation()
+    massP.returnFromErrorList()
+    massP.disableProceedButton()
+ })
+it('Verify that system throws correct error for missing and invalid purpose code for AE/AED', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/AE Aed File.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.goToError()
+    massP.validateAEAED()
+ })
+ it('Verify that system throws correct error for INR currency', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/INR file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.goToError()
+    massP.validateInrErrors()
+ })
+ it('Verify that system throws correct error for missing and invalid purpose code for CNY', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/CNY file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.goToError()
+    massP.validateCNYerrors()
+ })
+ it('Verify that system throws correct error for exceeding payment for SGD currency', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/SGD file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.goToError()
+    massP.validateSGDerror()
  })
 
 

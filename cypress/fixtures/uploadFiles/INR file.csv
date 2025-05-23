@@ -1,0 +1,11 @@
+recipient_id,client_payee_id,recipient_type,recipient_name,recipient_bank_country,recipient_account_currency,available_settlement_methods,recipient_email_address,cc_email_address,payment_amount,settlement_method,payment_reason,payments_reference,purpose_of_payment_code,invoice_number,invoice_date,incorporation_number
+18003,,Individual,INDIVIDUAL PF kosokr,IN,INR,regular,ofomr@yopmail.com,,10,regular,"Broker, front end, commitment, guarantee and custodian fees",ref1,family,123,12/4/2002,
+18004,,Individual,INDIVIDUAL INR PF rghwgo,IN,INR,regular,rqhoy@yopmail.com,,20,regular,Construction costs/expenses,ref2,family,1112,12/5/2002,
+18007,,Business,BUSINESS ET ckonar,IN,INR,regular,aefxb@yopmail.com,,30,regular,"Broker, front end, commitment, guarantee and custodian fees",ref3,family,2323,12/6/2002,
+18008,,Business,BUSINESS INR ET ubqhwc,IN,INR,regular,uaywa@yopmail.com,,40,regular,Construction costs/expenses,ref4,advisor_fees,,12/7/2002,
+18805,,Individual,INDIVIDUAL AED PF pmrtbc,IN,INR,regular,lehhe@yopmail.com,,50,regular,"Broker, front end, commitment, guarantee and custodian fees",ref5,advisor_fees,1121,,
+18806,,Business,BUSINESS PF ljwvmd,IN,INR,regular,rpufk@yopmail.com,,60,regular,"Broker, front end, commitment, guarantee and custodian fees",ref6,advisor_fees,124545,55-10-2220,
+18807,,Individual,INDIVIDUAL AED PF mlpozj,IN,INR,regular,wfoms@yopmail.com,,70,regular,"Broker, front end, commitment, guarantee and custodian fees",ref7,,4554,12/10/2002,
+18808,,Business,BUSINESS PF ftaafw,IN,INR,regular,uvqlt@yopmail.com,,80,regular,"Broker, front end, commitment, guarantee and custodian fees",ref8,wrong,4554,12/11/2002,
+18821,,Individual,INDIVIDUAL AED PF okvleg,IN,INR,regular,bohzq@yopmail.com,,150000600,regular,"Broker, front end, commitment, guarantee and custodian fees",ref9,advisor_fees,5454,12/12/2002,
+18826,,Individual,INDIVIDUAL AED PF buzhyd,IN,INR,regular,czcrv@yopmail.com,,100,regular,"Broker, front end, commitment, guarantee and custodian fees",ref10,advisor_fees,5454,12/13/2002,

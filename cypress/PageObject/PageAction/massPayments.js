@@ -125,7 +125,10 @@ export class massPayments {
         cy.get(':nth-child(3) > :nth-child(5)').should('be.visible').should('contain.text', "Invalid purpose of payment code 'AAA' for recipient currency: CNY.")
     }
     validateSGDerror(){
-        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'Payment amount exceeds SGD limit of 200,000')
+         cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'Payment amount exceeds SGD limit of 200,000')
+    }
+    validateTRYerror(){
+        cy.get('.ant-table-row > :nth-child(5)').should('be.visible').should('contain.text', 'Payment amount exceeds TRY limit of 5,000,000')
     }
     returnFromErrorList(){
         cy.get('a > .ant-btn').should('be.visible').should('be.enabled').click()
@@ -134,4 +137,30 @@ export class massPayments {
     disableProceedButton(){
         cy.get('.ant-tooltip-disabled-compatible-wrapper').should('exist')
     }
+    proceedFlow(fundingCCY,CCYHeading){
+        
+
+        cy.get(':nth-child(2) > .ant-btn').should('be.visible').should('be.enabled').click()
+        cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text','File Review')
+        cy.get('[style="padding-left: 10px; padding-right: 10px; flex: 0 0 220px;"] > .ant-typography').should('be.visible').should('contain.text','Select Funding Currency')
+        cy.get('.ant-select-selector').should('be.visible').click()
+        cy.get('.ant-select-selector').eq(0).click().wait(5000).type(fundingCCY)
+        cy.get("span[class='ant-select-selection-item'] div[class='ant-space ant-space-horizontal ant-space-align-center']").should('contain.text',CCYHeading)
+        cy.get('.ant-spin-dot.ant-spin-dot-spin').should('not.exist')
+        cy.get('[style=""] > .ant-typography').should('be.visible').should('contain.text','You Send Us')
+        
+    }
+    payRecipients(){
+        cy.get(':nth-child(2) > .ant-btn').should('be.visible').should('be.enabled').click()
+        cy.get('span[class="ant-typography fs-28px dark-green medium"]').should('be.visible').should('contain.text','Payments Booked - Pending Funds')
+        cy.get('div[class="ant-card ant-card-bordered bg-light-grey m-t-10"] div[class="ant-card-body"]').should('be.visible')
+    }
+    selectFundingMethod(){
+
+    }
+    goToPaymentHistory(){
+        cy.get('body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(9) > div:nth-child(1) > a:nth-child(1) > button:nth-child(1)').should('be.enabled').click()
+        cy.get('.ant-spin-dot.ant-spin-dot-spin').should('not.exist')
+    }
+
 }

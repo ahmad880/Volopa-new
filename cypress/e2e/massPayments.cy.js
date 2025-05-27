@@ -31,12 +31,12 @@ describe('Mass Payment',function(){
         cy.viewport(1440,1000)
     })
 
-it.only('Verify that user have access to File upload Feature', function(){
+it('Verify that user have access to File upload Feature', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
 })
-it.only('verify that download templates are available and downloadable for all available currencies', () => {
+it('verify that download templates are available and downloadable for all available currencies', () => {
 
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
@@ -72,13 +72,13 @@ it.only('verify that download templates are available and downloadable for all a
   // Step 6: Delete all downloaded files at the end
   cy.task('deleteDownloads');
 });
-it.only('Verify that Completing the file upload template guide is navigating to the correct place', function(){
+it('Verify that Completing the file upload template guide is navigating to the correct place', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
     massP.guidenavigation()
 })
-it.only('Verify that the user is able to upload the file', function(){
+it('Verify that the user is able to upload the file', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -90,7 +90,7 @@ it.only('Verify that the user is able to upload the file', function(){
     cy.wait(1000)
     cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
  })
- it.only('Verify that the user is able to delete the uploaded file', function(){
+ it('Verify that the user is able to delete the uploaded file', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -103,20 +103,20 @@ it.only('Verify that the user is able to upload the file', function(){
      cy.wait(2000)
     massP.deleteUploadedFile()
  })
- it.only('Verify that the user is able to navigate to Files in progress', function(){
+ it('Verify that the user is able to navigate to Files in progress', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
     massP.gotoFilesinProgress() 
  })
- it.only('Verify that the user is correctly redirected from file in progress modal to file upload page', function(){
+ it('Verify that the user is correctly redirected from file in progress modal to file upload page', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
     massP.gotoFilesinProgress()
     massP.navigatingBackFromFip()
  })
- it.only('Verify that the user is able to delete the Files in progress from modal', function(){
+ it('Verify that the user is able to delete the Files in progress from modal', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -129,7 +129,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.gotoFilesinProgress()
     massP.deleteFip()
  })
- it('Verify that the user is able to upload the valid file(no errors)', function(){
+ it.only('Verify that the user is able to upload the valid file(no errors)', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -142,7 +142,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.reviewFile()
     massP.validateValidFile()
  })
- it('Verify that system throws correct validation message on file', function(){
+ it.only('Verify that system throws correct validation message on file(General errors)', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -156,7 +156,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.goToError()
     massP.hardcodederrorsforInvalidFile()
  })
- it('Verify that system throws correct error if there is an empty row within the file record and stop processing', function(){
+ it.only('Verify that system throws correct error if there is an empty row within the file record and stop processing', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -172,7 +172,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.returnFromErrorList()
     massP.disableProceedButton()
  })
- it('Verify that system throws correct if there is an missing recipient id within the file record and stop processing', function(){
+ it.only('Verify that system throws correct if there is an missing recipient id within the file record and stop processing', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -188,7 +188,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.returnFromErrorList()
     massP.disableProceedButton()
  })
- it('Verify that system throws correct error if there is an no record/empty file and stop processing', function(){
+ it.only('Verify that system throws correct error if there is no record/empty file and stop processing', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -204,7 +204,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.returnFromErrorList()
     massP.disableProceedButton()
  })
- it('Verify that system throws correct error if files header are ammended/changed and stop processing', function(){
+ it.only('Verify that system throws correct error if files header are ammended/changed and stop processing', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -220,7 +220,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.returnFromErrorList()
     massP.disableProceedButton()
  })
- it('Verify that system throws correct error if there is currency mismatch and stop processing', function(){
+ it.only('Verify that system throws correct error if there is currency mismatch and stop processing', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -236,7 +236,7 @@ it.only('Verify that the user is able to upload the file', function(){
     massP.returnFromErrorList()
     massP.disableProceedButton()
  })
-it('Verify that system throws correct error for missing and invalid purpose code for AE/AED', function(){
+ it.only('Verify that system throws correct error for missing and invalid purpose code for AE/AED', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -250,7 +250,7 @@ it('Verify that system throws correct error for missing and invalid purpose code
     massP.goToError()
     massP.validateAEAED()
  })
- it('Verify that system throws correct error for INR currency', function(){
+ it.only('Verify that system throws correct error for INR currency', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -264,7 +264,7 @@ it('Verify that system throws correct error for missing and invalid purpose code
     massP.goToError()
     massP.validateInrErrors()
  })
- it('Verify that system throws correct error for missing and invalid purpose code for CNY', function(){
+ it.only('Verify that system throws correct error for missing and invalid purpose code for CNY', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -278,7 +278,7 @@ it('Verify that system throws correct error for missing and invalid purpose code
     massP.goToError()
     massP.validateCNYerrors()
  })
- it('Verify that system throws correct error for exceeding payment for SGD currency', function(){
+ it.only('Verify that system throws correct error for exceeding payment for SGD currency', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
@@ -292,7 +292,86 @@ it('Verify that system throws correct error for missing and invalid purpose code
     massP.goToError()
     massP.validateSGDerror()
  })
-
+ it.only('Verify that system throws correct error for exceeding payment for TRY currency', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/TRY file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.goToError()
+    massP.validateTRYerror()
+ })
+ it('Verify that the user is able to upload and proceed the valid file(no errors)', function(){
+    login.Login(userName,password)
+    paymentD.goToPaymentsDashborad()
+    massP.gotoFileUpload()
+    const fileName = 'uploadFiles/Valid GBP file.csv'
+    const justFileName = fileName.split('/').pop()
+    cy.get('input[type="file"]').attachFile(fileName)
+    cy.wait(1000)
+    cy.get('.ant-upload-list-item-name').should('contain.text',justFileName)
+    cy.wait(3000)
+    massP.reviewFile()
+    massP.validateValidFile()
+    //Invoking the recipient recieve amount
+        cy.get(':nth-child(7) > .ant-col > .ant-typography > .bold')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+        const amount = text.trim();
+        cy.log('Fetched amount from page:', amount);
+        expect(amount).to.not.be.empty;
+        cy.wrap(amount).as('paymentAmount');
+        });
+        // invoking the file currency for later validation
+        cy.get(':nth-child(7) > .ant-col > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+        const currency = text.split('-')[0].trim(); // e.g., "GBP"
+        cy.wrap(currency).as('currencyCode'); // Alias the string
+        });
+    massP.proceedFlow('GBP{enter}','GBP')
+    //validating the recipient receive amount
+        cy.get('@paymentAmount').then((expectedAmount) => {
+        cy.get('.row-border > :nth-child(2)')
+        .should('be.visible')
+        .invoke('text')
+        .then((actualAmount) => {
+        const cleanActual = actualAmount.trim();
+        cy.log('Actual amount from table:', cleanActual);
+        expect(cleanActual).to.eq(expectedAmount);
+        });
+        });
+        //validating the file currency
+        cy.get('@currencyCode').then((currency) => {
+        cy.get('.row-border > :nth-child(1)')
+        .should('contain.text', currency);
+        });
+      massP.payRecipients()
+      //Validate the currency on Final Review last page
+        cy.get('@currencyCode').then((currency) => {
+        cy.get('tr[class="ant-table-row ant-table-row-level-0 row-border medium fs-18px "] td:nth-child(1)')
+        .should('contain.text', currency);
+        });
+        //Validate the amount on Final Review last page
+        cy.get('@paymentAmount').then((expectedAmount) => {
+        cy.get('tr[class="ant-table-row ant-table-row-level-0 row-border medium fs-18px "] td:nth-child(2)')
+        .should('be.visible')
+        .invoke('text')
+        .then((actualAmount) => {
+        const cleanActual = actualAmount.trim();
+        cy.log('Actual amount from table:', cleanActual);
+        expect(cleanActual).to.eq(expectedAmount);
+        });
+        });
+        massP.goToPaymentHistory()
+ })
 
 
 })

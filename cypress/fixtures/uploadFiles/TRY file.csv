@@ -1,0 +1,6 @@
+recipient_id,client_payee_id,recipient_type,recipient_name,recipient_bank_country,recipient_account_currency,available_settlement_methods,recipient_email_address,cc_email_address,payment_amount,settlement_method,payment_reason,payments_reference,purpose_of_payment_code,invoice_number,invoice_date,incorporation_number
+43170,,Individual,tester TRY Automation,GB,TRY,priority,,,20,priority,reason1,ref1,,,,
+43171,,Individual,QA Tester TRY Automation,TR,TRY,priority or regular,,,30,priority,reason2,ref2,,,,
+43269,,Business,Bussines Automation,GB,TRY,priority,,,40,priority,reason3,ref3,,,,
+43270,,Business,Bussines Automation,TR,TRY,priority,,,5000001,priority,reason4,ref4,,,,
+64430,,Individual,tester TRY Automation,GB,TRY,priority,,,60,priority,reason5,ref5,,,,

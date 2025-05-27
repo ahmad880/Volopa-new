@@ -55,7 +55,7 @@ export class AdditionalCurrencies {
     }
     postCodeState(){
         cy.get('#postcode').type('54000')
-        cy.get('#state').type('Monterry')
+        cy.get('#state').type('CALIFORNIA')
     }
     saveRecipient(){
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).click()

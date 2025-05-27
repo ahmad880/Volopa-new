@@ -155,12 +155,13 @@ export class massPayments {
         cy.get('span[class="ant-typography fs-28px dark-green medium"]').should('be.visible').should('contain.text','Payments Booked - Pending Funds')
         cy.get('div[class="ant-card ant-card-bordered bg-light-grey m-t-10"] div[class="ant-card-body"]').should('be.visible')
     }
-    selectFundingMethod(){
-
+    selectCollectionFundingMethod(){
+        cy.get(':nth-child(3) > .ant-btn').should('be.visible').should('contain.text','Collections Account').click()
+        cy.wait(4000)
     }
     goToPaymentHistory(){
         cy.get('body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(9) > div:nth-child(1) > a:nth-child(1) > button:nth-child(1)').should('be.enabled').click()
-        cy.get('.ant-spin-dot.ant-spin-dot-spin').should('not.exist')
+        cy.get('.ant-spin-dot').should('not.exist')
     }
 
 }

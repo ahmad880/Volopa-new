@@ -23,4 +23,4 @@ recipient_id,client_payee_id,recipient_type,recipient_name,recipient_bank_countr
 22170,,Individual,Individual  UK GBP,GB,GBP,priority or regular,,,22,priority,Payment of Invoice(s),payment refrence 22,pop22,,,
 22171,,Individual,Individual  UK GBP new,GB,GBP,priority or regular,,,23,priority,payments invoice,payment refrence 23,pop23,,,
 22173,,Individual,Individual  tester,GB,GBP,priority or regular,testtalharc@gmail.com,,24,priority,Payment of Invoice(s),payment refrence 24,pop24,,,
-22174,,Individual,Individual  tester new new,GB,GBP,priority or regular,,,25,priority,Payment of Invoice(s),payment refrence 25,pop25,,,
+22174,,Individual,Individual  tester new new,GB,GBP,priority or regular,,,50,priority,Payment of Invoice(s),payment refrence 25,pop25,,,

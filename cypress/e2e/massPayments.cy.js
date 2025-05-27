@@ -240,7 +240,7 @@ it('Verify that the user is able to upload the file', function(){
     login.Login(userName,password)
     paymentD.goToPaymentsDashborad()
     massP.gotoFileUpload()
-    const fileName = 'uploadFiles/AE Aed File.csv'
+    const fileName = 'uploadFiles/AED file.csv'
     const justFileName = fileName.split('/').pop()
     cy.get('input[type="file"]').attachFile(fileName)
     cy.wait(1000)

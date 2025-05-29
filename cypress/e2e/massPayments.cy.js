@@ -660,7 +660,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
     }
   });
 });
-it.only('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and Volopa Collection Account(different currency)', function () {
+it('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and Volopa Collection Account(different currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -754,6 +754,125 @@ it.only('Verify that the user is able to upload and proceed the valid file(no er
   });
   massP.selectCollectionFundingMethod()
   massP.goToPaymentHistory();
+
+  // Validate the payment history
+  cy.get('@paymentCount').then((count) => {
+    const today = new Date();
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const formattedDate = today.toLocaleDateString('en-US', options);
+
+    for (let i = 0; i < count; i++) {
+      // Validate date column
+      cy.get(`[data-row-key="${i}"] > :nth-child(2)`)
+        .should('contain.text', formattedDate);
+
+      // Assert 'File' is present in column 4
+      cy.get(`[data-row-key="${i}"] > :nth-child(4)`)
+        .should('contain.text', 'File');
+
+      // Assert amount matches the one captured earlier
+      cy.get('@paymentAmountnew').then((expectedAmount) => {
+        cy.get(`[data-row-key="${i}"] > :nth-child(7)`)
+          .should('contain.text', expectedAmount);
+      });
+    }
+  });
+});
+it.only('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Easy Transfer(same currency)', function () {
+  login.Login(userName, password);
+  paymentD.goToPaymentsDashborad();
+  massP.gotoFileUpload();
+
+  const fileName = 'uploadFiles/Valid GBP file.csv';
+  const justFileName = fileName.split('/').pop();
+
+  cy.get('input[type="file"]').attachFile(fileName);
+  cy.wait(1000);
+  cy.get('.ant-upload-list-item-name').should('contain.text', justFileName);
+  cy.wait(3000);
+
+  massP.reviewFile();
+  massP.validateValidFile();
+
+  // Invoking the recipient receive amount
+  cy.get(':nth-child(7) > .ant-col > .ant-typography > .bold')
+    .should('be.visible')
+    .invoke('text')
+    .then((text) => {
+      const amount = text.trim();
+      cy.log('Fetched amount from page:', amount);
+      expect(amount).to.not.be.empty;
+      cy.wrap(amount).as('paymentAmount');
+    });
+
+  // Invoking the file currency for later validation
+  cy.get(':nth-child(7) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .invoke('text')
+    .then((text) => {
+      const currency = text.split('-')[0].trim(); // e.g., "GBP"
+      cy.wrap(currency).as('currencyCode'); // Alias the string
+    });
+
+  // Invoking the total count of payments
+  cy.get('body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > span:nth-child(1)')
+    .invoke('text')
+    .then((text) => {
+      const count = parseInt(text.split('-')[1].trim()); // Get number after '-'
+      cy.wrap(count).as('paymentCount');
+    });
+
+  massP.proceedFlow('GBP{enter}', 'GBP');
+
+  // Validating the recipient receive amount
+  cy.get('@paymentAmount').then((expectedAmount) => {
+    cy.get('.row-border > :nth-child(2)')
+      .should('be.visible')
+      .invoke('text')
+      .then((actualAmount) => {
+        const cleanActual = actualAmount.trim();
+        cy.log('Actual amount from table:', cleanActual);
+        expect(cleanActual).to.eq(expectedAmount);
+      });
+  });
+
+  // Validating the file currency
+  cy.get('@currencyCode').then((currency) => {
+    cy.get('.row-border > :nth-child(1)')
+      .should('contain.text', currency);
+  });
+
+  // Invoking the "you send us" amount
+  cy.get('.m-t-40 > .ant-col > .ant-card > .ant-card-body > .ant-space > :nth-child(2) > .ant-typography')
+    .invoke('text')
+    .then((amountText) => {
+      const trimmed = amountText.replace(/\s+/g, ''); // e.g., "462.50GBP"
+      cy.wrap(trimmed).as('paymentAmountnew');
+    });
+
+  // Pay the file
+  massP.payRecipients();
+
+  // Validate the currency on Final Review last page
+  cy.get('@currencyCode').then((currency) => {
+    cy.get('tr[class="ant-table-row ant-table-row-level-0 row-border medium fs-18px "] td:nth-child(1)')
+      .should('contain.text', currency);
+  });
+
+  // Validate the amount on Final Review last page
+  cy.get('@paymentAmount').then((expectedAmount) => {
+    cy.get('tr[class="ant-table-row ant-table-row-level-0 row-border medium fs-18px "] td:nth-child(2)')
+      .should('be.visible')
+      .invoke('text')
+      .then((actualAmount) => {
+        const cleanActual = actualAmount.trim();
+        cy.log('Actual amount from table:', cleanActual);
+        expect(cleanActual).to.eq(expectedAmount);
+      });
+  });
+  massP.selectEasyTransferFundingMethod()
+  massP.validateYapilyFlow()
+  //massP.goToPaymentHistory();
 
   // Validate the payment history
   cy.get('@paymentCount').then((count) => {

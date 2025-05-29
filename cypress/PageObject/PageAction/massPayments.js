@@ -159,9 +159,36 @@ export class massPayments {
         cy.get(':nth-child(3) > .ant-btn').should('be.visible').should('contain.text','Collections Account').click()
         cy.wait(4000)
     }
+    selectEasyTransferFundingMethod(){
+        cy.get('[style="margin-left: -2.5px; margin-right: -2.5px; row-gap: 20px;"] > :nth-child(2) > .ant-btn').should('contain.text','Easy Transfer').click()
+        cy.wait(4000)
+    }
     goToPaymentHistory(){
         cy.get('body > div:nth-child(2) > section:nth-child(1) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(9) > div:nth-child(1) > a:nth-child(1) > button:nth-child(1)').should('be.enabled').click()
         cy.get('.ant-spin-dot').should('not.exist')
+    }
+    validateYapilyFlow(){
+        //cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').click() //fund via asy transfer btn
+        cy.get('.header-logo.header-logo--rectangle').should('contain','Choose your bank:')
+        cy.get('[data-testid="search-input"]').type('Modelo Sandbox') // search feild
+        cy.get('.institution-card-hover').click()
+        cy.wait(2000)
+        cy.get('[data-testid="footer-continue-button"]').click()
+        cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
+        cy.get('[data-testid="auth-continue-to-bank"]').invoke('attr', 'target', '_self').click();
+    
+        cy.get('.ozone-heading-1').should('have.text','Model Bank')
+        cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
+        cy.get(':nth-child(1) > .ozone-input').type('mits')
+        cy.get('#passwordField').type('mits')
+        cy.get('#loginButton').click({force:true})
+        cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
+        cy.get("#radio-10000109010102").click()
+        cy.get('#confirmButton').click({force:true})
+        cy.wait(5000)
+        cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
+        cy.get('.ant-spin-dot').should('not.exist')
+        cy.get(':nth-child(2) > .ant-btn').click()      
     }
 
 }

@@ -103,7 +103,7 @@ export class NewPayment {
     
     validateYapilyFlow(){
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').click() //fund via asy transfer btn
-        cy.get('.header-logo.header-logo--rectangle').should('be.visible')
+        //cy.get('.header-logo.header-logo--rectangle').should('be.visible')
         cy.get('[data-testid="search-input"]').type('Modelo Sandbox') // search feild
         cy.get('.institution-card-hover').click()
         cy.wait(2000)

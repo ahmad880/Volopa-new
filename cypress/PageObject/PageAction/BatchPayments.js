@@ -370,7 +370,7 @@ cy.get('.ant-col-9 > .ant-typography')
         cy.get('#beneficiaryCountry').type(country)
     }
     paymentPurposeChina(){
-        cy.get(':nth-child(9) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector > .ant-select-selection-item')
+        cy.get(':nth-child(10) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector > .ant-select-selection-item')
         .click()
         cy.get('[class="ant-select-item ant-select-item-option"]').eq(0).should('be.visible').then(option => {
             const selectedValue = option.text(); // Get the text of the selected option

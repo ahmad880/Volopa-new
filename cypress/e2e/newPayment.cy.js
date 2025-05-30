@@ -2415,6 +2415,8 @@ describe('New Payment',function(){
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Canada ',lName,'Canada{enter}')
         newRecipient.postCodeState()
+        cy.get('#postcode').clear().type('T9X')
+        cy.get('#state').clear().type('Alberta');
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
@@ -2589,6 +2591,8 @@ describe('New Payment',function(){
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Mexico ',lName,'Mexico{enter}')
         newRecipient.postCodeState()
+        cy.get('#postcode').clear().type('24022')
+        cy.get('#state').clear().type('Campeche');
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
@@ -2997,6 +3001,8 @@ describe('New Payment',function(){
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS CAD'+' '+bName,'CANADA{enter}')
         newRecipient.postCodeState()
+        cy.get('#postcode').clear().type('T9X')
+        cy.get('#state').clear().type('Alberta');
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
@@ -3174,6 +3180,8 @@ describe('New Payment',function(){
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS MXN'+' '+bName,'MEXICO{enter}')
         newRecipient.postCodeState()
+        cy.get('#postcode').clear().type('24022')
+        cy.get('#state').clear().type('Campeche');
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
@@ -6198,6 +6206,8 @@ describe('New Payment',function(){
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Canada',lName,'Canada{enter}')
         newRecipient.postCodeState()
+        cy.get('#postcode').clear().type('T9X')
+        cy.get('#state').clear().type('Alberta');
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
@@ -6260,6 +6270,8 @@ describe('New Payment',function(){
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS Canada'+' '+bName,'Canada{enter}')
         newRecipient.postCodeState()
+        cy.get('#postcode').clear().type('T9X')
+        cy.get('#state').clear().type('Alberta');
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{

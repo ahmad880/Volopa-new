@@ -306,7 +306,7 @@ it('Verify that the user is able to upload the file', function(){
     massP.goToError()
     massP.validateTRYerror()
  })
- it('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and push funds(same currency)', function () {
+ it.only('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and push funds(same currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -424,7 +424,7 @@ it('Verify that the user is able to upload the file', function(){
     }
   });
 });
-it('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Volopa Collection Account(same currency)', function () {
+it.only('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Volopa Collection Account(same currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -542,7 +542,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
     }
   });
 });
-it('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and push funds(different currency)', function () {
+it.only('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and push funds(different currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -660,7 +660,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
     }
   });
 });
-it('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and Volopa Collection Account(different currency)', function () {
+it.only('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and Volopa Collection Account(different currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -778,7 +778,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
     }
   });
 });
-it.only('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Easy Transfer(same currency)', function () {
+it('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Easy Transfer(same currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();

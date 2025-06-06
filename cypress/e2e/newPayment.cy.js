@@ -127,7 +127,7 @@ describe('New Payment',function(){
     })
 // special cases 
     // push fund
-    it('TC_NP_011 - Verify that payments to the recipients with ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
+    it.only('TC_NP_011 - Verify that payments to the recipients with ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
         signin.Login('Corpay_test1@volopa.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -299,7 +299,7 @@ describe('New Payment',function(){
                     .should('be.visible').and('contain.text',storedText)
                 })
     })
-    it('TC_NP_014 - Verify that payments to the recipients with ABA code with country US & currency Euro should have only priority Settlement Method enabled. using GBP and push funds.', function(){
+    it.only('TC_NP_014 - Verify that payments to the recipients with ABA code with country US & currency Euro should have only priority Settlement Method enabled. using GBP and push funds.', function(){
         signin.Login(userName, password)
     newRecipient.goToPaymentsDashborad()
     newRecipient.gotoRecipientList()
@@ -396,7 +396,7 @@ describe('New Payment',function(){
             cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click() // pay recipient
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
     })
-    it('TC_NP_017 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_017 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -434,7 +434,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_018 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_018 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -473,7 +473,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_019 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_019 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -511,7 +511,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_020 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_020 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -549,13 +549,15 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_021 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
+    it.only('TC_NP_021 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('United Kingdom{enter}' ,'GBP{enter}' ,email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        cy.get(':nth-child(4) > .ant-form-item > .ant-row > .ant-form-item-label > label > .ant-typography').should('be.visible').should('contain.text','Sort Code')
+        cy.get('#sortCode').type('770440')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL GBP PF',lName,'United Kingdom{enter}')
         batchPayments.paymentPurposeGBPEUR()
@@ -780,7 +782,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
     })
     //Business Recipient Push Fund
-    it('TC_NP_027 - Add 1 recipient(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a new payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_027 - Add 1 recipient(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a new payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -819,7 +821,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_028 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_028 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -859,7 +861,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_029 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_029 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -902,13 +904,15 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_030 - Add 1 recipient(business)  from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
+    it.only('TC_NP_030 - Add 1 recipient(business)  from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('United Kingdom{enter}' ,'GBP{enter}' ,email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        cy.get(':nth-child(4) > .ant-form-item > .ant-row > .ant-form-item-label > label > .ant-typography').should('be.visible').should('contain.text','Sort Code')
+        cy.get('#sortCode').type('770440')
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS PF'+' '+bName,'UNITED KINGDOM{enter}')
@@ -1189,7 +1193,7 @@ describe('New Payment',function(){
             //newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund 
-    it('TC_NP_035 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_035 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1251,7 +1255,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_036 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_036 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1308,7 +1312,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_037 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_037 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1365,7 +1369,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_038 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_038 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1422,7 +1426,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_039 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_039 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1766,7 +1770,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     //Business Recipient Push Fund
-    it('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1824,7 +1828,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_046 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_046 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1882,7 +1886,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_047 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_047 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1940,7 +1944,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_048 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_048 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1998,7 +2002,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_049 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_049 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2347,7 +2351,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund
-    it('TC_NP_55 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_55 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2416,7 +2420,7 @@ describe('New Payment',function(){
         batchPayments.individualRecipient('INDIVIDUAL Canada ',lName,'Canada{enter}')
         newRecipient.postCodeState()
         cy.get('#postcode').clear().type('T9X')
-        cy.get('#state').clear().type('Alberta');
+        cy.get('#state').clear().type('ALBERTA');
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
@@ -2931,7 +2935,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     // Business Push Fund
-    it('TC_NP_65 - Add 1 recipient(Business)  from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_65 - Add 1 recipient(Business)  from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3525,7 +3529,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund 
-    it('TC_NP_075 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_075 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3587,7 +3591,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_076 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_076 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3644,7 +3648,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_077 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_077 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3701,7 +3705,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_078 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_078 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3758,7 +3762,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_079 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_079 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4102,7 +4106,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     // Business Push Fund 
-    it('TC_NP_085 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_085 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4165,7 +4169,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_086 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_086 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4223,7 +4227,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_087 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_087 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4281,7 +4285,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_088 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_088 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4339,7 +4343,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_089 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_089 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4947,7 +4951,7 @@ describe('New Payment',function(){
     })
     //UNITED KINGDOM with USD
     //push fund
-    it('TC_NP_099 - Add 1 recipient(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_099 - Add 1 recipient(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5009,7 +5013,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_100 - Add 1 recipient(Business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_100 - Add 1 recipient(Business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5200,7 +5204,7 @@ describe('New Payment',function(){
     })
     //China with USD
     //push fund
-    it('TC_NP_103 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_103 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5262,7 +5266,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_104 - Add 1 recipient(Business) from the "Add Recipient" page with country = CHINAand currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_104 - Add 1 recipient(Business) from the "Add Recipient" page with country = CHINAand currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5453,7 +5457,7 @@ describe('New Payment',function(){
     })
     //INDIA with USD
     //push fund
-    it('TC_NP_107 - Add 1 recipient(individual) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_107 - Add 1 recipient(individual) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5515,7 +5519,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_108 - Add 1 recipient(Business) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_108 - Add 1 recipient(Business) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5706,7 +5710,7 @@ describe('New Payment',function(){
     })
 
     //UAE with usd and push funds
-    it('TC_NP_111 - Add 1 recipient(individual) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_111 - Add 1 recipient(individual) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5767,7 +5771,7 @@ describe('New Payment',function(){
             cy.wait(2000)
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_112 - Add 1 recipient(business) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_112 - Add 1 recipient(business) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5951,7 +5955,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     //Australia with usd and push funds
-    it('TC_NP_115 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_115 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6011,7 +6015,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_116 - Add 1 recipient(business) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_116 - Add 1 recipient(business) from the "Add Recipient" page with country = Australia and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6449,7 +6453,7 @@ describe('New Payment',function(){
     })
 
     //Singapore with usd and push funds
-    it('TC_NP_123 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_123 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6509,7 +6513,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_124 - Add 1 recipient(business) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_124 - Add 1 recipient(business) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6693,7 +6697,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     //Hong Kong with usd and push funds
-    it('TC_NP_127 - Add 1 recipient(individual) from the "Add Recipient" page with country = Hong Kong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_127 - Add 1 recipient(individual) from the "Add Recipient" page with country = Hong Kong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6753,7 +6757,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_128 - Add 1 recipient(business) from the "Add Recipient" page with country = HongKong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_128 - Add 1 recipient(business) from the "Add Recipient" page with country = HongKong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

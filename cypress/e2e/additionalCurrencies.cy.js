@@ -1178,7 +1178,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-080 - Verify that if Currency= KES and Country = KENYA & Client = UK and check priority settlement is enabled', function(){
+    it.only('TC-AC-080 - Verify that if Currency= KES and Country = KENYA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   # Uncomment this if you want to run it on master push
   # push:
-  #   branches: [ master ]
+  #   branches: [ master]
 
 jobs:
   cypress-run:
@@ -23,7 +23,7 @@ jobs:
           browser: chrome
           headed: true
           spec: |
-            cypress/e2e/additionalCurrencies.cy.js
+            cypress/e2e/newPayment.cy.js
 
       - name: Upload HTML Report Artifact
         if: always()

@@ -20,7 +20,7 @@ describe('Batch Payments',function(){
     })
         //CANADA with USD
     //push fund
-    it.only('TC_BP_115 - Add 2 recipients(individual) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_115 - Add 2 recipients(individual) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -92,7 +92,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it.only('TC_BP_116 - Add 2 recipients(business) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_116 - Add 2 recipients(business) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

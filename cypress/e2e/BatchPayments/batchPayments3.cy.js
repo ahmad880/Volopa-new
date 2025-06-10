@@ -11,17 +11,17 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Batch Payments',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp4.volopa.com/')
+        cy.visit('https://webapp008.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
         // Euro Zone 
     // individual Recipient
     // Push Fund
-    it('TC_BP_031 - Add 2 recipients(individual) from the "Add Recipient" page with country = GERMANY and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_031 - Add 2 recipients(individual) from the "Add Recipient" page with country = GERMANY and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -92,7 +92,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_032 - Add 2 recipients(individual) from the "Add Recipient" page with country = FRANCE and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_032 - Add 2 recipients(individual) from the "Add Recipient" page with country = FRANCE and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -163,7 +163,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_033 - Add 2 recipients(individual) from the "Add Recipient" page with country = SPAIN and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_033 - Add 2 recipients(individual) from the "Add Recipient" page with country = SPAIN and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -234,7 +234,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_034 - Add 2 recipients(individual) from the "Add Recipient" page with country = ITALY and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_034 - Add 2 recipients(individual) from the "Add Recipient" page with country = ITALY and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -305,7 +305,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_035 - Add 2 recipients(individual) from the "Add Recipient" page with country = MALTA and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_035 - Add 2 recipients(individual) from the "Add Recipient" page with country = MALTA and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

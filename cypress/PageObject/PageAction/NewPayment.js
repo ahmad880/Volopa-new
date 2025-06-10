@@ -107,22 +107,31 @@ export class NewPayment {
         cy.get('[data-testid="search-input"]').type('Modelo Sandbox') // search feild
         cy.get('.institution-card-hover').click()
         cy.wait(2000)
+        //cy.get('[data-testid="footer-continue-button"]').click()
+        //cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
         cy.get('[data-testid="footer-continue-button"]').click()
-        cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
-        cy.get('[data-testid="auth-continue-to-bank"]').invoke('attr', 'target', '_self').click();
-    
-        cy.get('.ozone-heading-1').should('have.text','Model Bank')
-        cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
-        cy.get(':nth-child(1) > .ozone-input').type('mits')
-        cy.get('#passwordField').type('mits')
-        cy.get('#loginButton').click({force:true})
-        cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
-        cy.get("#radio-10000109010102").click()
-        cy.get('#confirmButton').click({force:true})
-        cy.wait(5000)
-        cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
-        cy.get('.ant-spin-dot').should('not.exist')
-        cy.get(':nth-child(2) > .ant-btn').click()      
+          cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
+          cy.get('a[href^="https://auth1.obie.uk.ozoneapi.io/auth"]')
+          .should('have.attr', 'href')
+          .then(href => {
+            cy.origin('https://auth1.obie.uk.ozoneapi.io', { args: { href } }, ({ href }) => {
+              cy.visit(href); // Visit inside cy.origin
+              cy.get('.ozone-heading-1').should('have.text', 'Model Bank');
+              cy.wait(9000);
+              cy.get('.ozone-heading-3')
+                .should('have.text', 'Please enter your login details to proceed');
+              cy.get(':nth-child(1) > .ozone-input').type('mits');
+              cy.get('#passwordField').type('mits');
+              cy.get('#loginButton').click();
+              cy.get('.ozone-pis-heading-1')
+                .should('have.text', 'Single Domestic Payment Consents (PIS)');
+              cy.get("#radio-10000109010102").click();
+              cy.get('#confirmButton').click({ force: true });
+            });
+          });
+            cy.get('.ant-spin-dot').should('not.exist')
+            cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
+               
     }
     cancelPushFunds() {
         // Click on view payment

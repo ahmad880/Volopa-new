@@ -20,13 +20,13 @@ describe('Batch Payments',function(){
     })
         //United State with USD
     //push fund
-    it.only('TC_BP_091 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_091 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('UNITED STATES{enter}' ,'USD{enter}' ,email)
-        newRecipient.addBankDetailsWithAccNo('MMMCUS44','55555555')
+        newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         cy.get('#aba').type('026009593')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('UNITED STATES USD PF',lName,'UNITED STATES{enter}')
@@ -95,13 +95,13 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it.only('TC_BP_092 - Add 2 recipients(Business) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_092 - Add 2 recipients(Business) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('UNITED STATES{enter}' ,'USD{enter}' ,email)
-        newRecipient.addBankDetailsWithAccNo('MMMCUS44','55555555')
+        newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         cy.get('#aba').type('026009593')
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)

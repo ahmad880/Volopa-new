@@ -14,7 +14,7 @@ describe('Batch Payments',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp008.volopa-dev.com/')
+        cy.visit('https://webapp08.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })

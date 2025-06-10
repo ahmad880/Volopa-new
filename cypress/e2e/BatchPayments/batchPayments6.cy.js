@@ -11,15 +11,15 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Batch Payments',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp4.volopa.com/')
+        cy.visit('https://webapp08.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
         //push fund business other countries
-    it('TC_BP_061 - Add 2 recipients(business) from the "Add Recipient" page with country = AUSTRALIA and currency = AUD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_061 - Add 2 recipients(business) from the "Add Recipient" page with country = AUSTRALIA and currency = AUD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

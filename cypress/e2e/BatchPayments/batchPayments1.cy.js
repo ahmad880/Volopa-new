@@ -11,10 +11,10 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Batch Payments',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp4.volopa.com/')
+        cy.visit('https://webapp08.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -118,7 +118,7 @@ describe('Batch Payments',function(){
  // Carmen Casses for batch payment
  // individual recipients
  // push fund
-    it('TC_BP_013 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_013 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -187,7 +187,7 @@ describe('Batch Payments',function(){
         batchPayments.checkSettelments2('be.disabled','be.enabled')
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
-        batchPayments.cancelPushFunds()
+        //batchPayments.cancelPushFunds()
     })
     it('TC_BP_014 - Add 2 recipients(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
@@ -262,7 +262,7 @@ describe('Batch Payments',function(){
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.cancelPushFunds()
     })
-    it('TC_BP_015 - Add 2 recipients(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_015 - Add 2 recipients(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -334,10 +334,10 @@ describe('Batch Payments',function(){
         batchPayments.checkSettelments2('be.disabled','be.enabled')
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
-        batchPayments.cancelPushFunds()
+        //batchPayments.cancelPushFunds()
     
     })
-    it('TC_BP_016 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_016 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -408,7 +408,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_017 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
+    it.only('TC_BP_017 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

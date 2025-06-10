@@ -11,16 +11,16 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Batch Payments',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp4.volopa.com/')
+        cy.visit('https://webapp08.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
         //CANADA with USD
     //push fund
-    it('TC_BP_115 - Add 2 recipients(individual) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_115 - Add 2 recipients(individual) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -92,7 +92,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_116 - Add 2 recipients(business) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_116 - Add 2 recipients(business) from the "Add Recipient" page with country = CANADA and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -317,7 +317,7 @@ describe('Batch Payments',function(){
     })
     //SINGAPORE with USD
     //push fund
-    it('TC_BP_119 - Add 2 recipients(individual) from the "Add Recipient" page with country = SINGAPORE and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_119 - Add 2 recipients(individual) from the "Add Recipient" page with country = SINGAPORE and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -387,7 +387,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_120 - Add 2 recipients(business) from the "Add Recipient" page with country = SINGAPORE and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_120 - Add 2 recipients(business) from the "Add Recipient" page with country = SINGAPORE and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

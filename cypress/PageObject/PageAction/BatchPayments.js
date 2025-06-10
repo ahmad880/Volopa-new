@@ -205,7 +205,7 @@ export class BatchPayments {
         cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)
         const expectedAmount = parseInt(amount1) + parseInt(amount);
 
-        cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        cy.get(':nth-child(3) > .ant-col-8 > .ant-typography')
         .should('be.visible')
         .invoke('text')
         .then((text) => {

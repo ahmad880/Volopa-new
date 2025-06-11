@@ -11,10 +11,10 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Batch Payments',function(){
-    let userName = 'Corpay_test1@volopa.com'
+    let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp08.volopa-dev.com/')
+        cy.visit('https://webapp01.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -458,7 +458,7 @@ describe('Batch Payments',function(){
             batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
             batchPayments.validateproceedflow(amount,amount1)
     })
-    it('TC_BP_024 - Add 2 recipients(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it.only('TC_BP_024 - Add 2 recipients(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)    
         newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()

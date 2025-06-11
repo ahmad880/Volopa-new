@@ -72,7 +72,8 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.businessWebsite).type('testing.com')
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
-        cy.get(':nth-child(8) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        //in case of corpay change 7 to 8
+        cy.get(':nth-child(7) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
     tryIncorpnumber(number){

@@ -1,4 +1,4 @@
-/// <reference types = "Cypress"/>
+/// <reference types = "cypress"/>
 
 import { values } from "pdf-lib"
 import { CardDashboard } from "../PageObject/CardDashboard"

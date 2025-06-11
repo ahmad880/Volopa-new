@@ -59,7 +59,7 @@ describe('Additional Currencies ',function(){
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     }) 
     //Currency is MXN
-    it.only('TC-AC-005 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-005 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

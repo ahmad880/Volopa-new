@@ -12,7 +12,7 @@ describe('Additional Currencies ',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('uk_test_1@volopa.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
     // Currency is SGD
@@ -80,7 +80,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-007 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
+    it('TC-AC-007 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -90,7 +90,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-008 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
+    it('TC-AC-008 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1178,7 +1178,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it.only('TC-AC-080 - Verify that if Currency= KES and Country = KENYA & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-080 - Verify that if Currency= KES and Country = KENYA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1426,7 +1426,7 @@ describe('Additional Currencies ',function(){
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })  
     // most important scenarios by carmen
-    xit('TC-AC-103 - Verify that payments to the recipients without ABA code with currency USD & country US should have only priority Settlement Method enabled.', function(){
+    it('TC-AC-103 - Verify that payments to the recipients without ABA code with currency USD & country US should have only priority Settlement Method enabled.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1437,7 +1437,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-104 - Verify that payments to the recipients with ABA code with currency USD & country US should have both priority and regular Settlement Method enabled.', function(){
+    it('TC-AC-104 - Verify that payments to the recipients with ABA code with currency USD & country US should have both priority and regular Settlement Method enabled.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1449,7 +1449,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.enabled','be.enabled')
     })
-    xit('TC-AC-105 - Verify that payments to the recipients with ABA code with country US & currency Euro should have only priority Settlement Method enabled.', function(){
+    it('TC-AC-105 - Verify that payments to the recipients with ABA code with country US & currency Euro should have only priority Settlement Method enabled.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1461,7 +1461,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-106 - Verify that payments to the recipients without ABA code with currency USD & country US should have only priority Settlement Method enabled.', function(){
+    it('TC-AC-106 - Verify that payments to the recipients without ABA code with currency USD & country US should have only priority Settlement Method enabled.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1472,7 +1472,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-107 -Verify that if Currency= GBP and Country = United kingdom should have only priority Settlement Method enabled', function(){
+    it('TC-AC-107 -Verify that if Currency= GBP and Country = United kingdom should have only priority Settlement Method enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1482,7 +1482,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-108 -Verify that if Currency= USD and Country = United kingdom should have only priority Settlement Method enabled', function(){
+    it('TC-AC-108 -Verify that if Currency= USD and Country = United kingdom should have only priority Settlement Method enabled', function(){
     signin.Login(userName, password)
     newRecipient.goToPaymentsDashborad()
     newRecipient.gotoRecipientList()

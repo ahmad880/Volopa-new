@@ -9,10 +9,10 @@ const newRecipient = new AdditionalCurrencies
 
 describe('Additional Currencies ',function(){
 
-    let userName = 'Corpay_test1@volopa.com'
+    let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('uk_test_1@volopa.com/', { timeout: 10000 })
+        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
     // Currency is SGD

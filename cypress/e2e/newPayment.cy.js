@@ -127,7 +127,7 @@ describe('New Payment',function(){
     })
 // special cases 
     // push fund
-    it.only('TC_NP_011 - Verify that payments to the recipients with ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
+    it('TC_NP_011 - Verify that payments to the recipients with ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -7193,14 +7193,14 @@ describe('New Payment',function(){
     // change the approver, login user if need to run on differnt client
     //Approval workflow for single Payment
     xit('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
-        signin.Login('Corpay_test1@volopa.com', password);
+        signin.Login(userName, password);
     
         // steps to add approval rule
         newPayment.goToSetting();
         newPayment.goToNotificationSetting();
         newPayment.goToApprovalWorkFlow();
         newPayment.setCurrencyforApproval('{enter}', 'GBP', '300');
-        newPayment.setApprover('Approver{enter}');
+        newPayment.setApprover('hamza{enter}');
         newPayment.saveApprovalRule();
     
         // create a payment for approval
@@ -7303,7 +7303,7 @@ describe('New Payment',function(){
         newPayment.logout();
     
         // Login as Approver User
-        signin.Login('corpayapprover@volopa.com', password);
+        signin.Login('hamzaQA3@volopa.com', password);
         newPayment.goToNotification();
         newPayment.approvalNotification();
     

@@ -122,6 +122,47 @@ export class FundWallet {
         })
         })
     }
+    fund_collection_account(funding1){
+        cy.get(variable.fundWalletLocators.fundWallet).click()
+        cy.get(variable.fundWalletLocators.fundWalletHeading).should('have.text','Fund Your Company Wallet')
+        cy.get(variable.fundWalletLocators.calculatorheading).should('have.text','Fund Wallet By Amount')
+      
+        //cy.get(variable.fundWalletLocators.currency1).click()
+        cy.get(variable.fundWalletLocators.currency1).type(funding1)
+        cy.get('.ant-input-number-input-wrap').type(2)
+        cy.get('.ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector > .ant-select-selection-item').click()
+        cy.contains('Volopa Collection Account').click()
+        cy.get(variable.fundWalletLocators.description1).type('script testing')
+        cy.get(variable.fundWalletLocators.confirmbutton).should('be.visible').click()
+        cy.wait(5000)
+        cy.get('.ant-card-grid > :nth-child(1) > .ant-col > .ant-typography')
+        .should('have.text','Funding Confirmation')
+        cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(text=>{
+          text.trim()
+          text=text.replace(/USD/g,'')
+          cy.log(text)
+          cy.wrap(text).as('manualamount')
+        })
+       // cy.get('#password').type('testTest1')
+        cy.get("button[type='submit'] span").click({force:true}).wait(2000)
+        cy.get(".ant-typography.ant-typography-success.medium.fs-18px.center-align-text").invoke('text')
+        .then((text) => {
+        expect(text.trim()).to.be.oneOf(['Funding Complete', 'Pending Funds'])
+        })
+        cy.get("div[class='ant-space ant-space-horizontal ant-space-align-center'] div:nth-child(1) button:nth-child(1)").click()
+        cy.wait(3000)
+        cy.get("body > div:nth-child(2) > section:nth-child(1) > header:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4)").click()
+        cy.get('.ant-typography.medium.dark-green.fs-28px').should('have.text','Your Transaction History')
+        cy.get(variable.fundWalletLocators.validationamoungt).click()
+        cy.get('@manualamount').then(manualamount=>{
+          cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele2=>{
+          let val=ele2.trim()
+          cy.wrap(val).should('contain',val)
+          //val=val.replace(/USD/g,'')
+          //cy.wrap(parseFloat(manualamount)).should('eq',parseFloat(val))
+        })
+        })
+    }
     fund_manual_pushGBP(){
       cy.get(variable.fundWalletLocators.fundWallet).click()
       cy.get(variable.fundWalletLocators.fundWalletHeading).should('have.text','Fund Your Company Wallet')

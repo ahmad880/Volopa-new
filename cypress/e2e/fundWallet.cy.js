@@ -7,14 +7,14 @@ const signin = new SigninPage
 const fundWallet = new FundWallet
 
 describe('FundWallet ',function(){
-    let userName = 'qwerty_admin_1'
+    let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.window().then((win) => {
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp4.volopa.com/login')
+        cy.visit('https://webapp01.volopa-dev.com')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -34,27 +34,43 @@ describe('FundWallet ',function(){
         fundWallet.goTOFundWalletPage()
         fundWallet.viewAllCurrencies()
     })
-    it('TC_FW_005 - validate that the user is able to fund the company wallet with "euro" as easy transfer', function(){
+    //Easy transfer
+    it('TC_FW_005 - validate that the user is able to fund the company wallet with "euro" with easy transfer', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet1('EUR{enter}')
     })
-    it('TC_FW_006 - validate that the user is able to fund the company wallet with "GBP" as easy transfer', function(){
+    it('TC_FW_006 - validate that the user is able to fund the company wallet with "GBP" with easy transfer', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
     })
-    it('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" as manual push fund', function(){
+    //push funds
+    it.only('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" with manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_push('EUR{enter}')
     })
-    it('TC_FW_008 - validate that the user is able to fund the company wallet with "GBP" as manual push fund', function(){
+    it.only('TC_FW_008 - validate that the user is able to fund the company wallet with "GBP" with manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_pushGBP()
     })
-    it('TC_FW_009 - validate that the user is able to fund the company wallet with "USD" as manual push fund', function(){
+    it.only('TC_FW_009 - validate that the user is able to fund the company wallet with "USD" with manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_push('USD{enter}')
     })
-    xit('TC_FW_010 - Validate that user cant fund the wallet if input wrong password on confirmation pop-up', function(){
+    // Volopa collection account
+    it.only('TC_FW_010 - validate that the user is able to fund the company wallet with "euro" with Volopa Collection Account', function(){
+        fundWallet.goTOFundWalletPage() 
+        fundWallet.fund_collection_account('EUR{enter}')
+    })
+    it.only('TC_FW_011 - validate that the user is able to fund the company wallet with "USD" with Volopa Collection Account', function(){
+        fundWallet.goTOFundWalletPage() 
+        fundWallet.fund_collection_account('USD{enter}')
+    })
+    it.only('TC_FW_012 - validate that the user is able to fund the company wallet with "USD" with Volopa Collection Account', function(){
+        fundWallet.goTOFundWalletPage() 
+        fundWallet.fund_collection_account('GBP{enter}')
+    })
+
+    xit('TC_FW_013 - Validate that user cant fund the wallet if input wrong password on confirmation pop-up', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_pushWorngPass()
     })

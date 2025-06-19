@@ -25,7 +25,7 @@ jobs:
           spec: |
             cypress/e2e/fundWallet.cy.js
             cypress/e2e/convertBalances.cy.js
-            cypresse2e/walletDashboard.cy.js
+            cypress/e2e/walletDashboard.cy.js
             cypress/e2e/fundingHistory.cy.js
 
       - name: Upload HTML Report Artifact

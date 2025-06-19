@@ -34,7 +34,7 @@ export class ConvertBalances {
          }).then(()=>{
             cy.wait(2000)
         cy.get(variable1.walletDashboardLocators.dashboard).click()
-        cy.wait(3000)
+        cy.reload()
         cy.get(variable1.walletDashboardLocators.istrecent).click()
         cy.get(variable1.walletDashboardLocators.Valuee1).invoke('text').should('contain',c1)
         cy.get(variable1.walletDashboardLocators.Valuee2).invoke('text').should('contain',c2)

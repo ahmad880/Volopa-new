@@ -14,7 +14,7 @@ describe('FundWallet ',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp01.volopa-dev.com')
+        cy.visit('https://webapp08.volopa-dev.com')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -44,28 +44,28 @@ describe('FundWallet ',function(){
         fundWallet.validate_Fund_Wallet('GBP{enter}')
     })
     //push funds
-    it.only('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" with manual push fund', function(){
+    it('TC_FW_007 - validate that the user is able to fund the company wallet with "euro" with manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_push('EUR{enter}')
     })
-    it.only('TC_FW_008 - validate that the user is able to fund the company wallet with "GBP" with manual push fund', function(){
+    it('TC_FW_008 - validate that the user is able to fund the company wallet with "GBP" with manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_pushGBP()
     })
-    it.only('TC_FW_009 - validate that the user is able to fund the company wallet with "USD" with manual push fund', function(){
+    it('TC_FW_009 - validate that the user is able to fund the company wallet with "USD" with manual push fund', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_manual_push('USD{enter}')
     })
     // Volopa collection account
-    it.only('TC_FW_010 - validate that the user is able to fund the company wallet with "euro" with Volopa Collection Account', function(){
+    it('TC_FW_010 - validate that the user is able to fund the company wallet with "euro" with Volopa Collection Account', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_collection_account('EUR{enter}')
     })
-    it.only('TC_FW_011 - validate that the user is able to fund the company wallet with "USD" with Volopa Collection Account', function(){
+    it('TC_FW_011 - validate that the user is able to fund the company wallet with "USD" with Volopa Collection Account', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_collection_account('USD{enter}')
     })
-    it.only('TC_FW_012 - validate that the user is able to fund the company wallet with "USD" with Volopa Collection Account', function(){
+    it('TC_FW_012 - validate that the user is able to fund the company wallet with "USD" with Volopa Collection Account', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.fund_collection_account('GBP{enter}')
     })

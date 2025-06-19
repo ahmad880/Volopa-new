@@ -16,7 +16,7 @@ describe('WalletDashboard',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp4.volopa.com/login')
+        cy.visit('https://webapp08.volopa-dev.com')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })

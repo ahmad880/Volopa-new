@@ -14,10 +14,10 @@ const paymentspage = new PaymentsDashboard
 const newPayment = new NewPayment
 
 describe('New Payment',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -3000,7 +3000,7 @@ describe('New Payment',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('CANADA{enter}' ,'CAD{enter}' ,email)
-        batchPayments.addBankDetailCAD('BNDCCAMMXXX','26207729','004','01372')
+        batchPayments.addBankDetailCAD('BCANCAW2','26207729','004','01372')
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS CAD'+' '+bName,'CANADA{enter}')
@@ -3120,7 +3120,7 @@ describe('New Payment',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('HONG KONG{enter}' ,'HKD{enter}' ,email)
-        batchPayments.addBankDetailHKD('HSBCHKHH','1234657890','004')
+        batchPayments.addBankDetailHKD('HSBCHKHH','5426789521','004')
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS HKD'+' '+bName,'HONG KONG{enter}')
@@ -6206,7 +6206,7 @@ describe('New Payment',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('CANADA{enter}' ,'USD{enter}' ,email)
-        newRecipient.addBankDetailsWithAccNo('ROYCCAT2','55555555')
+        newRecipient.addBankDetailsWithAccNo('BCANCAW2','26207729')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Canada',lName,'Canada{enter}')
         newRecipient.postCodeState()
@@ -7192,7 +7192,7 @@ describe('New Payment',function(){
     //Before executing Approval workflow cases, make sure no approval rule is set
     // change the approver, login user if need to run on differnt client
     //Approval workflow for single Payment
-    it.only('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
+    it('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7345,7 +7345,7 @@ describe('New Payment',function(){
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
         signin.Login('Corpay_test1@volopa.com', password);
     
         // steps to add approval rule
@@ -7499,7 +7499,7 @@ describe('New Payment',function(){
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7653,7 +7653,7 @@ describe('New Payment',function(){
     newPayment.saveApprovalRule();
     });
     //Approval workflow for batch payments
-    it.only('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -7815,7 +7815,7 @@ describe('New Payment',function(){
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8141,7 +8141,7 @@ describe('New Payment',function(){
     });
 
     //Single Schedued payments push funds
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -8298,7 +8298,7 @@ describe('New Payment',function(){
         .and('have.text', longFmt1);
     
     }); 
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -8456,7 +8456,7 @@ describe('New Payment',function(){
     
     });
     //Batch Schedued payments push funds
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -8538,7 +8538,7 @@ describe('New Payment',function(){
         cy.get('tbody tr:nth-child(2) td:nth-child(7)').should('be.visible').should('contain.text', amount1);
     
     });
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();

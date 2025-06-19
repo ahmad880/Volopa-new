@@ -12,13 +12,13 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.recipientList).should('be.visible').click()
         cy.get(variable1.additionalCurrenciesLocators.recipientListHeading).should('contain.text','Recipient List')
     }
-    addRecipient(Country ,Currencies){
+    addRecipient(Country ,Currencies,email){
         cy.get(variable1.additionalCurrenciesLocators.addRecipient).should('be.visible').click()
         cy.get(variable1.additionalCurrenciesLocators.selectCountry).should('be.visible').click()
         .get(variable1.additionalCurrenciesLocators.countryDropDownHeading).should('be.visible').type(Country)
         cy.get(variable1.additionalCurrenciesLocators.selectCurrency).should('be.visible').click().wait(3000).type(Currencies)
-        // cy.get(variable1.additionalCurrenciesLocators.emailHeading).should('be.visible').should('contain.text','Recipient Email Address')
-        // mailto:cy.get(variable1.additionalcurrencieslocators.emailfeild).should('be.visible').type('email@volopa.com')
+        cy.get(variable1.additionalCurrenciesLocators.emailHeading).should('be.visible').should('contain.text','Recipient Email Address')
+        cy.get('#recipientEmail').type(email)
     }
     addBankDetails(iban,swift){
         cy.get(variable1.additionalCurrenciesLocators.iBAN).should('be.visible').type(iban)
@@ -33,7 +33,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
         //In case of corpay change 7 to 8
-        cy.get(':nth-child(7) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        cy.get(':nth-child(8) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
     BusinessCNY(name,country){
@@ -52,7 +52,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
         //in case of corpay change 7 to 8
-        cy.get(':nth-child(7) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        cy.get(':nth-child(8) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
     postCodeState(){
@@ -73,7 +73,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.additionalCurrenciesLocators.city).type('London')
         //in case of corpay change 7 to 8
-        cy.get(':nth-child(7) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        cy.get(':nth-child(8) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
     tryIncorpnumber(number){
@@ -111,6 +111,8 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.sWIFT).should('be.visible').type(swift)
         cy.get(variable1.additionalCurrenciesLocators.clabe).should('be.visible').type(clabe)
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
+        cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
+        cy.get('#accountType').type('Current{enter}')
     }
     checkSettelmentEnabledBoth(regular,priority){
         cy.get(variable1.additionalCurrenciesLocators.createAPaymentPageHeading).should('be.visible')

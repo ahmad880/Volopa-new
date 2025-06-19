@@ -142,8 +142,8 @@ export class AdditionalCurrencies {
     addIndiaBankDetail(){
         cy.get(variable1.additionalCurrenciesLocators.accountNo).type('00001299123456')
         cy.get('#ifsc').type('UTIB0000004')
-        //cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
-        //cy.get('#accountType').type('Current{enter}')
+        cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
+        cy.get('#accountType').type('Current{enter}')
     }
     // For Bahrain
     selectCurrency(country,currency){

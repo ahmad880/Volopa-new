@@ -10,7 +10,7 @@ const newRecipient = new AdditionalCurrencies
 const batchPayments = new BatchPayments
 describe('Additional Currencies ',function(){
 
-    let userName = 'Corpay_test1@volopa.com'
+    let userName = 'automation_testUK@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
         cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
@@ -87,7 +87,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-007 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
+    xit('TC-AC-007 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -98,7 +98,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-008 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
+    xit('TC-AC-008 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

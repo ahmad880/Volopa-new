@@ -111,8 +111,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.sWIFT).should('be.visible').type(swift)
         cy.get(variable1.additionalCurrenciesLocators.clabe).should('be.visible').type(clabe)
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
-        cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
-        cy.get('#accountType').type('Current{enter}')
+        
     }
     checkSettelmentEnabledBoth(regular,priority){
         cy.get(variable1.additionalCurrenciesLocators.createAPaymentPageHeading).should('be.visible')

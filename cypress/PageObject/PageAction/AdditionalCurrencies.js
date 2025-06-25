@@ -61,7 +61,7 @@ export class AdditionalCurrencies {
     }
     postCodeStateUS(){
         cy.get('#postcode').type('32013')
-        cy.get('#state').type('CAMPECHE{enter}')
+        cy.get('#state').type('CALIFORNIA{enter}')
     }
     saveRecipient(){
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).click()

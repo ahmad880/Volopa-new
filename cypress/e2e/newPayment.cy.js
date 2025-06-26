@@ -137,10 +137,10 @@ describe('New Payment',function(){
         cy.get('#aba').type('026009593')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL USD PF',lName,'UNITED States{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateUS()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -153,17 +153,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
             })
             })
              // Validating recipient recived amount
@@ -194,10 +194,10 @@ describe('New Payment',function(){
       newRecipient.addBankDetailsWithAccNo('MMMCUS44','55555555')
       const lName = batchPayments.generateRandomString(6)
       batchPayments.individualRecipient('INDIVIDUAL USD PF',lName,'UNITED States{enter}')
-      newRecipient.postCodeState()
+      newRecipient.postCodeStateUS()
       batchPayments.paymentPurposeGBPEUR()
-      cy.get('.ant-select-selector').eq(3).click()
-      cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+      cy.get('.ant-select-selector').eq(4).click()
+      cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
           let purposeList = Element.text()
           cy.log(purposeList)
           cy.wrap(purposeList).as('purposeList')
@@ -214,13 +214,13 @@ describe('New Payment',function(){
          .should('be.visible').and('contain.text',selectedValue)
         })
        //Validate Purpose on batch payment
-      cy.get('.ant-select-selector').eq(3).click()
+      cy.get('.ant-select-selector').eq(2).click()
       cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
           let list = Element.text()
           cy.log(list)
           cy.get('@purposeList').then(purposeList=>{
           expect(list).to.eq(purposeList)
-          cy.get('.ant-select-selector').eq(3).click()
+          cy.get('.ant-select-selector').eq(2).click()
           })
           })
                 // Validating recipient recived amount
@@ -251,10 +251,10 @@ describe('New Payment',function(){
       newRecipient.addBankDetailsWithAccNo('MMMCUS44','55555555')
       const lName = batchPayments.generateRandomString(6)
       batchPayments.individualRecipient('INDIVIDUAL EUR PF',lName,'UNITED States{enter}')
-      newRecipient.postCodeState()
+      newRecipient.postCodeStateUS()
       batchPayments.paymentPurposeGBPEUR()
-      cy.get('.ant-select-selector').eq(3).click()
-      cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+      cy.get('.ant-select-selector').eq(4).click()
+      cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
           let purposeList = Element.text()
           cy.log(purposeList)
           cy.wrap(purposeList).as('purposeList')
@@ -271,13 +271,13 @@ describe('New Payment',function(){
          .should('be.visible').and('contain.text',selectedValue)
         })
        //Validate Purpose on batch payment
-      cy.get('.ant-select-selector').eq(3).click()
+      cy.get('.ant-select-selector').eq(2).click()
       cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
           let list = Element.text()
           cy.log(list)
           cy.get('@purposeList').then(purposeList=>{
           expect(list).to.eq(purposeList)
-          cy.get('.ant-select-selector').eq(3).click()
+          cy.get('.ant-select-selector').eq(2).click()
           })
           })
                 // Validating recipient recived amount
@@ -309,10 +309,10 @@ describe('New Payment',function(){
     cy.get('#aba').type('026009593')
     const lName = batchPayments.generateRandomString(6)
     batchPayments.individualRecipient('INDIVIDUAL EUR PF',lName,'UNITED States{enter}')
-    newRecipient.postCodeState()
+    newRecipient.postCodeStateUS()
     batchPayments.paymentPurposeGBPEUR()
-    cy.get('.ant-select-selector').eq(3).click()
-    cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+    cy.get('.ant-select-selector').eq(4).click()
+    cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
         let purposeList = Element.text()
         cy.log(purposeList)
         cy.wrap(purposeList).as('purposeList')
@@ -329,13 +329,13 @@ describe('New Payment',function(){
        .should('be.visible').and('contain.text',selectedValue)
       })
      //Validate Purpose on batch payment
-    cy.get('.ant-select-selector').eq(3).click()
+    cy.get('.ant-select-selector').eq(2).click()
     cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
         let list = Element.text()
         cy.log(list)
         cy.get('@purposeList').then(purposeList=>{
         expect(list).to.eq(purposeList)
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
     })
       })
                 // Validating recipient recived amount
@@ -367,10 +367,10 @@ describe('New Payment',function(){
         cy.get('#aba').type('026009593')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL EUR PF',lName,'UNITED States{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateUS()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -382,13 +382,13 @@ describe('New Payment',function(){
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             cy.get('.ant-col > .ant-btn > span').should('be.visible').click()
@@ -473,7 +473,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_019 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_019 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -7200,7 +7200,7 @@ describe('New Payment',function(){
     //Before executing Approval workflow cases, make sure no approval rule is set
     // change the approver, login user if need to run on differnt client
     //Approval workflow for single Payment
-    it.only('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
+    it('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7507,7 +7507,7 @@ describe('New Payment',function(){
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -7661,7 +7661,7 @@ describe('New Payment',function(){
     newPayment.saveApprovalRule();
     });
     //Approval workflow for batch payments
-    it.only('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -7823,7 +7823,7 @@ describe('New Payment',function(){
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8149,7 +8149,7 @@ describe('New Payment',function(){
     });
 
     //Single Schedued payments push funds
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -8306,7 +8306,7 @@ describe('New Payment',function(){
         .and('have.text', longFmt1);
     
     }); 
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -8464,7 +8464,7 @@ describe('New Payment',function(){
     
     });
     //Batch Schedued payments push funds
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -8546,7 +8546,7 @@ describe('New Payment',function(){
         cy.get('tbody tr:nth-child(2) td:nth-child(7)').should('be.visible').should('contain.text', amount1);
     
     });
-    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
+    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();

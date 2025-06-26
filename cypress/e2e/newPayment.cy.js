@@ -14,7 +14,7 @@ const paymentspage = new PaymentsDashboard
 const newPayment = new NewPayment
 
 describe('New Payment',function(){
-    let userName = 'testnew@volopa.com'
+    let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
@@ -22,24 +22,24 @@ describe('New Payment',function(){
         cy.viewport(1440,1000)
     })
 
-    it('TC_NP_001 - Verify that user landed on the New Payment page', function(){
+    it.only('TC_NP_001 - Verify that user landed on the New Payment page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
     })
-    it('TC_NP_002 - Verify that user can search the existing recipients in the search bar', function(){
+    it.only('TC_NP_002 - Verify that user can search the existing recipients in the search bar', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('Y17{enter}')
     })
-    it('TC_NP_003 - Verify that "Add recipient" button under Seach Bar navigates to Recipient Details Page', function(){
+    it.only('TC_NP_003 - Verify that "Add recipient" button under Seach Bar navigates to Recipient Details Page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateAddRecipient()
     })
-    it('TC_NP_004 - Verify that user is able to navigate Create a Payment page', function(){
+    it.only('TC_NP_004 - Verify that user is able to navigate Create a Payment page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -52,7 +52,7 @@ describe('New Payment',function(){
         newPayment.selectCurrency("AUD")
         newPayment.checkFundingMethod()
     })
-    xit('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
+    it.only('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -61,7 +61,7 @@ describe('New Payment',function(){
         cy.get('#youSend').type('200')
         newPayment.validateFxRateTimer()
     })
-    xit('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
+    it.only('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -103,7 +103,7 @@ describe('New Payment',function(){
         })
         })
     })
-    xit('TC_NP_009 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
+    it.only('TC_NP_009 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -114,7 +114,7 @@ describe('New Payment',function(){
         cy.get(':nth-child(3) > .ant-btn').should('be.visible').and('contain.text','New Payment').click()//new payment
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').and('contain.text','Create a Payment')
     })
-    xit('TC_NP_010 - Verify that after paying the recipient, user is able to naviagte to view payment', function(){
+    it.only('TC_NP_010 - Verify that after paying the recipient, user is able to naviagte to view payment', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -127,7 +127,7 @@ describe('New Payment',function(){
     })
 // special cases 
     // push fund
-    it('TC_NP_011 - Verify that payments to the recipients with ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
+    it.only('TC_NP_011 - Verify that payments to the recipients with ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -185,7 +185,7 @@ describe('New Payment',function(){
                 .should('be.visible').and('contain.text',storedText)
             })
     })
-    it('TC_NP_012 - Verify that payments to the recipients without ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
+    it.only('TC_NP_012 - Verify that payments to the recipients without ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
       newRecipient.gotoRecipientList()
@@ -242,7 +242,7 @@ describe('New Payment',function(){
             .should('be.visible').and('contain.text',storedText)
         })
     })
-    it('TC_NP_013 - Verify that payments to the recipients without ABA code with currency EUR & country US should have only priority Settlement Method enabled using GBP and push funds.', function(){
+    it.only('TC_NP_013 - Verify that payments to the recipients without ABA code with currency EUR & country US should have only priority Settlement Method enabled using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
       newRecipient.gotoRecipientList()
@@ -299,7 +299,7 @@ describe('New Payment',function(){
                     .should('be.visible').and('contain.text',storedText)
                 })
     })
-    it('TC_NP_014 - Verify that payments to the recipients with ABA code with country US & currency Euro should have only priority Settlement Method enabled. using GBP and push funds.', function(){
+    it.only('TC_NP_014 - Verify that payments to the recipients with ABA code with country US & currency Euro should have only priority Settlement Method enabled. using GBP and push funds.', function(){
         signin.Login(userName, password)
     newRecipient.goToPaymentsDashborad()
     newRecipient.gotoRecipientList()
@@ -357,7 +357,7 @@ describe('New Payment',function(){
                     .should('be.visible').and('contain.text',storedText)
                 })
     })
-    it('TC_NP_015 - Verify that payments to the recipients without ABA code with country US & currency Euro should have only priority Settlement Method enabled. using GBP and push funds.', function(){
+    it.only('TC_NP_015 - Verify that payments to the recipients without ABA code with country US & currency Euro should have only priority Settlement Method enabled. using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -396,7 +396,7 @@ describe('New Payment',function(){
             cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').click() // pay recipient
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
     })
-    it('TC_NP_017 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_017 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -434,7 +434,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_018 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_018 - Add 1 recipient(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -511,7 +511,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_020 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_020 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -534,13 +534,13 @@ describe('New Payment',function(){
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             cy.get('.ant-col > .ant-btn > span').should('be.visible').click()
@@ -549,7 +549,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_021 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
+    it.only('TC_NP_021 - Add 1 recipient(individual) from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -574,13 +574,13 @@ describe('New Payment',function(){
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             cy.get('.ant-col > .ant-btn > span').should('be.visible').click()
@@ -782,7 +782,7 @@ describe('New Payment',function(){
             newPayment.validateYapilyFlow()
     })
     //Business Recipient Push Fund
-    it('TC_NP_027 - Add 1 recipient(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a new payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_027 - Add 1 recipient(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a new payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -821,7 +821,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_028 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_028 - Add 1 recipient(business) from the "Add Recipient" page with country = India and currency = INR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -861,7 +861,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_029 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_029 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -889,13 +889,13 @@ describe('New Payment',function(){
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             cy.get('.ant-col > .ant-btn > span').should('be.visible').click()
@@ -904,7 +904,7 @@ describe('New Payment',function(){
             cy.get('.ant-modal-body > :nth-child(1) > .ant-col').should('be.visible').should('contain.text',' Payment Booked - ')
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_030 - Add 1 recipient(business)  from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
+    it.only('TC_NP_030 - Add 1 recipient(business)  from the "Add Recipient" page with country = United Kingdom and currency = GBP. After adding, make a single payment to the recipient using EUR and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -931,17 +931,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
         //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
           // Validating recipient recived amount

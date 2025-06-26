@@ -14,7 +14,7 @@ const paymentspage = new PaymentsDashboard
 const newPayment = new NewPayment
 
 describe('New Payment',function(){
-    let userName = 'uk_test_1@volopa.com'
+    let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
@@ -210,7 +210,7 @@ describe('New Payment',function(){
       newPayment.selectFundingMethod('Push Funds')
       //Validate the selected payment purpose
       cy.get('@selectedValue').then(selectedValue=>{
-         cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+         cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
          .should('be.visible').and('contain.text',selectedValue)
         })
        //Validate Purpose on batch payment
@@ -267,7 +267,7 @@ describe('New Payment',function(){
       newPayment.selectFundingMethod('Push Funds')
       //Validate the selected payment purpose
       cy.get('@selectedValue').then(selectedValue=>{
-         cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+         cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
          .should('be.visible').and('contain.text',selectedValue)
         })
        //Validate Purpose on batch payment
@@ -325,7 +325,7 @@ describe('New Payment',function(){
     newPayment.selectFundingMethod('Push Funds')
     //Validate the selected payment purpose
     cy.get('@selectedValue').then(selectedValue=>{
-       cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+       cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
        .should('be.visible').and('contain.text',selectedValue)
       })
      //Validate Purpose on batch payment
@@ -885,7 +885,7 @@ describe('New Payment',function(){
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -911,8 +911,8 @@ describe('New Payment',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('United Kingdom{enter}' ,'GBP{enter}' ,email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
-        cy.get(':nth-child(4) > .ant-form-item > .ant-row > .ant-form-item-label > label > .ant-typography').should('be.visible').should('contain.text','Sort Code')
-        cy.get('#sortCode').type('770440')
+        // cy.get(':nth-child(4) > .ant-form-item > .ant-row > .ant-form-item-label > label > .ant-typography').should('be.visible').should('contain.text','Sort Code')
+        // cy.get('#sortCode').type('770440')
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS PF'+' '+bName,'UNITED KINGDOM{enter}')

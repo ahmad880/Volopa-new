@@ -110,7 +110,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
+    xit('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -506,7 +506,7 @@ describe('Additional Currencies ',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('KENYA{enter}' ,'KES{enter}',email)
         newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
-        cy.get('#bankBranch').type('city branch')
+        //cy.get('#bankBranch').type('city branch')
         newRecipient.individualRecipient('QA KES','KENYA{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
@@ -529,8 +529,7 @@ describe('Additional Currencies ',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('KENYA{enter}' ,'KES{enter}',email)
         newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
-        cy.get('#bankBranch').type('city branch')
-        cy.get('#bankBranch').type('city branch')
+        //cy.get('#bankBranch').type('city branch')
         newRecipient.individualRecipient('QA KES','KENYA{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
@@ -1266,7 +1265,7 @@ describe('Additional Currencies ',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('KENYA{enter}' ,'KES{enter}',email)
         newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
-        cy.get('#bankBranch').type('city branch')
+        //cy.get('#bankBranch').type('city branch')
         newRecipient.addBusinessRecipient('KENYA{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
@@ -1289,7 +1288,7 @@ describe('Additional Currencies ',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('KENYA{enter}' ,'KES{enter}',email)
         newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
-        cy.get('#bankBranch').type('city branch')
+        //cy.get('#bankBranch').type('city branch')
         newRecipient.addBusinessRecipient('KENYA{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')

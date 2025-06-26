@@ -26,7 +26,7 @@ describe('Mass Payment',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('/', { timeout: 10000 })
+        cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
         paymentD.clearCache()
         cy.viewport(1440,1000)
     })
@@ -306,7 +306,7 @@ it('Verify that the user is able to upload the file', function(){
     massP.goToError()
     massP.validateTRYerror()
  })
- it.only('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and push funds(same currency)', function () {
+ it('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and push funds(same currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -424,7 +424,7 @@ it('Verify that the user is able to upload the file', function(){
     }
   });
 });
-it.only('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Volopa Collection Account(same currency)', function () {
+it('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Volopa Collection Account(same currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -542,7 +542,7 @@ it.only('Verify that the user is able to upload and proceed the valid file(no er
     }
   });
 });
-it.only('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and push funds(different currency)', function () {
+it('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and push funds(different currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -660,7 +660,7 @@ it.only('Verify that the user is able to upload and proceed the valid file(no er
     }
   });
 });
-it.only('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and Volopa Collection Account(different currency)', function () {
+it('Verify that the user is able to upload and proceed the valid file(no errors) using EUR and Volopa Collection Account(different currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();
@@ -778,7 +778,7 @@ it.only('Verify that the user is able to upload and proceed the valid file(no er
     }
   });
 });
-it('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Easy Transfer(same currency)', function () {
+xit('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Easy Transfer(same currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();

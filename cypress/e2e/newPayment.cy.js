@@ -52,7 +52,7 @@ describe('New Payment',function(){
         newPayment.selectCurrency("AUD")
         newPayment.checkFundingMethod()
     })
-    it.only('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
+    it('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -60,7 +60,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         cy.get('#youSend').type('200')
         newPayment.validateFxRateTimer()
-    })
+    }).only
     it.only('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
@@ -103,7 +103,7 @@ describe('New Payment',function(){
         })
         })
     })
-    it.only('TC_NP_009 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
+    it('TC_NP_009 - Verify that after paying the recipient, user is able to proceed to a new payment', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -114,7 +114,7 @@ describe('New Payment',function(){
         cy.get(':nth-child(3) > .ant-btn').should('be.visible').and('contain.text','New Payment').click()//new payment
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').and('contain.text','Create a Payment')
     })
-    it.only('TC_NP_010 - Verify that after paying the recipient, user is able to naviagte to view payment', function(){
+    it('TC_NP_010 - Verify that after paying the recipient, user is able to naviagte to view payment', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -1193,7 +1193,7 @@ describe('New Payment',function(){
             //newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund 
-    it('TC_NP_035 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_035 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1217,22 +1217,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -1255,7 +1250,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_036 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_036 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1279,17 +1274,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -1312,7 +1307,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_037 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_037 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1336,17 +1331,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -1369,7 +1364,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_038 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_038 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1393,17 +1388,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -1426,7 +1421,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_039 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_039 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1450,17 +1445,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -1770,7 +1765,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     //Business Recipient Push Fund
-    it('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_045 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1795,17 +1790,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -1828,7 +1823,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_046 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_046 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1853,17 +1848,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -1886,7 +1881,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_047 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_047 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1911,17 +1906,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -1944,7 +1939,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_048 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_048 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1969,17 +1964,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -2002,7 +1997,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_049 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_049 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = EUR. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2027,17 +2022,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -2351,7 +2346,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund
-    it('TC_NP_55 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_55 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2376,17 +2371,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -2409,7 +2404,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_56 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_56 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2418,12 +2413,10 @@ describe('New Payment',function(){
         batchPayments.addBankDetailCAD('BNDCCAMMXXX','26207729','004','01372')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Canada ',lName,'Canada{enter}')
-        newRecipient.postCodeState()
-        cy.get('#postcode').clear().type('T9X')
-        cy.get('#state').clear().type('ALBERTA');
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -2436,17 +2429,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -2469,7 +2462,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_57 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_57 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2494,17 +2487,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -2527,7 +2520,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_58 - Add 1 recipient(individual) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_58 - Add 1 recipient(individual) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2552,17 +2545,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -2585,7 +2578,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_59 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_59 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2597,11 +2590,9 @@ describe('New Payment',function(){
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Mexico ',lName,'Mexico{enter}')
         newRecipient.postCodeState()
-        cy.get('#postcode').clear().type('24022')
-        cy.get('#state').clear().type('Campeche');
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -2614,11 +2605,11 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+           cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
@@ -2939,7 +2930,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     // Business Push Fund
-    it('TC_NP_65 - Add 1 recipient(Business)  from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_65 - Add 1 recipient(Business)  from the "Add Recipient" page with country = Australia and currency = AUD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -2965,17 +2956,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -2998,7 +2989,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_66 - Add 1 recipient(Business) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_66 - Add 1 recipient(Business) from the "Add Recipient" page with country = Canada and currency = CAD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3008,12 +2999,10 @@ describe('New Payment',function(){
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS CAD'+' '+bName,'CANADA{enter}')
-        newRecipient.postCodeState()
-        cy.get('#postcode').clear().type('T9X')
-        cy.get('#state').clear().type('Alberta');
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -3026,17 +3015,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3059,7 +3048,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_67 - Add 1 recipient(Business) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_67 - Add 1 recipient(Business) from the "Add Recipient" page with country = Singapore and currency = SGD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3085,17 +3074,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3118,7 +3107,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_68 - Add 1 recipient(Business) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_68 - Add 1 recipient(Business) from the "Add Recipient" page with country = HongKong and currency = HKD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3144,17 +3133,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3177,7 +3166,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_69 - Add 1 recipient(Business) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_69 - Add 1 recipient(Business) from the "Add Recipient" page with country = Mexico and currency = MXN. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3190,11 +3179,9 @@ describe('New Payment',function(){
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS MXN'+' '+bName,'MEXICO{enter}')
         newRecipient.postCodeState()
-        cy.get('#postcode').clear().type('24022')
-        cy.get('#state').clear().type('Campeche');
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -3207,17 +3194,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3537,7 +3524,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     // Individual Push Fund 
-    it('TC_NP_075 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_075 - Add 1 recipient(individual) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3561,7 +3548,7 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
@@ -3570,13 +3557,13 @@ describe('New Payment',function(){
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -3599,7 +3586,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_076 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_076 - Add 1 recipient(individual) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3623,17 +3610,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -3656,7 +3643,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_077 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_077 - Add 1 recipient(individual) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3680,17 +3667,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -3713,7 +3700,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_078 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_078 - Add 1 recipient(individual) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3737,17 +3724,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -3770,7 +3757,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_079 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_079 - Add 1 recipient(individual) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -3794,17 +3781,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -4114,7 +4101,7 @@ describe('New Payment',function(){
         newPayment.cancelEasyTransfer()
     })
     // Business Push Fund 
-    it('TC_NP_085 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_085 - Add 1 recipient(Business) from the "Add Recipient" page with country = Germany and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4139,7 +4126,7 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
@@ -4148,13 +4135,13 @@ describe('New Payment',function(){
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -4177,7 +4164,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_086 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_086 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4202,17 +4189,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -4235,7 +4222,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_087 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_087 - Add 1 recipient(Business) from the "Add Recipient" page with country = Spain and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4260,17 +4247,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -4293,7 +4280,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_088 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_088 - Add 1 recipient(Business) from the "Add Recipient" page with country = Italy and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4318,17 +4305,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -4351,7 +4338,7 @@ describe('New Payment',function(){
         })
         //newPayment.cancelPushFunds()
     })
-    it('TC_NP_089 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_089 - Add 1 recipient(Business) from the "Add Recipient" page with country = Malta and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4376,17 +4363,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
        // Validating recipient recived amount
@@ -4702,7 +4689,7 @@ describe('New Payment',function(){
     })
     //United State with USD
     //push fund
-    it('TC_NP_095 - Add 1 recipient(individual) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_095 - Add 1 recipient(individual) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4711,10 +4698,10 @@ describe('New Payment',function(){
         newRecipient.addBankDetailsWithAccNo('MMMCUS44','55555555')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('UNITED STATES USD PF',lName,'UNITED STATES{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateUS()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -4727,22 +4714,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -4765,7 +4747,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_096 - Add 1 recipient(Business) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_096 - Add 1 recipient(Business) from the "Add Recipient" page with country = UNITED STATES and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4775,10 +4757,10 @@ describe('New Payment',function(){
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS UNITED STATES USD'+' '+bName,'UNITED STATES{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateUS()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -4791,22 +4773,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -4959,7 +4936,7 @@ describe('New Payment',function(){
     })
     //UNITED KINGDOM with USD
     //push fund
-    it('TC_NP_099 - Add 1 recipient(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_099 - Add 1 recipient(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -4983,22 +4960,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5021,7 +4993,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_100 - Add 1 recipient(Business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_100 - Add 1 recipient(Business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5046,22 +5018,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5212,7 +5179,7 @@ describe('New Payment',function(){
     })
     //China with USD
     //push fund
-    it('TC_NP_103 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_103 - Add 1 recipient(individual) from the "Add Recipient" page with country = CHINA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5236,22 +5203,18 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
+
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5274,7 +5237,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_104 - Add 1 recipient(Business) from the "Add Recipient" page with country = CHINAand currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_104 - Add 1 recipient(Business) from the "Add Recipient" page with country = CHINAand currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5299,22 +5262,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5465,7 +5423,7 @@ describe('New Payment',function(){
     })
     //INDIA with USD
     //push fund
-    it('TC_NP_107 - Add 1 recipient(individual) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_107 - Add 1 recipient(individual) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5494,17 +5452,16 @@ describe('New Payment',function(){
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5527,7 +5484,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_108 - Add 1 recipient(Business) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_108 - Add 1 recipient(Business) from the "Add Recipient" page with country = INDIA and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5552,22 +5509,17 @@ describe('New Payment',function(){
         newPayment.selectFundingMethod('Push Funds')
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5718,7 +5670,7 @@ describe('New Payment',function(){
     })
 
     //UAE with usd and push funds
-    it('TC_NP_111 - Add 1 recipient(individual) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_111 - Add 1 recipient(individual) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5779,7 +5731,7 @@ describe('New Payment',function(){
             cy.wait(2000)
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_112 - Add 1 recipient(business) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_112 - Add 1 recipient(business) from the "Add Recipient" page with country = UAE and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -5963,7 +5915,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     //Australia with usd and push funds
-    it('TC_NP_115 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_115 - Add 1 recipient(individual) from the "Add Recipient" page with country = Australia and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6023,7 +5975,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_116 - Add 1 recipient(business) from the "Add Recipient" page with country = Australia and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_116 - Add 1 recipient(business) from the "Add Recipient" page with country = Australia and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6208,7 +6160,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     //Canada with usd and push funds
-    it('TC_NP_119 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_119 - Add 1 recipient(individual) from the "Add Recipient" page with country = Canada and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6217,12 +6169,10 @@ describe('New Payment',function(){
         newRecipient.addBankDetailsWithAccNo('BCANCAW2','26207729')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Canada',lName,'Canada{enter}')
-        newRecipient.postCodeState()
-        cy.get('#postcode').clear().type('T9X')
-        cy.get('#state').clear().type('Alberta');
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -6271,7 +6221,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_120 - Add 1 recipient(business) from the "Add Recipient" page with country = Canada and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_120 - Add 1 recipient(business) from the "Add Recipient" page with country = Canada and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6281,12 +6231,10 @@ describe('New Payment',function(){
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS Canada'+' '+bName,'Canada{enter}')
-        newRecipient.postCodeState()
-        cy.get('#postcode').clear().type('T9X')
-        cy.get('#state').clear().type('Alberta');
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -6461,7 +6409,7 @@ describe('New Payment',function(){
     })
 
     //Singapore with usd and push funds
-    it('TC_NP_123 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_123 - Add 1 recipient(individual) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6521,7 +6469,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_124 - Add 1 recipient(business) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_124 - Add 1 recipient(business) from the "Add Recipient" page with country = Singapore and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6705,7 +6653,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     //Hong Kong with usd and push funds
-    it('TC_NP_127 - Add 1 recipient(individual) from the "Add Recipient" page with country = Hong Kong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_127 - Add 1 recipient(individual) from the "Add Recipient" page with country = Hong Kong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6765,7 +6713,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_128 - Add 1 recipient(business) from the "Add Recipient" page with country = HongKong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_128 - Add 1 recipient(business) from the "Add Recipient" page with country = HongKong and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6950,7 +6898,7 @@ describe('New Payment',function(){
             newPayment.cancelEasyTransfer()
     })
     //Mexico with usd and push funds
-    it('TC_NP_131 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_131 - Add 1 recipient(individual) from the "Add Recipient" page with country = Mexico and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -6961,8 +6909,8 @@ describe('New Payment',function(){
         batchPayments.individualRecipient('INDIVIDUAL Mexico',lName,'Mexico{enter}')
         newRecipient.postCodeState()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -7011,7 +6959,7 @@ describe('New Payment',function(){
             })
             //newPayment.cancelPushFunds()
     })
-    it('TC_NP_132 - Add 1 recipient(business) from the "Add Recipient" page with country = Mexico and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
+    it.only('TC_NP_132 - Add 1 recipient(business) from the "Add Recipient" page with country = Mexico and currency = USD. After adding, make a single payment to the recipient using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -7023,8 +6971,8 @@ describe('New Payment',function(){
         batchPayments.addBusinessRecipient('BUSINESS Mexico'+' '+bName,'Mexico{enter}')
         newRecipient.postCodeState()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')

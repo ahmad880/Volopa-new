@@ -63,6 +63,10 @@ export class AdditionalCurrencies {
         cy.get('#postcode').type('32013')
         cy.get('#state').type('CALIFORNIA{enter}')
     }
+    postCodeStateCanada(){
+        cy.get('#postcode').type('R3E 2B4')
+        cy.get('#state').type('ALBERTA{enter}')
+    }
     saveRecipient(){
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).click()
         cy.get(variable1.additionalCurrenciesLocators.successMessage).should('be.visible') // success msg

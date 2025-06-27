@@ -52,7 +52,7 @@ describe('New Payment',function(){
         newPayment.selectCurrency("AUD")
         newPayment.checkFundingMethod()
     })
-    it('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
+    it.only('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -60,7 +60,7 @@ describe('New Payment',function(){
         newPayment.proceedflow('{enter}','GBP')
         cy.get('#youSend').type('200')
         newPayment.validateFxRateTimer()
-    }).only
+    })
     it.only('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()

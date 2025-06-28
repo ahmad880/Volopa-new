@@ -14,7 +14,7 @@ describe('Batch Payments',function(){
     let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp01.volopa-dev.com/')
+        cy.visit('https://webapp08.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -118,7 +118,7 @@ describe('Batch Payments',function(){
  // Carmen Casses for batch payment
  // individual recipients
  // push fund
-    it.only('TC_BP_013 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_013 - Add 2 recipients(individual) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -170,13 +170,13 @@ describe('Batch Payments',function(){
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(5).click()
+            cy.get('.ant-select-selector').eq(2).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(5).click()
+                    cy.get('.ant-select-selector').eq(2).click()
                 })
             })
         let amount = '250'
@@ -189,7 +189,7 @@ describe('Batch Payments',function(){
         batchPayments.validateproceedflow(amount,amount1)
         //batchPayments.cancelPushFunds()
     })
-    it.only('TC_BP_014 - Add 2 recipients(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_014 - Add 2 recipients(individual) from the "Add Recipient" page with country = India and currency = INR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -262,7 +262,7 @@ describe('Batch Payments',function(){
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.cancelPushFunds()
     })
-    it.only('TC_BP_015 - Add 2 recipients(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_015 - Add 2 recipients(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -337,7 +337,7 @@ describe('Batch Payments',function(){
         //batchPayments.cancelPushFunds()
     
     })
-    it.only('TC_BP_016 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_016 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -452,23 +452,23 @@ describe('Batch Payments',function(){
         let name1 = 'INDIVIDUAL GBP PF'+' ' + lName1+'{enter}'
         batchPayments.validateSearchBar(name1)
             //Validate Purpose on batch payment
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(1).click()
             cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList').then(purposeList=>{
                     expect(list).to.eq(purposeList)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(1).click()
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(6).click()
-            cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
+            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(6).click()
+                    cy.get('.ant-select-selector').eq(2).click()
                 })
             })
         let amount = '250'

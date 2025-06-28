@@ -2586,7 +2586,7 @@ describe('New Payment',function(){
         batchPayments.addRecipient('MEXICO{enter}' ,'MXN{enter}' ,email)
         newRecipient.addBankDetailsWithClabe('AFIRMXMT','002010077777777771')
         cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
-        cy.get('#accountType').type('Saving{enter}')
+        //cy.get('#accountType').type('Saving{enter}') just for corpay
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Mexico ',lName,'Mexico{enter}')
         newRecipient.postCodeState()
@@ -3174,7 +3174,7 @@ describe('New Payment',function(){
         batchPayments.addRecipient('MEXICO{enter}' ,'MXN{enter}' ,email)
         newRecipient.addBankDetailsWithClabe('AFIRMXMT','002010077777777771')
         cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
-        cy.get('#accountType').type('Saving{enter}')
+        // cy.get('#accountType').type('Saving{enter}')   only for corpay
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS MXN'+' '+bName,'MEXICO{enter}')
@@ -3551,11 +3551,6 @@ describe('New Payment',function(){
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -4129,11 +4124,6 @@ describe('New Payment',function(){
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
-          //Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-        .should('be.visible').and('contain.text',selectedValue)
-        })
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -5445,11 +5435,6 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
-             //Validate the selected payment purpose
-             cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-                .should('be.visible').and('contain.text',selectedValue)
-            })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
         cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')

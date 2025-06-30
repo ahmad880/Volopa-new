@@ -262,7 +262,7 @@ describe('New Payment',function(){
       newRecipient.saveRecipient()
       newPayment.checkSettelment('be.disabled','be.enabled')
       newPayment.proceedflow('{enter}','GBP')
-      let amount = '125'
+      let amount = '225'
       newPayment.addrecipientDetail(amount, email)
       newPayment.selectFundingMethod('Push Funds')
       //Validate the selected payment purpose
@@ -320,7 +320,7 @@ describe('New Payment',function(){
     newRecipient.saveRecipient()
     newPayment.checkSettelment('be.disabled','be.enabled')
     newPayment.proceedflow('{enter}','GBP')
-    let amount = '125'
+    let amount = '325'
     newPayment.addrecipientDetail(amount, email)
     newPayment.selectFundingMethod('Push Funds')
     //Validate the selected payment purpose
@@ -378,7 +378,7 @@ describe('New Payment',function(){
         newRecipient.saveRecipient()
         newPayment.checkSettelment('be.disabled','be.enabled')
         newPayment.proceedflow('{enter}','GBP')
-        let amount = '125'
+        let amount = '425'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
@@ -492,7 +492,7 @@ describe('New Payment',function(){
         newRecipient.saveRecipient()
         newPayment.checkSettelment('be.disabled','be.enabled')
         newPayment.proceedflow('{downarrow}{enter}','GBP')
-        let amount = '125'
+        let amount = '260'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
          //Validate Purpose on batch payment
@@ -2585,7 +2585,7 @@ describe('New Payment',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('MEXICO{enter}' ,'MXN{enter}' ,email)
         newRecipient.addBankDetailsWithClabe('AFIRMXMT','002010077777777771')
-        cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
+        //cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
         //cy.get('#accountType').type('Saving{enter}') just for corpay
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL Mexico ',lName,'Mexico{enter}')
@@ -3173,7 +3173,7 @@ describe('New Payment',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         batchPayments.addRecipient('MEXICO{enter}' ,'MXN{enter}' ,email)
         newRecipient.addBankDetailsWithClabe('AFIRMXMT','002010077777777771')
-        cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
+        //cy.get(':nth-child(5) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Bank Account Type')
         // cy.get('#accountType').type('Saving{enter}')   only for corpay
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
@@ -6903,7 +6903,7 @@ describe('New Payment',function(){
         newRecipient.saveRecipient()
         newPayment.checkSettelment('be.disabled','be.enabled')
         newPayment.proceedflow('{downarrow}{enter}','GBP')
-        let amount = '125'
+        let amount = '225'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
             

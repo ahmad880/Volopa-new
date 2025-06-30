@@ -110,7 +110,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    xit('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
+    it('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -139,7 +139,7 @@ describe('Additional Currencies ',function(){
         newRecipient.validateCLABEFeild2('USD{enter}')
         newRecipient.validateCLABEFeild2('ZAR{enter}')
     })
-    xit('TC-AC-010 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = EEA', function(){
+    it('TC-AC-010 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = EEA', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

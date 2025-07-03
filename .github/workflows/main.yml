@@ -24,6 +24,8 @@ jobs:
           headed: true
           spec: |
             cypress/e2e/newPayment.cy.js
+            cypress/e2e/massPayments.cy.js
+            cypress/e2e/additionalCurrencies.cy.js
 
       - name: Upload HTML Report Artifact
         if: always()

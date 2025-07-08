@@ -200,7 +200,7 @@ describe('Mass Recipients ',function(){
                 console.log(`Iteration ${index + 1} completed with Business Name: ${randomBusinessName}`);
             });
         });
-    it.only('TC- Mass Payments add Ind recipient with regular/priority payment method', function(){
+    it('TC- Mass Payments add Ind recipient with regular/priority payment method', function(){
             // Step 1: Login once
             signin.Login(userName, password);
         

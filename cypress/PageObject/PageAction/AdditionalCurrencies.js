@@ -68,6 +68,7 @@ export class AdditionalCurrencies {
         cy.get('#state').type('ALBERTA{enter}')
     }
     saveRecipient(){
+        cy.wait(1000)
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).click()
         cy.get(variable1.additionalCurrenciesLocators.successMessage).should('be.visible') // success msg
         cy.get(variable1.additionalCurrenciesLocators.payRecipient).click() //Pay this recipient
@@ -84,6 +85,25 @@ export class AdditionalCurrencies {
         cy.get(':nth-child(8) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
+    addBusinessRecipientCorpay(country, name) {
+    cy.get(variable1.additionalCurrenciesLocators.businessRecipient).click();
+
+    // "Business <name> Automation"
+    cy.get(variable1.additionalCurrenciesLocators.businessName)
+      .type(`Business ${name} Automation`);
+
+    cy.get(variable1.additionalCurrenciesLocators.businessDescription).type('Testing');
+    cy.get(variable1.additionalCurrenciesLocators.businessNature).type('Testing');
+    cy.get(variable1.additionalCurrenciesLocators.businessWebsite).type('testing.com');
+    cy.get(variable1.additionalCurrenciesLocators.address).type('489 Avenue Louise Brussels 1050');
+    cy.get(variable1.additionalCurrenciesLocators.city).type('London');
+
+    // In case of Corpay, change the index 7 to 8
+    cy.get(':nth-child(8) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography')
+      .should('contain.text', 'Recipient Country');
+
+    cy.get('#beneficiaryCountry').type(country);
+}
     tryIncorpnumber(number){
         cy.get("label[for='incorporationNumber'] span[class='ant-typography muli semi-bold fs-24px dark-green']").should('be.visible').should('contain.text','Business Incorporation Number')
         cy.get('#incorporationNumber').type(number)
@@ -105,6 +125,13 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.accountNo).should('be.visible').type(accNo)
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
     }
+    singaporeCorpayDeatails(bankcode,branchcode){
+        cy.get('#bank_code').type(bankcode)
+        cy.get('#branch_code').type(branchcode)
+    }
+    indiaAccountType(type){
+        cy.get('#accountType').should('be.visible').type(type)
+    }
     checkSettelment(regular,priority){
         cy.get(variable2.batchPaymentsPageLocators.loadingIcon).should('not.exist')
         cy.get(variable1.additionalCurrenciesLocators.createAPaymentPageHeading).should('be.visible')
@@ -120,6 +147,9 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.clabe).should('be.visible').type(clabe)
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
         
+    }
+    mexicoCorpay(accountType){
+        cy.get('#accountType').should('be.visible').type(accountType)
     }
     checkSettelmentEnabledBoth(regular,priority){
         cy.get(variable1.additionalCurrenciesLocators.createAPaymentPageHeading).should('be.visible')

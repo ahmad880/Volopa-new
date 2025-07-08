@@ -256,7 +256,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('OMAN{enter}' ,'OMR{enter}',email)
-        newRecipient.addBankDetailsWithAccNo('BDOFOMRUMIB','049712')
+        newRecipient.addBankDetails('OM040280000012345678901','BDOFOMRUMIB')
         newRecipient.individualRecipient('QA OMR','OMAN{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')

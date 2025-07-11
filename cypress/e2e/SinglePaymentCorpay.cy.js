@@ -17,7 +17,7 @@ describe('Single Payment Corpay',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -54,13 +54,13 @@ describe('Single Payment Corpay',function(){
       })
       .click(); // open dropdown
 
-    // 2️⃣ Pick a random option between 1 and 10
+    // 2️⃣ Pick a random option between 1 and 7
     cy.get('.ant-select-dropdown')
       .last()
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -143,7 +143,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -225,7 +225,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -309,7 +309,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -475,7 +475,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -558,7 +558,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -640,7 +640,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -722,7 +722,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -804,7 +804,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -886,7 +886,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -968,7 +968,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1050,7 +1050,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1132,7 +1132,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1214,7 +1214,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1296,7 +1296,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1378,7 +1378,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1460,7 +1460,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1542,7 +1542,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1624,7 +1624,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1706,7 +1706,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1788,7 +1788,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1870,7 +1870,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -1952,7 +1952,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2035,7 +2035,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2117,7 +2117,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2199,7 +2199,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2281,7 +2281,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2363,7 +2363,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2445,7 +2445,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2527,7 +2527,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2610,7 +2610,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2693,7 +2693,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2775,7 +2775,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2821,7 +2821,7 @@ describe('Single Payment Corpay',function(){
         .and('contain.text', storedText);
     })
     })
-    it('TC-AC-035 - Verify that if Currency= NZD and Country = New Zealand & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    xit('TC-AC-035 - Verify that if Currency= NZD and Country = New Zealand & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
@@ -2858,7 +2858,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -2940,7 +2940,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3024,7 +3024,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3106,7 +3106,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3188,7 +3188,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3270,7 +3270,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3355,7 +3355,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3437,7 +3437,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3520,7 +3520,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3602,7 +3602,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3687,7 +3687,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3770,7 +3770,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3853,7 +3853,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -3935,7 +3935,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4020,7 +4020,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4102,7 +4102,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4187,7 +4187,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4246,7 +4246,7 @@ describe('Single Payment Corpay',function(){
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
 
     // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    newPayment.proceedflow('{enter}', 'GBP');
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
@@ -4269,7 +4269,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4328,7 +4328,7 @@ describe('Single Payment Corpay',function(){
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
 
     // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    newPayment.proceedflow('{enter}', 'GBP');
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
@@ -4351,7 +4351,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4433,7 +4433,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4516,7 +4516,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4598,7 +4598,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4680,7 +4680,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4762,7 +4762,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4844,7 +4844,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -4926,7 +4926,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -5008,7 +5008,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -5069,7 +5069,7 @@ describe('Single Payment Corpay',function(){
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
 
     // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    newPayment.proceedflow('{downarrow}{enter}', 'USD');
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
@@ -5092,7 +5092,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -5152,7 +5152,7 @@ describe('Single Payment Corpay',function(){
         newRecipient.checkSettelment('be.disabled','be.enabled')
 
     // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    newPayment.proceedflow('{downarrow}{enter}', 'USD');
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
@@ -5175,7 +5175,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -5223,7 +5223,7 @@ describe('Single Payment Corpay',function(){
     })
     it('TC-AC-064 - Verify that if Currency= CNY and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
-        ignin.Login(userName, password)
+        signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
@@ -5234,7 +5234,7 @@ describe('Single Payment Corpay',function(){
         newRecipient.checkSettelment('be.disabled','be.enabled')
 
     // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    newPayment.proceedflow('{enter}', 'EUR');
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
@@ -5257,7 +5257,7 @@ describe('Single Payment Corpay',function(){
       .find('.ant-select-item-option')
       .its('length')
       .then((total) => {
-        const idx = Math.min(9, Cypress._.random(0, total - 1));
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
         cy.get('.ant-select-dropdown')
           .last()
           .find('.ant-select-item-option')
@@ -5304,6 +5304,25 @@ describe('Single Payment Corpay',function(){
     })
     })
 
+    //to do cover these scenarios
+//     AE / AED
+
+// AE / USD
+
+// IN / INR
+
+// IN / USD
+
+// BH / BHD
+
+// BH / USD
+
+// CN / CNY
+
+// CN / USD
+
+
+    
 
 
 

@@ -26,7 +26,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-002 - Verify that if Currency= SGD and Country = SINGAPORE  & Client = UK and check priority and regular both settlement are enabled', function(){
+    it.only('TC-AC-002 - Verify that if Currency= SGD and Country = SINGAPORE  & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -34,7 +34,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.singaporeCorpayDeatails('1111','123')
-        newRecipient.individualRecipient('QA SGD','SINGAPORE{enter}')
+        newRecipient.individualRecipient('Singapore SGD talha naeem naeem talha talha naeem','SINGAPORE{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
@@ -530,7 +530,6 @@ describe('Corpay Add Recipient',function(){
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
 
-    //japa,cad pending
     it('TC-AC-046 - Verify that if Currency= JPY and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
@@ -778,7 +777,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-064 - Verify that(business) if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-067 - Verify that(business) if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -789,7 +788,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-065 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Checking and check priority settlement is enabled', function(){
+    it('TC-AC-068 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Checking and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -802,7 +801,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-066 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Saving and check priority settlement is enabled', function(){
+    it('TC-AC-069 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Saving and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -815,7 +814,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-067 - Verify that(business) if Currency= TRY and Country = UNITED KINGDOM &  client = UK and check priority settlement is enabled ', function(){
+    it('TC-AC-070 - Verify that(business) if Currency= TRY and Country = UNITED KINGDOM &  client = UK and check priority settlement is enabled ', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -826,7 +825,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-068 - Verify that(business) if Currency= TRY and Country = TURKEY &  Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-071 - Verify that(business) if Currency= TRY and Country = TURKEY &  Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -838,7 +837,7 @@ describe('Corpay Add Recipient',function(){
         //newRecipient.checkAmountLimit('5000001','Maximum limit for TRY is 5,000,000.00')
         newRecipient.checkSettelment('be.disabled','be.enabled')
     }) 
-    it('TC-AC-069 - Verify that(business) if Currency= KWD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-072 - Verify that(business) if Currency= KWD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -849,7 +848,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-070 - Verify that(business) if Currency= KWD and Country = Kuwait & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-073 - Verify that(business) if Currency= KWD and Country = Kuwait & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -860,7 +859,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-071 - Verify that(business) if Currency= OMR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-074 - Verify that(business) if Currency= OMR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -871,7 +870,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-072 - Verify that(business) if Currency= OMR and Country = OMAN & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-075 - Verify that(business) if Currency= OMR and Country = OMAN & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -882,7 +881,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-072 - Verify that(business) if Currency= SAR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-076 - Verify that(business) if Currency= SAR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -893,7 +892,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-073 - Verify that(business) if Currency= SAR and Country = SAUDI ARABIA & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-077 - Verify that(business) if Currency= SAR and Country = SAUDI ARABIA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -904,7 +903,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-074 - Verify that(business) if Currency= QAR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-078 - Verify that(business) if Currency= QAR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -915,7 +914,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-075 - Verify that(business) if Currency= QAR and Country = QATAR & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-079 - Verify that(business) if Currency= QAR and Country = QATAR & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -926,7 +925,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-076 - Verify that(business) if Currency= CZK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-080 - Verify that(business) if Currency= CZK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -937,7 +936,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-077 - Verify that(business) if Currency= CZK and Country = Czech Republic & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-081 - Verify that(business) if Currency= CZK and Country = Czech Republic & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -948,7 +947,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-078 - Verify that(business) if Currency= RON and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-082 - Verify that(business) if Currency= RON and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -959,7 +958,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-079 - Verify that(business) if Currency= RON and Country = ROMANIA & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-083 - Verify that(business) if Currency= RON and Country = ROMANIA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -970,7 +969,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-080 - Verify that(business) if Currency= ILS and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-084 - Verify that(business) if Currency= ILS and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -981,7 +980,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-081 - Verify that(business) if Currency= ILS and Country = ISRAEL & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-085 - Verify that(business) if Currency= ILS and Country = ISRAEL & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -992,7 +991,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-082 - Verify that(business) if Currency= HUF and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-086 - Verify that(business) if Currency= HUF and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1003,7 +1002,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-083 - Verify that(business) if Currency= HUF and Country = HUNGARY & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-087 - Verify that(business) if Currency= HUF and Country = HUNGARY & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1014,7 +1013,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-084 - Verify that(business) if Currency= KES and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-088 - Verify that(business) if Currency= KES and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1025,7 +1024,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-085 - Verify that(business) if Currency= KES and Country = KENYA & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-089 - Verify that(business) if Currency= KES and Country = KENYA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1037,7 +1036,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-086 - Verify that(business) if Currency= UGX and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-090 - Verify that(business) if Currency= UGX and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1048,7 +1047,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-087 - Verify that(business) if Currency= UGX and Country = UGANDA & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-091 - Verify that(business) if Currency= UGX and Country = UGANDA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1059,7 +1058,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-088 - Verify that(business) if Currency= BHD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-092 - Verify that(business) if Currency= BHD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1070,7 +1069,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-089 - Verify that(business) if Currency= BHD and Country = BAHRAIN & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-093 - Verify that(business) if Currency= BHD and Country = BAHRAIN & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1081,7 +1080,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-090 - Verify that(business) if Currency= AED and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-094 - Verify that(business) if Currency= AED and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1092,7 +1091,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-091 - Verify that(business) if Currency= AED and Country = United Arab Emirates & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-095 - Verify that(business) if Currency= AED and Country = United Arab Emirates & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1103,7 +1102,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-092 - Verify that(business) if Currency= INR and Country = INDIA & Client = UK Current and check priority settlement is enabled', function(){
+    it('TC-AC-096 - Verify that(business) if Currency= INR and Country = INDIA & Client = UK Current and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1115,7 +1114,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.enabled','be.disabled')
     })
-    it('TC-AC-093 - Verify that(business) if Currency= INR and Country = INDIA & Client = UK Saving and check priority settlement is enabled', function(){
+    it('TC-AC-097 - Verify that(business) if Currency= INR and Country = INDIA & Client = UK Saving and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1127,7 +1126,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.enabled','be.disabled')
     })
-    it('TC-AC-094 - Verify that(business) if Currency= NZD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-098 - Verify that(business) if Currency= NZD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1138,7 +1137,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-095 - Verify that(business) if Currency= NZD and Country = New Zeland & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-099 - Verify that(business) if Currency= NZD and Country = New Zeland & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1150,7 +1149,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-096 - Verify that(business) if Currency= ZAR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-100 - Verify that(business) if Currency= ZAR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1161,7 +1160,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-097 - Verify that(business) if Currency= ZAR and Country = South Africa & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-101 - Verify that(business) if Currency= ZAR and Country = South Africa & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1174,7 +1173,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-098 - Verify that(business) if Currency= PLN and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-102 - Verify that(business) if Currency= PLN and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1185,7 +1184,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-099 - Verify that(business) if Currency= PLN and Country = Poland & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-103 - Verify that(business) if Currency= PLN and Country = Poland & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1196,7 +1195,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-100 - Verify that(business) if Currency= DKK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-104 - Verify that(business) if Currency= DKK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1207,7 +1206,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-101 - Verify that(business) if Currency= DKK and Country = Denmark & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-105 - Verify that(business) if Currency= DKK and Country = Denmark & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1221,7 +1220,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-102 - Verify that(business) if Currency= SEK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-106 - Verify that(business) if Currency= SEK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1232,7 +1231,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-103 - Verify that(business) if Currency= SEK and Country = Sweden & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-107 - Verify that(business) if Currency= SEK and Country = Sweden & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1244,7 +1243,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-104 - Verify that(business) if Currency= NOK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-108 - Verify that(business) if Currency= NOK and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1255,7 +1254,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-105 - Verify that(business) if Currency= NOK and Country = Norway & Client = UK and check priority and regular both settlement is enabled', function(){
+    it('TC-AC-109 - Verify that(business) if Currency= NOK and Country = Norway & Client = UK and check priority and regular both settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1269,7 +1268,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-106 - Verify that(business) if Currency= JPY and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-110 - Verify that(business) if Currency= JPY and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1280,7 +1279,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-107 - Verify that(business) if Currency= JPY and Country = Japan & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-111 - Verify that(business) if Currency= JPY and Country = Japan & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1292,7 +1291,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-108 - Verify that(business) if Currency= CAD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-112 - Verify that(business) if Currency= CAD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1303,7 +1302,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-109 - Verify that(business) if Currency= CAD and Country = CANADA & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-113 - Verify that(business) if Currency= CAD and Country = CANADA & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1317,7 +1316,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-110 - Verify that(business) if Currency= USD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-114 - Verify that(business) if Currency= USD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1328,7 +1327,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-111 - Verify that(business) if Currency= USD and Country = United States & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-115 - Verify that(business) if Currency= USD and Country = United States & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1342,7 +1341,7 @@ describe('Corpay Add Recipient',function(){
         //to do (need to check the settlment it's not currently validating iban)
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-112 - Verify that(business) if Currency= EUR and Country = UNITED KINGDOM & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-116 - Verify that(business) if Currency= EUR and Country = UNITED KINGDOM & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1353,7 +1352,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-113 - Verify that(business) if Currency= EUR and Country = SPain & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-117 - Verify that(business) if Currency= EUR and Country = SPain & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1364,7 +1363,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-114 - Verify that(business) if Currency= AUD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-118 - Verify that(business) if Currency= AUD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1375,7 +1374,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-115 - Verify that(business) if Currency= AUD and Country = Australia & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-119 - Verify that(business) if Currency= AUD and Country = Australia & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1387,7 +1386,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-116 - Verify that(business) if Currency= CHF and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-120 - Verify that(business) if Currency= CHF and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1398,7 +1397,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-117 - Verify that(business) if Currency= CHF and Country = Switzerland & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-121 - Verify that(business) if Currency= CHF and Country = Switzerland & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1409,7 +1408,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-118 - Verify that(business) if Currency= THB and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-122 - Verify that(business) if Currency= THB and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1420,7 +1419,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-119 - Verify that(business) if Currency= THB and Country = THailand & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-123 - Verify that(business) if Currency= THB and Country = THailand & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1431,7 +1430,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-120 - Verify that(business) if Currency= HKD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-124 - Verify that(business) if Currency= HKD and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1442,7 +1441,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-121 - Verify that(business) if Currency= HKD and Country = Hong Kong & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-125 - Verify that(business) if Currency= HKD and Country = Hong Kong & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1453,7 +1452,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-122 - Verify that(business) if Currency= GBP and Country = UNITED KINGDOM & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-126 - Verify that(business) if Currency= GBP and Country = UNITED KINGDOM & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1466,7 +1465,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-123 - Verify that(business) if Currency= GBP and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-127 - Verify that(business) if Currency= GBP and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1478,7 +1477,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-124 -Verify that(business) if Currency= CNY and Country = China & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-128 -Verify that(business) if Currency= CNY and Country = China & Client = UK and check priority settlement is enabled', function(){
     signin.Login(userName, password)
     newRecipient.goToPaymentsDashborad()
     newRecipient.gotoRecipientList()

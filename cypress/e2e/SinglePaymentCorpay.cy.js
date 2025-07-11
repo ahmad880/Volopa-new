@@ -17,7 +17,7 @@ describe('Single Payment Corpay',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })

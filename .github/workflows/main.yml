@@ -17,14 +17,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Run Cypress e2e Tests on Chrome
+      - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headed: true
           spec: |
-            cypress\e2e\newPayment.cy.js
-
+            cypress/e2e/BatchPayments
+            
       - name: Upload HTML Report Artifact
         if: always()
         uses: actions/upload-artifact@v4

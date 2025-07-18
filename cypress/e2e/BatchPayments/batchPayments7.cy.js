@@ -63,23 +63,23 @@ describe('Batch Payments',function(){
         let name1 = 'GERMANY USD PF'+' ' + lName1+'{enter}'
         batchPayments.validateSearchBar(name1)
             //Validate Purpose on batch payment
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(1).click()
             cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList').then(purposeList=>{
                     expect(list).to.eq(purposeList)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(1).click()
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(6).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(6).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
          let amount = '250'
@@ -133,23 +133,23 @@ describe('Batch Payments',function(){
         let name1 = 'FRANCE USD PF'+' ' + lName1+'{enter}'
         batchPayments.validateSearchBar(name1)
             //Validate Purpose on batch payment
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(1).click()
             cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList').then(purposeList=>{
                     expect(list).to.eq(purposeList)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(1).click()
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(6).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(6).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
         let amount = '250'
@@ -203,23 +203,23 @@ describe('Batch Payments',function(){
         let name1 = 'SPAIN USD PF'+' ' + lName1+'{enter}'
         batchPayments.validateSearchBar(name1)
             //Validate Purpose on batch payment
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(1).click()
             cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList').then(purposeList=>{
                     expect(list).to.eq(purposeList)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(1).click()
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(6).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(6).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
         let amount = '250'
@@ -273,23 +273,23 @@ describe('Batch Payments',function(){
         let name1 = 'ITALY USD PF'+' ' + lName1+'{enter}'
         batchPayments.validateSearchBar(name1)
             //Validate Purpose on batch payment
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(1).click()
             cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList').then(purposeList=>{
                     expect(list).to.eq(purposeList)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(1).click()
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(6).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(6).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
         let amount = '250'
@@ -343,23 +343,23 @@ describe('Batch Payments',function(){
         let name1 = 'MALTA USD PF'+' ' + lName1+'{enter}'
         batchPayments.validateSearchBar(name1)
             //Validate Purpose on batch payment
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(1).click()
             cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList').then(purposeList=>{
                     expect(list).to.eq(purposeList)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(1).click()
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(6).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(6).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
         let amount = '250'

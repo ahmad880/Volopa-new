@@ -14,7 +14,7 @@ describe('Batch Payments',function(){
     let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp08.volopa-dev.com/')
+        cy.visit('https://webapp01.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -170,13 +170,13 @@ describe('Batch Payments',function(){
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
         let amount = '250'
@@ -241,13 +241,13 @@ describe('Batch Payments',function(){
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(5).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(5).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
         let amount = '250'
@@ -316,13 +316,13 @@ describe('Batch Payments',function(){
             })
         })
         cy.wait(1000)
-        cy.get('.ant-select-selector').eq(5).click()
+        cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList1').then(purposeList1=>{
                 expect(list).to.eq(purposeList1)
-                cy.get('.ant-select-selector').eq(5).click()
+                cy.get('.ant-select-selector').eq(3).click()
             })
         })
 
@@ -379,23 +379,23 @@ describe('Batch Payments',function(){
         let name1 = 'INDIVIDUAL EUR PF'+' ' + lName1+'{enter}'
         batchPayments.validateSearchBar(name1)
             //Validate Purpose on batch payment
-            cy.get('.ant-select-selector').eq(2).click()
+            cy.get('.ant-select-selector').eq(1).click()
             cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList').then(purposeList=>{
                     expect(list).to.eq(purposeList)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(1).click()
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(6).click()
+            cy.get('.ant-select-selector').eq(3).click()
             cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(6).click()       
+                    cy.get('.ant-select-selector').eq(3).click()       
                 })
             })
         let amount = '250'
@@ -408,7 +408,7 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
-    it.only('TC_BP_017 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
+    it('TC_BP_017 - Add 2 recipients(individual) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -462,13 +462,13 @@ describe('Batch Payments',function(){
                 })
             })
             cy.wait(1000)
-            cy.get('.ant-select-selector').eq(2).click()
-            cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
+            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                 let list = Element.text()
                 cy.log(list)
                 cy.get('@purposeList1').then(purposeList1=>{
                     expect(list).to.eq(purposeList1)
-                    cy.get('.ant-select-selector').eq(2).click()
+                    cy.get('.ant-select-selector').eq(3).click()
                 })
             })
         let amount = '250'
@@ -481,4 +481,8 @@ describe('Batch Payments',function(){
         batchPayments.proceedflow('EUR','EUR','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
     })
+
+
+    //Easy transfer journey is changed from UI perspective so flow itself is not working
+    // ET needs more changes on a batch payment change the eq 1,1,1 and 3,2,3 
 })

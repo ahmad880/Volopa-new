@@ -386,7 +386,7 @@ describe('Batch Payments',function(){
     })
     //Business recipient
         // Push Fund
-    it.only('TC_BP_023 - Add 2 recipients(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_023 - Add 2 recipients(business) from the "Add Recipient" page with country = United Arab Emirates and currency = AED. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)    
         newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
@@ -440,13 +440,13 @@ describe('Batch Payments',function(){
                     })
                 })
                 cy.wait(1000)
-                cy.get('.ant-select-selector').eq(5).click()
+                cy.get('.ant-select-selector').eq(3).click()
                 cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList1').then(purposeList1=>{
                         expect(list).to.eq(purposeList1)
-                        cy.get('.ant-select-selector').eq(5).click()
+                        cy.get('.ant-select-selector').eq(3).click()
                     })
                 })
             let amount = '250'
@@ -512,13 +512,13 @@ describe('Batch Payments',function(){
                     })
                 })
                 cy.wait(1000)
-                cy.get('.ant-select-selector').eq(5).click()
+                cy.get('.ant-select-selector').eq(3).click()
                 cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList1').then(purposeList1=>{
                         expect(list).to.eq(purposeList1)
-                        cy.get('.ant-select-selector').eq(5).click()
+                        cy.get('.ant-select-selector').eq(3).click()
                     })
                 })
             let amount = '250'
@@ -532,7 +532,7 @@ describe('Batch Payments',function(){
             batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
             batchPayments.validateproceedflow(amount,amount1)
     })
-    it.only('TC_BP_025 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_025 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = EUR. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)    
         newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
@@ -576,23 +576,23 @@ describe('Batch Payments',function(){
             let name1 = 'BUSINESS EUR PF'+' ' + bName1+'{enter}'
             batchPayments.validateSearchBar(name1)
                 //Validate Purpose on batch payment
-                cy.get('.ant-select-selector').eq(2).click()
+                cy.get('.ant-select-selector').eq(1).click()
                 cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList').then(purposeList=>{
                         expect(list).to.eq(purposeList)
-                        cy.get('.ant-select-selector').eq(2).click()
+                        cy.get('.ant-select-selector').eq(1).click()
                     })
                 })
                 cy.wait(1000)
-                cy.get('.ant-select-selector').eq(6).click()
+                cy.get('.ant-select-selector').eq(3).click()
                 cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList1').then(purposeList1=>{
                         expect(list).to.eq(purposeList1)
-                        cy.get('.ant-select-selector').eq(6).click()
+                        cy.get('.ant-select-selector').eq(3).click()
                     })
                 })
             let amount = '250'
@@ -605,7 +605,7 @@ describe('Batch Payments',function(){
             batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
             batchPayments.validateproceedflow(amount,amount1)
     })
-    it.only('TC_BP_026 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
+    it('TC_BP_026 - Add 2 recipients(business) from the "Add Recipient" page with country = UNITED KINGDOM and currency = GBP. After adding, make a batch payment to these recipients using EUR and push funds.', function(){
         signin.Login(userName, password)    
         newRecipient.goToPaymentsDashborad()
             newRecipient.gotoRecipientList()
@@ -651,23 +651,23 @@ describe('Batch Payments',function(){
             let name1 = 'BUSINESS GBP PF'+' ' + bName1+'{enter}'
             batchPayments.validateSearchBar(name1)
                 //Validate Purpose on batch payment
-                cy.get('.ant-select-selector').eq(2).click()
+                cy.get('.ant-select-selector').eq(1).click()
                 cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList').then(purposeList=>{
                         expect(list).to.eq(purposeList)
-                        cy.get('.ant-select-selector').eq(2).click()
+                        cy.get('.ant-select-selector').eq(1).click()
                     })
                 })
                 cy.wait(1000)
-                cy.get('.ant-select-selector').eq(6).click()
+                cy.get('.ant-select-selector').eq(3).click()
                 cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList1').then(purposeList1=>{
                         expect(list).to.eq(purposeList1)
-                        cy.get('.ant-select-selector').eq(6).click()
+                        cy.get('.ant-select-selector').eq(3).click()
                     })
                 })
             let amount = '250'

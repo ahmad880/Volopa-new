@@ -8562,6 +8562,9 @@ describe('New Payment',function(){
     
     });
 
-    
+    //to if not coevered
+    // AE/USD, CN/USD, BH/USD, IN/USD
+    //these are exotic countries/currencies that requires a special POP for the payment to process, previously we were getting an error for accepting the qoute on these pair due to change of POP
+    //need to fix the approval and scheduled payments for tcc, currently it's not working not sure why
  
 })

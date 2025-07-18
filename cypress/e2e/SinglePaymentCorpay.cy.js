@@ -17,95 +17,118 @@ describe('Single Payment Corpay',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp02.volopa-dev.com/', { timeout: 10000 })
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
 
-    it('TC-AC-001 - Verify that if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
-    // ─────────────── Setup & Recipient Creation ───────────────
-    signin.Login(userName, password);
+    it.only('TC-AC-001 - Verify that if Currency = SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
+  // ─────────────── Setup & Recipient Creation ───────────────
+  signin.Login(userName, password); // your existing login method
 
-    newRecipient.goToPaymentsDashborad();
-    newRecipient.gotoRecipientList();
+  newRecipient.goToPaymentsDashborad();
+  newRecipient.gotoRecipientList();
 
-    const email = batchPayments.generateRandomString(5) + '@yopmail.com';
-    newRecipient.addRecipient('UNITED KINGDOM{enter}', 'SGD{enter}', email);
-    newRecipient.addBankDetails('GB73BARC20039538243547', 'AFFLGB22');
-    newRecipient.individualRecipient('UK SGD', 'UNITED KINGDOM{enter}');
-    newRecipient.saveRecipient();
-    newRecipient.checkSettelment('be.disabled', 'be.enabled');
+  const email = batchPayments.generateRandomString(5) + '@yopmail.com';
+  newRecipient.addRecipient('UNITED KINGDOM{enter}', 'SGD{enter}', email);
+  newRecipient.addBankDetails('GB73BARC20039538243547', 'AFFLGB22');
+  newRecipient.individualRecipient('UK SGD', 'UNITED KINGDOM{enter}');
+  newRecipient.saveRecipient();
+  newRecipient.checkSettelment('be.disabled', 'be.enabled');
 
-    // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
-    const amount = '10';
-    newPayment.addrecipientDetail(amount, email);
-    newPayment.selectFundingMethod('Push Funds');
+  // ─────────────── Payment Flow ───────────────
+  newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+  const amount = '10';
+  newPayment.addrecipientDetail(amount, email);
+  newPayment.selectFundingMethod('Push Funds');
 
-    /* ── Validate payment‑reason field ───────────────────────── */
-    // 1️⃣ Ensure the field starts empty
-    cy.get('.ant-select-selector')
-      .eq(2)
-      .should(($el) => {
-        expect(
-          $el.text().trim(),
-          'reason field should start empty'
-        ).to.equal('');
-      })
-      .click(); // open dropdown
+  // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
 
-    // 2️⃣ Pick a random option between 1 and 7
-    cy.get('.ant-select-dropdown')
-      .last()
-      .find('.ant-select-item-option')
-      .its('length')
-      .then((total) => {
-        const idx = Math.min(7, Cypress._.random(0, total - 1));
-        cy.get('.ant-select-dropdown')
-          .last()
-          .find('.ant-select-item-option')
-          .eq(idx)
-          .click();
-      });
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
 
-    /* ── Validate recipient‑received amount ───────────────────── */
-    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
 
-    // ─────────────── Confirmation Screens ───────────────
-    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
-      .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+  // ── Validate payment‑reason field ─────────────────────────
+  cy.get('.ant-select-selector')
+    .eq(2)
+    .should(($el) => {
+      expect($el.text().trim(), 'reason field should start empty').to.equal('');
+    })
+    .click(); // Open dropdown
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
+  // Pick a random reason option
+  cy.get('.ant-select-dropdown')
+    .last()
+    .find('.ant-select-item-option')
+    .its('length')
+    .then((total) => {
+      const idx = Math.min(7, Cypress._.random(0, total - 1));
+      cy.get('.ant-select-dropdown')
+        .last()
+        .find('.ant-select-item-option')
+        .eq(idx)
+        .click();
     });
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
-      .should('be.visible')
-      .click();
+  // ── Validate recipient‑received amount ─────────────────────
+  cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
-    })
+  // ─────────────── Confirmation Screens ───────────────
+  cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', recipientReceives);
+  });
+
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
+
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', recipientReceives);
+  });
+    });
+
     it('TC-AC-002 - Verify that if Currency= SGD and Country = Singapore & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
@@ -125,6 +148,23 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -153,41 +193,48 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
 
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-003 - Verify that if Currency= MXN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -207,6 +254,25 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    
+  // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -235,41 +301,48 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
 
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-004 - Verify that if Currency= MXN and Country = Mexico Checking & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -291,6 +364,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -319,41 +410,49 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-005 - Verify that if Currency= MXN and Country = Mexico Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -374,6 +473,24 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
 
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
@@ -403,41 +520,49 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-006 - Verify that if Currency= TRY and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -456,6 +581,24 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
 
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
@@ -485,41 +628,49 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-007 - Verify that if Currency= TRY and Country = Turkey & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -540,6 +691,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -568,41 +737,48 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
 
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-008 - Verify that if Currency= KWD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -622,6 +798,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -650,41 +844,49 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-009 - Verify that if Currency= KWD and Country = Kuwait & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -704,6 +906,25 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -732,41 +953,49 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-010 - Verify that if Currency= OMR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -786,6 +1015,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -814,41 +1061,48 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
 
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-011 - Verify that if Currency= OMR and Country = OMAN & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -868,6 +1122,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -896,41 +1168,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-012 - Verify that if Currency= SAR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -950,6 +1231,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -978,41 +1277,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-013 - Verify that if Currency= SAR and Country = Saudi Arabia & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1032,6 +1340,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1060,41 +1386,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-014 - Verify that if Currency= QAR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1114,6 +1449,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1142,41 +1495,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-015 - Verify that if Currency= QAR and Country = QATAR & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1196,6 +1558,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1224,41 +1604,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-016 - Verify that if Currency= CZK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1278,6 +1667,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1306,41 +1713,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-017 - Verify that if Currency= CZK and Country = Czech Republic & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1360,6 +1776,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1388,41 +1822,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-018 - Verify that if Currency= RON and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1442,6 +1885,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1470,41 +1931,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-019 - Verify that if Currency= RON and Country = Romania & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1524,6 +1994,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1552,41 +2040,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-020 - Verify that if Currency= ILS and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1606,6 +2103,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1634,41 +2149,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-021 - Verify that if Currency= ILS and Country = ISRAEL & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1688,6 +2212,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1716,41 +2258,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-022 - Verify that if Currency= HUF and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1770,6 +2321,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1798,41 +2367,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-023 - Verify that if Currency= HUF and Country = Hungary & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1852,6 +2430,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1880,41 +2476,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
-
-    // ─────────────── Confirmation Screens ───────────────
-    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
-      .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
     });
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
-      .should('be.visible')
-      .click();
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+    // ─────────────── Confirmation Screens ───────────────
+   cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', recipientReceives);
+  });
+
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
+
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-024 - Verify that if Currency= KES and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -1934,6 +2539,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -1962,41 +2585,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-025 - Verify that if Currency= KES and Country = Kenya & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2017,6 +2649,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2045,41 +2695,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-026 - Verify that if Currency= UGX and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2099,6 +2758,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2127,41 +2804,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-027 - Verify that if Currency= UGX and Country = Uganda & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2181,6 +2867,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2209,41 +2913,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-028 - Verify that if Currency= BHD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2263,6 +2976,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2291,41 +3022,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-029 - Verify that if Currency= BHD and Country = Bahrain & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2345,6 +3085,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2373,41 +3131,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-030 - Verify that if Currency= AED and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2427,6 +3194,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2455,41 +3240,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-031 - Verify that if Currency= AED and Country = UNITED ARAB EMIRATES & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2509,6 +3303,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2537,41 +3349,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-032 - Verify that if Currency= INR and Country = INDIA current & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2592,6 +3413,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2620,41 +3459,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-033 - Verify that if Currency= INR and Country = INDIA Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2675,6 +3523,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2703,41 +3569,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-034 - Verify that if Currency= NZD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2757,6 +3632,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2785,41 +3678,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     xit('TC-AC-035 - Verify that if Currency= NZD and Country = New Zealand & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2840,6 +3742,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2868,41 +3788,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-036 - Verify that if Currency= ZAR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -2922,6 +3851,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -2950,41 +3897,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-037 - Verify that if Currency= ZAR and Country = South Africa & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3006,6 +3962,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3034,41 +4008,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-038 - Verify that if Currency= PLN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3088,6 +4071,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3116,41 +4117,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-039 - Verify that if Currency= PLN and Country = Poland & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3170,6 +4180,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3198,41 +4226,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-040 - Verify that if Currency= DKK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3252,6 +4289,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3280,41 +4335,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-041 - Verify that if Currency= DKK and Country = Denmark & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3337,6 +4401,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3365,41 +4447,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-042 - Verify that if Currency= SEK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3418,6 +4509,23 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
 
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
@@ -3447,41 +4555,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-043 - Verify that if Currency= SEK and Country = SWEDEN & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3502,6 +4619,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3530,41 +4665,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-044 - Verify that if Currency= NOK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3584,6 +4728,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3612,41 +4774,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-045 - Verify that if Currency= NOK and Country = Norway & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3669,6 +4840,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3697,41 +4886,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
 
     it('TC-AC-046 - Verify that if Currency= JPY and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
@@ -3752,6 +4950,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3780,41 +4996,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-047 - Verify that if Currency= JPY and Country = Japan & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3835,6 +5060,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3863,41 +5106,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-048 - Verify that if Currency= CAD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -3917,6 +5169,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -3945,41 +5215,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-049 - Verify that if Currency= CAD and Country = Canada & client = UK and check priority and regular settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4002,6 +5281,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4029,42 +5326,51 @@ describe('Single Payment Corpay',function(){
       });
 
     /* ── Validate recipient‑received amount ───────────────────── */
-    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+   cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-050 - Verify that if Currency= USD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4084,6 +5390,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4112,41 +5436,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     xit('TC-AC-051 - Verify that if Currency= USD and Country = UNITED STATES & client = UK and check priority and regular settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4169,6 +5502,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4197,41 +5548,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-052 - Verify that if Currency= EUR and Country = UNITED KINGDOM & client = UK and check priority and regular settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4251,6 +5611,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4279,41 +5657,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-053 - Verify that if Currency= EUR and Country = Spain & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4333,6 +5720,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4361,41 +5766,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-054 - Verify that if Currency= AUD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4415,6 +5829,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4442,42 +5874,51 @@ describe('Single Payment Corpay',function(){
       });
 
     /* ── Validate recipient‑received amount ───────────────────── */
-    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+   cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-055 - Verify that if Currency= AUD and Country = Australia & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4498,6 +5939,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4526,41 +5985,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-056 - Verify that if Currency= CHF and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4580,6 +6048,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4608,41 +6094,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-057 - Verify that if Currency= CHF and Country = Switzerland & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4662,6 +6157,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4690,41 +6203,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
-
-    // ─────────────── Confirmation Screens ───────────────
-    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
-      .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
     });
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
-      .should('be.visible')
-      .click();
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+    // ─────────────── Confirmation Screens ───────────────
+   cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', recipientReceives);
+  });
+
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
+
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-058 - Verify that if Currency= THB and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4744,6 +6266,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4772,41 +6312,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-059 - Verify that if Currency= THB and Country = Thailand & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4826,6 +6375,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4854,41 +6421,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-060 - Verify that if Currency= HKD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4908,6 +6484,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -4936,41 +6530,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-061 - Verify that if Currency= HKD and Country = Hong Kong & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -4990,6 +6593,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -5018,41 +6639,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-062 - Verify that if Currency= GBP and Country = UNITED KINGDOM & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -5074,6 +6704,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -5102,41 +6750,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-063 - Verify that if Currency= GBP and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -5157,6 +6814,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -5185,41 +6860,50 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
     it('TC-AC-064 - Verify that if Currency= CNY and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
@@ -5239,6 +6923,24 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
+    // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
     cy.get('.ant-select-selector')
@@ -5267,66 +6969,67 @@ describe('Single Payment Corpay',function(){
 
     /* ── Validate recipient‑received amount ───────────────────── */
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-      .invoke('text')
-      .then((text) => {
-        cy.wrap(text).as('storedText');
-        cy.log(text);
-      });
+    .invoke('text')
+    .then((uiText) => {
+      const trimmedUiText = uiText.trim();
+      cy.wrap(trimmedUiText).as('uiReceives');
+    });
+
+  // Compare UI vs API value
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get('@uiReceives').then((uiReceives) => {
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
+      expect(uiReceives).to.eq(recipientReceives);
+    });
+  });
+
 
     // ─────────────── Confirmation Screens ───────────────
     cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
 
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+    .should('be.visible')
+    .and('contain.text', 'Payment Confirmation');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', 'Payment Confirmation');
+      .and('contain.text', recipientReceives);
+  });
 
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    });
+  // Pay recipient
+  cy.get(
+    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+  )
+    .should('be.visible')
+    .click();
 
-    // Pay recipient
-    cy.get(
-      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-    )
+  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+    .should('be.visible')
+    .and('contain.text', ' Payment Booked - ');
+
+  cy.get('@recipientReceives').then((recipientReceives) => {
+    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .click();
-
-    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-      .should('be.visible')
-      .and('contain.text', ' Payment Booked - ');
-
-    cy.get('@storedText').then((storedText) => {
-      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-        .should('be.visible')
-        .and('contain.text', storedText);
-    })
+      .and('contain.text', recipientReceives);
+  });
     })
 
     //to do cover these scenarios
-//     AE / AED
 
-// AE / USD
 
-// IN / INR
+
 
 // IN / USD
 
-// BH / BHD
 
 // BH / USD
 
-// CN / CNY
 
 // CN / USD
 
 
     
-
-
-
-
 
 
 

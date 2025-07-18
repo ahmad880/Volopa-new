@@ -96,7 +96,7 @@ export class BatchPayments {
         cy.get('.ant-tabs-tab-active').should('be.visible').should('contain.text','Payments Dashboard')
     }
     paymentPurpose(){
-        cy.get('#crossBorderPurposeCode').click()
+        cy.get('#paymentPurpose').click()
         cy.get('[class="ant-select-item ant-select-item-option"]').eq(0).should('be.visible').then(option => {
             const selectedValue = option.text(); // Get the text of the selected option
             option.click(); // Click to select the option
@@ -106,7 +106,7 @@ export class BatchPayments {
         });
     }
     paymentPurpose1(){
-        cy.get('#crossBorderPurposeCode').click()
+        cy.get('#paymentPurpose').click()
         cy.get('[class="ant-select-item ant-select-item-option"]').eq(1).should('be.visible').then(option => {
             const selectedValue1 = option.text(); // Get the text of the selected option
             option.click(); // Click to select the option
@@ -145,18 +145,66 @@ export class BatchPayments {
         cy.get(variable.batchPaymentsPageLocators.selectReasonForPayment).eq(0).click({force:true})
         cy.get(variable.batchPaymentsPageLocators.paymentReferences).eq(0).type('Single', {force:true})
     }
-    iNRDetails(){
-        cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(1)').should('be.visible').should('contain.text','Invoice Number')
-        cy.get(':nth-child(10) > :nth-child(2) > .ant-col > .ant-input').type('345210')
-        cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(3)').should('be.visible').should('contain.text','Invoice Date')
-        cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(4) > .ant-col > .ant-input').type('2024-06-26')
-    }
-    iNRDetails1(){
-        cy.get(':nth-child(2) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(1) > .ant-col > .ant-space > [style=""] > .ant-typography').should('be.visible').should('contain.text','Invoice Number')
-        cy.get(':nth-child(2) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(2) > .ant-col > .ant-input').type('985210')
-        cy.get(':nth-child(2) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(3) > .ant-col > .ant-space > [style=""] > .ant-typography').should('be.visible').should('contain.text','Invoice Date')
-        cy.get(':nth-child(2) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(4) > .ant-col > .ant-input').type('2024-06-26')
-    }
+    iNRDetails1() {
+    // Get today's date (used for asserting if needed)
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+
+    // Check Invoice Number Label
+    cy.get(':nth-child(2) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(1) > .ant-col > .ant-space > [style=""] > .ant-typography')
+        .should('be.visible')
+        .should('contain.text', 'Invoice Number');
+
+    // Enter Invoice Number
+    cy.get(':nth-child(2) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(2) > .ant-col > .ant-input')
+        .type('345210');
+
+    // Check Invoice Date Label
+    cy.get(':nth-child(2) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(3) > .ant-col > .ant-space > [style=""] > .ant-typography')
+        .should('contain.text', 'Invoice Date');
+
+    cy.get('input[placeholder="Select date"]').eq(2).click();
+
+// Ensure calendar is visible
+cy.get('.ant-picker-dropdown')
+  .should('be.visible')
+  .last() // get the last visible dropdown (if multiple exist)
+  .within(() => {
+    // Click today's date from that specific calendar
+    cy.get('.ant-picker-cell-today').click();
+  });
+}
+
+    iNRDetails() {
+    // Get today's date (for formatting or assertions if needed)
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const year = today.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+
+    // Check Invoice Number Label
+    cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(1) > .ant-col > .ant-space > [style=""] > .ant-typography')
+        .should('contain.text', 'Invoice Number');
+
+    // Enter Invoice Number
+    cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(2) > .ant-col > .ant-input')
+        .type('985210');
+
+    // Check Invoice Date Label
+    cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(10) > :nth-child(3) > .ant-col > .ant-space > [style=""] > .ant-typography')
+        .should('contain.text', 'Invoice Date');
+
+    // Click the first date input to open calendar
+    cy.get('input[placeholder="Select date"]').eq(0).click();
+
+    // Select today's date from the calendar (this element usually has a special class)
+    cy.get('.ant-picker-cell-today').click(); // Selects current date
+}
+
     addrecipientDetailINR(amount ,email){
         cy.get(variable.batchPaymentsPageLocators.paymentDetailHeading).should('contain.text','Enter Payment Details')
         cy.get(variable.batchPaymentsPageLocators.amount).eq(0).type(amount)
@@ -164,7 +212,7 @@ export class BatchPayments {
         //cy.get(variable.batchPaymentsPageLocators.reasonForPaymentDropDown).eq(1).click()
         cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(9) > .ant-col > :nth-child(1) > .ant-select-selector').click()
         cy.get(variable.batchPaymentsPageLocators.selectReasonForPayment).eq(0).click({force:true})
-        cy.get(':nth-child(12) > .ant-col > .ant-input').type('Single')
+        cy.get(':nth-child(1) > .ant-col-xs-24 > .ant-card > .ant-card-body > :nth-child(3) > .ant-col-xxl-0 > :nth-child(12) > .ant-col > .ant-input').type('Single')
     }
     addrecipientDetail1INR(amount1 ,email1){
         cy.get(variable.batchPaymentsPageLocators.paymentDetailHeading).should('contain.text','Enter Payment Details')

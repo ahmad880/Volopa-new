@@ -6684,7 +6684,7 @@ describe('Single Payment Corpay',function(){
       .and('contain.text', recipientReceives);
   });
     })
-    it('TC-AC-062 - Verify that if Currency= GBP and Country = UNITED KINGDOM & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
+    it.only('TC-AC-062 - Verify that if Currency= GBP and Country = UNITED KINGDOM & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()

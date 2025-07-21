@@ -52,7 +52,7 @@ describe('New Payment',function(){
         newPayment.selectCurrency("AUD")
         newPayment.checkFundingMethod()
     })
-    it.only('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
+    xit('TC_NP_006 - Verify that FX rate is appearing and will refresh every 30 seconds.', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -61,7 +61,7 @@ describe('New Payment',function(){
         cy.get('#youSend').type('200')
         newPayment.validateFxRateTimer()
     })
-    it.only('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
+    xit('TC_NP_007 - Verify that user is able to navigate "Recipient Details" on clicking the "View Details" button under the "Recipient Details" tag present on Create a payment Page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
@@ -151,6 +151,25 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
+
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -208,6 +227,24 @@ describe('New Payment',function(){
       let amount = '125'
       newPayment.addrecipientDetail(amount, email)
       newPayment.selectFundingMethod('Push Funds')
+
+        // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
       //Validate the selected payment purpose
       cy.get('@selectedValue').then(selectedValue=>{
          cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -265,6 +302,24 @@ describe('New Payment',function(){
       let amount = '225'
       newPayment.addrecipientDetail(amount, email)
       newPayment.selectFundingMethod('Push Funds')
+
+        // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
       //Validate the selected payment purpose
       cy.get('@selectedValue').then(selectedValue=>{
          cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -323,6 +378,24 @@ describe('New Payment',function(){
     let amount = '325'
     newPayment.addrecipientDetail(amount, email)
     newPayment.selectFundingMethod('Push Funds')
+
+      // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
     //Validate the selected payment purpose
     cy.get('@selectedValue').then(selectedValue=>{
        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -381,6 +454,24 @@ describe('New Payment',function(){
         let amount = '425'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -418,6 +509,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -456,6 +565,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -482,7 +609,7 @@ describe('New Payment',function(){
         newRecipient.addBankDetailsChina('AYCLCNBY','55555555','501100000011')
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('INDIVIDUAL PF'+' '+bName,'CHINA{enter}')
-        batchPayments.paymentPurposeChina()
+        batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
@@ -495,6 +622,24 @@ describe('New Payment',function(){
         let amount = '260'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -533,6 +678,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -573,6 +736,24 @@ describe('New Payment',function(){
         let amount = '230'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -805,6 +986,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -844,6 +1043,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate Purpose on batch payment
         cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
@@ -884,6 +1101,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
@@ -929,6 +1164,24 @@ describe('New Payment',function(){
         let amount = '250'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
         //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1215,6 +1468,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1272,6 +1543,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1329,6 +1618,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1386,6 +1693,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1443,6 +1768,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1788,6 +2131,23 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
         cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1846,6 +2206,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1904,6 +2282,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -1962,6 +2358,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2020,6 +2434,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2369,6 +2801,23 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2427,6 +2876,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2485,6 +2952,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2543,6 +3028,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2603,6 +3106,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -2954,6 +3475,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3013,6 +3552,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3072,6 +3629,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3131,6 +3706,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3192,6 +3785,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3546,6 +4157,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3603,6 +4232,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3660,6 +4307,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3717,6 +4382,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -3774,6 +4457,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4119,6 +4820,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4177,6 +4896,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4235,6 +4972,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4293,6 +5048,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4351,6 +5124,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
             cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4702,6 +5493,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4761,6 +5570,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -4948,6 +5775,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5006,6 +5851,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5191,6 +6054,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5250,6 +6131,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5435,6 +6334,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
         cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5492,6 +6409,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
                 cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
@@ -5677,6 +6612,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -5739,6 +6692,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -5922,6 +6893,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -5983,6 +6972,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6168,6 +7175,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6230,6 +7255,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6416,6 +7459,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6477,6 +7538,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6660,7 +7739,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
-            
+        
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
             cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`)
@@ -6721,6 +7817,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6906,6 +8020,24 @@ describe('New Payment',function(){
         let amount = '225'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {
@@ -6968,6 +8100,24 @@ describe('New Payment',function(){
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         newPayment.selectFundingMethod('Push Funds')
+
+          // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+  ).as('quoteApi');
+
+  // ───── Wait for API and Compare Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive;
+    const recipientReceives = response.body.data.recipient[0].receives;
+
+    cy.wrap(recipientReceives).as('recipientReceives');
+    cy.log(`Receive: ${receive}`);
+    cy.log(`Recipient Receives: ${recipientReceives}`);
+
+    expect(receive).to.eq(recipientReceives); // Final comparison
+  });
             
           //Validate the selected payment purpose
           cy.get('@selectedValue').then(selectedValue => {

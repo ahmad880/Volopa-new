@@ -69,7 +69,14 @@ export class NewPayment {
         cy.get(':nth-child(2) > .ant-col-xs-24 > :nth-child(1) > .ant-col > .ant-space > [style=""] > .ant-typography').should('be.visible').should('contain.text','Invoice Number')
         cy.get('#invoiceNumber').type('345210')
         cy.get('.ant-col-xs-24 > :nth-child(3) > .ant-col > .ant-space > [style=""] > .ant-typography').should('be.visible').should('contain.text','Invoice Date')
-        cy.get('#invoiceDate').type('2024-06-26')
+        //cy.get('#invoiceDate').type('2024-06-26')
+
+        // Click the first date input to open calendar
+    cy.get('input[placeholder="Select date"]').eq(0).click();
+
+    // Select today's date from the calendar (this element usually has a special class)
+    cy.get('.ant-picker-cell-today').click(); // Selects current date
+
     }
     selectFundingMethod(option) {
         // Ensure the page has loaded

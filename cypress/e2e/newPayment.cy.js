@@ -124,7 +124,7 @@ describe('New Payment',function(){
         newPayment.validatePayTheRecipient()
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn').should('be.visible').and('contain.text','View Payment').click()
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').and('contain.text','Payment History')
-    })
+    })  
 // special cases 
     // push fund
     it.only('TC_NP_011 - Verify that payments to the recipients with ABA code with currency USD & country US should have both Settlement Methods (Regular, priority) enabled. using GBP and push funds.', function(){

@@ -260,7 +260,7 @@ describe('Batch Payments',function(){
         batchPayments.iNRDetails1()
         batchPayments.proceedflow('GBP','GBP','Push Fund','Push Fund')
         batchPayments.validateproceedflow(amount,amount1)
-        batchPayments.cancelPushFunds()
+        //batchPayments.cancelPushFunds()
     })
     it.only('TC_BP_015 - Add 2 recipients(individual) from the "Add Recipient" page with country = CHINA and currency = CNY. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)

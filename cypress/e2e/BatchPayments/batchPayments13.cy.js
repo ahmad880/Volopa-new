@@ -326,8 +326,8 @@ describe('Batch Payments',function(){
         batchPayments.individualRecipient('MEXICO PF',lName,'MEXICO{enter}')
         newRecipient.postCodeState()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -342,8 +342,8 @@ describe('Batch Payments',function(){
         batchPayments.individualRecipient('MEXICO USD PF',lName1,'MEXICO{enter}')
         newRecipient.postCodeState()
         batchPayments.paymentPurpose1GBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList1 = Element.text()
             cy.log(purposeList1)
             cy.wrap(purposeList1).as('purposeList1')

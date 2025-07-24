@@ -29,10 +29,10 @@ describe('Batch Payments',function(){
         newRecipient.addBankDetailsWithAccNo('ROYCCAT2','55555555')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL PF',lName,'CANADA{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -45,10 +45,10 @@ describe('Batch Payments',function(){
         newRecipient.addBankDetailsWithAccNo('ROYCCAT2','55555555')
         const lName1 = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL USD PF',lName1,'CANADA{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurpose1GBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList1 = Element.text()
             cy.log(purposeList1)
             cy.wrap(purposeList1).as('purposeList1')
@@ -102,10 +102,10 @@ describe('Batch Payments',function(){
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS PF'+' '+bName,'CANADA{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -119,10 +119,10 @@ describe('Batch Payments',function(){
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName1 = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS USD PF'+ ' '+bName1,'CANADA{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurpose1GBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList1 = Element.text()
             cy.log(purposeList1)
             cy.wrap(purposeList1).as('purposeList1')

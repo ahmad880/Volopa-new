@@ -7029,7 +7029,5567 @@ describe('Single Payment Corpay',function(){
 // CN / USD
 
 
-    
+    it('TC-AC-065 - Verify that(business) if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad() 
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SGD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK SGD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-066 - Verify that(business) if Currency= SGD and Country = Singapore & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
+        newRecipient.singaporeCorpayDeatails('1111','123')
+        newRecipient.addBusinessRecipientCorpay('SINGAPORE{enter}','Singapore SGD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-067 - Verify that(business) if Currency= MXN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'MXN{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','QA Checking MXN')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-068 - Verify that(business) if Currency= MXN and Country = Mexico Checking & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('MEXICO{enter}' ,'MXN{enter}',email)
+        newRecipient.addBankDetailsWithClabe('AFIRMXMT','002010077777777771')
+        newRecipient.mexicoCorpay('Checking{enter}')
+        newRecipient.addBusinessRecipientCorpay('MEXICO{enter}','QA Checking MXN')
+        newRecipient.postCodeState()
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-069 - Verify that(business) if Currency= MXN and Country = Mexico Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('MEXICO{enter}' ,'MXN{enter}',email)
+        newRecipient.addBankDetailsWithClabe('AFIRMXMT','002010077777777771')
+        newRecipient.mexicoCorpay('Saving{enter}')
+        newRecipient.addBusinessRecipientCorpay('MEXICO{enter}','QA Saving MXN')
+        newRecipient.postCodeState()
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-070 - Verify that(business) if Currency= TRY and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'TRY{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK TRY')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-071 - Verify that(business) if Currency= TRY and Country = Turkey & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('TURKEY{enter}' ,'TRY{enter}',email)
+        newRecipient.addBankDetails('TR690006245145456117494371','CAYTTRIS002')
+        newRecipient.addBusinessRecipientCorpay('TURKEY{enter}', 'Turkey TRY')
+        newRecipient.saveRecipient()
+        //newRecipient.checkAmountLimit('5000001','Maximum limit for TRY is 5,000,000.00')
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-072 - Verify that(business) if Currency= KWD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KWD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK KWD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-073 - Verify that(business) if Currency= KWD and Country = Kuwait & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('KUWAIT{enter}' ,'KWD{enter}',email)
+        newRecipient.addBankDetails('KW81CBKU0000000000001234560101','ABKKKWKW')
+        newRecipient.addBusinessRecipientCorpay('KUWAIT{enter}','Kuwait KWD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-074 - Verify that(business) if Currency= OMR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+         signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'OMR{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK OMR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-075 - Verify that(business) if Currency= OMR and Country = Oman & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+         signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('OMAN{enter}' ,'OMR{enter}',email)
+        newRecipient.addBankDetails('OM040280000012345678901','BDOFOMRUMIB')
+        newRecipient.addBusinessRecipientCorpay('OMAN{enter}','OMAN OMR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-076 - Verify that(business) if Currency= SAR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SAR{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK SAR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-077 - Verify that(business) if Currency= SAR and Country = Saudia Arabia & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('SAUDI ARABIA{enter}' ,'SAR{enter}',email)
+        newRecipient.addBankDetails('SA0380000000608010167519','AIASSARI')
+        newRecipient.addBusinessRecipientCorpay('SAUDI ARABIA{enter}','Saudia Arabia SAR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-078 - Verify that(business) if Currency= QAR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'QAR{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK QAR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-079 - Verify that(business) if Currency= QAR and Country = Qatar & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('QATAR{enter}' ,'QAR{enter}',email)
+        newRecipient.addBankDetails('QA58DOHB00001234567890ABCDEFG','ALZAQAQA')
+        newRecipient.addBusinessRecipientCorpay('QATAR{enter}','Qatar QAR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-080 - Verify that(business) if Currency= CZK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'CZK{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK CZK')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-081 - Verify that(business) if Currency= CZK and Country = Czech Republic & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Czech Republic{enter}' ,'CZK{enter}',email)
+        newRecipient.addBankDetails('CZ5508000000001234567899','AKCNCZP2')
+        newRecipient.addBusinessRecipientCorpay('Czech Republic{enter}','Czech Republic CZK')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-082 - Verify that(business) if Currency= RON and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'RON{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','BACXROBUXXX')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK RON')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-083 - Verify that(business) if Currency= RON and Country = Romania & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('ROMANIA{enter}' ,'RON{enter}',email)
+        newRecipient.addBankDetails('RO66BACX0000001234567890','BACXROBUXXX')
+        newRecipient.addBusinessRecipientCorpay('ROMANIA{enter}','ROMANIA RON')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-084 - Verify that(business) if Currency= ILS and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'ILS{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK ILS')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-085 - Verify that(business) if Currency= ILS and Country = Israel & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('ISRAEL{enter}' ,'ILS{enter}',email)
+        newRecipient.addBankDetails('IL170108000000012612345','ASRIILIC')
+        newRecipient.addBusinessRecipientCorpay('ISRAEL{enter}','ISRAEL ILS')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-086 - Verify that(business) if Currency= HUF and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'HUF{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK HUF')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-087 - Verify that(business) if Currency= HUF and Country = Hungary & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('HUNGARY{enter}' ,'HUF{enter}',email)
+        newRecipient.addBankDetails('HU42117730161111101800000000','AKKHHUHB')
+        newRecipient.addBusinessRecipientCorpay('HUNGARY{enter}','Hungary HUF')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-088 - Verify that(business) if Currency= KES and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KES{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK KES')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-089 - Verify that(business) if Currency= KES and Country = Kenya & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('KENYA{enter}' ,'KES{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
+        cy.get('#bankBranch').type('city branch')
+        newRecipient.addBusinessRecipientCorpay('KENYA{enter}','Kenya KES')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-090 - Verify that(business) if Currency= UGX and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'UGX{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK UGX')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-091 - Verify that(business) if Currency= UGX and Country = Uganda & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UGANDA{enter}' ,'UGX{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('CCEIUGKA','049712')
+        newRecipient.addBusinessRecipientCorpay('UGANDA{enter}','UGANDA UGX')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-092 - Verify that(business) if Currency= BHD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'BHD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK BHD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-093 - Verify that(business) if Currency= BHD and Country = Bahrain & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('BAHRAIN{enter}' ,'BHD{enter}',email)
+        newRecipient.addBankDetails('BH67BMAG00001299123456','ABBGBHBM')
+        newRecipient.addBusinessRecipientCorpay('BAHRAIN{enter}','BAHRAIN BHD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-094 - Verify that(business) if Currency= AED and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'AED{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK AED')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-095 - Verify that(business) if Currency= AED and Country = United Arab Emirates & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED{enter}',email)
+        newRecipient.addBankDetails('AE070331234567890123456','AARPAEAA')
+        newRecipient.addBusinessRecipientCorpay('UNITED ARAB EMIRATES{enter}','United Arab Emirates AED')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-096 - Verify that(business) if Currency= INR and Country = India Current & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('INDIA{downarrow}{enter}' ,'INR{enter}',email)
+        newRecipient.addIndiaBankDetail()
+        newRecipient.indiaAccountType('current{enter}')
+        newRecipient.addBusinessRecipientCorpay('INDIA{downarrow}{enter}','India INR Current')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.enabled','be.disabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-097 - Verify that(business) if Currency= INR and Country = India Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('INDIA{downarrow}{enter}' ,'INR{enter}',email)
+        newRecipient.addIndiaBankDetail()
+        newRecipient.indiaAccountType('Saving{enter}')
+        newRecipient.addBusinessRecipientCorpay('INDIA{downarrow}{enter}','India INR Saving')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.enabled','be.disabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-098 - Verify(business) that if Currency= NZD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'NZD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK NZD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    xit('TC-AC-099 - Verify(business) that if Currency= NZD and Country = New Zealnad & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('New Zealand{enter}' ,'NZD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('BKNZNZ22','049712')
+        cy.get('#bsb').should('be.visible').type('302921')
+        newRecipient.addBusinessRecipientCorpay('New Zealand{enter}','New Zealand NZD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-100 - Verify(business) that if Currency= ZAR and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'ZAR{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK ZAR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-101 - Verify(business) that if Currency= ZAR and Country = South Africa & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('South Africa{enter}' ,'ZAR{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('SARBZAJ6XXX','049712')
+        cy.get('#branch_code').should('be.visible').type('632005')
+        cy.get('#bankBranch').should('be.visible').type('City branch')
+        newRecipient.addBusinessRecipientCorpay('South Africa{enter}','South Africa ZAR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-102 - Verify(business) that if Currency= PLN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'PLN{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK PLN')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-103 - Verify(business) that if Currency= PLN and Country = Poland & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('poland{enter}' ,'PLN{enter}',email)
+        newRecipient.addBankDetails('PL10105000997603123456789123','BPKOPLPWXXX')
+        newRecipient.addBusinessRecipientCorpay('Poland{enter}','Poland PLN')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-104 - Verify(business) that if Currency= DKK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'DKK{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK DKK')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-105 - Verify(business) that if Currency= DKK and Country = Denmark & client = UK and check priority and regular settlement are enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Denmark{enter}' ,'DKK{enter}',email)
+        newRecipient.addBankDetails('DK9520000123456789','NDEADKKKXXX')
+        cy.get('#accNumber').should('be.visible').type('1234578912')
+        cy.get('#bank_code').should('be.visible').type('2000')
+        newRecipient.addBusinessRecipientCorpay('Denmark{enter}','Denmark DKK')
+        cy.get('#postcode').should('be.visible').type('50505')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-106 - Verify(business) that if Currency= SEK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SEK{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK SEK')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-107 - Verify(business) that if Currency= SEK and Country = Sweden & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Sweden{enter}' ,'SEK{enter}',email)
+        newRecipient.addBankDetails('SE7280000810340009783242','SWEDSESSXXX')
+        newRecipient.addBusinessRecipientCorpay('Sweden{enter}','Sweden SEK')
+        cy.get('#postcode').should('be.visible').type('50505')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-108 - Verify(business) that if Currency= NOK and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'NOK{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK NOR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-109 - Verify(business) that if Currency= NOK and Country = Norway & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Norway{enter}' ,'NOK{enter}',email)
+        newRecipient.addBankDetails('NO8330001234567','SPTRNO22XXX')
+        cy.get('#accNumber').should('be.visible').type('1234572')
+        cy.get('#bank_code').should('be.visible').type('2000')
+        newRecipient.addBusinessRecipientCorpay('Denmark{enter}','Denmark DKK')
+        cy.get('#postcode').should('be.visible').type('50505')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-110 - Verify(business) that if Currency= JPY and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'JPY{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK JPY')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-111 - Verify(business) that if Currency= JPY and Country = Japan & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Japan{enter}' ,'JPY{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('BOJPJPJTXXX','049712')
+        cy.get('#bankBranch').should('be.visible').type('City branch')
+        newRecipient.addBusinessRecipientCorpay('Japan{enter}','Japan JPY')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-112 - Verify(business) that if Currency= CAD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'CAD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK CAD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-113 - Verify(business) that if Currency= CAD and Country = Canada & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Canada{enter}' ,'CAD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('ROYCCAT2XXX','0497124')
+        cy.get('#bank_code').should('be.visible').type('004')
+        cy.get('#branch_code').should('be.visible').type('07171')
+        newRecipient.addBusinessRecipientCorpay('Canada{enter}','Canada CAD')
+        newRecipient.postCodeStateCanada()
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-114 - Verify(business) that if Currency= USD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'USD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK USD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    xit('TC-AC-115 - Verify(business) that if Currency= USD and Country = UNITED States & client = UK and check priority and regular settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('United States{enter}' ,'USD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
+        cy.get('#aba').should('be.visible').type('026009593')
+        newRecipient.addBusinessRecipientCorpay('United States{enter}','United States USD')
+        newRecipient.postCodeStateUS()
+        newRecipient.saveRecipient()
+        //to do (need to check the settlment it's not currently validating iban)
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-116 - Verify(business) that if Currency= EUR and Country = UNITED KINGDOM & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'EUR{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK EUR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-117 - Verify(business) that if Currency= EUR and Country = Spain & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('SPain{enter}' ,'EUR{enter}',email)
+        newRecipient.addBankDetails('ES7921000813610123456789','CAIXESBBXXX')
+        newRecipient.addBusinessRecipientCorpay('Spain{enter}','Spain EUR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-118 - Verify(business) that if Currency= AUD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'AUD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK AUD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-119 - Verify(business) that if Currency= AUD and Country = Australia & client = UK and check priority and regular both settlement are enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Australia{enter}' ,'AUD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('ANZBAU3MXXX','011401533')
+        cy.get('#bsb').should('be.visible').type('462541')
+        newRecipient.addBusinessRecipientCorpay('Australia{enter}','Australia AUD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-120 - Verify(business) that if Currency= CHF and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'CHF{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK CHF')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-121 - Verify(business) that if Currency= CHF and Country = Switzerland & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Switzerland{enter}' ,'CHF{enter}',email)
+        newRecipient.addBankDetails('CH5604835012345678009','UBSWCHZH80A')
+        newRecipient.addBusinessRecipientCorpay('Switzerland{enter}','Switzerland CHF')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-122 - Verify(business) that if Currency= THB and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'THB{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK THB')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-123 - Verify(business) that if Currency= THB and Country = Thailand & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Thailand{enter}' ,'THB{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('BKKBTHBK','0114015331')
+        newRecipient.addBusinessRecipientCorpay('Thailand{enter}','Thailand THB')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-124 - Verify(business) that if Currency= HKD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'HKD{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK HKD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-125 - Verify(business) that if Currency= HKD and Country = Hong Kong & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Hong Kong{enter}' ,'HKD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('HSBCHKHHHKH','0114015331')
+        newRecipient.addBusinessRecipientCorpay('Hong Kong{enter}','Hong Kong HKD')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-126 - Verify(business) that if Currency= GBP and Country = UNITED KINGDOM & client = UK and check priority and regular both  settlement are enabled and make a payment with EUR using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'GBP{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        cy.get('#sortCode').should('be.visible').type('401276')
+        cy.get('#accNumber').should('be.visible').type('56974456')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK GBP')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{enter}', 'EUR');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-127 - Verify(business) that if Currency= GBP and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with EUR using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'GBP{enter}',email)
+        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
+        cy.get('#sortCode').should('be.visible').type('401276')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK GBP Priority')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{enter}', 'EUR');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-128 - Verify(business) that if Currency= CNY and Country = China & client = UK and check priority settlement is enabled and make a payment with EUR using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+       signin.Login(userName, password)
+    newRecipient.goToPaymentsDashborad()
+    newRecipient.gotoRecipientList()
+    let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+    newRecipient.addRecipient('China{enter}' ,'CNY{enter}',email)
+    newRecipient.addBankDetailsChina('AFFLGB22','55555555','103100000026')
+    newRecipient.BusinessCNY('CNY china Business','China{enter}')
+    newRecipient.saveRecipient()
+    newRecipient.checkSettelment('be.disabled','be.enabled')
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{enter}', 'EUR');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+
+    //Additional cases for countries/currencies required special POP
+    it('TC-AC-031 - Verify that if Currency= USD and Country = UNITED ARAB EMIRATES & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED ARAB EMIRATES{enter}' ,'USD{enter}',email)
+        newRecipient.addBankDetails('AE070331234567890123456','AARPAEAA')
+        newRecipient.individualRecipient('United Arab Emirates USD','UNITED ARAB EMIRATES{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 10
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    //it is failing requesting the routing code in this case
+    it('TC-AC-025 - Verify that if Currency= USD and Country = INDIA & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('India{downarrow}{enter}' ,'USD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
+        // cy.get('#bankBranch').type('city branch')
+        newRecipient.individualRecipient('India USD','india{downarrow}{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 10
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+
+    it('TC-AC-001 - Verify that if Currency= USD and Country = Bahrain & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+    signin.Login(userName, password);
+
+    newRecipient.goToPaymentsDashborad();
+    newRecipient.gotoRecipientList();
+
+    const email = batchPayments.generateRandomString(5) + '@yopmail.com';
+    newRecipient.addRecipient('Bahrain{enter}', 'USD{enter}', email);
+    newRecipient.addBankDetails('BH02CITI00001077181611', 'CITIBHBXXXX');
+    newRecipient.individualRecipient('Bahrain USD', 'Bahrain{enter}');
+    newRecipient.saveRecipient();
+    newRecipient.checkSettelment('be.disabled', 'be.enabled');
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 7
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
+    it('TC-AC-025 - Verify that if Currency= USD and Country = China & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    // ─────────────── Setup & Recipient Creation ───────────────
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('China{enter}' ,'USD{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('AFFLGB22','049712')
+        // cy.get('#bankBranch').type('city branch')
+        newRecipient.individualRecipient('China USD','China{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+
+    // ─────────────── Payment Flow ───────────────
+    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+    const amount = '10';
+    newPayment.addrecipientDetail(amount, email);
+    newPayment.selectFundingMethod('Push Funds');
+
+    /* ── Validate payment‑reason field ───────────────────────── */
+    // 1️⃣ Ensure the field starts empty
+    cy.get('.ant-select-selector')
+      .eq(2)
+      .should(($el) => {
+        expect(
+          $el.text().trim(),
+          'reason field should start empty'
+        ).to.equal('');
+      })
+      .click(); // open dropdown
+
+    // 2️⃣ Pick a random option between 1 and 10
+    cy.get('.ant-select-dropdown')
+      .last()
+      .find('.ant-select-item-option')
+      .its('length')
+      .then((total) => {
+        const idx = Math.min(7, Cypress._.random(0, total - 1));
+        cy.get('.ant-select-dropdown')
+          .last()
+          .find('.ant-select-item-option')
+          .eq(idx)
+          .click();
+      });
+
+    /* ── Validate recipient‑received amount ───────────────────── */
+    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('storedText');
+        cy.log(text);
+      });
+
+    // ─────────────── Confirmation Screens ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    });
+
+    // Pay recipient
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@storedText').then((storedText) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .and('contain.text', storedText);
+    })
+    })
 
 
 

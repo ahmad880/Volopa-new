@@ -17,12 +17,19 @@ describe('Single Payment Corpay',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp02.volopa-dev.com/', { timeout: 10000 })
+       const baseUrl = 'https://webapp01.volopa-dev.com/';
+       cy.visit(baseUrl);
+
+       const envSuffix = baseUrl.match(/webapp(\d+)/)?.[1]; // Extract "02" from "webapp02"
+       const apiEnv = `VolopaApiOauth2WebApp${envSuffix}`;
+
+      // Store it as an alias for use in tests
+       cy.wrap(apiEnv).as('apiEnv');
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
 
-    it('TC-AC-001 - Verify that if Currency = SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
+    it.only('TC-AC-001 - Verify that if Currency = SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
   // ─────────────── Setup & Recipient Creation ───────────────
   signin.Login(userName, password); // your existing login method
 
@@ -41,11 +48,11 @@ describe('Single Payment Corpay',function(){
   const amount = '10';
   newPayment.addrecipientDetail(amount, email);
   newPayment.selectFundingMethod('Push Funds');
-
+  const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -138,7 +145,7 @@ describe('Single Payment Corpay',function(){
         newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.singaporeCorpayDeatails('1111','123')
-        newRecipient.individualRecipient('SINGAPORE SGD','SINGAPORE{enter}')
+        newRecipient.individualRecipient('SN SGD','SINGAPORE{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
 
@@ -147,10 +154,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+      const apiEnv = this.apiEnv;
 
     cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -254,11 +262,11 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
 
-    
+    const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -363,11 +371,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -473,11 +481,12 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+      const apiEnv = this.apiEnv;
 
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -581,11 +590,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -690,11 +699,12 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+      const apiEnv = this.apiEnv;
 
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -797,11 +807,12 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+      const apiEnv = this.apiEnv;
 
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -905,11 +916,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1014,11 +1025,12 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+            const apiEnv = this.apiEnv;
 
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1121,11 +1133,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1230,11 +1242,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1339,11 +1351,12 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+            const apiEnv = this.apiEnv;
 
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1448,11 +1461,12 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+      const apiEnv = this.apiEnv;
 
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1557,11 +1571,12 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+      const apiEnv = this.apiEnv;
 
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1666,11 +1681,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1775,11 +1790,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1884,11 +1899,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1993,11 +2008,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2102,11 +2117,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2211,11 +2226,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2320,11 +2335,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2429,11 +2444,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2538,11 +2553,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2648,11 +2663,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2757,11 +2772,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2866,11 +2881,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2975,11 +2990,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3084,11 +3099,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3193,11 +3208,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3302,11 +3317,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3412,11 +3427,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3522,11 +3537,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3631,11 +3646,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3741,11 +3756,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3850,11 +3865,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3961,11 +3976,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4070,11 +4085,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4179,11 +4194,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4288,11 +4303,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4400,11 +4415,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4509,10 +4524,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
+    const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4618,11 +4634,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4727,11 +4743,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4839,11 +4855,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4949,11 +4965,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5059,11 +5075,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5168,11 +5184,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5280,11 +5296,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5389,11 +5405,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5501,11 +5517,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5610,11 +5626,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5719,11 +5735,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5828,11 +5844,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5938,11 +5954,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6047,11 +6063,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6156,11 +6172,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6265,11 +6281,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6374,11 +6390,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6483,11 +6499,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6592,11 +6608,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6703,11 +6719,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6813,11 +6829,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6922,11 +6938,11 @@ describe('Single Payment Corpay',function(){
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-
+      const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────

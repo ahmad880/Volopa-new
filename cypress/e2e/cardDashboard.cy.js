@@ -11,7 +11,7 @@ describe('CardDashboard TS_003 ',function(){
     let userName = 'alexceaki+0141@gmail.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://uiredevelopment.volopa.com/')
+        cy.visit('https://webapp01.volopa-dev.com')
         signin.Login(userName, password)
         cy.get('[class="ant-space-item"] [type="button"]').eq(0).click()
         cy.get(':nth-child(3) > .ant-card > .ant-card-body > .ant-space').should('contain.text','Cards').click()

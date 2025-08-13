@@ -17,7 +17,7 @@ describe('New Payment',function(){
     let userName = 'automation_testUK@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp02.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })

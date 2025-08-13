@@ -10,7 +10,7 @@ describe('Wallet Section ',function(){
     let userName = 'qwerty_admin_1'
     let password = 'testTest1'
     beforeEach(()=>{
-        cy.visit('/')
+        cy.visit('https://webapp01.volopa-dev.com')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })

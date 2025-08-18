@@ -17,7 +17,7 @@ describe('New Payment',function(){
     let userName = 'automation_testUK@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 })
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -155,7 +155,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -231,7 +231,7 @@ describe('New Payment',function(){
         // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -306,7 +306,7 @@ describe('New Payment',function(){
         // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -382,7 +382,7 @@ describe('New Payment',function(){
       // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -458,7 +458,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -513,7 +513,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -569,7 +569,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -626,7 +626,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -682,7 +682,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -740,7 +740,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -990,7 +990,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1047,7 +1047,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1105,7 +1105,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1168,7 +1168,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1472,7 +1472,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1547,7 +1547,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1622,7 +1622,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1697,7 +1697,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1772,7 +1772,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2134,7 +2134,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2210,7 +2210,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2286,7 +2286,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2362,7 +2362,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2438,7 +2438,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2804,7 +2804,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2880,7 +2880,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2956,7 +2956,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3032,7 +3032,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3110,7 +3110,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3479,7 +3479,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3556,7 +3556,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3633,7 +3633,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3710,7 +3710,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3789,7 +3789,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4161,7 +4161,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4236,7 +4236,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4311,7 +4311,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4386,7 +4386,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4461,7 +4461,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4824,7 +4824,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4900,7 +4900,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4976,7 +4976,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5052,7 +5052,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5128,7 +5128,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5497,7 +5497,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5574,7 +5574,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5779,7 +5779,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5855,7 +5855,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6058,7 +6058,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6135,7 +6135,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6338,7 +6338,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6413,7 +6413,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6616,7 +6616,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6696,7 +6696,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6897,7 +6897,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6976,7 +6976,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -7179,7 +7179,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -7259,7 +7259,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -7463,7 +7463,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -7542,7 +7542,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -7743,7 +7743,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -7821,7 +7821,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -8024,7 +8024,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -8104,7 +8104,7 @@ describe('New Payment',function(){
           // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    'https://devapi.volopa.com/VolopaApiOauth2WebApp02/exchange/b2b/self/quote/temp'
+    'https://main-api.volopa-dev.com/OAuth2/exchange/b2b/self/quote/temp'
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────

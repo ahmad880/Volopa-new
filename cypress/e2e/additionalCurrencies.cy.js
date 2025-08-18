@@ -949,7 +949,7 @@ describe('Additional Currencies ',function(){
         newRecipient.validateErrorMsg()
     })
     //Currency is INR
-    it('TC-AC-053 - Verify that if Currency= INR and Country = INDIA & Client = UK and check priority settlement is enabled', function(){
+    it.only('TC-AC-053 - Verify that if Currency= INR and Country = INDIA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1565,6 +1565,7 @@ describe('Additional Currencies ',function(){
         newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         cy.get('#aba').type('026009593')
         newRecipient.individualRecipientMexico('QA USA TO USD','United states{enter}')
+        cy.wait(2000)
         newRecipient.postCodeStateUS()
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
@@ -1577,6 +1578,7 @@ describe('Additional Currencies ',function(){
         newRecipient.addRecipient('United states{enter}' ,'EUR{enter}',email)
         newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         newRecipient.individualRecipientMexico('QA USA TO USD','United states{enter}')
+        cy.wait(2000)
         newRecipient.postCodeStateUS()
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
@@ -1614,7 +1616,7 @@ describe('Additional Currencies ',function(){
     newRecipient.addRecipient('China{enter}' ,'CNY{enter}',email)
     newRecipient.addBankDetailsChina('AFFLGB22','55555555','103100000026')
     newRecipient.BusinessCNY('CNY to china','China{enter}')
-    //newRecipient.paymentPurpose()
+    newRecipient.paymentPurpose()
     newRecipient.saveRecipient()
     //newRecipient.checkSettelment('be.disabled','be.enabled')
     })

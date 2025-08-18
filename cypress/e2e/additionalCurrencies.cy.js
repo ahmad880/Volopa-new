@@ -949,7 +949,7 @@ describe('Additional Currencies ',function(){
         newRecipient.validateErrorMsg()
     })
     //Currency is INR
-    it.only('TC-AC-053 - Verify that if Currency= INR and Country = INDIA & Client = UK and check priority settlement is enabled', function(){
+    it('TC-AC-053 - Verify that if Currency= INR and Country = INDIA & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1060,7 +1060,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('OMAN{enter}' ,'OMR{enter}',email)
-        newRecipient.addBankDetailsWithAccNo('BDOFOMRUMIB','049712')
+        newRecipient.addBankDetails('OM040280000012345678901','BDOFOMRUMIB')
         newRecipient.addBusinessRecipient('OMAN{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')

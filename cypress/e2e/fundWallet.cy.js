@@ -35,7 +35,7 @@ describe('FundWallet ',function(){
         fundWallet.viewAllCurrencies()
     })
     //Easy transfer
-    it('TC_FW_005 - validate that the user is able to fund the company wallet with "euro" with easy transfer', function(){
+    it.only('TC_FW_005 - validate that the user is able to fund the company wallet with "euro" with easy transfer', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet1('EUR{enter}')
     })

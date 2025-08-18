@@ -172,7 +172,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.clabeFeild).should('be.visible').should('contain.text','CLABE')
     }
     paymentPurpose(){
-        cy.get('#crossBorderPurposeCode').click()
+        cy.get('#paymentPurpose').click()
         cy.get('[class="ant-select-item ant-select-item-option"]').eq(0).should('be.visible').click()
     }
     // For only INDIA

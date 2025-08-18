@@ -12,7 +12,7 @@ describe('Corpay Add Recipient',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('https://webapp08.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
     it('TC-AC-001 - Verify that if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled', function(){
@@ -26,7 +26,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it.only('TC-AC-002 - Verify that if Currency= SGD and Country = SINGAPORE  & Client = UK and check priority and regular both settlement are enabled', function(){
+    it('TC-AC-002 - Verify that if Currency= SGD and Country = SINGAPORE  & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

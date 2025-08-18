@@ -233,8 +233,8 @@ export class FundWallet {
         cy.get(variable.fundWalletLocators.popupheading).should('contain','Fund via Easy Transfer (Open Banking)')
         cy.get(variable.fundWalletLocators.popupconfirmxpath).click()
         cy.wait(10000)
-        cy.get('[data-test="select-bank-text"]').should('contain.text','Choose your bank')
-        cy.get('[data-test="search-input"]').type('Modelo')
+        cy.get('.mb-3').should('contain.text','Choose your bank')
+        cy.get("input[placeholder='Search all 2 banks']").type('Modelo')
         cy.get('.institution-card-hover').click()
         //the below code needs to be fixed
         // cy.get('[data-test="continue-button-amount-to-pay"]').invoke('text').then((ele)=>{
@@ -244,8 +244,8 @@ export class FundWallet {
         //   cy.wrap(amount1).as('Amount')
         // })
         cy.wait(2000)
-        cy.get('[data-test="footer-continue-button"]').click()
-        cy.get('[data-test="header-title"]').should('contain','Approve your payment')
+        cy.get('[data-testid="footer-continue-button"]').click()
+        cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
         cy.get('strong').click()     
         cy.get('.ozone-heading-1').should('have.text','Model Bank')
         cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')

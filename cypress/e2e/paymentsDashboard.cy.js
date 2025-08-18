@@ -8,7 +8,7 @@ const paymentspage = new PaymentsDashboard
 
 describe('Payments Dashboard',function(){
     let userName = 'testnew@volopa.com'
-    let password = 'testTest1'
+    let password = 'testTest1@'
     beforeEach(() => {
         cy.window().then((win) => {
             win.localStorage.clear();

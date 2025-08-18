@@ -1,4 +1,4 @@
-/// <reference types= "Cypress" />
+/// <reference types= "cypress" />
 import { SigninPage } from "../PageObject/PageAction/SigninPage";
 import { collection } from "../PageObject/PageAction/collection";
 
@@ -300,4 +300,5 @@ describe('Automate POST API with WSSE Header', () => {
         });
     }); 
   })
+  
 })

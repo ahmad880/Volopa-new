@@ -24,7 +24,7 @@ const currencyList = [
 
 describe('Mass Payment',function(){
     let userName = 'testnew@volopa.com'
-    let password = 'testTest1'
+    let password = 'testTest1@'
     beforeEach(() => {
         cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 })
         paymentD.clearCache()

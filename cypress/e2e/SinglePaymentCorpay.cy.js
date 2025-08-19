@@ -13,11 +13,13 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 const newPayment = new NewPayment
 
+const API_BASE_URL = "https://main-api.volopa-dev.com/OAuth2";
+
 describe('Single Payment Corpay',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-       const baseUrl = 'https://webapp01.volopa-dev.com/';
+       const baseUrl = 'https://webapp04.volopa-dev.com/';
        cy.visit(baseUrl);
 
        const envSuffix = baseUrl.match(/webapp(\d+)/)?.[1]; // Extract "02" from "webapp02"
@@ -52,7 +54,7 @@ describe('Single Payment Corpay',function(){
   // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -158,7 +160,7 @@ describe('Single Payment Corpay',function(){
 
     cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -266,7 +268,7 @@ describe('Single Payment Corpay',function(){
   // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────

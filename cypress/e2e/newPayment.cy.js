@@ -14,7 +14,7 @@ const paymentspage = new PaymentsDashboard
 const newPayment = new NewPayment
 
 describe('New Payment',function(){
-    let userName = 'automation_testUK@volopa.com'
+    let userName = 'EEA_Collections3@gmail.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 })

@@ -24,6 +24,7 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.iBAN).should('be.visible').type(iban)
         cy.get(variable1.additionalCurrenciesLocators.sWIFT).should('be.visible').type(swift)
         cy.get(variable1.additionalCurrenciesLocators.bankDetails).should('be.visible')
+        
     }
     individualRecipient(Name,country){
         cy.get(variable1.additionalCurrenciesLocators.individual).click()
@@ -68,7 +69,7 @@ export class AdditionalCurrencies {
         cy.get('#state').type('ALBERTA{enter}')
     }
     saveRecipient(){
-        cy.wait(1000)
+        cy.wait(3000)
         cy.get(variable1.additionalCurrenciesLocators.submitBtn).click()
         cy.get(variable1.additionalCurrenciesLocators.successMessage).should('be.visible') // success msg
         cy.get(variable1.additionalCurrenciesLocators.payRecipient).click() //Pay this recipient

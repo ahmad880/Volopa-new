@@ -15,6 +15,7 @@ describe('Corpay Add Recipient',function(){
         cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
+    
     it('TC-AC-001 - Verify that if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad() 

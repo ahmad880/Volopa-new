@@ -21,12 +21,6 @@ describe('Single Payment Corpay',function(){
     beforeEach(() => {
        const baseUrl = 'https://webapp04.volopa-dev.com/';
        cy.visit(baseUrl);
-
-       const envSuffix = baseUrl.match(/webapp(\d+)/)?.[1]; // Extract "02" from "webapp02"
-       const apiEnv = `VolopaApiOauth2WebApp${envSuffix}`;
-
-      // Store it as an alias for use in tests
-       cy.wrap(apiEnv).as('apiEnv');
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
     })

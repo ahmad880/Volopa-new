@@ -22,24 +22,24 @@ describe('New Payment',function(){
         cy.viewport(1440,1000)
     })
 
-    it.only('TC_NP_001 - Verify that user landed on the New Payment page', function(){
+    it('TC_NP_001 - Verify that user landed on the New Payment page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
     })
-    it.only('TC_NP_002 - Verify that user can search the existing recipients in the search bar', function(){
+    it('TC_NP_002 - Verify that user can search the existing recipients in the search bar', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateSearchField('Y17{enter}')
     })
-    it.only('TC_NP_003 - Verify that "Add recipient" button under Seach Bar navigates to Recipient Details Page', function(){
+    it('TC_NP_003 - Verify that "Add recipient" button under Seach Bar navigates to Recipient Details Page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()
         newPayment.validateAddRecipient()
     })
-    it.only('TC_NP_004 - Verify that user is able to navigate Create a Payment page', function(){
+    it('TC_NP_004 - Verify that user is able to navigate Create a Payment page', function(){
         signin.Login(userName, password)
         paymentspage.goToPaymentsDashborad()
         newPayment.goToNewPaymentPage()

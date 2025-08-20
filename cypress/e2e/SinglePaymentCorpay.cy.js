@@ -25,7 +25,7 @@ describe('Single Payment Corpay',function(){
         cy.viewport(1440,1000)
     })
 
-    it.only('TC-AC-001 - Verify that if Currency = SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
+    it('TC-AC-001 - Verify that if Currency = SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
   // ─────────────── Setup & Recipient Creation ───────────────
   signin.Login(userName, password); // your existing login method
 

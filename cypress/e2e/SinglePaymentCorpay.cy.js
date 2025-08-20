@@ -371,7 +371,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -482,7 +482,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -590,7 +590,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -700,7 +700,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -808,7 +808,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -916,7 +916,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1026,7 +1026,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1133,7 +1133,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1242,7 +1242,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1352,7 +1352,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1462,7 +1462,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1572,7 +1572,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1681,7 +1681,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1790,7 +1790,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -1899,7 +1899,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2008,7 +2008,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2117,7 +2117,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2226,7 +2226,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2335,7 +2335,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2444,7 +2444,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2553,7 +2553,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2663,7 +2663,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2772,7 +2772,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2881,7 +2881,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -2990,7 +2990,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3099,7 +3099,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3208,7 +3208,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3317,7 +3317,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3427,7 +3427,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3537,7 +3537,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3646,7 +3646,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3756,7 +3756,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3865,7 +3865,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -3976,7 +3976,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4085,7 +4085,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4194,7 +4194,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4303,7 +4303,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4415,7 +4415,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4524,7 +4524,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4634,7 +4634,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4743,7 +4743,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4855,7 +4855,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -4965,7 +4965,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5075,7 +5075,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5184,7 +5184,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5296,7 +5296,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5405,7 +5405,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5517,7 +5517,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5626,7 +5626,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5735,7 +5735,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5844,7 +5844,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -5954,7 +5954,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6063,7 +6063,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6172,7 +6172,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6281,7 +6281,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6390,7 +6390,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6499,7 +6499,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6608,7 +6608,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6719,7 +6719,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6829,7 +6829,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
@@ -6938,7 +6938,7 @@ describe('Single Payment Corpay',function(){
     // ───── Intercept Quote API ─────
   cy.intercept(
     'POST',
-    `https://devapi.volopa.com/${apiEnv}/exchange/b2b/self/quote/temp`
+    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
   ).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────

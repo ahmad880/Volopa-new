@@ -13,7 +13,7 @@ describe('Additional Currencies ',function(){
     let userName = 'automation_testUK@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp03.volopa-dev.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
     // Currency is SGD

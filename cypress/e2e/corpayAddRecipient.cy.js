@@ -12,7 +12,7 @@ describe('Corpay Add Recipient',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp03.volopa-dev.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
     
@@ -751,8 +751,73 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-
-
+    //new added currencies
+    it('TC-AC- - Verify that if Currency= PKR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'PKR{enter}',email)
+        newRecipient.addBankDetails('PK36SCBL0000001123456702','AIINPKKA')
+        newRecipient.individualRecipient('UK PKR','UNITED KINGDOM{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that if Currency= PKR and Country = Pakistan & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Pakistan{enter}' ,'PKR{enter}',email)
+        newRecipient.addBankDetails('PK36SCBL0000001123456702','AIINPKKA')
+        newRecipient.individualRecipient('Pakistan PKR','Pakistan{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that if Currency= MUR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'MUR{enter}',email)
+        newRecipient.addBankDetails('MU43BOMM0101123456789101000MUR','MCBLMUMUXXX')
+        newRecipient.individualRecipient('UK MUR','UNITED KINGDOM{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that if Currency= MUR and Country = Mauritius & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Mauritius{enter}' ,'MUR{enter}',email)
+        newRecipient.addBankDetails('MU43BOMM0101123456789101000MUR','MCBLMUMUXXX')
+        newRecipient.individualRecipient('Mauritius MUR','Mauritius{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that if Currency= GHS and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'GHS{enter}',email)
+        newRecipient.addBankDetails('MU43BOMM0101123456789101000MUR','MCBLMUMUXXX')
+        newRecipient.individualRecipient('UK GHS','UNITED KINGDOM{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that if Currency= GHS and Country = Ghana & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Ghana{enter}' ,'GHS{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('BARCGHACCSS','0114015331')
+        newRecipient.individualRecipient('Ghana GHS','Ghana{enter}')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
     //Business Recipients
 
     it('TC-AC-065 - Verify that(business) if Currency= SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled', function(){
@@ -1488,6 +1553,73 @@ describe('Corpay Add Recipient',function(){
     newRecipient.BusinessCNY('CNY china Business','China{enter}')
     newRecipient.saveRecipient()
     newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    //newly added currencies business
+    it('TC-AC- - Verify that(business) if Currency= PKR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'PKR{enter}',email)
+        newRecipient.addBankDetails('PK36SCBL0000001123456702','AIINPKKA')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK PKR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that(business) if Currency= PKR and Country = Pakistan & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Pakistan{enter}' ,'PKR{enter}',email)
+        newRecipient.addBankDetails('PK36SCBL0000001123456702','AIINPKKA')
+        newRecipient.addBusinessRecipientCorpay('Pakistan{enter}','Pakistan PKR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that(business) if Currency= MUR and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'MUR{enter}',email)
+        newRecipient.addBankDetails('MU43BOMM0101123456789101000MUR','MCBLMUMUXXX')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK MUR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that(business) if Currency= MUR and Country = Mauritius & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Mauritius{enter}' ,'MUR{enter}',email)
+        newRecipient.addBankDetails('MU43BOMM0101123456789101000MUR','MCBLMUMUXXX')
+        newRecipient.addBusinessRecipientCorpay('Mauritius{enter}','Mauritius MUR')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that(business) if Currency= GHS and Country = UNITED KINGDOM & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'GHS{enter}',email)
+        newRecipient.addBankDetails('MU43BOMM0101123456789101000MUR','MCBLMUMUXXX')
+        newRecipient.addBusinessRecipientCorpay('UNITED KINGDOM{enter}','UK GHS')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
+    })
+    it('TC-AC- - Verify that(business) if Currency= GHS and Country = Ghana & Client = UK and check priority settlement is enabled', function(){
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        newRecipient.addRecipient('Ghana{enter}' ,'GHS{enter}',email)
+        newRecipient.addBankDetailsWithAccNo('BARCGHACCSS','0114015331')
+        newRecipient.addBusinessRecipientCorpay('Ghana{enter}','Ghana GHS')
+        newRecipient.saveRecipient()
+        newRecipient.checkSettelment('be.disabled','be.enabled')
     })
 
 

@@ -8,7 +8,7 @@ import { AdditionalCurrencies } from "../PageObject/PageAction/AdditionalCurrenc
 import { BatchPayments } from "../PageObject/PageAction/BatchPayments"
 
 const newRecipient = new AdditionalCurrencies
-const batchPayments = new BatchPaymentsf
+const batchPayments = new BatchPayments
 const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 const newPayment = new NewPayment

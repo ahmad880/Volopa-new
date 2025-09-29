@@ -1,0 +1,502 @@
+date & time,card,transaction type,merchant name,category,attachments,currency,credit / debit
+,,,,,,,
+"august 18, 2025 15:49",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 18, 2025 14:47",ms. claire brown **** **** **** 5100,pos transaction,deli fresh trading ltd,-,-,gbp,-4.50
+"august 18, 2025 14:34",company wallet,payment to other card holder,load from cw to **** 5874 : ben maitland : london player trip 18.08.25,-,-,gbp,"-1,000.00"
+"august 18, 2025 14:34",mr. ben maitland **** **** **** 5874,payment from other card holder,load from cw : london player trip 18.08.25,-,-,gbp,"+1,000.00"
+"august 18, 2025 14:33",company wallet,fx sell,"fx deal : 20250818-frvkbk, sold eur 9,092.35",-,-,eur,"-9,092.35"
+"august 18, 2025 14:33",company wallet,fx purchase,"fx deal : 20250818-frvkbk, bought gbp 7,764.63",-,-,gbp,"+7,764.63"
+"august 18, 2025 14:33",company wallet,fx sell,"fx deal : 20250818-bbzbvq, sold usd 2,013.97",-,-,usd,"-2,013.97"
+"august 18, 2025 14:33",company wallet,fx purchase,"fx deal : 20250818-bbzbvq, bought gbp 1,473.04",-,-,gbp,"+1,473.04"
+"august 18, 2025 12:59",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-9.95
+"august 18, 2025 12:55",company wallet,auto load to,"auto load to *5100. amount: 105.10, currency: gbp",-,-,gbp,-105.10
+"august 18, 2025 12:55",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 105.10, currency: gbp",-,-,gbp,+105.10
+"august 17, 2025 14:12",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-5.00
+"august 17, 2025 11:45",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 17, 2025 11:12",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-9.20
+"august 16, 2025 18:57",mr. kevin scott **** **** **** 1518,pos transaction,shell,transport,,gbp,-82.90
+"august 16, 2025 16:56",mr. kevin scott **** **** **** 1518,atm withdrawal,hfx leeds crossgates,other,,gbp,-80.00
+"august 16, 2025 16:56",mr. kevin scott **** **** **** 1518,atm withdrawal,hfx leeds crossgates t leeds gbr automated cash disburse 6011,-,-,gbp,-2.00
+"august 16, 2025 16:47",mr. kevin scott **** **** **** 1518,pos transaction,gelato dreams,-,,gbp,-92.30
+"august 16, 2025 15:31",mr. kevin scott **** **** **** 1518,pos transaction,trowell,-,,gbp,-4.05
+"august 16, 2025 14:13",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,-,-,gbp,-4.85
+"august 16, 2025 14:04",mr. matthew willis **** **** **** 8970,pos transaction,wh smiths moto,food & household,,gbp,-10.42
+"august 16, 2025 13:16",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,-,-,gbp,-4.90
+"august 16, 2025 12:11",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.10
+"august 16, 2025 11:20",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-9.79
+"august 16, 2025 09:49",mr. matthew willis **** **** **** 8970,pos transaction,sumup *aston villa f.,food & household,,gbp,-3.85
+"august 16, 2025 08:55",mr. matthew willis **** **** **** 8970,pos transaction,powerleague fives birm,tolls/ parking,,gbp,-10.00
+"august 16, 2025 08:37",mr. matthew willis **** **** **** 8970,pos transaction,powerleague fives birm,tolls/ parking,,gbp,-10.00
+"august 16, 2025 06:36",mr. matthew willis **** **** **** 8970,pos transaction,wetherby costa,food & household,,gbp,-11.15
+"august 15, 2025 15:40",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-5.00
+"august 15, 2025 14:39",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,-,-,gbp,-4.87
+"august 15, 2025 13:23",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-5.00
+"august 15, 2025 12:19",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-4.99
+"august 15, 2025 11:10",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.15
+"august 15, 2025 11:05",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.50
+"august 15, 2025 11:04",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 14, 2025 16:40",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,-,-,gbp,-4.99
+"august 14, 2025 15:19",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,-,-,gbp,-4.12
+"august 14, 2025 13:53",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-4.99
+"august 14, 2025 13:20",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,-,-,gbp,-4.80
+"august 14, 2025 11:07",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.50
+"august 14, 2025 11:04",company wallet,auto load to,"auto load to *5100. amount: 103.55, currency: gbp",-,-,gbp,-103.55
+"august 14, 2025 11:04",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 103.55, currency: gbp",-,-,gbp,+103.55
+"august 14, 2025 09:41",mr. matthew willis **** **** **** 8970,pos transaction,amazon.co.uk,stationery,,gbp,-40.25
+"august 13, 2025 15:05",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,-,-,gbp,-5.00
+"august 13, 2025 15:00",mr. matthew willis **** **** **** 8970,pos transaction,stack newcastle,food & household,,gbp,-7.00
+"august 13, 2025 14:14",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,-,-,gbp,-4.12
+"august 13, 2025 12:12",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.35
+"august 13, 2025 11:12",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-4.99
+"august 12, 2025 15:10",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-4.99
+"august 12, 2025 15:04",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-3.95
+"august 12, 2025 14:11",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,-,-,gbp,-4.98
+"august 12, 2025 12:17",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-4.13
+"august 12, 2025 11:15",ms. claire brown **** **** **** 5100,pos transaction,kfc metrocentre fc,-,-,gbp,-10.00
+"august 12, 2025 10:32",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 12, 2025 08:30",company wallet,payment to other card holder,load from cw to **** 1518 : kevin scott : villa (a),-,-,gbp,-600.00
+"august 12, 2025 08:30",mr. kevin scott **** **** **** 1518,payment from other card holder,load from cw : villa (a),-,-,gbp,+600.00
+"august 11, 2025 14:42",mrs. adele preacher **** **** **** 9104,pos transaction,amazon.co.uk,-,-,gbp,-7.98
+"august 11, 2025 14:42",mrs. adele preacher **** **** **** 9104,pos transaction,post office counter,-,-,gbp,-85.15
+"august 11, 2025 14:42",mrs. adele preacher **** **** **** 9104,pos transaction,post office counter,-,-,gbp,-100.00
+"august 11, 2025 14:08",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 11, 2025 13:30",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.80
+"august 11, 2025 13:07",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-4.55
+"august 11, 2025 11:31",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.50
+"august 11, 2025 11:29",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 11, 2025 11:13",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-3.95
+"august 11, 2025 08:46",mrs. adele preacher **** **** **** 9104,pos transaction,amazon.co.uk,stationery,,gbp,-26.87
+"august 10, 2025 12:18",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 10, 2025 11:18",ms. claire brown **** **** **** 5100,pos transaction,burger king,-,-,gbp,-4.99
+"august 9, 2025 15:25",mr. matthew willis **** **** **** 8970,pos transaction,nufc concourse,food & household,,gbp,-5.75
+"august 9, 2025 15:24",mr. matt wightman **** **** **** 3720,pos transaction,welcome break whs,food & household,,gbp,-9.95
+"august 9, 2025 15:18",mr. matt wightman **** **** **** 3720,pos transaction,welcome break-woodall,-,-,gbp,-36.30
+"august 9, 2025 14:27",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,-,-,gbp,-5.00
+"august 9, 2025 13:34",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 9, 2025 13:26",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,-,-,gbp,-4.12
+"august 9, 2025 13:23",company wallet,auto load to,"auto load to *5100. amount: 101.87, currency: gbp",-,-,gbp,-101.87
+"august 9, 2025 13:23",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 101.87, currency: gbp",-,-,gbp,+101.87
+"august 9, 2025 12:21",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,-,-,gbp,-9.95
+"august 9, 2025 11:15",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,-,-,gbp,-4.95
+"august 9, 2025 11:09",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,,gbp,-4.30
+"august 8, 2025 19:35",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-15.00
+"august 8, 2025 19:20",mr. matthew willis **** **** **** 8970,pos transaction,nufc concourse,food & household,,gbp,-41.80
+"august 8, 2025 17:52",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-6.00
+"august 8, 2025 17:06",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-3.00
+"august 8, 2025 17:02",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-7.70
+"august 8, 2025 16:48",mr. matthew willis **** **** **** 8970,pos transaction,nufc concourse,-,-,gbp,-1.00
+"august 8, 2025 15:14",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-9.85
+"august 8, 2025 15:11",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"august 8, 2025 14:41",mrs. adele preacher **** **** **** 9104,pos transaction,stack newcastle,staff entertainment,,gbp,-9.00
+"august 8, 2025 14:11",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"august 8, 2025 13:22",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,-,gbp,-3.75
+"august 8, 2025 13:02",mr. matt wightman **** **** **** 3720,pos transaction,tesco stores 2325,food & household,,gbp,-37.89
+"august 8, 2025 12:12",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.90
+"august 8, 2025 12:11",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.85
+"august 8, 2025 11:07",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.85
+"august 7, 2025 20:36",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-14.00
+"august 7, 2025 20:34",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,-,-,gbp,-13.50
+"august 7, 2025 15:55",mr. matt wightman **** **** **** 3720,pos transaction,tesco stores 2325,food & household,,gbp,-22.59
+"august 7, 2025 15:25",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-5.05
+"august 7, 2025 15:12",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.99
+"august 7, 2025 14:25",mr. drew beardsley **** **** **** 4652,pos transaction,lightwater valley,-,,gbp,-35.25
+"august 7, 2025 14:10",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.55
+"august 7, 2025 12:17",mr. drew beardsley **** **** **** 4652,pos transaction,lightwater valley,-,,gbp,-5.45
+"august 7, 2025 12:09",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-6.00
+"august 7, 2025 11:30",mr. drew beardsley **** **** **** 4652,pos transaction,lightwater valley,-,,gbp,-80.55
+"august 7, 2025 11:21",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"august 7, 2025 11:15",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"august 7, 2025 09:10",mr. matt wightman **** **** **** 3720,pos transaction,tesco stores 2325,food & household,,gbp,-12.60
+"august 7, 2025 06:23",mr. drew beardsley **** **** **** 4652,pos transaction,www.lightwatervalley.c,-,,gbp,-33.25
+"august 6, 2025 20:46",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-9.00
+"august 6, 2025 20:10",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-4.20
+"august 6, 2025 19:59",mr. matt wightman **** **** **** 3720,pos transaction,warwick conferences -,food & household,,gbp,-9.00
+"august 6, 2025 15:26",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"august 6, 2025 15:19",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-3.87
+"august 6, 2025 14:48",mr. matt wightman **** **** **** 3720,pos transaction,skelton lake leeds ext,food & household,,gbp,-17.70
+"august 6, 2025 14:39",mr. matt wightman **** **** **** 3720,pos transaction,starbucks 14931451,food & household,,gbp,-35.75
+"august 6, 2025 14:19",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"august 6, 2025 13:18",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.55
+"august 6, 2025 12:09",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"august 6, 2025 11:11",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"august 5, 2025 15:28",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"august 5, 2025 15:25",company wallet,auto load to,"auto load to *5100. amount: 102.68, currency: gbp",-,-,gbp,-102.68
+"august 5, 2025 15:25",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 102.68, currency: gbp",-,-,gbp,+102.68
+"august 5, 2025 14:20",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"august 5, 2025 13:18",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.95
+"august 5, 2025 12:24",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-5.00
+"august 5, 2025 11:56",company wallet,payment to other card holder,load from cw to **** 3720 : matt wightman : warwick,-,-,gbp,"-1,000.00"
+"august 5, 2025 11:56",mr. matt wightman **** **** **** 3720,payment from other card holder,load from cw : warwick,-,-,gbp,"+1,000.00"
+"august 5, 2025 11:24",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-3.75
+"august 4, 2025 23:15",mr. matthew willis **** **** **** 8970,unsupported currency settled,zies(gs)25 yueussangma\\seoul \07327 kor variety stores 5331,-,-,gbp,-0.10
+"august 4, 2025 23:15",mr. matthew willis **** **** **** 8970,unsupported currency settled,gs25 seowoolworldcupky\\seoul \03932 kor variety stores 5331,-,-,gbp,-0.03
+"august 4, 2025 23:15",mrs. adele preacher **** **** **** 9104,unsupported currency settled,zies(gs)25 yueussangma\\seoul \07327 kor variety stores 5331,-,-,gbp,-0.07
+"august 4, 2025 21:58",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,gbp,-22.32
+"august 4, 2025 20:16",mr. drew beardsley **** **** **** 4652,pos transaction,www.lightwatervalley.c,-,,gbp,-108.25
+"august 4, 2025 15:05",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-8.95
+"august 4, 2025 13:40",company wallet,payment to other card holder,load from cw to **** 4652 : drew beardsley : u8 players,-,-,gbp,-300.00
+"august 4, 2025 13:40",mr. drew beardsley **** **** **** 4652,payment from other card holder,load from cw : u8 players,-,-,gbp,+300.00
+"august 4, 2025 12:29",ms. claire brown **** **** **** 5100,pos transaction,gkmetrocentre,food & household,,gbp,-10.00
+"august 4, 2025 11:41",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-3.75
+"august 4, 2025 08:27",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,gbp,-14.94
+"august 4, 2025 04:25",mrs. adele preacher **** **** **** 9104,unsupported currency settled,"starbuckskorea\yeoksam-dong\seoul\06142 kor eating places, restaurants 5812",-,-,gbp,-0.04
+"august 4, 2025 00:20",mrs. adele preacher **** **** **** 9104,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.04
+"august 4, 2025 00:05",mr. matthew willis **** **** **** 8970,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.08
+"august 4, 2025 00:05",mr. matthew willis **** **** **** 8970,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.09
+"august 4, 2025 00:05",mrs. adele preacher **** **** **** 9104,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.06
+"august 3, 2025 23:50",mr. matthew willis **** **** **** 8970,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.07
+"august 3, 2025 23:30",mrs. adele preacher **** **** **** 9104,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.06
+"august 3, 2025 23:15",mr. matthew willis **** **** **** 8970,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.04
+"august 3, 2025 12:23",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,,gbp,-4.30
+"august 3, 2025 11:56",ms. claire brown **** **** **** 5100,pos transaction,subway42833,food & household,,gbp,-5.00
+"august 3, 2025 11:17",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.95
+"august 3, 2025 11:16",mr. matthew willis **** **** **** 8970,pos transaction,gs25 seowoolworldcupky,food & household,,gbp,-2.64
+"august 3, 2025 11:09",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"august 3, 2025 07:27",mrs. adele preacher **** **** **** 9104,pos transaction,uber * pending vorden nld taxicabs/limousines 4121,-,-,gbp,+4.18
+"august 3, 2025 07:26",mrs. adele preacher **** **** **** 9104,pos transaction,uber *trip help.uber.c,-,,gbp,-4.35
+"august 3, 2025 07:08",mrs. adele preacher **** **** **** 9104,pos transaction,uber * pending,-,-,gbp,-4.18
+"august 3, 2025 05:51",mrs. adele preacher **** **** **** 9104,pos transaction,uber * pending vorden nld taxicabs/limousines 4121,-,-,gbp,+5.50
+"august 3, 2025 05:50",mrs. adele preacher **** **** **** 9104,pos transaction,uber *trip help.uber.c,-,,gbp,-5.94
+"august 3, 2025 05:31",mrs. adele preacher **** **** **** 9104,pos transaction,uber * pending,-,-,gbp,-5.50
+"august 3, 2025 04:09",mr. matthew willis **** **** **** 8970,pos transaction,zies(gs)25 yueussangma,food & household,,gbp,-9.57
+"august 2, 2025 17:32",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending vorden nld taxicabs/limousines 4121,-,-,gbp,+6.49
+"august 2, 2025 17:31",mr. matthew willis **** **** **** 8970,pos transaction,uber *trip help.uber.c,transport,,gbp,-6.77
+"august 2, 2025 14:12",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending vorden nld taxicabs/limousines 4121,-,-,gbp,+7.98
+"august 2, 2025 14:11",mr. matthew willis **** **** **** 8970,pos transaction,uber *trip help.uber.c,transport,,gbp,-8.97
+"august 2, 2025 13:30",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.99
+"august 2, 2025 13:18",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-3.75
+"august 2, 2025 13:11",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.85
+"august 2, 2025 13:07",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending,transport,,gbp,-7.59
+"august 2, 2025 12:51",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.50
+"august 2, 2025 12:50",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"august 2, 2025 12:09",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.43
+"august 2, 2025 11:13",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"august 2, 2025 11:05",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,,gbp,-4.30
+"august 2, 2025 06:31",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending,-,-,gbp,-6.49
+"august 2, 2025 03:11",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending,-,-,gbp,-7.98
+"august 2, 2025 01:37",mrs. adele preacher **** **** **** 9104,pos transaction,uber * pending,transport,,gbp,-6.05
+"august 1, 2025 19:13",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending vorden nld taxicabs/limousines 4121,-,-,gbp,+3.56
+"august 1, 2025 19:12",mr. matthew willis **** **** **** 8970,pos transaction,uber *trip help.uber.c,transport,,gbp,-4.13
+"august 1, 2025 15:35",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.25
+"august 1, 2025 15:23",ms. claire brown **** **** **** 5100,pos transaction,acropolis,food & household,,gbp,-5.00
+"august 1, 2025 15:20",company wallet,auto load to,"auto load to *5100. amount: 100.74, currency: gbp",-,-,gbp,-100.74
+"august 1, 2025 15:20",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 100.74, currency: gbp",-,-,gbp,+100.74
+"august 1, 2025 15:06",ms. claire brown **** **** **** 5100,pos transaction,acropolis,food & household,-,gbp,-5.00
+"august 1, 2025 14:38",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.99
+"august 1, 2025 14:00",company wallet,payment to other card holder,load from cw to **** 8970 : matthew willis : top up,-,-,gbp,-300.00
+"august 1, 2025 14:00",mr. matthew willis **** **** **** 8970,payment from other card holder,load from cw : top up,-,-,gbp,+300.00
+"august 1, 2025 13:38",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-3.87
+"august 1, 2025 13:10",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-5.00
+"august 1, 2025 12:31",mr. david baker **** **** **** 2468,pos transaction,glasss country caterin,recruitment,,gbp,-4.00
+"august 1, 2025 12:30",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-5.00
+"august 1, 2025 11:35",mr. matthew willis **** **** **** 8970,unsupported currency settled,zies(gs)25 yueussangma\\seoul \07327 kor variety stores 5331,-,-,gbp,-0.03
+"august 1, 2025 11:28",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.14
+"august 1, 2025 11:11",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,,gbp,-4.30
+"august 1, 2025 09:24",mr. david baker **** **** **** 2468,pos transaction,deniese coffee,recruitment,,gbp,-2.50
+"august 1, 2025 08:12",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending,-,-,gbp,-3.56
+"august 1, 2025 03:16",mrs. adele preacher **** **** **** 9104,pos transaction,zies(gs)25 yueussangma,food & household,,gbp,-6.79
+"august 1, 2025 01:50",mr. matthew willis **** **** **** 8970,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.10
+"august 1, 2025 01:50",mr. matthew willis **** **** **** 8970,unsupported currency settled,uber *trip help.uber.c\hamminkweg 5\vorden\7251rb nldnld taxicabs/limousines 4121,-,-,gbp,-0.07
+"july 31, 2025 19:27",mr. david baker **** **** **** 2468,atm withdrawal,henderson retail -,recruitment,-,gbp,-30.00
+"july 31, 2025 19:27",mr. david baker **** **** **** 2468,atm withdrawal,henderson retail - coleraine gbr automated cash disburse 6011,-,-,gbp,-2.00
+"july 31, 2025 17:50",mr. david baker **** **** **** 2468,pos transaction,town and country spare,recruitment,,gbp,-4.00
+"july 31, 2025 15:09",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.55
+"july 31, 2025 15:08",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 31, 2025 14:02",mr. daniel laurent **** **** **** 2738,pos transaction,the northern quarter,-,-,gbp,-4.50
+"july 31, 2025 13:25",mr. daniel laurent **** **** **** 2738,pos transaction,the northern quarter,food & household,,gbp,-17.05
+"july 31, 2025 13:10",ms. claire brown **** **** **** 5100,pos transaction,kfc metrocentre fc,food & household,,gbp,-4.49
+"july 31, 2025 12:39",mr. daniel laurent **** **** **** 2738,pos transaction,belfast international,-,-,gbp,-3.00
+"july 31, 2025 12:26",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending vorden nld taxicabs/limousines 4121,-,-,gbp,+9.51
+"july 31, 2025 12:24",mr. matthew willis **** **** **** 8970,pos transaction,uber *trip help.uber.c,transport,,gbp,-9.68
+"july 31, 2025 12:09",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-5.00
+"july 31, 2025 11:46",mr. david baker **** **** **** 2468,pos transaction,tesco stores (5334),recruitment,,gbp,-2.05
+"july 31, 2025 11:05",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"july 31, 2025 11:05",mr. matthew willis **** **** **** 8970,unsupported currency settled,zies(gs)25 yueussangma\\seoul \07327 kor variety stores 5331,-,-,gbp,-0.07
+"july 31, 2025 11:05",mr. matthew willis **** **** **** 8970,unsupported currency settled,ssiyu(cu)soowonsamsung\\gyeonggi \16230 kor variety stores 5331,-,-,gbp,-0.03
+"july 31, 2025 09:19",mr. david baker **** **** **** 2468,pos transaction,rc catering,recruitment,-,gbp,-3.00
+"july 31, 2025 08:57",mrs. adele preacher **** **** **** 9104,pos transaction,starbuckskorea,food & household,,gbp,-4.32
+"july 31, 2025 04:25",mr. matthew willis **** **** **** 8970,unsupported currency settled,"park one hotel managem\seoulyeongdeungpo-guyeouido-dong hotels, motels, and resorts 7011",-,-,gbp,-0.20
+"july 31, 2025 04:25",mr. brett mcgoldrick **** **** **** 9507,unsupported currency settled,7-eleven\yeouido-dong\seoul\07327 kor variety stores 5331,-,-,gbp,-0.08
+"july 31, 2025 04:25",mrs. adele preacher **** **** **** 9104,unsupported currency settled,"park one hotel managem\seoulyeongdeungpo-guyeouido-dong hotels, motels, and resorts 7011",-,-,gbp,-0.13
+"july 31, 2025 04:25",mrs. adele preacher **** **** **** 9104,unsupported currency settled,7-eleven\yeouido-dong\seoul\07336 kor variety stores 5331,-,-,gbp,-0.01
+"july 31, 2025 03:38",mr. matthew willis **** **** **** 8970,pos transaction,zies(gs)25 yueussangma,food & household,,gbp,-3.28
+"july 31, 2025 03:08",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending,transport,,gbp,-6.89
+"july 31, 2025 01:24",mr. matthew willis **** **** **** 8970,pos transaction,uber * pending,transport,,gbp,-9.51
+"july 30, 2025 20:34",mr. daniel laurent **** **** **** 2738,pos transaction,asda coleraine,-,,gbp,-2.06
+"july 30, 2025 17:32",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,gbp,-3.51
+"july 30, 2025 17:28",mr. daniel laurent **** **** **** 2738,pos transaction,costa,-,,gbp,-4.55
+"july 30, 2025 16:22",mr. paul mclaren **** **** **** 2039,pos transaction,spar broughshane,food & household,,gbp,-10.17
+"july 30, 2025 16:14",mr. david baker **** **** **** 2468,pos transaction,the golden chipper ltd,recruitment,,gbp,-11.85
+"july 30, 2025 16:00",mr. daniel laurent **** **** **** 2738,pos transaction,nandos's coleraine,food & household,,gbp,-23.40
+"july 30, 2025 15:36",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.40
+"july 30, 2025 15:32",ms. claire brown **** **** **** 5100,pos transaction,subway42833,food & household,,gbp,-3.99
+"july 30, 2025 14:42",mr. daniel laurent **** **** **** 2738,pos transaction,sq *k p catering ni,-,-,gbp,-2.50
+"july 30, 2025 13:29",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 30, 2025 12:21",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.42
+"july 30, 2025 11:55",mrs. julie smith **** **** **** 7539,pos transaction,beamish museum ltd,activities,,gbp,-86.50
+"july 30, 2025 11:17",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.85
+"july 30, 2025 11:16",mr. matthew willis **** **** **** 8970,pos transaction,ssiyu(cu)soowonsamsung,food & household,,gbp,-2.98
+"july 30, 2025 09:18",company wallet,payment to other card holder,load from cw to **** 7539 : julie smith : beamish trip - academy,-,-,gbp,-93.00
+"july 30, 2025 09:18",mrs. julie smith **** **** **** 7539,payment from other card holder,load from cw : beamish trip - academy,-,-,gbp,+93.00
+"july 30, 2025 04:17",mr. matthew willis **** **** **** 8970,pos transaction,zies(gs)25 yueussangma,food & household,,gbp,-6.50
+"july 29, 2025 22:00",mr. paul mclaren **** **** **** 2039,pos transaction,amici ristorante,food & household,,gbp,-129.00
+"july 29, 2025 17:18",mr. daniel laurent **** **** **** 2738,pos transaction,the grouse,-,,gbp,-7.00
+"july 29, 2025 15:03",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 29, 2025 14:43",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-9.90
+"july 29, 2025 13:43",mrs. adele preacher **** **** **** 9104,pos transaction,7-eleven,food & household,,gbp,-1.19
+"july 29, 2025 13:32",mr. david baker **** **** **** 2468,pos transaction,town and country spare,recruitment,,gbp,-2.50
+"july 29, 2025 13:25",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.00
+"july 29, 2025 13:09",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.67
+"july 29, 2025 13:06",company wallet,auto load to,"auto load to *5100. amount: 103.83, currency: gbp",-,-,gbp,-103.83
+"july 29, 2025 13:06",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 103.83, currency: gbp",-,-,gbp,+103.83
+"july 29, 2025 12:56",mr. daniel laurent **** **** **** 2738,pos transaction,the lodge hotel,-,,gbp,-12.95
+"july 29, 2025 12:26",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,-,gbp,-4.95
+"july 29, 2025 11:38",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,-,gbp,-4.30
+"july 29, 2025 11:24",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.85
+"july 29, 2025 09:56",mr. daniel laurent **** **** **** 2738,pos transaction,sumup *coffee shack,-,-,gbp,-4.00
+"july 29, 2025 07:23",mrs. adele preacher **** **** **** 9104,pos transaction,park one hotel managem,food & household,,gbp,-13.01
+"july 29, 2025 04:19",mr. matthew willis **** **** **** 8970,pos transaction,park one hotel managem,food & household,,gbp,-19.52
+"july 29, 2025 04:05",mrs. adele preacher **** **** **** 9104,unsupported currency settled,7 eleven-t4\(#02-240 t4 departure/transit lounge)\singapore\5287 miscellaneous food stores - convenience stores and specialty mar 5499,-,-,gbp,-0.14
+"july 29, 2025 01:45",mr. matthew willis **** **** **** 8970,unsupported currency settled,muddy murphy's irish p\442 orchard road\singapore\238879 sg s drinking places 5813,-,-,gbp,-0.53
+"july 29, 2025 01:45",mr. matthew willis **** **** **** 8970,unsupported currency settled,"the penny black victor\26,27 boat quay\singapore\049817 sg sg drinking places 5813",-,-,gbp,-0.29
+"july 29, 2025 01:45",mrs. adele preacher **** **** **** 9104,unsupported currency settled,muddy murphy's irish p\442 orchard road\singapore\238879 sg s drinking places 5813,-,-,gbp,-0.05
+"july 29, 2025 01:45",mrs. adele preacher **** **** **** 9104,unsupported currency settled,muddy murphy's irish p\442 orchard road\singapore\238879 sg s drinking places 5813,-,-,gbp,-0.04
+"july 28, 2025 23:20",mr. matthew willis **** **** **** 8970,unsupported currency settled,s'pore sports hub-ntnl\1 stadium drive\singapore\397629 065sg fast food restaurants 5814,-,-,gbp,-0.05
+"july 28, 2025 23:20",mrs. adele preacher **** **** **** 9104,unsupported currency settled,"fairprice xtra-kallang\no 1 joo koon circle\singapore\629117 grocery stores, supermarkets 5411",-,-,gbp,-0.04
+"july 28, 2025 23:20",mrs. adele preacher **** **** **** 9104,unsupported currency settled,s'pore sports hub-ntnl\1 stadium drive\singapore\397629 065sg fast food restaurants 5814,-,-,gbp,-0.02
+"july 28, 2025 17:34",mr. daniel laurent **** **** **** 2738,pos transaction,glasss country caterin,-,,gbp,-5.00
+"july 28, 2025 16:31",mr. brett mcgoldrick **** **** **** 9507,pos transaction,7-eleven,-,-,gbp,-7.94
+"july 28, 2025 16:09",mr. david baker **** **** **** 2468,pos transaction,tesco stores (5334),recruitment,,gbp,-44.04
+"july 28, 2025 15:03",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.95
+"july 28, 2025 13:12",mr. daniel laurent **** **** **** 2738,pos transaction,the lodge hotel,food & household,,gbp,-35.70
+"july 28, 2025 12:15",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.00
+"july 28, 2025 11:25",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.00
+"july 28, 2025 11:25",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 28, 2025 10:30",mr. paul mclaren **** **** **** 2039,pos transaction,bob berts portrush,food & household,,gbp,-11.85
+"july 28, 2025 10:30",mr. brett mcgoldrick **** **** **** 9507,unsupported currency settled,"eximbay co.,*k-eta\(banghoadong) 38 haneulgil gangseogu seoulteu miscellaneous general services 7299",-,-,gbp,-0.06
+"july 28, 2025 09:01",mr. ben maitland **** **** **** 5874,pos transaction,2517 hotel victoria,-,-,chf,-8.40
+"july 28, 2025 08:59",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,chf,-24.52
+"july 28, 2025 08:56",mr. ben maitland **** **** **** 5874,fx sell,"fx deal : 20250728-mfpqpl, sold gbp 23.10",-,-,gbp,-23.10
+"july 28, 2025 08:56",mr. ben maitland **** **** **** 5874,fx purchase,"fx deal : 20250728-mfpqpl, bought chf 24.52",-,-,chf,+24.52
+"july 28, 2025 07:02",mr. ben maitland **** **** **** 5874,fx sell,"fx deal : 20250728-qlzfwk, sold gbp 19.47",-,-,gbp,-19.47
+"july 28, 2025 07:02",mr. ben maitland **** **** **** 5874,fx purchase,"fx deal : 20250728-qlzfwk, bought chf 20.60",-,-,chf,+20.60
+"july 28, 2025 07:02",mr. ben maitland **** **** **** 5874,fx sell,"fx deal : 20250728-qnjgcj, sold gbp 50.73",-,-,gbp,-50.73
+"july 28, 2025 07:02",mr. ben maitland **** **** **** 5874,fx purchase,"fx deal : 20250728-qnjgcj, bought chf 53.66",-,-,chf,+53.66
+"july 28, 2025 07:01",mr. ben maitland **** **** **** 5874,fx sell,"fx deal : 20250728-xhsgjw, sold gbp 234.10",-,-,gbp,-234.10
+"july 28, 2025 07:01",mr. ben maitland **** **** **** 5874,fx purchase,"fx deal : 20250728-xhsgjw, bought chf 247.70",-,-,chf,+247.70
+"july 28, 2025 06:56",mr. paul mclaren **** **** **** 2039,pos transaction,starbucks 18311452,food & household,,gbp,-10.20
+"july 28, 2025 06:39",mr. daniel laurent **** **** **** 2738,pos transaction,caffe nero stansted ai,-,,gbp,-9.75
+"july 28, 2025 00:00",mrs. adele preacher **** **** **** 9104,unsupported currency settled,grab* a-85twfkfgwmxsav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.10
+"july 28, 2025 00:00",mrs. adele preacher **** **** **** 9104,unsupported currency settled,grab* a-85t937fwwu5fav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.10
+"july 27, 2025 23:50",mr. matthew willis **** **** **** 8970,unsupported currency settled,grab* a-85sfxtbg2mxsav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.08
+"july 27, 2025 23:50",mrs. adele preacher **** **** **** 9104,unsupported currency settled,grab* a-85sp2a3gw7baav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.19
+"july 27, 2025 23:50",mrs. adele preacher **** **** **** 9104,unsupported currency settled,grab* a-85sp2a3gw7baav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.03
+"july 27, 2025 23:35",mrs. adele preacher **** **** **** 9104,unsupported currency settled,"grab* a-85p4vmkgw29oav\18 sin ming lane, #01-143, midview city\s taxicabs/limousines 4121",-,-,gbp,-0.25
+"july 27, 2025 23:35",mrs. adele preacher **** **** **** 9104,unsupported currency settled,meidi-ya@mw(fb)\9 raffles boulevard\singapore\039596 sg sgp fast food restaurants 5814,-,-,gbp,-0.09
+"july 27, 2025 23:35",mr. matthew willis **** **** **** 8970,unsupported currency settled,"the penny black victor\26,27 boat quay\singapore\049817 sg sg drinking places 5813",-,-,gbp,-0.16
+"july 27, 2025 23:35",mr. matthew willis **** **** **** 8970,unsupported currency settled,grab* a-85oh58vwwps3av\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.17
+"july 27, 2025 23:35",mr. matthew willis **** **** **** 8970,unsupported currency settled,grab* a-85pwgo9gwporav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.15
+"july 27, 2025 23:35",mr. brett mcgoldrick **** **** **** 9507,unsupported currency settled,comfort/citycab taxi\383 sin ming drive\singapore\575717 s taxicabs/limousines 4121,-,-,gbp,-0.08
+"july 27, 2025 23:35",mrs. adele preacher **** **** **** 9104,unsupported currency settled,"the penny black victor\26,27 boat quay\singapore\049817 sg sg drinking places 5813",-,-,gbp,-0.24
+"july 27, 2025 23:35",mrs. adele preacher **** **** **** 9104,unsupported currency settled,grab* a-85pwhd6gxdapav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.15
+"july 27, 2025 23:05",mr. matthew willis **** **** **** 8970,unsupported currency settled,grab* a-85kogfugx7amav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.18
+"july 27, 2025 23:05",mr. matthew willis **** **** **** 8970,unsupported currency settled,grab* a-85l9eq7wwh5fav\6 battery road\singapore\049909 sgp taxicabs/limousines 4121,-,-,gbp,-0.14
+"july 27, 2025 22:37",mrs. adele preacher **** **** **** 9104,pos transaction,7 eleven-t4,-,,gbp,-13.92
+"july 27, 2025 14:10",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,chf,-20.60
+"july 27, 2025 13:18",mrs. adele preacher **** **** **** 9104,pos transaction,s'pore sports hub-ntnl,food & household,,gbp,-1.75
+"july 27, 2025 12:01",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 27, 2025 11:18",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 27, 2025 11:18",mr. matthew willis **** **** **** 8970,pos transaction,s'pore sports hub-ntnl,food & household,,gbp,-5.26
+"july 27, 2025 11:05",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"july 27, 2025 10:01",mrs. adele preacher **** **** **** 9104,pos transaction,fairprice xtra-kallang,-,,gbp,-3.91
+"july 27, 2025 09:58",mr. ben maitland **** **** **** 5874,pos transaction,la manufacture elisabe,-,,chf,-53.66
+"july 27, 2025 08:31",mrs. adele preacher **** **** **** 9104,pos transaction,grab* a-85t937fwwu5fav,transport,,gbp,-10.05
+"july 27, 2025 06:57",mrs. adele preacher **** **** **** 9104,pos transaction,grab* a-85twfkfgwmxsav,food & household,,gbp,-10.29
+"july 27, 2025 05:50",mr. matthew willis **** **** **** 8970,pos transaction,the penny black victor,food & household,,gbp,-29.20
+"july 27, 2025 05:49",mrs. adele preacher **** **** **** 9104,pos transaction,grab* a-85sp2a3gw7baav,-,-,gbp,-3.01
+"july 27, 2025 05:36",mrs. adele preacher **** **** **** 9104,pos transaction,grab* a-85sp2a3gw7baav,-,,gbp,-18.53
+"july 27, 2025 03:46",mr. matthew willis **** **** **** 8970,pos transaction,grab* a-85sfxtbg2mxsav,transport,,gbp,-8.12
+"july 26, 2025 18:22",mr. ben maitland **** **** **** 5874,pos transaction,www.yoordi.com,-,,chf,-247.70
+"july 26, 2025 13:26",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-8.44
+"july 26, 2025 13:08",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"july 26, 2025 12:32",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"july 26, 2025 12:31",mrs. adele preacher **** **** **** 9104,pos transaction,meidi-ya@mw(f b),-,,gbp,-8.70
+"july 26, 2025 12:31",mr. matthew willis **** **** **** 8970,pos transaction,grab* a-85poeaigw87jav singapore sgp taxicabs/limousines 4121,-,-,gbp,+6.74
+"july 26, 2025 12:27",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 26, 2025 12:00",mr. matthew willis **** **** **** 8970,pos transaction,grab* a-85poeaigw87jav,-,-,gbp,-6.74
+"july 26, 2025 11:42",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,,gbp,-4.30
+"july 26, 2025 11:18",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.00
+"july 26, 2025 09:56",mr. brett mcgoldrick **** **** **** 9507,pos transaction,"eximbay co.,*k-eta",-,-,gbp,-5.61
+"july 26, 2025 08:28",mrs. adele preacher **** **** **** 9104,pos transaction,grab* a-85p4vmkgw29oav,travel - international,,gbp,-25.15
+"july 26, 2025 07:54",mr. matthew willis **** **** **** 8970,pos transaction,muddy murphy's irish p,food & household,,gbp,-53.15
+"july 26, 2025 07:39",mrs. adele preacher **** **** **** 9104,pos transaction,grab* a-85pwhd6gxdapav,travel - international,,gbp,-15.28
+"july 26, 2025 07:39",mr. matthew willis **** **** **** 8970,pos transaction,grab* a-85pwgo9gwporav,travel - international,,gbp,-15.46
+"july 26, 2025 06:59",mrs. adele preacher **** **** **** 9104,pos transaction,muddy murphy's irish p,food & household,,gbp,-4.09
+"july 26, 2025 05:39",mrs. adele preacher **** **** **** 9104,pos transaction,muddy murphy's irish p,food & household,,gbp,-5.26
+"july 26, 2025 04:51",mr. matthew willis **** **** **** 8970,pos transaction,grab* a-85oh58vwwps3av,travel - international,,gbp,-17.45
+"july 26, 2025 04:01",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,gbp,-65.38
+"july 26, 2025 02:56",mr. brett mcgoldrick **** **** **** 9507,pos transaction,comfort/citycab taxi,-,-,gbp,-7.71
+"july 25, 2025 15:06",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.40
+"july 25, 2025 14:09",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,gbp,-19.80
+"july 25, 2025 13:10",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.67
+"july 25, 2025 13:05",mr. alastair waugh **** **** **** 7234,pos transaction,sharifi buyukkeskin,-,-,eur,-28.70
+"july 25, 2025 13:02",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250725-pjmhhx, sold gbp 25.29",-,-,gbp,-25.29
+"july 25, 2025 13:02",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250725-pjmhhx, bought eur 28.70",-,-,eur,+28.70
+"july 25, 2025 12:53",mr. ben maitland **** **** **** 5874,pos transaction,lidl sagt danke,-,-,eur,-9.15
+"july 25, 2025 12:50",mr. ben maitland **** **** **** 5874,fx sell,"fx deal : 20250725-rvnswc, sold gbp 8.07",-,-,gbp,-8.07
+"july 25, 2025 12:50",mr. ben maitland **** **** **** 5874,fx purchase,"fx deal : 20250725-rvnswc, bought eur 9.15",-,-,eur,+9.15
+"july 25, 2025 12:46",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.80
+"july 25, 2025 11:44",mrs. adele preacher **** **** **** 9104,pos transaction,the penny black victor,food & household,,gbp,-24.38
+"july 25, 2025 11:21",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,,gbp,-9.60
+"july 25, 2025 10:26",mr. matthew willis **** **** **** 8970,pos transaction,the penny black victor,food & household,,gbp,-16.25
+"july 25, 2025 09:59",mr. matthew willis **** **** **** 8970,pos transaction,grab* a-85l9eq7wwh5fav,travel - international,,gbp,-13.57
+"july 25, 2025 09:48",mr. ben maitland **** **** **** 5874,pos transaction,uber * pending,-,-,gbp,-59.86
+"july 25, 2025 09:40",company wallet,payment to other card holder,load from cw to **** 2738 : daniel laurent : northern ireland,-,-,gbp,-300.00
+"july 25, 2025 09:40",mr. daniel laurent **** **** **** 2738,payment from other card holder,load from cw : northern ireland,-,-,gbp,+300.00
+"july 25, 2025 09:40",company wallet,payment to other card holder,load from cw to **** 2039 : paul mclaren : northern ireland,-,-,gbp,-300.00
+"july 25, 2025 09:40",mr. paul mclaren **** **** **** 2039,payment from other card holder,load from cw : northern ireland,-,-,gbp,+300.00
+"july 25, 2025 09:39",company wallet,payment to other card holder,load from cw to **** 2468 : david baker : northern ireland,-,-,gbp,-300.00
+"july 25, 2025 09:39",mr. david baker **** **** **** 2468,payment from other card holder,load from cw : northern ireland,-,-,gbp,+300.00
+"july 25, 2025 09:38",company wallet,cw - transfer,cw unload from **** 1455 : andrew tully : unspent,-,-,eur,"+2,000.00"
+"july 25, 2025 09:38",mr. andrew tully **** **** **** 1455,payment to other card holder,unload to cw : unspent,-,-,eur,"-2,000.00"
+"july 25, 2025 06:53",mr. matthew willis **** **** **** 8970,pos transaction,grab* a-85kogfugx7amav,travel - international,,gbp,-17.88
+"july 25, 2025 01:50",mr. brett mcgoldrick **** **** **** 9507,unsupported currency settled,the coffee bean-jewel\78 airport boulevard\singapore\819666 s fast food restaurants 5814,-,-,gbp,-0.10
+"july 24, 2025 19:17",mr. alastair waugh **** **** **** 7234,pos transaction,taxi 3142,-,-,eur,-14.30
+"july 24, 2025 19:14",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-chqyhx, sold gbp 12.57",-,-,gbp,-12.57
+"july 24, 2025 19:14",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-chqyhx, bought eur 14.30",-,-,eur,+14.30
+"july 24, 2025 18:45",mr. alastair waugh **** **** **** 7234,pos transaction,nya*blue point waschsa,-,-,eur,-3.00
+"july 24, 2025 18:42",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-zxqnbx, sold gbp 2.64",-,-,gbp,-2.64
+"july 24, 2025 18:42",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-zxqnbx, bought eur 3.00",-,-,eur,+3.00
+"july 24, 2025 18:29",mr. alastair waugh **** **** **** 7234,pos transaction,nya*blue point waschsa,-,-,eur,-3.00
+"july 24, 2025 18:27",mr. alastair waugh **** **** **** 7234,pos transaction,nya*blue point waschsa,-,-,eur,-3.00
+"july 24, 2025 18:26",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-lxxbrl, sold gbp 2.64",-,-,gbp,-2.64
+"july 24, 2025 18:26",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-lxxbrl, bought eur 3.00",-,-,eur,+3.00
+"july 24, 2025 18:25",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-xrzfsq, sold gbp 2.64",-,-,gbp,-2.64
+"july 24, 2025 18:25",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-xrzfsq, bought eur 3.00",-,-,eur,+3.00
+"july 24, 2025 18:08",mr. alastair waugh **** **** **** 7234,pos transaction,lidl sagt danke,-,-,eur,-13.32
+"july 24, 2025 18:05",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-gvvkmx, sold gbp 11.72",-,-,gbp,-11.72
+"july 24, 2025 18:05",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-gvvkmx, bought eur 13.32",-,-,eur,+13.32
+"july 24, 2025 17:51",mr. alastair waugh **** **** **** 7234,pos transaction,nya*blue point waschsa,-,-,eur,-6.00
+"july 24, 2025 17:50",mr. alastair waugh **** **** **** 7234,pos transaction,nya*blue point waschsa,-,-,eur,-6.00
+"july 24, 2025 17:49",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-rhgvnl, sold gbp 5.28",-,-,gbp,-5.28
+"july 24, 2025 17:49",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-rhgvnl, bought eur 6.00",-,-,eur,+6.00
+"july 24, 2025 17:47",mr. alastair waugh **** **** **** 7234,pos transaction,taxi 3142,-,-,eur,-16.10
+"july 24, 2025 17:47",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-gshwqp, sold gbp 5.28",-,-,gbp,-5.28
+"july 24, 2025 17:47",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-gshwqp, bought eur 6.00",-,-,eur,+6.00
+"july 24, 2025 17:44",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-kjbrjs, sold gbp 14.16",-,-,gbp,-14.16
+"july 24, 2025 17:44",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-kjbrjs, bought eur 16.10",-,-,eur,+16.10
+"july 24, 2025 15:17",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,-,gbp,-4.00
+"july 24, 2025 15:14",company wallet,auto load to,"auto load to *5100. amount: 102.45, currency: gbp",-,-,gbp,-102.45
+"july 24, 2025 15:14",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 102.45, currency: gbp",-,-,gbp,+102.45
+"july 24, 2025 14:08",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.65
+"july 24, 2025 13:06",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"july 24, 2025 11:13",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 24, 2025 09:34",mr. alastair waugh **** **** **** 7234,pos transaction,sumup *ali arslaner,-,-,eur,-38.00
+"july 24, 2025 09:31",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-qfdvxz, sold gbp 33.31",-,-,gbp,-33.31
+"july 24, 2025 09:31",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-qfdvxz, bought eur 38.00",-,-,eur,+38.00
+"july 24, 2025 08:16",mr. alastair waugh **** **** **** 7234,pos transaction,munich taxi gmbh,-,-,eur,-43.30
+"july 24, 2025 08:15",mr. matthew willis **** **** **** 8970,pos transaction,ssp uk ltd,food & household,,gbp,-14.40
+"july 24, 2025 08:14",mr. alastair waugh **** **** **** 7234,fx sell,"fx deal : 20250724-cdyhxg, sold gbp 37.95",-,-,gbp,-37.95
+"july 24, 2025 08:14",mr. alastair waugh **** **** **** 7234,fx purchase,"fx deal : 20250724-cdyhxg, bought eur 43.30",-,-,eur,+43.30
+"july 24, 2025 02:05",mr. brett mcgoldrick **** **** **** 9507,unsupported currency settled,comfort/citycab taxi\383 sin ming drive\singapore\575717 s taxicabs/limousines 4121,-,-,gbp,-0.15
+"july 23, 2025 16:41",mr. ben maitland **** **** **** 5874,pos transaction,newcastle - whitley rd,-,,gbp,-19.40
+"july 23, 2025 15:19",ms. claire brown **** **** **** 5100,pos transaction,greggs,food & household,,gbp,-4.85
+"july 23, 2025 14:06",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.67
+"july 23, 2025 12:34",company wallet,payment to other card holder,load from cw to **** 5874 : ben maitland : per s cumming - munich,-,-,gbp,-600.00
+"july 23, 2025 12:34",mr. ben maitland **** **** **** 5874,payment from other card holder,load from cw : per s cumming - munich,-,-,gbp,+600.00
+"july 23, 2025 12:33",company wallet,payment to other card holder,load from cw to **** 7234 : alastair waugh : munich 23.07 - per s cumming,-,-,gbp,-600.00
+"july 23, 2025 12:33",mr. alastair waugh **** **** **** 7234,payment from other card holder,load from cw : munich 23.07 - per s cumming,-,-,gbp,+600.00
+"july 23, 2025 12:17",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-3.95
+"july 23, 2025 11:13",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"july 23, 2025 06:56",mr. brett mcgoldrick **** **** **** 9507,pos transaction,comfort/citycab taxi,-,-,gbp,-14.87
+"july 23, 2025 06:33",mr. brett mcgoldrick **** **** **** 9507,pos transaction,the coffee bean-jewel,-,-,gbp,-9.71
+"july 22, 2025 16:11",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 22, 2025 14:05",mr. brett mcgoldrick **** **** **** 9507,pos transaction,inflight internet serv,-,-,usd,-16.99
+"july 22, 2025 14:02",mr. brett mcgoldrick **** **** **** 9507,fx sell,"fx deal : 20250722-xktyxh, sold gbp 12.74",-,-,gbp,-12.74
+"july 22, 2025 14:02",mr. brett mcgoldrick **** **** **** 9507,fx purchase,"fx deal : 20250722-xktyxh, bought usd 16.99",-,-,usd,+16.99
+"july 22, 2025 13:13",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.97
+"july 22, 2025 12:15",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,,gbp,-3.45
+"july 22, 2025 11:06",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"july 22, 2025 08:57",mr. matthew willis **** **** **** 8970,pos transaction,newcastle park and fly,tolls/ parking,,gbp,-49.99
+"july 21, 2025 14:13",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"july 21, 2025 12:42",ms. claire brown **** **** **** 5100,pos transaction,subway53274,food & household,,gbp,-4.79
+"july 21, 2025 12:33",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 21, 2025 11:35",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-5.00
+"july 21, 2025 11:33",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.45
+"july 20, 2025 12:14",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-5.00
+"july 20, 2025 11:28",ms. claire brown **** **** **** 5100,pos transaction,subway42833,food & household,,gbp,-4.85
+"july 20, 2025 11:10",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-9.75
+"july 19, 2025 20:47",mr. rob moore **** **** **** 8512,pos transaction,esso st james park,-,,gbp,-72.64
+"july 19, 2025 17:27",mr. rob moore **** **** **** 8512,pos transaction,dominos pizza,-,,gbp,-165.34
+"july 19, 2025 14:19",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-5.00
+"july 19, 2025 14:08",ms. claire brown **** **** **** 5100,pos transaction,marks spencer plc,food & household,-,gbp,-4.40
+"july 19, 2025 14:05",company wallet,auto load to,"auto load to *5100. amount: 101.97, currency: gbp",-,-,gbp,-101.97
+"july 19, 2025 14:05",ms. claire brown **** **** **** 5100,auto load from,"auto load from cw. amount: 101.97, currency: gbp",-,-,gbp,+101.97
+"july 19, 2025 13:12",ms. claire brown **** **** **** 5100,pos transaction,wh smith gateshead,food & household,,gbp,-3.00
+"july 19, 2025 13:08",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,-,gbp,-4.12
+"july 19, 2025 12:40",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-5.00
+"july 19, 2025 11:14",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-5.00
+"july 19, 2025 08:55",mr. rob moore **** **** **** 8512,pos transaction,toby strathclyde park,-,,gbp,-98.82
+"july 18, 2025 18:33",mr. gary douglas **** **** **** 9036,pos transaction,aichinger gastro gmbh,food & household,,eur,-14.90
+"july 18, 2025 18:24",mr. ben toal **** **** **** 5259,pos transaction,aichinger gastro gmbh,food & household,,eur,-14.90
+"july 18, 2025 18:20",mr. ben toal **** **** **** 5259,pos transaction,aichinger gastro gmbh,food & household,,eur,-125.15
+"july 18, 2025 15:33",company wallet,payment to other card holder,load from cw to **** 9104 : adele preacher : glasgow,-,-,gbp,-500.00
+"july 18, 2025 15:33",mrs. adele preacher **** **** **** 9104,payment from other card holder,load from cw : glasgow,-,-,gbp,+500.00
+"july 18, 2025 14:58",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.55
+"july 18, 2025 14:33",mr. gary douglas **** **** **** 9036,pos transaction,parkhotel hall,food & household,,eur,-404.70
+"july 18, 2025 14:27",mr. matthew willis **** **** **** 8970,pos transaction,dt glasgow strathclyde,accommodation,,gbp,-110.67
+"july 18, 2025 14:23",mr. gary douglas **** **** **** 9036,pos transaction,sumup *taxi rohregger,transport,,eur,-35.00
+"july 18, 2025 13:28",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.82
+"july 18, 2025 13:20",mr. ben toal **** **** **** 5259,pos transaction,kalevera hall in tir,food & household,,eur,-10.50
+"july 18, 2025 12:20",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-5.00
+"july 18, 2025 11:55",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.85
+"july 18, 2025 11:33",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.12
+"july 18, 2025 06:27",mr. gary douglas **** **** **** 9036,pos transaction,wurstkultur,food & household,,eur,-45.50
+"july 17, 2025 14:31",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.99
+"july 17, 2025 13:57",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 17, 2025 13:53",company wallet,payment to other card holder,load from cw to **** 8970 : matthew willis : glasgow,-,-,gbp,-500.00
+"july 17, 2025 13:53",mr. matthew willis **** **** **** 8970,payment from other card holder,load from cw : glasgow,-,-,gbp,+500.00
+"july 17, 2025 13:46",mr. gary douglas **** **** **** 9036,atm withdrawal,volksbank tirol ag,food & household,,eur,-46.00
+"july 17, 2025 13:46",mr. gary douglas **** **** **** 9036,atm withdrawal,volksbank tirol ag hall aut automated cash disburse 6011,bank fees,-,gbp,-2.00
+"july 17, 2025 13:28",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.04
+"july 17, 2025 13:25",mr. gary douglas **** **** **** 9036,pos transaction,kalevera hall in tir,food & household,,eur,-12.60
+"july 17, 2025 12:09",ms. claire brown **** **** **** 5100,pos transaction,boots/5002,food & household,,gbp,-4.00
+"july 17, 2025 08:40",mr. gary douglas **** **** **** 9036,pos transaction,hofer dankt,food & household,,eur,-25.01
+"july 16, 2025 15:29",company wallet,cw - transfer,cw unload from **** 2039 : paul mclaren : unspent,-,-,eur,+31.06
+"july 16, 2025 15:29",mr. paul mclaren **** **** **** 2039,payment to other card holder,unload to cw : unspent,-,-,eur,-31.06
+"july 16, 2025 15:28",company wallet,cw - transfer,cw unload from **** 3720 : matt wightman : unspent,-,-,gbp,+118.00
+"july 16, 2025 15:28",mr. matt wightman **** **** **** 3720,payment to other card holder,unload to cw : unspent,-,-,gbp,-118.00
+"july 16, 2025 15:28",company wallet,cw - transfer,cw unload from **** 3720 : matt wightman : unspent,-,-,eur,+24.72
+"july 16, 2025 15:28",mr. matt wightman **** **** **** 3720,payment to other card holder,unload to cw : unspent,-,-,eur,-24.72
+"july 16, 2025 15:28",company wallet,cw - transfer,cw unload from **** 2738 : daniel laurent : unspent,-,-,gbp,+99.86
+"july 16, 2025 15:28",mr. daniel laurent **** **** **** 2738,payment to other card holder,unload to cw : unspent,-,-,gbp,-99.86
+"july 16, 2025 15:27",company wallet,cw - transfer,cw unload from **** 2738 : daniel laurent : unspent,-,-,eur,+332.50
+"july 16, 2025 15:27",mr. daniel laurent **** **** **** 2738,payment to other card holder,unload to cw : unspent,-,-,eur,-332.50
+"july 16, 2025 15:27",company wallet,cw - transfer,cw unload from **** 1061 : angela coates : unspent,-,-,gbp,+213.96
+"july 16, 2025 15:27",mrs. angela coates **** **** **** 1061,payment to other card holder,unload to cw : unspent,-,-,gbp,-213.96
+"july 16, 2025 15:27",company wallet,cw - transfer,cw unload from **** 1061 : angela coates : unspent,-,-,eur,+287.39
+"july 16, 2025 15:27",mrs. angela coates **** **** **** 1061,payment to other card holder,unload to cw : unspent,-,-,eur,-287.39
+"july 16, 2025 15:26",company wallet,cw - transfer,cw unload from **** 5732 : gregg ryder : unspent,-,-,gbp,+225.89
+"july 16, 2025 15:26",mr. gregg ryder **** **** **** 5732,payment to other card holder,unload to cw : unspent,-,-,gbp,-225.89
+"july 16, 2025 15:26",company wallet,cw - transfer,cw unload from **** 5732 : gregg ryder : unspent,-,-,eur,+14.42
+"july 16, 2025 15:26",mr. gregg ryder **** **** **** 5732,payment to other card holder,unload to cw : unspent,-,-,eur,-14.42
+"july 16, 2025 15:25",company wallet,cw - transfer,cw unload from **** 2273 : mark pearson : unspent,-,-,gbp,+14.04
+"july 16, 2025 15:25",mr. mark pearson **** **** **** 2273,payment to other card holder,unload to cw : unspent,-,-,gbp,-14.04
+"july 16, 2025 15:24",company wallet,cw - transfer,cw unload from **** 7234 : alastair waugh : unspent,-,-,gbp,+500.00
+"july 16, 2025 15:24",mr. alastair waugh **** **** **** 7234,payment to other card holder,unload to cw : unspent,-,-,gbp,-500.00
+"july 16, 2025 15:24",company wallet,cw - transfer,cw unload from **** 7234 : alastair waugh : unspent,-,-,eur,+920.00
+"july 16, 2025 15:24",mr. alastair waugh **** **** **** 7234,payment to other card holder,unload to cw : unspent,-,-,eur,-920.00
+"july 16, 2025 15:22",company wallet,cw - transfer,cw unload from **** 4911 : scott graver : unspent,-,-,gbp,+86.85
+"july 16, 2025 15:22",mr. scott graver **** **** **** 4911,payment to other card holder,unload to cw : unspent,-,-,gbp,-86.85
+"july 16, 2025 15:22",company wallet,cw - transfer,cw unload from **** 4911 : scott graver : unspent,-,-,eur,+509.13
+"july 16, 2025 15:22",mr. scott graver **** **** **** 4911,payment to other card holder,unload to cw : unspent,-,-,eur,-509.13
+"july 16, 2025 15:21",company wallet,cw - transfer,cw unload from **** 5874 : ben maitland : unspent,-,-,eur,+220.81
+"july 16, 2025 15:21",mr. ben maitland **** **** **** 5874,payment to other card holder,unload to cw : unspent,-,-,eur,-220.81
+"july 16, 2025 15:21",company wallet,cw - transfer,cw unload from **** 5874 : ben maitland : unspent,-,-,gbp,+21.84
+"july 16, 2025 15:21",mr. ben maitland **** **** **** 5874,payment to other card holder,unload to cw : unspent,-,-,gbp,-21.84
+"july 16, 2025 15:10",mr. gary douglas **** **** **** 9036,pos transaction,manna delikatessen caf,food & household,,eur,-13.10
+"july 16, 2025 15:06",mr. ben toal **** **** **** 5259,pos transaction,der baecker ruetz alts,food & household,,eur,-15.20
+"july 16, 2025 15:04",ms. claire brown **** **** **** 5100,pos transaction,greggs plc,food & household,,gbp,-4.95
+"july 16, 2025 14:11",ms. claire brown **** **** **** 5100,pos transaction,burger king,food & household,,gbp,-4.88
+"july 16, 2025 13:09",ms. claire brown **** **** **** 5100,pos transaction,mcdonalds,food & household,,gbp,-4.89
+"july 16, 2025 12:59",mr. gary douglas **** **** **** 9036,pos transaction,alpengasthof halsmar,food & household,,eur,-44.40

@@ -23,12 +23,14 @@ jobs:
           browser: chrome
           headed: true
           spec: |
-            cypress/e2e/SinglePaymentCorpay.cy.js
-            
+            cypress/e2e/newScalableTransactions.cy.js
+
       - name: Upload HTML Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-execution-report
-          path: cypress/reports/html
+          path: |
+            cypress/reports/html
+            cypress/reports/table_mismatch_report.html
           retention-days: 7

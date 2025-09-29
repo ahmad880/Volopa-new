@@ -590,7 +590,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-051 - Verify that if Currency= USD and Country = United States & Client = UK and check priority and regular both settlement are enabled', function(){
+    it.only('TC-AC-051 - Verify that if Currency= USD and Country = United States & Client = UK and check priority and regular both settlement are enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

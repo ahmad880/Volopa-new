@@ -28,7 +28,7 @@ describe("Compare Transaction History Table - App1 vs App2", () => {
 
     //Apply transaction type filter
     cy.get('th:nth-child(3) div:nth-child(1) span:nth-child(2)').click();
-    cy.get('label.ant-radio-wrapper span').contains('Auto Load From').click();
+    cy.get('label.ant-radio-wrapper span').contains('Payment to other Card Holder').click();
     cy.get(".ant-spin-dot").should("not.exist");
     cy.wait(5000);
 
@@ -51,7 +51,7 @@ describe("Compare Transaction History Table - App1 vs App2", () => {
             cy.wait(5000);
             //Apply transaction type filter
             cy.get('th:nth-child(3) div:nth-child(1) span:nth-child(2)').click();
-            cy.get('label.ant-radio-wrapper span').contains('Auto Load From').click();
+            cy.get('label.ant-radio-wrapper span').contains('Payment to other Card Holder').click();
             cy.get(".ant-spin-dot").should("not.exist");
             cy.wait(5000);
 

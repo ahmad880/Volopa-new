@@ -60,7 +60,7 @@ describe("Compare Transaction History Table - App1 vs App2", () => {
             cy.get(".ant-spin-dot").should("not.exist");
             //Apply transaction type filter
             cy.get('th:nth-child(3) div:nth-child(1) span:nth-child(2)').click();
-            cy.get('label.ant-radio-wrapper span').contains('CW - transfer').click();
+            cy.get('label.ant-radio-wrapper span').contains('POS Transaction').click();
             cy.get(".ant-spin-dot").should("not.exist");
             cy.wait(5000);
 

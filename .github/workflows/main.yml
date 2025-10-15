@@ -23,7 +23,7 @@ jobs:
           browser: chrome
           headed: true
           spec: |
-            cypress/e2e/performanceTest.cy.js
+            cypress/e2e/newScalableTransactions.cy.js
 
       - name: Upload HTML Report Artifact
         if: always()

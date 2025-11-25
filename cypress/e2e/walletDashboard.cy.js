@@ -10,13 +10,13 @@ const fundWallet = new FundWallet
 
 describe('WalletDashboard',function(){
     let userName = 'testnew@volopa.com'
-    let password = 'testTest1'
+    let password = 'testTest1@'
     beforeEach(() => {
         cy.window().then((win) => {
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp04.volopa-dev.com')
+        cy.visit('https://webapp01.volopa-dev.com')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })

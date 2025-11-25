@@ -14,7 +14,7 @@ describe('FundWallet ',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp04.volopa-dev.com')
+        cy.visit('https://webapp01.volopa-dev.com')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -35,7 +35,7 @@ describe('FundWallet ',function(){
         fundWallet.viewAllCurrencies()
     })
     //Easy transfer
-    it.only('TC_FW_005 - validate that the user is able to fund the company wallet with "euro" with easy transfer', function(){
+    it('TC_FW_005 - validate that the user is able to fund the company wallet with "euro" with easy transfer', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet1('EUR{enter}')
     })

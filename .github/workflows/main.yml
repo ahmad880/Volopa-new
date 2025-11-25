@@ -23,7 +23,10 @@ jobs:
           browser: chrome
           headed: true
           spec: |
-            cypress/e2e/newScalableTransactions.cy.js
+            cypress/e2e/walletDashboard.cy.js
+            cypress/e2e/fundWallet.cy.js
+            cypress/e2e/fundingHistory.cy.js
+            cypress/e2e/convertBalances.cy.js
 
       - name: Upload HTML Report Artifact
         if: always()

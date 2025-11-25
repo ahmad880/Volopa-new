@@ -109,7 +109,7 @@ export class WalletDashboard {
           })
           cy.get(variable.fundWalletLocators.popupconfirmxpath).click()
           cy.wait(10000)
-          cy.get('[data-testid="select-bank-text"]').should('contain.text','Choose your bank')
+          cy.get('.mb-3').should('contain.text','Choose your bank')
           cy.get('[data-testid="search-input"]').type('Modelo')
           cy.get('.institution-card-hover').click() //removed the assertion for text
         

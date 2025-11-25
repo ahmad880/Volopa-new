@@ -128,7 +128,7 @@ describe('WalletDashboard',function(){
           });
         });
       });
-    it('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
+    it.only('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
         cy.wait(5000)

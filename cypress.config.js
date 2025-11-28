@@ -11,6 +11,8 @@ module.exports = defineConfig({
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,
+    chromeWebSecurity: false,
+    experimentalSessionAndOrigin: true,
   },
   e2e: {
     setupNodeEvents(on, config) {

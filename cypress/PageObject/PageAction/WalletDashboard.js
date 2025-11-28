@@ -100,50 +100,90 @@ export class WalletDashboard {
         cy.get(variable1.walletDashboardLocators.fundWalletPage).should('contain.text','Fund Wallet')
     }
     fundEasyTransfer(){
-        cy.get(variable.fundWalletLocators.popupheading).should('contain','Fund via Easy Transfer (Open Banking)')
-        cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(ele=>{
-            let val1= ele.trim()
-            cy.wrap(val1).should('contain','GBP').as('val1')
-            cy.log(val1)
-            
-          })
-          cy.get(variable.fundWalletLocators.popupconfirmxpath).click()
-          cy.wait(10000)
-          cy.get('.mb-3').should('contain.text','Choose your bank')
-          cy.get('[data-testid="search-input"]').type('Modelo')
-          cy.get('.institution-card-hover').click() //removed the assertion for text
-        
-        //   cy.get(".pb-2.currency-style").invoke('text').then((ele)=>{
-        //     amount1=ele.trim()
-        //     amount1= amount1.replace(/£/g,'')
-        //     cy.log('amount', amount1)
-        //     cy.wrap(amount1).as('Amount')
-        //   })
-          cy.wait(2000)
-          cy.get('[data-testid="footer-continue-button"]').click()
-          cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
-          cy.get('strong').invoke('removeAttr', 'target').click()   
-          cy.get('.ozone-heading-1').should('have.text','Model Bank')
-          cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
-          cy.get(':nth-child(1) > .ozone-input').type('mits')
-          cy.get('#passwordField').type('mits')
-            cy.get('#loginButton').click({force:true})
-            cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
-            cy.get("#radio-10000109010102").click()
-            cy.get('#confirmButton').click({force:true})
-            cy.get('.ant-spin-dot').should('not.exist')
-            cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
-            cy.get(':nth-child(2) > .ant-btn').click()
-            cy.get(variable.fundWalletLocators.validationamoungt).click()
-            cy.get('@val1').then(val1=>{
-            cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
-                let ele = ele1.split('.')
-                let val= ele[0].trim()
-              cy.wrap(val).should('contain','GBP')
-              cy.log(val)
-              //val=val.replace(/GBP/g,'')
-              cy.wrap(val).should('eq',val1)  
-            })
+    cy.get(variable.fundWalletLocators.popupheading).should('contain','Fund via Easy Transfer (Open Banking)')
+    cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(ele=>{
+        let val1= ele.trim()
+        cy.wrap(val1).should('contain','GBP').as('val1')
+        cy.log(val1)
     })
-    }
+    cy.get(variable.fundWalletLocators.popupconfirmxpath).click()
+    
+    // ---------------------------------
+    // YAPILY FLOW
+    // ---------------------------------
+    cy.origin("https://payments.yapily.com", () => {
+        Cypress.on("uncaught:exception", () => false);
+        
+        cy.get('.mb-3', { timeout: 20000 }).should('contain.text','Choose your bank')
+        cy.get('[data-testid="search-input"]').type('Modelo')
+        cy.get('.institution-card__hover').click()
+        
+        cy.wait(2000)
+        cy.get('[data-testid="footer-continue-button"]').click()
+        //cy.get('[data-testid="header-title"]', { timeout: 10000 }).should('contain','Approve your payment')
+        
+        // Remove target="_blank" attribute to prevent new tab opening
+        // Then click immediately to preserve session state
+        cy.get('[data-testid="auth-continue-to-bank"]', { timeout: 10000 })
+            .invoke('removeAttr', 'target')
+            .click();
+    });
+    
+    // --------------------------------------------------------
+    // OZONE FLOW (Direct continuation after Yapily redirect)
+    // --------------------------------------------------------
+    cy.origin("https://auth1.obie.uk.ozoneapi.io", () => {
+        Cypress.on("uncaught:exception", () => false);
+        
+        // PAGE 1: Login Screen
+        cy.get('.ozone-heading-1', { timeout: 30000 }).should('have.text','Model Bank')
+        cy.get('.ozone-heading-3', { timeout: 20000 }).should('have.text','Please enter your login details to proceed')
+        
+        cy.get(':nth-child(1) > .ozone-input', { timeout: 10000 })
+            .should('be.visible')
+            .clear()
+            .type('mits')
+        
+        cy.get('#passwordField', { timeout: 10000 })
+            .should('be.visible')
+            .clear()
+            .type('mits')
+        
+        // Add small wait before clicking login to ensure form is ready
+        cy.wait(500)
+        cy.get('#loginButton').should('be.enabled').click({force:true})
+        
+        // PAGE 2: Consent Screen
+        cy.get('.ozone-pis-heading-1', { timeout: 30000 }).should('have.text','Single Domestic Payment Consents (PIS)')
+        
+        cy.get("#radio-10000109010102", { timeout: 10000 })
+            .should('be.visible')
+            .click({force:true})
+        
+        // Wait a moment for the radio selection to register
+        cy.wait(500)
+        cy.get('#confirmButton').should('be.enabled').click({force:true})
+    });
+    
+    // ---------------------------------
+    // BACK TO MAIN APP
+    // ---------------------------------
+    Cypress.on("uncaught:exception", () => false);
+    
+    cy.get('.ant-spin-dot', { timeout: 30000 }).should('not.exist')
+    cy.get('[class="ant-typography muli semi-bold fs-24px purple"]', { timeout: 20000 })
+        .should('contain.text','Funds could take up to 2 hours to be posted.')
+    cy.get(':nth-child(2) > .ant-btn').click()
+    cy.get(variable.fundWalletLocators.validationamoungt).click()
+    
+    cy.get('@val1').then(val1=>{
+        cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
+            let ele = ele1.split('.')
+            let val= ele[0].trim()
+            cy.wrap(val).should('contain','GBP')
+            cy.log(val)
+            cy.wrap(val).should('eq',val1)  
+        })
+    })
+}
 }

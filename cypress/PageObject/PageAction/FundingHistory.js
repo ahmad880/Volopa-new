@@ -303,33 +303,29 @@ valiadteDescendingAdminSorting(){
 valiadteAscendingFundingMethodSorting(){
   cy.get(variable.fundingHistoryLocators.fundingMethodButton).click()
   cy.wait(3000)
-  cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
-    const totalRows = $transactionRows.length;
-    const fMethodColumnSelector = variable.fundingHistoryLocators.fundingMethodColumn;
-    let previousFirstLetter;
-    for (let i = 0; i < totalRows; i++) {
-      // Get the current admin name text within the current row
-      cy.get(fMethodColumnSelector).eq(i).invoke('text').then((currentFundingMethod) => {
-        // Extract the first letter of the admin name
-        const currentFirstLetter = currentFundingMethod.trim().charAt(0).toLowerCase();
   
-        // Check if it's the first row or not
-        if (i === 0) {
-          // First row, no previous first letter to compare
-          previousFirstLetter = currentFirstLetter;
-        } else {
-          // Compare current first letter with the previous one
-          expect(currentFirstLetter >= previousFirstLetter).to.be.true;
-          // Update previous first letter for the next iteration
-          previousFirstLetter = currentFirstLetter;
-        }
-      });
+  // Collect all funding method texts first
+  cy.get(variable.fundingHistoryLocators.fundingMethodColumn).then(($elements) => {
+    // Extract all text values into an array
+    const fundingMethods = [...$elements].map(el => el.innerText.trim());
+    
+    // Verify ascending order by comparing each element with the next
+    for (let i = 0; i < fundingMethods.length - 1; i++) {
+      const currentFirstLetter = fundingMethods[i].charAt(0).toLowerCase();
+      const nextFirstLetter = fundingMethods[i + 1].charAt(0).toLowerCase();
+      
+      expect(currentFirstLetter <= nextFirstLetter, 
+        `Row ${i}: "${fundingMethods[i]}" should come before or equal to "${fundingMethods[i + 1]}"`
+      ).to.be.true;
     }
+    
+    // Optional: Log the sorted order for debugging
+    cy.log('Funding Methods Order:', fundingMethods.join(' -> '));
   });
 }
 
 valiadteDescendingFundingMethodSorting(){
-  cy.get(variable.fundingHistoryLocators.fundingMethodButton).click()
+  cy.get('span[class="ant-table-column-title"] span[class="ant-typography dark-green"]').click()
   cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
     const totalRows = $transactionRows.length;
     const fMethodColumnSelector = variable.fundingHistoryLocators.fundingMethodColumn;

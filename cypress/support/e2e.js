@@ -38,4 +38,5 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes('addEventListener')) {
     return false; // Prevents test from failing
   }
+
 });

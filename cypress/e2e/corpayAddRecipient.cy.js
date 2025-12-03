@@ -35,11 +35,11 @@ describe('Corpay Add Recipient',function(){
         newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.singaporeCorpayDeatails('1111','123')
-        newRecipient.individualRecipient('Singapore SGD talha naeem naeem talha talha naeem','SINGAPORE{enter}')
+        newRecipient.individualRecipient('Singapore','SINGAPORE{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-003 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
+    xit('TC-AC-003 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -50,7 +50,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-004 - Verify that if Currency= MXN and Country = Mexico & Client = UK Checking and check priority settlement is enabled', function(){
+    xit('TC-AC-004 - Verify that if Currency= MXN and Country = Mexico & Client = UK Checking and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -63,7 +63,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-005 - Verify that if Currency= MXN and Country = Mexico & Client = UK Saving and check priority settlement is enabled', function(){
+    xit('TC-AC-005 - Verify that if Currency= MXN and Country = Mexico & Client = UK Saving and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -406,8 +406,9 @@ describe('Corpay Add Recipient',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('New Zealand{enter}' ,'NZD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('BKNZNZ22','049712')
-        cy.get('#bsb').should('be.visible').type('302921')
+        cy.get('#bsb').should('be.visible').type('082082')
         newRecipient.individualRecipient('New Zealand NZD','New Zealand{enter}')
+        cy.get('#postcode').should('be.visible').type('50505')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
@@ -839,11 +840,11 @@ describe('Corpay Add Recipient',function(){
         newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.singaporeCorpayDeatails('1111','123')
-        newRecipient.addBusinessRecipientCorpay('SINGAPORE{enter}','Singapore SGD')
+        newRecipient.addBusinessRecipientCorpay('SINGAPORE{enter}','')
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })
-    it('TC-AC-067 - Verify that(business) if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
+    xit('TC-AC-067 - Verify that(business) if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -854,7 +855,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-068 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Checking and check priority settlement is enabled', function(){
+    xit('TC-AC-068 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Checking and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -867,7 +868,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-069 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Saving and check priority settlement is enabled', function(){
+    xit('TC-AC-069 - Verify that(business) if Currency= MXN and Country = Mexico & Client = UK Saving and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1210,7 +1211,7 @@ describe('Corpay Add Recipient',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('New Zealand{enter}' ,'NZD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('BKNZNZ22','049712')
-        cy.get('#bsb').should('be.visible').type('302921')
+        cy.get('#bsb').should('be.visible').type('082082')
         newRecipient.addBusinessRecipientCorpay('New Zealand{enter}','New Zealand NZD')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')

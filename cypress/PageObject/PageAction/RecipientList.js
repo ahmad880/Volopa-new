@@ -104,7 +104,7 @@ export class RecipientList {
         cy.get(variable1.recipientListPageLocators.lastName).type('Individual Automation')
         cy.get(variable1.recipientListPageLocators.address).type('489 Avenue Louise Brussels 1050')
         cy.get(variable1.recipientListPageLocators.city).type('London')
-        cy.get(':nth-child(7) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
+        cy.get(':nth-child(8) > .ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-label > .ant-form-item-required > .ant-typography').should('contain.text','Recipient Country')
         cy.get('#beneficiaryCountry').type(country)
     }
 }

@@ -74,6 +74,7 @@ export class PaymentsDashboard {
     clickOnRepeatBtn(){
         cy.get(variable1.paymentsDashboardLocators.recentPayments).should('contain.text','Recent Payments')
         cy.get(variable1.paymentsDashboardLocators.repeatBtn).should('contain.text','Repeat').click()
+        cy.get('button[class="ant-btn ant-btn-primary ant-btn-sm"]').click()
         cy.get(variable1.paymentsDashboardLocators.createAPayment).should('contain.text','Create a Payment')
     }
     deleteRecipient(){

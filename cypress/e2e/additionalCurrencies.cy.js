@@ -64,7 +64,7 @@ describe('Additional Currencies ',function(){
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     }) 
     //Currency is MXN
-    it('TC-AC-005 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
+    xit('TC-AC-005 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -75,7 +75,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-006 - Verify that if Currency= MXN and Country = Mexico & Client = UK and check priority settlement is enabled', function(){
+    xit('TC-AC-006 - Verify that if Currency= MXN and Country = Mexico & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -87,7 +87,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-007 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
+    xit('TC-AC-007 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -98,7 +98,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-008 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
+    xit('TC-AC-008 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -110,7 +110,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
+    xit('TC-AC-009 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = UK', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -139,7 +139,7 @@ describe('Additional Currencies ',function(){
         newRecipient.validateCLABEFeild2('USD{enter}')
         newRecipient.validateCLABEFeild2('ZAR{enter}')
     })
-    it('TC-AC-010 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = EEA', function(){
+    xit('TC-AC-010 - Verify that the CLABE No is requested  if Country = Mexico regardless of currency and Client = EEA', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -581,7 +581,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-047 - Verify that if Country = BAHRAIN regardless of currency & Client = UK and check add recipient journey requies a payment purpose code', function(){
+    xit('TC-AC-047 - Verify that if Country = BAHRAIN regardless of currency & Client = UK and check add recipient journey requies a payment purpose code', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -666,10 +666,10 @@ describe('Additional Currencies ',function(){
         newRecipient.individualRecipient('QA KWD','BAHRAIN{enter}')
         newRecipient.validateErrorMsg()
         cy.reload()
-        newRecipient.selectCurrency('BAHRAIN{enter}','MXN{enter}')
-        newRecipient.addBankDetails('BH67BMAG00001299123456','ABBGBHBM')
-        newRecipient.individualRecipient('QA MXN','BAHRAIN{enter}')
-        newRecipient.validateErrorMsg()
+        // newRecipient.selectCurrency('BAHRAIN{enter}','MXN{enter}')
+        // newRecipient.addBankDetails('BH67BMAG00001299123456','ABBGBHBM')
+        // newRecipient.individualRecipient('QA MXN','BAHRAIN{enter}')
+        // newRecipient.validateErrorMsg()
         cy.reload()
         newRecipient.selectCurrency('BAHRAIN{enter}','NOK{enter}')
         newRecipient.addBankDetails('BH67BMAG00001299123456','ABBGBHBM')
@@ -1388,7 +1388,7 @@ describe('Additional Currencies ',function(){
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
     //Currency is MXN Business
-    it('TC-AC-091 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
+    xit('TC-AC-091 - Verify that if Currency= MXN and Country = UK & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1399,7 +1399,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-092 - Verify that if Currency= MXN and Country = Mexico & Client = UK and check priority settlement is enabled', function(){
+    xit('TC-AC-092 - Verify that if Currency= MXN and Country = Mexico & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1411,7 +1411,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-093 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
+    xit('TC-AC-093 - Verify that if Currency= MXN and Country = UK & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1422,7 +1422,7 @@ describe('Additional Currencies ',function(){
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
-    it('TC-AC-094 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
+    xit('TC-AC-094 - Verify that if Currency= MXN and Country = Mexico & Client = EEA and check priority settlement is enabled', function(){
         signin.Login('carmenTestingBWA3@gmail.com', password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

@@ -923,13 +923,13 @@ describe('New Payment', function () {
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             cy.get('.ant-col > .ant-btn > span').should('be.visible').click()
@@ -961,13 +961,13 @@ describe('New Payment', function () {
         let amount = '130'
         newPayment.addrecipientDetail(amount, email)
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             cy.get('.ant-col > .ant-btn > span').should('be.visible').click()
@@ -1371,13 +1371,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -1429,13 +1429,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
           // Validating recipient recived amount
@@ -1863,13 +1863,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -1920,13 +1920,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -1977,13 +1977,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -2034,13 +2034,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -2091,13 +2091,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -2530,13 +2530,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -2588,13 +2588,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -2646,13 +2646,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -2703,13 +2703,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -2761,13 +2761,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -3202,13 +3202,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3260,13 +3260,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3317,13 +3317,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3374,13 +3374,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3882,13 +3882,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3941,13 +3941,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -3999,13 +3999,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -4057,13 +4057,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
             // Validating recipient recived amount
@@ -4552,13 +4552,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -4609,13 +4609,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -4666,13 +4666,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -4723,13 +4723,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -4780,13 +4780,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -5220,13 +5220,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -5278,13 +5278,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -5336,13 +5336,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -5394,13 +5394,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -5452,13 +5452,13 @@ describe('New Payment', function () {
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click()
+            cy.get('.ant-select-selector').eq(2).click()
         })
           })
        // Validating recipient recived amount
@@ -5671,13 +5671,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5735,13 +5735,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -5951,13 +5951,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -6014,13 +6014,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -6231,13 +6231,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -6294,13 +6294,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -6509,13 +6509,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -6572,13 +6572,13 @@ describe('New Payment', function () {
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
-        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-selector').eq(2).click()
         cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
             let list = Element.text()
             cy.log(list)
             cy.get('@purposeList').then(purposeList=>{
             expect(list).to.eq(purposeList)
-            cy.get('.ant-select-selector').eq(3).click() 
+            cy.get('.ant-select-selector').eq(2).click() 
         })
           })
           // Validating recipient recived amount
@@ -7335,10 +7335,10 @@ describe('New Payment', function () {
         newRecipient.addBankDetailsWithAccNo('ROYCCAT2','55555555')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL PF',lName,'Canada{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -7399,8 +7399,8 @@ describe('New Payment', function () {
         batchPayments.addBusinessRecipient('BUSINESS PF'+' '+bName,'Canada{enter}')
         newRecipient.postCodeState()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')

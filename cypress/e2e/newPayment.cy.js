@@ -1344,7 +1344,7 @@ describe('New Payment', function () {
             newPayment.validateYapilyFlow()
             //newPayment.cancelEasyTransfer()
     })
-    it.only('TC_NP_033 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it('TC_NP_033 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

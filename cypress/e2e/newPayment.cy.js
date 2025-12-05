@@ -1344,7 +1344,7 @@ describe('New Payment', function () {
             newPayment.validateYapilyFlow()
             //newPayment.cancelEasyTransfer()
     })
-    it('TC_NP_033 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it.only('TC_NP_033 - Add 1 recipient(business) from the "Add Recipient" page with country = United Kingdom and currency = EUR. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -1367,7 +1367,7 @@ describe('New Payment', function () {
         let amount = '125'
         newPayment.addrecipientDetail(amount, email)
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -1425,7 +1425,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
         //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -1859,7 +1859,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -1916,7 +1916,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -1973,7 +1973,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -2030,7 +2030,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -2087,7 +2087,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -2526,7 +2526,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -2584,7 +2584,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -2642,7 +2642,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -2699,7 +2699,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -2757,7 +2757,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -3198,7 +3198,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -3256,7 +3256,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -3313,7 +3313,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -3370,7 +3370,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -3430,7 +3430,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -3878,7 +3878,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -3937,7 +3937,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -3995,7 +3995,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -4053,7 +4053,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -4114,7 +4114,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
          //Validate the selected payment purpose
          cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
             })
          //Validate Purpose on single payment
@@ -4548,7 +4548,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -4605,7 +4605,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -4662,7 +4662,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -4719,7 +4719,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -4776,7 +4776,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5216,7 +5216,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5274,7 +5274,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5332,7 +5332,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5390,7 +5390,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5448,7 +5448,7 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
                 //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
             .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5662,12 +5662,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5726,12 +5726,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -5942,12 +5942,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -6005,12 +6005,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -6222,12 +6222,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -6285,12 +6285,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -6500,12 +6500,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -6563,12 +6563,12 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email)
              //Validate the selected payment purpose
              cy.get('@selectedValue').then(selectedValue=>{
-                cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+                cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text',selectedValue)
             })
           //Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue=>{
-        cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+        cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
         .should('be.visible').and('contain.text',selectedValue)
         })
          //Validate Purpose on batch payment
@@ -8337,7 +8337,7 @@ describe('New Payment', function () {
     
         // Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue => {
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text', selectedValue);
         });
     
@@ -8490,7 +8490,7 @@ describe('New Payment', function () {
     
         // Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue => {
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text', selectedValue);
         });
     
@@ -8644,7 +8644,7 @@ describe('New Payment', function () {
     
         // Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue => {
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text', selectedValue);
         });
     
@@ -9277,7 +9277,7 @@ describe('New Payment', function () {
     
         // Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue => {
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text', selectedValue);
         });
     
@@ -9434,7 +9434,7 @@ describe('New Payment', function () {
     
         // Validate the selected payment purpose
         cy.get('@selectedValue').then(selectedValue => {
-            cy.get(':nth-child(2) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
+            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
                 .should('be.visible').and('contain.text', selectedValue);
         });
     

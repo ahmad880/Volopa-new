@@ -3241,10 +3241,10 @@ describe('New Payment', function () {
         batchPayments.addBankDetailCAD('BNDCCAMMXXX','26207729','004','01372')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('INDIVIDUAL CANADA ',lName,'CANADA{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -3922,10 +3922,10 @@ describe('New Payment', function () {
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS CAD'+' '+bName,'CANADA{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -5647,10 +5647,10 @@ describe('New Payment', function () {
         newRecipient.addBankDetailsWithAccNo('MMMCUS44','55555555')
         const lName = batchPayments.generateRandomString(6)
         batchPayments.individualRecipient('UNITED STATES USD PF',lName,'UNITED STATES{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateUS()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -5711,10 +5711,10 @@ describe('New Payment', function () {
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS UNITED STATES USD'+' '+bName,'UNITED STATES{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateUS()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -7397,7 +7397,7 @@ describe('New Payment', function () {
         cy.get('.ant-space > :nth-child(2) > .ant-card > .ant-card-body').should('be.visible').click()
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('BUSINESS PF'+' '+bName,'Canada{enter}')
-        newRecipient.postCodeState()
+        newRecipient.postCodeStateCanada()
         batchPayments.paymentPurposeGBPEUR()
         cy.get('.ant-select-selector').eq(4).click()
         cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
@@ -8182,8 +8182,8 @@ describe('New Payment', function () {
         batchPayments.individualRecipient('INDIVIDUAL PF',lName,'Mexico{enter}')
         newRecipient.postCodeState()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -8244,8 +8244,8 @@ describe('New Payment', function () {
         batchPayments.addBusinessRecipient('BUSINESS PF'+' '+bName,'Mexico{enter}')
         newRecipient.postCodeState()
         batchPayments.paymentPurposeGBPEUR()
-        cy.get('.ant-select-selector').eq(3).click()
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+        cy.get('.ant-select-selector').eq(4).click()
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
             cy.log(purposeList)
             cy.wrap(purposeList).as('purposeList')
@@ -8297,7 +8297,7 @@ describe('New Payment', function () {
     //Before executing Approval workflow cases, make sure no approval rule is set
     // change the approver, login user if need to run on differnt client
     //Approval workflow for single Payment
-    xit('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -8317,11 +8317,11 @@ describe('New Payment', function () {
         cy.get('#aba').type('026009593');
         const lName = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
-        newRecipient.postCodeState();
+        newRecipient.postCodeStateUS();
         batchPayments.paymentPurposeGBPEUR();
     
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+        cy.get('.ant-select-selector').eq(4).click();
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element => {
             let purposeList = Element.text();
             cy.log(purposeList);
             cy.wrap(purposeList).as('purposeList');
@@ -8335,22 +8335,23 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email);
         newPayment.selectFundingMethod('Push Funds');
     
-        // Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue => {
-            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-                .should('be.visible').and('contain.text', selectedValue);
+        //Validate the selected payment purpose
+          cy.get('@selectedValue').then(selectedValue => {
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`)
+              .should('be.visible')
+              .and('contain.text', selectedValue);
+            
+         //Validate Purpose list
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click()
+            cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
+            let list = Element.text()
+            cy.log(list)
+            cy.get('@purposeList').then(purposeList=>{
+            expect(list).to.eq(purposeList)
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click() 
+        })
         });
-    
-        // Validate Purpose on Single payment
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
-            let list = Element.text();
-            cy.log(list);
-            cy.get('@purposeList').then(purposeList => {
-                expect(list).to.eq(purposeList);
-                cy.get('.ant-select-selector').eq(3).click();
-            });
-        });
+          })
     
         // Validating recipient received amount
         cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((text) => {
@@ -8408,7 +8409,7 @@ describe('New Payment', function () {
         newPayment.logout();
     
         // Login as Approver User
-        signin.Login('hamzaQA3@volopa.com', password);
+        signin.Login('hamzaQA3@volopa.com', 'testTest1');
         newPayment.goToNotification();
         newPayment.approvalNotification();
     
@@ -8450,15 +8451,15 @@ describe('New Payment', function () {
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
-        signin.Login('Corpay_test1@volopa.com', password);
+    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
+        signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
         newPayment.goToSetting();
         newPayment.goToNotificationSetting();
         newPayment.goToApprovalWorkFlow();
         newPayment.setCurrencyforApproval('{enter}', 'GBP', '300');
-        newPayment.setApprover('Approver{enter}');
+        newPayment.setApprover('hamza{enter}');
         newPayment.saveApprovalRule();
     
         // create a payment for approval
@@ -8470,11 +8471,11 @@ describe('New Payment', function () {
         cy.get('#aba').type('026009593');
         const lName = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
-        newRecipient.postCodeState();
+        newRecipient.postCodeStateUS();
         batchPayments.paymentPurposeGBPEUR();
     
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+        cy.get('.ant-select-selector').eq(4).click();
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element => {
             let purposeList = Element.text();
             cy.log(purposeList);
             cy.wrap(purposeList).as('purposeList');
@@ -8488,22 +8489,23 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email);
         newPayment.selectFundingMethod('Easy Transfer');
     
-        // Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue => {
-            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-                .should('be.visible').and('contain.text', selectedValue);
+        //Validate the selected payment purpose
+          cy.get('@selectedValue').then(selectedValue => {
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`)
+              .should('be.visible')
+              .and('contain.text', selectedValue);
+            
+         //Validate Purpose list
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click()
+            cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
+            let list = Element.text()
+            cy.log(list)
+            cy.get('@purposeList').then(purposeList=>{
+            expect(list).to.eq(purposeList)
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click() 
+        })
         });
-    
-        // Validate Purpose on Single payment
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
-            let list = Element.text();
-            cy.log(list);
-            cy.get('@purposeList').then(purposeList => {
-                expect(list).to.eq(purposeList);
-                cy.get('.ant-select-selector').eq(3).click();
-            });
-        });
+          })
     
         // Validating recipient received amount
         cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((text) => {
@@ -8561,7 +8563,7 @@ describe('New Payment', function () {
         newPayment.logout();
     
         // Login as Approver User
-        signin.Login('corpayapprover@volopa.com', password);
+        signin.Login('hamzaQA3@volopa.com', 'testTest1');
         newPayment.goToNotification();
         newPayment.approvalNotification();
     
@@ -8604,7 +8606,7 @@ describe('New Payment', function () {
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -8624,11 +8626,11 @@ describe('New Payment', function () {
         cy.get('#aba').type('026009593');
         const lName = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
-        newRecipient.postCodeState();
+        newRecipient.postCodeStateUS();
         batchPayments.paymentPurposeGBPEUR();
     
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+        cy.get('.ant-select-selector').eq(4).click();
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element => {
             let purposeList = Element.text();
             cy.log(purposeList);
             cy.wrap(purposeList).as('purposeList');
@@ -8642,22 +8644,23 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email);
         newPayment.selectFundingMethod('Volopa Collection Account');
     
-        // Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue => {
-            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-                .should('be.visible').and('contain.text', selectedValue);
+        //Validate the selected payment purpose
+          cy.get('@selectedValue').then(selectedValue => {
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`)
+              .should('be.visible')
+              .and('contain.text', selectedValue);
+            
+         //Validate Purpose list
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click()
+            cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
+            let list = Element.text()
+            cy.log(list)
+            cy.get('@purposeList').then(purposeList=>{
+            expect(list).to.eq(purposeList)
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click() 
+        })
         });
-    
-        // Validate Purpose on Single payment
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
-            let list = Element.text();
-            cy.log(list);
-            cy.get('@purposeList').then(purposeList => {
-                expect(list).to.eq(purposeList);
-                cy.get('.ant-select-selector').eq(3).click();
-            });
-        });
+          })
     
         // Validating recipient received amount
         cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((text) => {
@@ -8715,7 +8718,7 @@ describe('New Payment', function () {
         newPayment.logout();
     
         // Login as Approver User
-        signin.Login('hamzaQA3@volopa.com', password);
+        signin.Login('hamzaQA3@volopa.com', 'testTest1');
         newPayment.goToNotification();
         newPayment.approvalNotification();
     
@@ -8758,7 +8761,7 @@ describe('New Payment', function () {
     newPayment.saveApprovalRule();
     });
     //Approval workflow for batch payments
-    xit('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8823,13 +8826,13 @@ describe('New Payment', function () {
             });
         });
         cy.wait(1000);
-        cy.get('.ant-select-selector').eq(5).click();
+        cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
             let list = Element.text();
             cy.log(list);
             cy.get('@purposeList1').then(purposeList1 => {
                 expect(list).to.eq(purposeList1);
-                cy.get('.ant-select-selector').eq(5).click();
+                cy.get('.ant-select-selector').eq(3).click();
             });
         });
     
@@ -8868,7 +8871,7 @@ describe('New Payment', function () {
         newPayment.logout();
     
         // Login as Approver User
-        signin.Login('hamzaQA3@volopa.com', password);
+        signin.Login('hamzaQA3@volopa.com', 'testTest1');
         newPayment.goToNotification();
         newPayment.approvalNotification();
     
@@ -8920,7 +8923,7 @@ describe('New Payment', function () {
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8985,13 +8988,13 @@ describe('New Payment', function () {
             });
         });
         cy.wait(1000);
-        cy.get('.ant-select-selector').eq(5).click();
+        cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
             let list = Element.text();
             cy.log(list);
             cy.get('@purposeList1').then(purposeList1 => {
                 expect(list).to.eq(purposeList1);
-                cy.get('.ant-select-selector').eq(5).click();
+                cy.get('.ant-select-selector').eq(3).click();
             });
         });
     
@@ -9030,7 +9033,7 @@ describe('New Payment', function () {
         newPayment.logout();
     
         // Login as Approver User
-        signin.Login('hamzaQA3@volopa.com', password);
+        signin.Login('hamzaQA3@volopa.com','testTest1');
         newPayment.goToNotification();
         newPayment.approvalNotification();
     
@@ -9082,7 +9085,7 @@ describe('New Payment', function () {
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -9147,13 +9150,13 @@ describe('New Payment', function () {
             });
         });
         cy.wait(1000);
-        cy.get('.ant-select-selector').eq(5).click();
+        cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
             let list = Element.text();
             cy.log(list);
             cy.get('@purposeList1').then(purposeList1 => {
                 expect(list).to.eq(purposeList1);
-                cy.get('.ant-select-selector').eq(5).click();
+                cy.get('.ant-select-selector').eq(3).click();
             });
         });
     
@@ -9192,7 +9195,7 @@ describe('New Payment', function () {
         newPayment.logout();
     
         // Login as Approver User
-        signin.Login('hamzaQA3@volopa.com', password);
+        signin.Login('hamzaQA3@volopa.com', 'testTest1');
         newPayment.goToNotification();
         newPayment.approvalNotification();
     
@@ -9227,6 +9230,7 @@ describe('New Payment', function () {
                 expect(parseInt(cleanedText1)).to.eq(expectedSum);
             });
             newPayment.validateYapilyFlow()
+            cy.get('div[class="ant-space ant-space-horizontal ant-space-align-center"] div:nth-child(2) button:nth-child(1)').should('be.visible').click()
         // // Navigate to View Payment
         // cy.get(':nth-child(4) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click();
         // cy.get('.ant-spin-dot').should('not.exist');
@@ -9246,7 +9250,7 @@ describe('New Payment', function () {
     });
 
     //Single Schedued payments push funds
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -9257,11 +9261,11 @@ describe('New Payment', function () {
         cy.get('#aba').type('026009593');
         const lName = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
-        newRecipient.postCodeState();
+        newRecipient.postCodeStateUS();
         batchPayments.paymentPurposeGBPEUR();
     
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+        cy.get('.ant-select-selector').eq(4).click();
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element => {
             let purposeList = Element.text();
             cy.log(purposeList);
             cy.wrap(purposeList).as('purposeList');
@@ -9275,24 +9279,23 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email);
         newPayment.selectFundingMethod('Push Funds');
     
-        // Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue => {
-            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-                .should('be.visible').and('contain.text', selectedValue);
+        //Validate the selected payment purpose
+          cy.get('@selectedValue').then(selectedValue => {
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`)
+              .should('be.visible')
+              .and('contain.text', selectedValue);
+            
+         //Validate Purpose list
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click()
+            cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
+            let list = Element.text()
+            cy.log(list)
+            cy.get('@purposeList').then(purposeList=>{
+            expect(list).to.eq(purposeList)
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click() 
+        })
         });
-    
-        // Validate Purpose on Single payment
-        cy.get('.ant-select-selector').eq(3).click();
-
-        cy.get('.ant-select-dropdown:visible', { timeout: 10000 }).should('be.visible')
-          .find('.ant-select-item-option-content').then(Element => {
-              const list = Element.text();
-              cy.log(list);
-              cy.get('@purposeList').then(purposeList => {
-                  expect(list).to.eq(purposeList);
-                  cy.get('.ant-select-selector').eq(3).click();
-              });
-          });
+          })
     
         // Validating recipient received amount
         cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((text) => {
@@ -9377,8 +9380,8 @@ describe('New Payment', function () {
                 .should('be.visible').and('contain.text', storedText);
         });
     
-        // Return to payment dashboard
-        cy.get(':nth-child(5) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
+        // Return to payment
+        cy.get('body > div:nth-child(10) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)').should('be.visible').click()
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text','Draft Payments')
         
     
@@ -9403,7 +9406,7 @@ describe('New Payment', function () {
         .and('have.text', longFmt1);
     
     }); 
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -9414,11 +9417,11 @@ describe('New Payment', function () {
         cy.get('#aba').type('026009593');
         const lName = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
-        newRecipient.postCodeState();
+        newRecipient.postCodeStateUS();
         batchPayments.paymentPurposeGBPEUR();
     
-        cy.get('.ant-select-selector').eq(3).click();
-        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
+        cy.get('.ant-select-selector').eq(4).click();
+        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element => {
             let purposeList = Element.text();
             cy.log(purposeList);
             cy.wrap(purposeList).as('purposeList');
@@ -9432,24 +9435,24 @@ describe('New Payment', function () {
         newPayment.addrecipientDetail(amount, email);
         newPayment.selectFundingMethod('Push Funds');
     
-        // Validate the selected payment purpose
-        cy.get('@selectedValue').then(selectedValue => {
-            cy.get('.ant-col-sm-20 > :nth-child(2) > :nth-child(1) > :nth-child(1) > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector')
-                .should('be.visible').and('contain.text', selectedValue);
+        //Validate the selected payment purpose
+          cy.get('@selectedValue').then(selectedValue => {
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`)
+              .should('be.visible')
+              .and('contain.text', selectedValue);
+            
+         //Validate Purpose list
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click()
+            cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
+            let list = Element.text()
+            cy.log(list)
+            cy.get('@purposeList').then(purposeList=>{
+            expect(list).to.eq(purposeList)
+            cy.get(`div[class="ant-form-item"] span[title="${selectedValue}"]`).click() 
+        })
         });
+          })
     
-        // Validate Purpose on Single payment
-        cy.get('.ant-select-selector').eq(3).click();
-
-        cy.get('.ant-select-dropdown:visible', { timeout: 10000 }).should('be.visible')
-          .find('.ant-select-item-option-content').then(Element => {
-              const list = Element.text();
-              cy.log(list);
-              cy.get('@purposeList').then(purposeList => {
-                  expect(list).to.eq(purposeList);
-                  cy.get('.ant-select-selector').eq(3).click();
-              });
-          });
     
         // Validating recipient received amount
         cy.get(':nth-child(4) > :nth-child(2) > .ant-typography').invoke('text').then((text) => {
@@ -9534,8 +9537,8 @@ describe('New Payment', function () {
                 .should('be.visible').and('contain.text', storedText);
         });
     
-        // Return to payment dashboard
-        cy.get(':nth-child(5) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
+        // Return to payment
+        cy.get('body > div:nth-child(10) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)').should('be.visible').click()
         cy.get(':nth-child(1) > .ant-col > .ant-typography').should('be.visible').should('contain.text','Draft Payments')
         
     
@@ -9561,7 +9564,7 @@ describe('New Payment', function () {
     
     });
     //Batch Schedued payments push funds
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -9617,13 +9620,13 @@ describe('New Payment', function () {
             });
         });
         cy.wait(1000);
-        cy.get('.ant-select-selector').eq(5).click();
+        cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
             let list = Element.text();
             cy.log(list);
             cy.get('@purposeList1').then(purposeList1 => {
                 expect(list).to.eq(purposeList1);
-                cy.get('.ant-select-selector').eq(5).click();
+                cy.get('.ant-select-selector').eq(3).click();
             });
         });
     
@@ -9643,7 +9646,7 @@ describe('New Payment', function () {
         cy.get('tbody tr:nth-child(2) td:nth-child(7)').should('be.visible').should('contain.text', amount1);
     
     });
-    it('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -9699,13 +9702,13 @@ describe('New Payment', function () {
             });
         });
         cy.wait(1000);
-        cy.get('.ant-select-selector').eq(5).click();
+        cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element => {
             let list = Element.text();
             cy.log(list);
             cy.get('@purposeList1').then(purposeList1 => {
                 expect(list).to.eq(purposeList1);
-                cy.get('.ant-select-selector').eq(5).click();
+                cy.get('.ant-select-selector').eq(3).click();
             });
         });
     

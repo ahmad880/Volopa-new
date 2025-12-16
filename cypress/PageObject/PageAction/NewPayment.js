@@ -298,10 +298,11 @@ export class NewPayment {
         cy.get('.ant-modal-body > :nth-child(1)').should('contain.text','Payment Booked - Pending Funds')
     }
     validateApprovedPayment(){
-        cy.get(':nth-child(5) > .ant-col > .ant-space > :nth-child(1) > .ant-btn').should('be.visible').click()
+        cy.get('div[class="ant-modal-root"] div[class="ant-space ant-space-horizontal ant-space-align-center"] div:nth-child(1) button:nth-child(1)').should('be.visible').click()
         cy.get('[data-row-key="0"] > :nth-child(4)').should('be.visible').should('contain.text','Single')
     }
     validateApprovedEasyTransferPayment(){
+        cy.get('div[class="ant-space ant-space-horizontal ant-space-align-center"] div:nth-child(2) button:nth-child(1)').should('be.visible').click()
         cy.get('[data-row-key="0"] > :nth-child(4)').should('be.visible').should('contain.text','Single')
     }
     removeApprovalrule(){

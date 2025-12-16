@@ -34,7 +34,7 @@
         "approverDropdown":"#approvers_0_user_id",
         "saveapprovalRule":":nth-child(2) > .ant-btn",
         "successNotification":".ant-notification-notice",
-        "returnpaymentDashbaord":":nth-child(5) > .ant-col > .ant-space > [style=''] > .ant-btn",
+        "returnpaymentDashbaord":"div[class='ant-modal-root'] div[class='ant-space ant-space-horizontal ant-space-align-center'] div:nth-child(1) button:nth-child(1)",
         "Paymentdashboard":".ant-tabs-tab-active",
         "profileIcon":".ant-avatar",
         "logout":"div.ant-dropdown.ant-dropdown-placement-bottomRight li:nth-child(4)",

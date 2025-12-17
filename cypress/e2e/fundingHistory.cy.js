@@ -14,7 +14,7 @@ describe('Funding History',function(){
       win.localStorage.clear();
       win.sessionStorage.clear();
   });
-    cy.visit('https://webapp01.volopa-dev.com')
+    cy.visit('https://webapp04.volopa-dev.com')
       signin.Login(userName, password)
       cy.viewport(1440,1000)
   })

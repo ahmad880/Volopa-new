@@ -12,7 +12,7 @@ describe('Corpay Add Recipient',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('https://webapp01.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp01.mybusiness.volopa-dev.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
     
@@ -1213,6 +1213,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.addBankDetailsWithAccNo('BKNZNZ22','049712')
         cy.get('#bsb').should('be.visible').type('082082')
         newRecipient.addBusinessRecipientCorpay('New Zealand{enter}','New Zealand NZD')
+        cy.get('#postcode').should('be.visible').type('50505')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })

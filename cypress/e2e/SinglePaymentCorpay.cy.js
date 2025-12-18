@@ -13,15 +13,16 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 const newPayment = new NewPayment
 
-const API_BASE_URL = "https://devapi.volopa.com/VolopaApiOauth2WebApp03";
+const API_BASE_URL = "https://main-api.volopa-dev.com/VolopaApiOauth2";
 // main API new server
+//https://devapi.volopa.com/VolopaApiOauth2
 // https://main-api.volopa-dev.com/OAuth2
 
 describe('Single Payment Corpay',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-       const baseUrl = 'https://webapp03.volopa-dev.com/';
+       const baseUrl = 'https://webapp01.mybusiness.volopa-dev.com/';
        cy.visit(baseUrl);
         //paymentspage.clearCache()
         cy.viewport(1440,1000)
@@ -49,9 +50,9 @@ describe('Single Payment Corpay',function(){
   const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -155,9 +156,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
 
     cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -263,9 +264,9 @@ describe('Single Payment Corpay',function(){
     const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -372,9 +373,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -483,9 +484,9 @@ describe('Single Payment Corpay',function(){
 
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -591,9 +592,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -701,9 +702,9 @@ describe('Single Payment Corpay',function(){
 
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -809,9 +810,9 @@ describe('Single Payment Corpay',function(){
 
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -917,9 +918,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1027,9 +1028,9 @@ describe('Single Payment Corpay',function(){
 
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1134,9 +1135,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1243,9 +1244,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1353,9 +1354,9 @@ describe('Single Payment Corpay',function(){
 
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1463,9 +1464,9 @@ describe('Single Payment Corpay',function(){
 
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1573,9 +1574,9 @@ describe('Single Payment Corpay',function(){
 
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1682,9 +1683,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1791,9 +1792,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -1900,9 +1901,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2009,9 +2010,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2118,9 +2119,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2227,9 +2228,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2336,9 +2337,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2445,9 +2446,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2554,9 +2555,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2664,9 +2665,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2773,9 +2774,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2882,9 +2883,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -2991,9 +2992,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3100,9 +3101,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3209,9 +3210,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3318,9 +3319,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3428,9 +3429,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3538,9 +3539,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3647,9 +3648,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3757,9 +3758,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3866,9 +3867,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -3977,9 +3978,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4086,9 +4087,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4195,9 +4196,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4304,9 +4305,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4416,9 +4417,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4525,9 +4526,9 @@ describe('Single Payment Corpay',function(){
     const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4635,9 +4636,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4744,9 +4745,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4856,9 +4857,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -4966,9 +4967,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5076,9 +5077,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5185,9 +5186,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5297,9 +5298,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5406,9 +5407,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5518,9 +5519,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5627,9 +5628,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5736,9 +5737,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5845,9 +5846,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -5955,9 +5956,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6064,9 +6065,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6173,9 +6174,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6282,9 +6283,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6391,9 +6392,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6500,9 +6501,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6609,9 +6610,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6720,9 +6721,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6830,9 +6831,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -6939,9 +6940,9 @@ describe('Single Payment Corpay',function(){
       const apiEnv = this.apiEnv;
     // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -7050,9 +7051,9 @@ describe('Single Payment Corpay',function(){
   const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -7161,9 +7162,9 @@ describe('Single Payment Corpay',function(){
   const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -7272,9 +7273,9 @@ describe('Single Payment Corpay',function(){
   const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -7383,9 +7384,9 @@ describe('Single Payment Corpay',function(){
   const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -7494,9 +7495,9 @@ describe('Single Payment Corpay',function(){
   const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -7605,9 +7606,9 @@ describe('Single Payment Corpay',function(){
   const apiEnv = this.apiEnv;
   // ───── Intercept Quote API ─────
   cy.intercept(
-    'POST',
-    `${API_BASE_URL}/exchange/b2b/self/quote/temp`
-  ).as('quoteApi');
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {

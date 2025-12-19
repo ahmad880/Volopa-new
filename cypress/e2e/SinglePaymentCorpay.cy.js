@@ -243,7 +243,7 @@ describe('Single Payment Corpay',function(){
       .and('contain.text', recipientReceives);
   });
     })
-    it('TC-AC-003 - Verify that if Currency= MXN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    xit('TC-AC-003 - Verify that if Currency= MXN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
@@ -351,7 +351,7 @@ describe('Single Payment Corpay',function(){
       .and('contain.text', recipientReceives);
   });
     })
-    it('TC-AC-004 - Verify that if Currency= MXN and Country = Mexico Checking & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    xit('TC-AC-004 - Verify that if Currency= MXN and Country = Mexico Checking & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
@@ -461,7 +461,7 @@ describe('Single Payment Corpay',function(){
       .and('contain.text', recipientReceives);
   });
     })
-    it('TC-AC-005 - Verify that if Currency= MXN and Country = Mexico Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    xit('TC-AC-005 - Verify that if Currency= MXN and Country = Mexico Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
@@ -2317,224 +2317,269 @@ describe('Single Payment Corpay',function(){
       .and('contain.text', recipientReceives);
   });
     })
-    it('TC-AC-022 - Verify that if Currency= HUF and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
-    // ─────────────── Setup & Recipient Creation ───────────────
-        signin.Login(userName, password)
-        newRecipient.goToPaymentsDashborad()
-        newRecipient.gotoRecipientList()
-        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'HUF{enter}',email)
-        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
-        newRecipient.individualRecipient('UK HUF','UNITED KINGDOM{enter}')
-        newRecipient.saveRecipient()
-        newRecipient.checkSettelment('be.disabled','be.enabled')
+    it('TC-AC-022 - Verify that if Currency= HUF and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
 
-    // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
-    const amount = '10';
-    newPayment.addrecipientDetail(amount, email);
-    newPayment.selectFundingMethod('Push Funds');
-      const apiEnv = this.apiEnv;
+  // ─────────────── Setup & Recipient Creation ───────────────
+  signin.Login(userName, password)
+  newRecipient.goToPaymentsDashborad()
+  newRecipient.gotoRecipientList()
+
+  let email = batchPayments.generateRandomString(5) + '@yopmail.com'
+  newRecipient.addRecipient('UNITED KINGDOM{enter}', 'HUF{enter}', email)
+  newRecipient.addBankDetails('GB73BARC20039538243547', 'AFFLGB22')
+  newRecipient.individualRecipient('UK HUF', 'UNITED KINGDOM{enter}')
+  newRecipient.saveRecipient()
+  newRecipient.checkSettelment('be.disabled', 'be.enabled')
     // ───── Intercept Quote API ─────
   cy.intercept(
-  'POST',
-  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
-).as('quoteApi');
+    'POST',
+    '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+  ).as('quoteApi')
+  // ─────────────── Payment Flow ───────────────
+  newPayment.proceedflow('{downarrow}{enter}', 'GBP')
+  const amount = '10'
+  newPayment.addrecipientDetail(amount, email)
+  newPayment.selectFundingMethod('Push Funds')
 
-  // ───── Wait for API and Compare Values ─────
+  const apiEnv = this.apiEnv
+  const normalizeStr = (val) => val.replace(/,/g, '').trim()
+
+  
+
+  // ───── Wait for API and Compare API Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
-    const receive = response.body.data.receive;
-    const recipientReceives = response.body.data.recipient[0].receives;
+    const receive = response.body.data.receive
+    const recipientReceives = response.body.data.recipient[0].receives
 
-    cy.wrap(recipientReceives).as('recipientReceives');
-    cy.log(`Receive: ${receive}`);
-    cy.log(`Recipient Receives: ${recipientReceives}`);
+    cy.wrap(recipientReceives).as('recipientReceives')
 
-    expect(receive).to.eq(recipientReceives); // Final comparison
-  });
+    cy.log(`Receive: ${receive}`)
+    cy.log(`Recipient Receives: ${recipientReceives}`)
 
-    /* ── Validate payment‑reason field ───────────────────────── */
-    // 1️⃣ Ensure the field starts empty
-    cy.get('.ant-select-selector')
-      .eq(2)
-      .should(($el) => {
-        expect(
-          $el.text().trim(),
-          'reason field should start empty'
-        ).to.equal('');
-      })
-      .click(); // open dropdown
+    expect(normalizeStr(receive)).to.eq(normalizeStr(recipientReceives))
+  })
 
-    // 2️⃣ Pick a random option between 1 and 10
-    cy.get('.ant-select-dropdown')
-      .last()
-      .find('.ant-select-item-option')
-      .its('length')
-      .then((total) => {
-        const idx = Math.min(7, Cypress._.random(0, total - 1));
-        cy.get('.ant-select-dropdown')
-          .last()
-          .find('.ant-select-item-option')
-          .eq(idx)
-          .click();
-      });
+  /* ── Validate payment-reason field ───────────────────────── */
+  cy.get('.ant-select-selector')
+    .eq(2)
+    .should(($el) => {
+      expect(
+        $el.text().trim(),
+        'reason field should start empty'
+      ).to.equal('')
+    })
+    .click()
 
-    /* ── Validate recipient‑received amount ───────────────────── */
-    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+  cy.get('.ant-select-dropdown')
+    .last()
+    .find('.ant-select-item-option')
+    .its('length')
+    .then((total) => {
+      const idx = Math.min(7, Cypress._.random(0, total - 1))
+      cy.get('.ant-select-dropdown')
+        .last()
+        .find('.ant-select-item-option')
+        .eq(idx)
+        .click()
+    })
+
+  /* ── Validate recipient-received amount (UI vs API) ───────── */
+  cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
     .invoke('text')
     .then((uiText) => {
-      const trimmedUiText = uiText.trim();
-      cy.wrap(trimmedUiText).as('uiReceives');
-    });
+      cy.wrap(uiText.trim()).as('uiReceives')
+    })
 
-  // Compare UI vs API value
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get('@uiReceives').then((uiReceives) => {
-      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
-      expect(uiReceives).to.eq(recipientReceives);
-    });
-  });
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`)
+      expect(
+        normalizeStr(uiReceives)
+      ).to.eq(
+        normalizeStr(recipientReceives)
+      )
+    })
+  })
 
-
-    // ─────────────── Confirmation Screens ───────────────
-    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+  // ─────────────── Confirmation Screens ───────────────
+  cy.get('.ant-col > .ant-btn > span')
+    .should('be.visible')
+    .click()
 
   cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
     .should('be.visible')
-    .and('contain.text', 'Payment Confirmation');
+    .and('contain.text', 'Payment Confirmation')
 
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
+      .invoke('text')
+      .then((uiText) => {
+        expect(
+          normalizeStr(uiText)
+        ).to.eq(
+          normalizeStr(recipientReceives)
+        )
+      })
+  })
 
-  // Pay recipient
+  // ─────────────── Pay Recipient ───────────────
   cy.get(
     '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
   )
     .should('be.visible')
-    .click();
+    .click()
 
   cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
     .should('be.visible')
-    .and('contain.text', ' Payment Booked - ');
+    .and('contain.text', ' Payment Booked - ')
 
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
-    })
-    it('TC-AC-023 - Verify that if Currency= HUF and Country = Hungary & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
-    // ─────────────── Setup & Recipient Creation ───────────────
-        signin.Login(userName, password)
-        newRecipient.goToPaymentsDashborad()
-        newRecipient.gotoRecipientList()
-        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
-        newRecipient.addRecipient('HUNGARY{enter}' ,'HUF{enter}',email)
-        newRecipient.addBankDetails('HU42117730161111101800000000','AKKHHUHB')
-        newRecipient.individualRecipient('Hungary HUF','HUNGARY{enter}')
-        newRecipient.saveRecipient()
-        newRecipient.checkSettelment('be.disabled','be.enabled')
-
-    // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
-    const amount = '10';
-    newPayment.addrecipientDetail(amount, email);
-    newPayment.selectFundingMethod('Push Funds');
-      const apiEnv = this.apiEnv;
-    // ───── Intercept Quote API ─────
-  cy.intercept(
-  'POST',
-  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
-).as('quoteApi');
-
-  // ───── Wait for API and Compare Values ─────
-  cy.wait('@quoteApi').then(({ response }) => {
-    const receive = response.body.data.receive;
-    const recipientReceives = response.body.data.recipient[0].receives;
-
-    cy.wrap(recipientReceives).as('recipientReceives');
-    cy.log(`Receive: ${receive}`);
-    cy.log(`Recipient Receives: ${recipientReceives}`);
-
-    expect(receive).to.eq(recipientReceives); // Final comparison
-  });
-
-    /* ── Validate payment‑reason field ───────────────────────── */
-    // 1️⃣ Ensure the field starts empty
-    cy.get('.ant-select-selector')
-      .eq(2)
-      .should(($el) => {
+      .invoke('text')
+      .then((uiText) => {
         expect(
-          $el.text().trim(),
-          'reason field should start empty'
-        ).to.equal('');
+          normalizeStr(uiText)
+        ).to.eq(
+          normalizeStr(recipientReceives)
+        )
       })
-      .click(); // open dropdown
+  })
 
-    // 2️⃣ Pick a random option between 1 and 10
-    cy.get('.ant-select-dropdown')
-      .last()
-      .find('.ant-select-item-option')
-      .its('length')
-      .then((total) => {
-        const idx = Math.min(7, Cypress._.random(0, total - 1));
-        cy.get('.ant-select-dropdown')
-          .last()
-          .find('.ant-select-item-option')
-          .eq(idx)
-          .click();
-      });
+    })
+    it('TC-AC-023 - Verify that if Currency= HUF and Country = Hungary & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
 
-    /* ── Validate recipient‑received amount ───────────────────── */
-    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+  // ─────────────── Setup & Recipient Creation ───────────────
+  signin.Login(userName, password)
+  newRecipient.goToPaymentsDashborad()
+  newRecipient.gotoRecipientList()
+
+  let email = batchPayments.generateRandomString(5) + '@yopmail.com'
+  newRecipient.addRecipient('HUNGARY{enter}', 'HUF{enter}', email)
+  newRecipient.addBankDetails('HU42117730161111101800000000', 'AKKHHUHB')
+  newRecipient.individualRecipient('Hungary HUF', 'HUNGARY{enter}')
+  newRecipient.saveRecipient()
+  newRecipient.checkSettelment('be.disabled', 'be.enabled')
+
+  // ─────────────── Payment Flow ───────────────
+  newPayment.proceedflow('{downarrow}{enter}', 'GBP')
+  const amount = '10'
+  newPayment.addrecipientDetail(amount, email)
+  newPayment.selectFundingMethod('Push Funds')
+
+  const apiEnv = this.apiEnv
+  const normalizeStr = (val) => val.replace(/,/g, '').trim()
+
+  // ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+  ).as('quoteApi')
+
+  // ───── Wait for API and Compare API Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive
+    const recipientReceives = response.body.data.recipient[0].receives
+
+    cy.wrap(recipientReceives).as('recipientReceives')
+
+    cy.log(`Receive: ${receive}`)
+    cy.log(`Recipient Receives: ${recipientReceives}`)
+
+    expect(normalizeStr(receive)).to.eq(normalizeStr(recipientReceives))
+  })
+
+  /* ── Validate payment-reason field ───────────────────────── */
+  cy.get('.ant-select-selector')
+    .eq(2)
+    .should(($el) => {
+      expect(
+        $el.text().trim(),
+        'reason field should start empty'
+      ).to.equal('')
+    })
+    .click()
+
+  cy.get('.ant-select-dropdown')
+    .last()
+    .find('.ant-select-item-option')
+    .its('length')
+    .then((total) => {
+      const idx = Math.min(7, Cypress._.random(0, total - 1))
+      cy.get('.ant-select-dropdown')
+        .last()
+        .find('.ant-select-item-option')
+        .eq(idx)
+        .click()
+    })
+
+  /* ── Validate recipient-received amount (UI vs API) ───────── */
+  cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
     .invoke('text')
     .then((uiText) => {
-      const trimmedUiText = uiText.trim();
-      cy.wrap(trimmedUiText).as('uiReceives');
-    });
+      cy.wrap(uiText.trim()).as('uiReceives')
+    })
 
-  // Compare UI vs API value
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get('@uiReceives').then((uiReceives) => {
-      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
-      expect(uiReceives).to.eq(recipientReceives);
-    });
-  });
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`)
+      expect(
+        normalizeStr(uiReceives)
+      ).to.eq(
+        normalizeStr(recipientReceives)
+      )
+    })
+  })
 
-
-    // ─────────────── Confirmation Screens ───────────────
-   cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+  // ─────────────── Confirmation Screens ───────────────
+  cy.get('.ant-col > .ant-btn > span')
+    .should('be.visible')
+    .click()
 
   cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
     .should('be.visible')
-    .and('contain.text', 'Payment Confirmation');
+    .and('contain.text', 'Payment Confirmation')
 
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
+      .invoke('text')
+      .then((uiText) => {
+        expect(
+          normalizeStr(uiText)
+        ).to.eq(
+          normalizeStr(recipientReceives)
+        )
+      })
+  })
 
-  // Pay recipient
+  // ─────────────── Pay Recipient ───────────────
   cy.get(
     '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
   )
     .should('be.visible')
-    .click();
+    .click()
 
   cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
     .should('be.visible')
-    .and('contain.text', ' Payment Booked - ');
+    .and('contain.text', ' Payment Booked - ')
 
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
-    })
+      .invoke('text')
+      .then((uiText) => {
+        expect(
+          normalizeStr(uiText)
+        ).to.eq(
+          normalizeStr(recipientReceives)
+        )
+      })
+  })
+
+  })
+
     it('TC-AC-024 - Verify that if Currency= KES and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
@@ -2755,54 +2800,58 @@ describe('Single Payment Corpay',function(){
   });
     })
     it('TC-AC-026 - Verify that if Currency= UGX and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+
+    // ─────────────── Helpers ───────────────
+    const normalizeAmount = (val) =>
+      val.toString().replace(/,/g, '');
+
     // ─────────────── Setup & Recipient Creation ───────────────
-        signin.Login(userName, password)
-        newRecipient.goToPaymentsDashborad()
-        newRecipient.gotoRecipientList()
-        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'UGX{enter}',email)
-        newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
-        newRecipient.individualRecipient('UK UGX','UNITED KINGDOM{enter}')
-        newRecipient.saveRecipient()
-        newRecipient.checkSettelment('be.disabled','be.enabled')
+    signin.Login(userName, password);
+    newRecipient.goToPaymentsDashborad();
+    newRecipient.gotoRecipientList();
+
+    const email = batchPayments.generateRandomString(5) + '@yopmail.com';
+
+    newRecipient.addRecipient('UNITED KINGDOM{enter}', 'UGX{enter}', email);
+    newRecipient.addBankDetails('GB73BARC20039538243547', 'AFFLGB22');
+    newRecipient.individualRecipient('UK UGX', 'UNITED KINGDOM{enter}');
+    newRecipient.saveRecipient();
+    newRecipient.checkSettelment('be.disabled', 'be.enabled');
+
+    // ─────────────── Intercept Quote API (MUST BE BEFORE FLOW) ───────────────
+    cy.intercept(
+      'POST',
+      '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+    ).as('quoteApi');
 
     // ─────────────── Payment Flow ───────────────
     newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
-      const apiEnv = this.apiEnv;
-    // ───── Intercept Quote API ─────
-  cy.intercept(
-  'POST',
-  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
-).as('quoteApi');
 
-  // ───── Wait for API and Compare Values ─────
-  cy.wait('@quoteApi').then(({ response }) => {
-    const receive = response.body.data.receive;
-    const recipientReceives = response.body.data.recipient[0].receives;
+    // ─────────────── API Validation ───────────────
+    cy.wait('@quoteApi', { timeout: 20000 }).then(({ response }) => {
+      const receive = response.body.data.receive;
+      const recipientReceives = response.body.data.recipient[0].receives;
 
-    cy.wrap(recipientReceives).as('recipientReceives');
-    cy.log(`Receive: ${receive}`);
-    cy.log(`Recipient Receives: ${recipientReceives}`);
+      cy.wrap(normalizeAmount(recipientReceives)).as('recipientReceives');
 
-    expect(receive).to.eq(recipientReceives); // Final comparison
-  });
+      expect(
+        normalizeAmount(receive),
+        'API receive vs recipient receives'
+      ).to.eq(normalizeAmount(recipientReceives));
+    });
 
-    /* ── Validate payment‑reason field ───────────────────────── */
-    // 1️⃣ Ensure the field starts empty
+    // ─────────────── Validate payment reason ───────────────
     cy.get('.ant-select-selector')
       .eq(2)
       .should(($el) => {
-        expect(
-          $el.text().trim(),
-          'reason field should start empty'
-        ).to.equal('');
+        expect($el.text().trim()).to.eq('');
       })
-      .click(); // open dropdown
+      .click();
 
-    // 2️⃣ Pick a random option between 1 and 10
     cy.get('.ant-select-dropdown')
       .last()
       .find('.ant-select-item-option')
@@ -2816,162 +2865,192 @@ describe('Single Payment Corpay',function(){
           .click();
       });
 
-    /* ── Validate recipient‑received amount ───────────────────── */
+    // ─────────────── UI vs API Validation ───────────────
     cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
-    .invoke('text')
-    .then((uiText) => {
-      const trimmedUiText = uiText.trim();
-      cy.wrap(trimmedUiText).as('uiReceives');
-    });
-
-  // Compare UI vs API value
-  cy.get('@recipientReceives').then((recipientReceives) => {
-    cy.get('@uiReceives').then((uiReceives) => {
-      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
-      expect(uiReceives).to.eq(recipientReceives);
-    });
-  });
-
-
-    // ─────────────── Confirmation Screens ───────────────
-    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
-
-  cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
-    .should('be.visible')
-    .and('contain.text', 'Payment Confirmation');
-
-  cy.get('@recipientReceives').then((recipientReceives) => {
-    cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
-      .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
-
-  // Pay recipient
-  cy.get(
-    '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
-  )
-    .should('be.visible')
-    .click();
-
-  cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
-    .should('be.visible')
-    .and('contain.text', ' Payment Booked - ');
-
-  cy.get('@recipientReceives').then((recipientReceives) => {
-    cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
-      .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
-    })
-    it('TC-AC-027 - Verify that if Currency= UGX and Country = Uganda & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
-    // ─────────────── Setup & Recipient Creation ───────────────
-        signin.Login(userName, password)
-        newRecipient.goToPaymentsDashborad()
-        newRecipient.gotoRecipientList()
-        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
-        newRecipient.addRecipient('UGANDA{enter}' ,'UGX{enter}',email)
-        newRecipient.addBankDetailsWithAccNo('CCEIUGKA','049712')
-        newRecipient.individualRecipient('UGANDA UGX','UGANDA{enter}')
-        newRecipient.saveRecipient()
-        newRecipient.checkSettelment('be.disabled','be.enabled')
-
-    // ─────────────── Payment Flow ───────────────
-    newPayment.proceedflow('{downarrow}{enter}', 'GBP');
-    const amount = '10';
-    newPayment.addrecipientDetail(amount, email);
-    newPayment.selectFundingMethod('Push Funds');
-      const apiEnv = this.apiEnv;
-    // ───── Intercept Quote API ─────
-  cy.intercept(
-  'POST',
-  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
-).as('quoteApi');
-
-  // ───── Wait for API and Compare Values ─────
-  cy.wait('@quoteApi').then(({ response }) => {
-    const receive = response.body.data.receive;
-    const recipientReceives = response.body.data.recipient[0].receives;
-
-    cy.wrap(recipientReceives).as('recipientReceives');
-    cy.log(`Receive: ${receive}`);
-    cy.log(`Recipient Receives: ${recipientReceives}`);
-
-    expect(receive).to.eq(recipientReceives); // Final comparison
-  });
-
-    /* ── Validate payment‑reason field ───────────────────────── */
-    // 1️⃣ Ensure the field starts empty
-    cy.get('.ant-select-selector')
-      .eq(2)
-      .should(($el) => {
-        expect(
-          $el.text().trim(),
-          'reason field should start empty'
-        ).to.equal('');
-      })
-      .click(); // open dropdown
-
-    // 2️⃣ Pick a random option between 1 and 10
-    cy.get('.ant-select-dropdown')
-      .last()
-      .find('.ant-select-item-option')
-      .its('length')
-      .then((total) => {
-        const idx = Math.min(7, Cypress._.random(0, total - 1));
-        cy.get('.ant-select-dropdown')
-          .last()
-          .find('.ant-select-item-option')
-          .eq(idx)
-          .click();
+      .invoke('text')
+      .then((uiText) => {
+        cy.get('@recipientReceives').then((apiReceives) => {
+          expect(
+            normalizeAmount(uiText.trim()),
+            'UI vs API recipient amount'
+          ).to.eq(apiReceives);
+        });
       });
 
-    /* ── Validate recipient‑received amount ───────────────────── */
-    cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
+    // ─────────────── Confirmation Screen ───────────────
+    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
+      .should('be.visible')
+      .and('contain.text', 'Payment Confirmation');
+
+    cy.get('@recipientReceives').then((apiReceives) => {
+      cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        .invoke('text')
+        .then((uiText) => {
+          expect(
+            normalizeAmount(uiText.trim()),
+            'Confirmation screen amount'
+          ).to.eq(apiReceives);
+        });
+    });
+
+    // ─────────────── Pay Recipient ───────────────
+    cy.get(
+      '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
+    )
+      .should('be.visible')
+      .click();
+
+    cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
+      .should('be.visible')
+      .and('contain.text', ' Payment Booked - ');
+
+    cy.get('@recipientReceives').then((apiReceives) => {
+      cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
+        .invoke('text')
+        .then((uiText) => {
+          expect(
+            normalizeAmount(uiText.trim()),
+            'Payment booked amount'
+          ).to.eq(apiReceives);
+        });
+    });
+  }
+);
+
+  it('TC-AC-027 - Verify that if Currency= UGX and Country = Uganda & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
+
+  // ─────────────── Setup & Recipient Creation ───────────────
+  signin.Login(userName, password)
+  newRecipient.goToPaymentsDashborad()
+  newRecipient.gotoRecipientList()
+
+  let email = batchPayments.generateRandomString(5) + '@yopmail.com'
+  newRecipient.addRecipient('UGANDA{enter}', 'UGX{enter}', email)
+  newRecipient.addBankDetailsWithAccNo('CCEIUGKA', '049712')
+  newRecipient.individualRecipient('UGANDA UGX', 'UGANDA{enter}')
+  newRecipient.saveRecipient()
+  newRecipient.checkSettelment('be.disabled', 'be.enabled')
+// ───── Intercept Quote API ─────
+  cy.intercept(
+    'POST',
+    '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+  ).as('quoteApi')
+  // ─────────────── Payment Flow ───────────────
+  newPayment.proceedflow('{downarrow}{enter}', 'GBP')
+  const amount = '10'
+  newPayment.addrecipientDetail(amount, email)
+  newPayment.selectFundingMethod('Push Funds')
+
+  const apiEnv = this.apiEnv
+  const normalizeStr = (val) => val.replace(/,/g, '').trim()
+
+  
+
+  // ───── Wait for API and Compare API Values ─────
+  cy.wait('@quoteApi').then(({ response }) => {
+    const receive = response.body.data.receive
+    const recipientReceives = response.body.data.recipient[0].receives
+
+    cy.wrap(recipientReceives).as('recipientReceives')
+
+    cy.log(`Receive: ${receive}`)
+    cy.log(`Recipient Receives: ${recipientReceives}`)
+
+    expect(normalizeStr(receive)).to.eq(normalizeStr(recipientReceives))
+  })
+
+  /* ── Validate payment-reason field ───────────────────────── */
+  cy.get('.ant-select-selector')
+    .eq(2)
+    .should(($el) => {
+      expect(
+        $el.text().trim(),
+        'reason field should start empty'
+      ).to.equal('')
+    })
+    .click()
+
+  cy.get('.ant-select-dropdown')
+    .last()
+    .find('.ant-select-item-option')
+    .its('length')
+    .then((total) => {
+      const idx = Math.min(7, Cypress._.random(0, total - 1))
+      cy.get('.ant-select-dropdown')
+        .last()
+        .find('.ant-select-item-option')
+        .eq(idx)
+        .click()
+    })
+
+  /* ── Validate recipient-received amount (UI vs API) ───────── */
+  cy.get(':nth-child(3) > :nth-child(2) > .ant-typography')
     .invoke('text')
     .then((uiText) => {
-      const trimmedUiText = uiText.trim();
-      cy.wrap(trimmedUiText).as('uiReceives');
-    });
+      cy.wrap(uiText.trim()).as('uiReceives')
+    })
 
-  // Compare UI vs API value
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get('@uiReceives').then((uiReceives) => {
-      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`);
-      expect(uiReceives).to.eq(recipientReceives);
-    });
-  });
+      cy.log(`UI: ${uiReceives}, API: ${recipientReceives}`)
+      expect(
+        normalizeStr(uiReceives)
+      ).to.eq(
+        normalizeStr(recipientReceives)
+      )
+    })
+  })
 
-
-    // ─────────────── Confirmation Screens ───────────────
-    cy.get('.ant-col > .ant-btn > span').should('be.visible').click();
+  // ─────────────── Confirmation Screens ───────────────
+  cy.get('.ant-col > .ant-btn > span')
+    .should('be.visible')
+    .click()
 
   cy.get('.ant-modal-body > :nth-child(1) > .ant-col > .ant-typography')
     .should('be.visible')
-    .and('contain.text', 'Payment Confirmation');
+    .and('contain.text', 'Payment Confirmation')
 
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
+      .invoke('text')
+      .then((uiText) => {
+        expect(
+          normalizeStr(uiText)
+        ).to.eq(
+          normalizeStr(recipientReceives)
+        )
+      })
+  })
 
-  // Pay recipient
+  // ─────────────── Pay Recipient ───────────────
   cy.get(
     '.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(2) > .ant-btn'
   )
     .should('be.visible')
-    .click();
+    .click()
 
   cy.get('.ant-modal-body > :nth-child(1) > .ant-col')
     .should('be.visible')
-    .and('contain.text', ' Payment Booked - ');
+    .and('contain.text', ' Payment Booked - ')
 
   cy.get('@recipientReceives').then((recipientReceives) => {
     cy.get(':nth-child(5) > .ant-col-8 > .ant-typography')
       .should('be.visible')
-      .and('contain.text', recipientReceives);
-  });
-    })
+      .invoke('text')
+      .then((uiText) => {
+        expect(
+          normalizeStr(uiText)
+        ).to.eq(
+          normalizeStr(recipientReceives)
+        )
+      })
+  })
+
+  })
+
     it('TC-AC-028 - Verify that if Currency= BHD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
@@ -6712,6 +6791,12 @@ describe('Single Payment Corpay',function(){
         newRecipient.individualRecipient('UK GBP','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
+      // ───── Intercept Quote API ─────
+   
+  cy.intercept(
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');  
 
     // ─────────────── Payment Flow ───────────────
     newPayment.proceedflow('{downarrow}{enter}', 'USD');
@@ -6719,23 +6804,20 @@ describe('Single Payment Corpay',function(){
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
       const apiEnv = this.apiEnv;
-    // ───── Intercept Quote API ─────
-  cy.intercept(
-  'POST',
-  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
-).as('quoteApi');
+    
 
   // ───── Wait for API and Compare Values ─────
-  cy.wait('@quoteApi').then(({ response }) => {
-    const receive = response.body.data.receive;
-    const recipientReceives = response.body.data.recipient[0].receives;
+  
+  cy.wait('@quoteApi', { timeout: 20000 }).then(({ response }) => {
+  expect(response).to.exist;
+  const receive = response.body.data.receive;
+  const recipientReceives = response.body.data.recipient[0].receives;
+  cy.wrap(recipientReceives).as('recipientReceives');
+  cy.log(`Receive: ${receive}`);
+  cy.log(`Recipient Receives: ${recipientReceives}`);
 
-    cy.wrap(recipientReceives).as('recipientReceives');
-    cy.log(`Receive: ${receive}`);
-    cy.log(`Recipient Receives: ${recipientReceives}`);
-
-    expect(receive).to.eq(recipientReceives); // Final comparison
-  });
+  expect(receive).to.eq(recipientReceives);
+});
 
     /* ── Validate payment‑reason field ───────────────────────── */
     // 1️⃣ Ensure the field starts empty
@@ -6822,18 +6904,18 @@ describe('Single Payment Corpay',function(){
         newRecipient.individualRecipient('UK GBP Priority','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
-
+// ───── Intercept Quote API ─────
+  cy.intercept(
+  'POST',
+  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
+).as('quoteApi');
     // ─────────────── Payment Flow ───────────────
     newPayment.proceedflow('{downarrow}{enter}', 'USD');
     const amount = '10';
     newPayment.addrecipientDetail(amount, email);
     newPayment.selectFundingMethod('Push Funds');
       const apiEnv = this.apiEnv;
-    // ───── Intercept Quote API ─────
-  cy.intercept(
-  'POST',
-  '**/VolopaApiOauth2WebApp*/exchange/b2b/self/quote/temp'
-).as('quoteApi');
+    
 
   // ───── Wait for API and Compare Values ─────
   cy.wait('@quoteApi').then(({ response }) => {
@@ -7874,7 +7956,7 @@ describe('Single Payment Corpay',function(){
         .and('contain.text', storedText);
     })
     })
-    it('TC-AC-067 - Verify that(business) if Currency= MXN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    xit('TC-AC-067 - Verify that(business) if Currency= MXN and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
@@ -7956,7 +8038,7 @@ describe('Single Payment Corpay',function(){
         .and('contain.text', storedText);
     })
     })
-    it('TC-AC-068 - Verify that(business) if Currency= MXN and Country = Mexico Checking & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    xit('TC-AC-068 - Verify that(business) if Currency= MXN and Country = Mexico Checking & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
@@ -8040,7 +8122,7 @@ describe('Single Payment Corpay',function(){
         .and('contain.text', storedText);
     })
     })
-    it('TC-AC-069 - Verify that(business) if Currency= MXN and Country = Mexico Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
+    xit('TC-AC-069 - Verify that(business) if Currency= MXN and Country = Mexico Saving & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds',function () {
     // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()

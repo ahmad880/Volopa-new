@@ -91,7 +91,7 @@ export class AdditionalCurrencies {
 
     // "Business <name> Automation"
     cy.get(variable1.additionalCurrenciesLocators.businessName)
-      .type(`Business ${name} Automation`);
+      .type(`${name}`);
 
     cy.get(variable1.additionalCurrenciesLocators.businessDescription).type('Testing');
     cy.get(variable1.additionalCurrenciesLocators.businessNature).type('Testing');

@@ -271,7 +271,7 @@ describe('Batch Payments',function(){
         newRecipient.addBankDetailsChina('AYCLCNBY','55555555','501100000011')
         const bName = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('INDIVIDUAL PF'+' '+bName,'CHINA{enter}')
-        //batchPayments.paymentPurpose()
+        batchPayments.paymentPurpose()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
             let purposeList = Element.text()
@@ -287,7 +287,7 @@ describe('Batch Payments',function(){
         newRecipient.addBankDetailsChina('AYCLCNBY','55555555','501100000011')
         const bName1 = batchPayments.generateRandomString(6)
         batchPayments.addBusinessRecipient('INDIVIDUAL CNY PF'+ ' '+bName1,'CHINA{enter}')
-        //batchPayments.paymentPurpose1()
+        batchPayments.paymentPurpose1()
         cy.get('.ant-select-selector').eq(3).click()
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
             let purposeList1 = Element.text()

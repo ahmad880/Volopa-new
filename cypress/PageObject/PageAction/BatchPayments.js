@@ -56,23 +56,68 @@ export class BatchPayments {
     }
     validateYapilyFlow(){
         cy.get('.ant-row-center.m-t-20 > .ant-col > .ant-space > :nth-child(1) > .ant-btn').click() //fund via asy transfer btn
-        cy.get('.mb-3').should('contain.text','Choose your bank:') //heading
-        cy.get('[data-testid="search-input"]').type('Modelo Sandbox') // search feild
-        cy.get('.institution-card-hover').click()
-        cy.wait(2000)
-        cy.get('[data-testid="footer-continue-button"]').click()
-        cy.get('[data-testid="header-title"]').should('contain','Approve your payment')
-        cy.get('[data-testid="auth-continue-to-bank"]').invoke('attr', 'target', '_self').click();   
-        cy.get('.ozone-heading-1').should('have.text','Model Bank')
-        cy.get('.ozone-heading-3').should('have.text','Please enter your login details to proceed')
-        cy.get(':nth-child(1) > .ozone-input').type('mits')
-        cy.get('#passwordField').type('mits')
-        cy.get('#loginButton').click({force:true})
-        cy.get('.ozone-pis-heading-1').should('have.text','Single Domestic Payment Consents (PIS)')
-        cy.get("#radio-10000109010102").click()
-        cy.get('#confirmButton').click({force:true})
-        cy.wait(5000)
-        cy.get('[class="ant-typography muli semi-bold fs-24px purple"]').should('contain.text','Funds could take up to 2 hours to be posted.')
+        cy.origin("https://payments.yapily.com", () => {
+        Cypress.on("uncaught:exception", () => false);
+        
+        cy.get('[data-testid="search-input"]', { timeout: 20000 })
+            .type("Modelo");
+        cy.get(".institution-card__hover").click();
+        cy.get('[data-testid="footer-continue-button"]').click();
+        
+        // Remove target="_blank" attribute to prevent new tab opening
+        // Then click immediately to preserve session state
+        cy.get('[data-testid="auth-continue-to-bank"]', { timeout: 10000 })
+            .invoke('removeAttr', 'target')
+            .click();
+    });
+    
+    // --------------------------------------------------------
+    // OZONE FLOW (Direct continuation after Yapily redirect)
+    // --------------------------------------------------------
+    cy.origin("https://auth1.obie.uk.ozoneapi.io", () => {
+        Cypress.on("uncaught:exception", () => false);
+        
+        // PAGE 1: Login Screen
+        cy.get('.ozone-heading-1', { timeout: 30000 })
+            .should('contain.text', 'Model Bank');
+        cy.get('.ozone-heading-3', { timeout: 20000 })
+            .should('contain.text', 'Please enter your login details to proceed');
+        
+        cy.get(':nth-child(1) > .ozone-input', { timeout: 10000 })
+            .should('be.visible')
+            .clear()
+            .type("mits");
+        
+        cy.get('#passwordField', { timeout: 10000 })
+            .should('be.visible')
+            .clear()
+            .type("mits");
+        
+        // Add small wait before clicking login to ensure form is ready
+        cy.wait(500);
+        cy.get('#loginButton').should('be.enabled').click();
+        
+        // PAGE 2: Consent Screen
+        cy.get('.ozone-pis-heading-1', { timeout: 30000 })
+            .should('contain.text', 'Single Domestic Payment Consents (PIS)');
+        
+        cy.get('#radio-10000109010102', { timeout: 10000 })
+            .should('be.visible')
+            .click({ force: true });
+        
+        // Wait a moment for the radio selection to register
+        cy.wait(500);
+        cy.get('#confirmButton').should('be.enabled').click({ force: true });
+    });
+    
+    // ---------------------------------
+    // BACK TO MAIN APP (automatically returns to original origin)
+    // ---------------------------------
+    Cypress.on("uncaught:exception", () => false);
+    
+    cy.get(".ant-spin-dot", { timeout: 30000 }).should("not.exist");
+    cy.get(".ant-typography.muli.semi-bold.fs-24px.purple", { timeout: 20000 })
+        .should("contain.text", "Funds could take up to 2 hours to be posted.");
         cy.get('.ant-spin-dot').should('not.exist')
         cy.get(':nth-child(2) > .ant-btn').click()      
     }

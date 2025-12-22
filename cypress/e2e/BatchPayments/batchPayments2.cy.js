@@ -14,7 +14,7 @@ describe('Batch Payments',function(){
     let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp03.volopa-dev.com/')
+        cy.visit('https://webapp01.mybusiness.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -71,13 +71,13 @@ describe('Batch Payments',function(){
                     })
                 })
                 cy.wait(1000)
-                cy.get('.ant-select-selector').eq(5).click()
+                cy.get('.ant-select-selector').eq(3).click()
                 cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList1').then(purposeList1=>{
                         expect(list).to.eq(purposeList1)
-                        cy.get('.ant-select-selector').eq(5).click()
+                        cy.get('.ant-select-selector').eq(3).click()
                     })
                 })
             let amount = '250'

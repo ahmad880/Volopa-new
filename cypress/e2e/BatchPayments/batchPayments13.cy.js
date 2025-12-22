@@ -14,7 +14,7 @@ describe('Batch Payments',function(){
     let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-        cy.visit('https://webapp03.volopa-dev.com/')
+        cy.visit('https://webapp01.mybusiness.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })
@@ -315,7 +315,7 @@ describe('Batch Payments',function(){
     })
     //MEXICO with USD
     //individual
-    it.only('TC_BP_127 - Add 2 recipients(individual) from the "Add Recipient" page with country = MEXICO and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
+    it('TC_BP_127 - Add 2 recipients(individual) from the "Add Recipient" page with country = MEXICO and currency = USD. After adding, make a batch payment to these recipients using GBP and push funds.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -610,7 +610,7 @@ describe('Batch Payments',function(){
         batchPayments.validateproceedflow(amount,amount1)
         batchPayments.validateYapilyFlow()
     })
-    it('TC_BP_131 - Verify that user is able to add Individual recipient through batch payment page', function(){
+    it.only('TC_BP_131 - Verify that user is able to add Individual recipient through batch payment page', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()
@@ -619,7 +619,7 @@ describe('Batch Payments',function(){
         batchPayments.addIndvidualRecipientFromBatch()
         
     })
-    it('TC_BP_132 - Verify that user is able to add Business recipient through batch payment page', function(){
+    it.only('TC_BP_132 - Verify that user is able to add Business recipient through batch payment page', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         batchPayments.goToBatchPaymentPage()

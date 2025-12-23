@@ -12,14 +12,14 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Payments History',function(){
-    let userName = 'qwerty_admin_2'
+    let userName = 'uk_test_1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.window().then((win) => {
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp04.volopa-dev.com/')
+        cy.visit('https://webapp01.mybusiness.volopa-dev.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)

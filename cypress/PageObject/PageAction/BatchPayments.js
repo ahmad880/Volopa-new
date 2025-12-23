@@ -324,6 +324,35 @@ cy.get('.ant-picker-dropdown')
         });
         //cy.get(variable.batchPaymentsPageLocators.paymentSummary).should('contain.text','Payment Summary')
     }
+    validateproceedflowCorpay(amount,amount1){
+        cy.get('.row-border > :nth-child(2)').should('be.visible').should('contain.text',amount)
+        cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)
+        const expectedAmount = parseInt(amount1) + parseInt(amount);
+        //in case of corpay change to n changes to 3
+        cy.get(':nth-child(3) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount);
+        });
+        cy.get(':nth-child(2) > .ant-btn').click()
+        cy.get(':nth-child(2) > :nth-child(1) > .ant-card > .ant-card-body').should('be.visible')
+        cy.get('.ant-space > :nth-child(2) > .ant-btn').click()
+        cy.get('.ant-modal-body').should('be.visible')
+        const expectedAmount1 = parseInt(amount1) + parseInt(amount);
+
+        cy.get('.ant-col-24 > :nth-child(4) > .ant-col-8 > .ant-typography')
+        .should('be.visible')
+        .invoke('text')
+        .then((text) => {
+            const cleanedText = text.replace(/,/g, '').trim(); // Only remove commas
+            const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
+            expect(actualAmount).to.eq(expectedAmount1);
+        });
+        //cy.get(variable.batchPaymentsPageLocators.paymentSummary).should('contain.text','Payment Summary')
+    }
     validateApprovedproceedflow(amount,amount1){
         cy.get('.row-border > :nth-child(2)').should('be.visible').should('contain.text',amount)
         cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)

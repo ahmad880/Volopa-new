@@ -404,7 +404,7 @@ it('Verify that the user is able to upload the file', function(){
   // Validate the payment history
   cy.get('@paymentCount').then((count) => {
     const today = new Date();
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = today.toLocaleDateString('en-US', options);
 
     for (let i = 0; i < count; i++) {
@@ -522,7 +522,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
   // Validate the payment history
   cy.get('@paymentCount').then((count) => {
     const today = new Date();
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = today.toLocaleDateString('en-US', options);
 
     for (let i = 0; i < count; i++) {
@@ -640,7 +640,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
   // Validate the payment history
   cy.get('@paymentCount').then((count) => {
     const today = new Date();
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = today.toLocaleDateString('en-US', options);
 
     for (let i = 0; i < count; i++) {
@@ -758,7 +758,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
   // Validate the payment history
   cy.get('@paymentCount').then((count) => {
     const today = new Date();
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = today.toLocaleDateString('en-US', options);
 
     for (let i = 0; i < count; i++) {

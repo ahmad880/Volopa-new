@@ -809,7 +809,7 @@ cy.get('.ant-select-dropdown')
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
+    it('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule

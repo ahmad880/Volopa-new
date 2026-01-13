@@ -21,7 +21,7 @@ describe('New Payment', function () {
 
     beforeEach(() => {
 
-        cy.visit('https://webapp04.volopa-dev.com/', { timeout: 10000 });
+        cy.visit('https://webapp03.mybusiness.volopa-dev.com/', { timeout: 10000 });
         cy.viewport(1440, 1000);
 
         cy.url().then((url) => {

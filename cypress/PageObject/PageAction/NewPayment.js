@@ -244,6 +244,13 @@ export class NewPayment {
         cy.get(variable1.newPaymentPageLocators.menuicon).should('be.visible').click()
         cy.get(variable1.newPaymentPageLocators.settingfromMenu).should('be.visible').should('contain.text','Settings').click()
         cy.get(variable1.newPaymentPageLocators.companyAccount).should('contain.text','Company Account')
+        
+    }
+    goToSettingCorpay(){
+        cy.get(variable1.newPaymentPageLocators.menuicon).should('be.visible').click()
+        cy.get(variable1.newPaymentPageLocators.settingfromMenuCorpay).should('be.visible').should('contain.text','Settings').click()
+        cy.get(variable1.newPaymentPageLocators.companyAccount).should('contain.text','Company Account')
+        
     }
     goToNotificationSetting(){
         cy.get(variable1.newPaymentPageLocators.notificationSetting).should('be.visible').should('contain.text','Notification Settings').click()

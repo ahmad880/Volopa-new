@@ -21,6 +21,7 @@
         "paymentReferences":"#paymentReference",
         "menuicon":"#Component_8_63",
         "settingfromMenu":":nth-child(7) > .ant-card > .ant-card-body",
+        "settingfromMenuCorpay":":nth-child(6) > .ant-card > .ant-card-body",
         "companyAccount":":nth-child(1) > .ant-col > .ant-typography",
         "notificationSetting":":nth-child(4) > .ant-card > .ant-card-body > .m-t-20",
         "notificationSettingHeader":".ant-col > .ant-typography",

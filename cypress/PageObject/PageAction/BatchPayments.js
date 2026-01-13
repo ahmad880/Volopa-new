@@ -14,14 +14,48 @@ export class BatchPayments {
     validateSearchBar(name){
        // cy.wait(60000)
         cy.get(variable.batchPaymentsPageLocators.loadingIcon).should('not.exist')
-        cy.get(variable.batchPaymentsPageLocators.searchField).eq(0).type(name)
-        cy.get(variable.batchPaymentsPageLocators.recipientDetailHeading).should('contain.text','Recipient Details').click()
+        // existing code for fallback 
+        //cy.get(variable.batchPaymentsPageLocators.searchField).eq(0).type(name)
+        //cy.get(variable.batchPaymentsPageLocators.recipientDetailHeading).should('contain.text','Recipient Details').click()
+        // Click search field wrapper to activate input
+    // Activate the correct search field
+    cy.get(variable.batchPaymentsPageLocators.searchField)
+        .eq(0)
+        .click({ force: true })
+        .within(() => {
+            cy.get('input.ant-select-selection-search-input')
+                .should('be.visible')
+                .clear({ force: true })
+                .type(name, { force: true })
+        })
+
+    // Click outside to apply selection
+    cy.get(variable.batchPaymentsPageLocators.recipientDetailHeading)
+        .should('contain.text', 'Recipient Details')
+        .click({ force: true })
     }
     validateSearchBar1(name){
         // cy.wait(60000)
          cy.get(variable.batchPaymentsPageLocators.loadingIcon).should('not.exist')
-         cy.get(variable.batchPaymentsPageLocators.searchField1).eq(0).type(name)
-         cy.get(variable.batchPaymentsPageLocators.recipientDetailHeading).should('contain.text','Recipient Details').click()
+         // existing code for fallback
+         //cy.get(variable.batchPaymentsPageLocators.searchField1).eq(0).type(name)
+         //cy.get(variable.batchPaymentsPageLocators.recipientDetailHeading).should('contain.text','Recipient Details').click()
+         // Click search field wrapper to activate input
+    // Activate the correct search field
+    cy.get(variable.batchPaymentsPageLocators.searchField1)
+        .eq(0)
+        .click({ force: true })
+        .within(() => {
+            cy.get('input.ant-select-selection-search-input')
+                .should('be.visible')
+                .clear({ force: true })
+                .type(name, { force: true })
+        })
+
+    // Click outside to apply selection
+    cy.get(variable.batchPaymentsPageLocators.recipientDetailHeading)
+        .should('contain.text', 'Recipient Details')
+        .click({ force: true })
      }
     goToAddNewRecipient(){
         cy.get(variable.batchPaymentsPageLocators.searchField).click().wait(2000)
@@ -357,8 +391,8 @@ cy.get('.ant-picker-dropdown')
         cy.get('.row-border > :nth-child(2)').should('be.visible').should('contain.text',amount)
         cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)
         const expectedAmount = parseInt(amount1) + parseInt(amount);
-
-        cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
+        //in case of TCC use maybe 4
+        cy.get(':nth-child(3) > .ant-col-8 > .ant-typography')
         .should('be.visible')
         .invoke('text')
         .then((text) => {
@@ -382,9 +416,14 @@ cy.get('.ant-picker-dropdown')
             const actualAmount = parseFloat(cleanedText); // Use parseFloat to handle decimals
             expect(actualAmount).to.eq(expectedAmount1);
         });
-        cy.get(':nth-child(5) > .ant-col > .ant-typography').should('be.visible').should('contain.text','Pending Approval')
+        cy.contains(
+  '.ant-typography-warning',
+  'Pending Approval'
+).should('be.visible')
 
-        cy.get(':nth-child(4) > .ant-col > .ant-space > [style=""] > .ant-btn').should('be.visible').should('be.enabled').click()
+
+        cy.contains('button', 'Return to Dashboard').click()
+
     }
 
     validateScheduledproceedflow(amount,amount1, date){
@@ -769,4 +808,13 @@ cy.get('.ant-col-9 > .ant-typography')
             }
         });
     }
+    selectSettlementByIndex(index) {
+    cy.get(
+        'div[class="ant-spin-nested-loading"] div:nth-child(1) div:nth-child(1) div:nth-child(1) div:nth-child(1) div:nth-child(3) div:nth-child(1) div:nth-child(4) div:nth-child(1) div:nth-child(1) div:nth-child(1) button'
+    )
+    .eq(index)
+    .should('be.visible')
+    .click()
+}
+
 }

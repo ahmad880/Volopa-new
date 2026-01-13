@@ -3824,7 +3824,7 @@ describe('Single Payment Corpay',function(){
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.addRecipient('New Zealand{enter}' ,'NZD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('BKNZNZ22','049712')
-        cy.get('#bsb').should('be.visible').type('302921')
+        cy.get('#bsb').should('be.visible').type('739629')
         newRecipient.individualRecipient('New Zealand NZD','New Zealand{enter}')
         newRecipient.saveRecipient()
         newRecipient.checkSettelment('be.disabled','be.enabled')
@@ -7668,7 +7668,7 @@ describe('Single Payment Corpay',function(){
   })
 
     });
-    it('TC-AC-065 - Verify that if Currency = GHS and Country = Ghana & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
+    it('TC-AC-070 - Verify that if Currency = GHS and Country = Ghana & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
   // ─────────────── Setup & Recipient Creation ───────────────
         signin.Login(userName, password); 
         newRecipient.goToPaymentsDashborad()

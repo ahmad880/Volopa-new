@@ -11,10 +11,10 @@ const signin = new SigninPage
 const paymentspage = new PaymentsDashboard
 
 describe('Batch Payments',function(){
-    let userName = 'Corpay_test1@volopa.com'
-    let password = 'testTest1'
+    let userName = 'testnew@volopa.com'
+    let password = 'testTest1@'
     beforeEach(() => {
-        cy.visit('https://webapp01.mybusiness.volopa-dev.com/')
+        cy.visit('https://webapp03.mybusiness.volopa-dev.com/')
         paymentspage.clearCache()
         cy.viewport(1440,1000)
     })

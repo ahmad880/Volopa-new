@@ -8297,7 +8297,7 @@ describe('New Payment', function () {
     //Before executing Approval workflow cases, make sure no approval rule is set
     // change the approver, login user if need to run on differnt client
     //Approval workflow for single Payment
-    xit('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -8451,7 +8451,7 @@ describe('New Payment', function () {
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8606,7 +8606,7 @@ describe('New Payment', function () {
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -8761,7 +8761,7 @@ describe('New Payment', function () {
     newPayment.saveApprovalRule();
     });
     //Approval workflow for batch payments
-    xit('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8923,7 +8923,7 @@ describe('New Payment', function () {
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -9085,7 +9085,7 @@ describe('New Payment', function () {
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -9160,10 +9160,10 @@ describe('New Payment', function () {
             });
         });
     
-        let amount = '920';
+        let amount = '940';
         batchPayments.addrecipientDetail(amount, email);
         batchPayments.checkSettelments1('be.disabled', 'be.enabled');
-        let amount1 = 935;
+        let amount1 = 950;
         batchPayments.addrecipientDetail1(amount1, email1);
         batchPayments.checkSettelments2('be.disabled', 'be.enabled');
         batchPayments.proceedflow('GBP', 'GBP', 'Easy Transfer', 'Easy Transfer');
@@ -9250,30 +9250,26 @@ describe('New Payment', function () {
     });
 
     //Single Schedued payments push funds
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
-        signin.Login(userName, password);
-        // create a Scheduled payment
-        newRecipient.goToPaymentsDashborad();
-        newRecipient.gotoRecipientList();
-        let email = batchPayments.generateRandomString(5) + '@yopmail.com';
-        batchPayments.addRecipient('United States{enter}', 'USD{enter}', email);
-        newRecipient.addBankDetailsWithAccNo('MMMCUS44', '55555555');
-        cy.get('#aba').type('026009593');
-        const lName = batchPayments.generateRandomString(6);
-        batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
-        newRecipient.postCodeStateUS();
-        batchPayments.paymentPurposeGBPEUR();
-    
-        cy.get('.ant-select-selector').eq(4).click();
-        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element => {
-            let purposeList = Element.text();
-            cy.log(purposeList);
-            cy.wrap(purposeList).as('purposeList');
-        });
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        batchPayments.addRecipient('SPAIN{enter}' ,'EUR{enter}' ,email)
+        newRecipient.addBankDetails('ES9121000418450200051332','CAGLESMMCOP')
+        const lName = batchPayments.generateRandomString(6)
+        batchPayments.individualRecipient('INDIVIDUAL GBP PF',lName,'United Kingdom{enter}')
+        batchPayments.paymentPurposeGBPEUR()
+        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+            let purposeList = Element.text()
+            cy.log(purposeList)
+            cy.wrap(purposeList).as('purposeList')
+        })
     
         newRecipient.saveRecipient();
         newPayment.checkSettelment('be.enabled', 'be.enabled');
-        newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+        newPayment.proceedflow('{enter}', 'GBP');
     
         let amount = '320';
         newPayment.addrecipientDetail(amount, email);
@@ -9406,30 +9402,26 @@ describe('New Payment', function () {
         .and('have.text', longFmt1);
     
     }); 
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
-        signin.Login(userName, password);
-        // create a Scheduled payment
-        newRecipient.goToPaymentsDashborad();
-        newRecipient.gotoRecipientList();
-        let email = batchPayments.generateRandomString(5) + '@yopmail.com';
-        batchPayments.addRecipient('United States{enter}', 'USD{enter}', email);
-        newRecipient.addBankDetailsWithAccNo('MMMCUS44', '55555555');
-        cy.get('#aba').type('026009593');
-        const lName = batchPayments.generateRandomString(6);
-        batchPayments.individualRecipient('INDIVIDUAL USD PF', lName, 'UNITED States{enter}');
-        newRecipient.postCodeStateUS();
-        batchPayments.paymentPurposeGBPEUR();
-    
-        cy.get('.ant-select-selector').eq(4).click();
-        cy.get('.ant-select-dropdown').eq(4).find('.ant-select-item-option-content').then(Element => {
-            let purposeList = Element.text();
-            cy.log(purposeList);
-            cy.wrap(purposeList).as('purposeList');
-        });
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
+        signin.Login(userName, password)
+        newRecipient.goToPaymentsDashborad()
+        newRecipient.gotoRecipientList()
+        let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
+        batchPayments.addRecipient('SPAIN{enter}' ,'EUR{enter}' ,email)
+        newRecipient.addBankDetails('ES9121000418450200051332','CAGLESMMCOP')
+        const lName = batchPayments.generateRandomString(6)
+        batchPayments.individualRecipient('INDIVIDUAL GBP PF',lName,'United Kingdom{enter}')
+        batchPayments.paymentPurposeGBPEUR()
+        cy.get('.ant-select-selector').eq(3).click()
+        cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element=>{
+            let purposeList = Element.text()
+            cy.log(purposeList)
+            cy.wrap(purposeList).as('purposeList')
+        })
     
         newRecipient.saveRecipient();
         newPayment.checkSettelment('be.enabled', 'be.enabled');
-        newPayment.proceedflow('{downarrow}{enter}', 'GBP');
+        newPayment.proceedflow('{enter}', 'GBP');
     
         let amount = '330';
         newPayment.addrecipientDetail(amount, email);
@@ -9564,17 +9556,17 @@ describe('New Payment', function () {
     
     });
     //Batch Schedued payments push funds
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
         newRecipient.gotoRecipientList();
         let email = batchPayments.generateRandomString(5) + '@yopmail.com';
-        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email);
-        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        batchPayments.addRecipient('SPAIN{enter}' ,'EUR{enter}' ,email)
+        newRecipient.addBankDetails('ES9121000418450200051332','CAGLESMMCOP')
         const lName = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL ET', lName, 'UNITED ARAB EMIRATES{enter}');
-        batchPayments.paymentPurpose();
+        batchPayments.paymentPurposeGBPEUR();
         cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
             let purposeList = Element.text();
@@ -9582,15 +9574,15 @@ describe('New Payment', function () {
             cy.wrap(purposeList).as('purposeList');
         });
         newRecipient.saveRecipient();
-        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+        newPayment.checkSettelment('be.enabled', 'be.enabled');
     
         newRecipient.gotoRecipientList();
         let email1 = batchPayments.generateRandomString(5) + '@yopmail.com';
-        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email1);
-        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        batchPayments.addRecipient('SPAIN{enter}' ,'EUR{enter}' ,email1)
+        newRecipient.addBankDetails('ES9121000418450200051332','CAGLESMMCOP')
         const lName1 = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL AED ET', lName1, 'UNITED ARAB EMIRATES{enter}');
-        batchPayments.paymentPurpose1();
+        batchPayments.paymentPurpose1GBPEUR();
         cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
             let purposeList1 = Element.text();
@@ -9598,7 +9590,7 @@ describe('New Payment', function () {
             cy.wrap(purposeList1).as('purposeList1');
         });
         newRecipient.saveRecipient();
-        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+        newPayment.checkSettelment('be.enabled', 'be.enabled');
     
         cy.reload();
         batchPayments.goToBatchPaymentPage();
@@ -9630,12 +9622,12 @@ describe('New Payment', function () {
             });
         });
     
-        let amount = '510';
-        batchPayments.addrecipientDetail(amount, email);
-        batchPayments.checkSettelments1('be.disabled', 'be.enabled');
-        let amount1 = 520;
-        batchPayments.addrecipientDetail1(amount1, email1);
-        batchPayments.checkSettelments2('be.disabled', 'be.enabled');
+        let amount = '250'
+    batchPayments.addrecipientDetail(amount, email)
+    batchPayments.selectSettlementByIndex(0)
+    let amount1 = '260'
+    batchPayments.addrecipientDetail1(amount1, email1)
+    batchPayments.selectSettlementByIndex(1)
         batchPayments.proceedflow('GBP', 'GBP', 'Push Funds', 'Push Funds');
         batchPayments.validateScheduledproceedflow(amount, amount1, 3);
         //validate the draft payment
@@ -9646,17 +9638,17 @@ describe('New Payment', function () {
         cy.get('tbody tr:nth-child(2) td:nth-child(7)').should('be.visible').should('contain.text', amount1);
     
     });
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
         newRecipient.gotoRecipientList();
         let email = batchPayments.generateRandomString(5) + '@yopmail.com';
-        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email);
-        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        batchPayments.addRecipient('SPAIN{enter}' ,'EUR{enter}' ,email)
+        newRecipient.addBankDetails('ES9121000418450200051332','CAGLESMMCOP')
         const lName = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL ET', lName, 'UNITED ARAB EMIRATES{enter}');
-        batchPayments.paymentPurpose();
+        batchPayments.paymentPurposeGBPEUR();
         cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
             let purposeList = Element.text();
@@ -9664,15 +9656,15 @@ describe('New Payment', function () {
             cy.wrap(purposeList).as('purposeList');
         });
         newRecipient.saveRecipient();
-        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+        newPayment.checkSettelment('be.enabled', 'be.enabled');
     
         newRecipient.gotoRecipientList();
         let email1 = batchPayments.generateRandomString(5) + '@yopmail.com';
-        batchPayments.addRecipient('UNITED ARAB EMIRATES{enter}', 'AED{enter}', email1);
-        newRecipient.addBankDetails('AE070331234567890123456', 'AARPAEAA');
+        batchPayments.addRecipient('SPAIN{enter}' ,'EUR{enter}' ,email1)
+        newRecipient.addBankDetails('ES9121000418450200051332','CAGLESMMCOP')
         const lName1 = batchPayments.generateRandomString(6);
         batchPayments.individualRecipient('INDIVIDUAL AED ET', lName1, 'UNITED ARAB EMIRATES{enter}');
-        batchPayments.paymentPurpose1();
+        batchPayments.paymentPurpose1GBPEUR();
         cy.get('.ant-select-selector').eq(3).click();
         cy.get('.ant-select-dropdown').eq(3).find('.ant-select-item-option-content').then(Element => {
             let purposeList1 = Element.text();
@@ -9680,7 +9672,7 @@ describe('New Payment', function () {
             cy.wrap(purposeList1).as('purposeList1');
         });
         newRecipient.saveRecipient();
-        newRecipient.checkSettelment('be.disabled', 'be.enabled');
+        newPayment.checkSettelment('be.enabled', 'be.enabled');
     
         cy.reload();
         batchPayments.goToBatchPaymentPage();
@@ -9712,12 +9704,12 @@ describe('New Payment', function () {
             });
         });
     
-        let amount = '310';
-        batchPayments.addrecipientDetail(amount, email);
-        batchPayments.checkSettelments1('be.disabled', 'be.enabled');
-        let amount1 = 320;
-        batchPayments.addrecipientDetail1(amount1, email1);
-        batchPayments.checkSettelments2('be.disabled', 'be.enabled');
+        let amount = '240'
+    batchPayments.addrecipientDetail(amount, email)
+    batchPayments.selectSettlementByIndex(0)
+    let amount1 = '250'
+    batchPayments.addrecipientDetail1(amount1, email1)
+    batchPayments.selectSettlementByIndex(1)
         batchPayments.proceedflow('GBP', 'GBP', 'Push Funds', 'Push Funds');
         batchPayments.validateScheduledproceedflow(amount, amount1, 4);
         //validate the draft payment

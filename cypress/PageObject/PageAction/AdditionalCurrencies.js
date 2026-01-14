@@ -62,6 +62,7 @@ export class AdditionalCurrencies {
     }
     postCodeStateUS(){
         cy.get('#postcode').type('32013')
+        cy.wait(3000)
         cy.get('#state').type('CALIFORNIA{enter}')
     }
     postCodeStateCanada(){

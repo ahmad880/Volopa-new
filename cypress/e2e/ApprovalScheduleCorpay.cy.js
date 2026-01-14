@@ -37,6 +37,7 @@ describe('New Payment', function () {
     });
     //Before executing Approval workflow cases, make sure no approval rule is set
     // change the approver, login user if need to run on differnt client
+    //need to make a change to this function validateApprovedproceedflow() in batchpayment.js
     //Approval workflow for single Payment
     it('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
         signin.Login(userName, password);

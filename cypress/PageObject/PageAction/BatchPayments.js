@@ -391,8 +391,8 @@ cy.get('.ant-picker-dropdown')
         cy.get('.row-border > :nth-child(2)').should('be.visible').should('contain.text',amount)
         cy.get('[data-row-key="1"] > :nth-child(2)').should('be.visible').should('contain.text',amount1)
         const expectedAmount = parseInt(amount1) + parseInt(amount);
-        //in case of TCC use maybe 4
-        cy.get(':nth-child(3) > .ant-col-8 > .ant-typography')
+        //in case of TCC use  4 and in case of corpay change to n changes to 3
+        cy.get(':nth-child(4) > .ant-col-8 > .ant-typography')
         .should('be.visible')
         .invoke('text')
         .then((text) => {

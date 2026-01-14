@@ -242,7 +242,9 @@ export class NewPayment {
     
     goToSetting(){
         cy.get(variable1.newPaymentPageLocators.menuicon).should('be.visible').click()
-        cy.get(variable1.newPaymentPageLocators.settingfromMenu).should('be.visible').should('contain.text','Settings').click()
+        cy.get('.ant-card-body')
+        .contains('span', 'Settings')
+        .click()
         cy.get(variable1.newPaymentPageLocators.companyAccount).should('contain.text','Company Account')
         
     }

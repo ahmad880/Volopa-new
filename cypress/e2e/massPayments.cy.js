@@ -778,7 +778,7 @@ it('Verify that the user is able to upload and proceed the valid file(no errors)
     }
   });
 });
-xit('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Easy Transfer(same currency)', function () {
+it('Verify that the user is able to upload and proceed the valid file(no errors) using GBP and Easy Transfer(same currency)', function () {
   login.Login(userName, password);
   paymentD.goToPaymentsDashborad();
   massP.gotoFileUpload();

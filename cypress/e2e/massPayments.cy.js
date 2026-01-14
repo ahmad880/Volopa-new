@@ -26,7 +26,7 @@ describe('Mass Payment',function(){
     let userName = 'testnew@volopa.com'
     let password = 'testTest1@'
     beforeEach(() => {
-        cy.visit('https://webapp01.mybusiness.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp03.mybusiness.volopa-dev.com/', { timeout: 10000 })
         paymentD.clearCache()
         cy.viewport(1440,1000)
     })

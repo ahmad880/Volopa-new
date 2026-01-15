@@ -19,7 +19,7 @@ describe('Payments History',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp01.mybusiness.volopa-dev.com/')
+        cy.visit('https://webapp03.mybusiness.volopa-dev.com/')
         paymentspage.clearCache()
         signin.Login(userName, password)
         cy.viewport(1440,1000)

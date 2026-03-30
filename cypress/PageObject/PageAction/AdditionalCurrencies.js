@@ -13,10 +13,12 @@ export class AdditionalCurrencies {
         cy.get(variable1.additionalCurrenciesLocators.recipientListHeading).should('contain.text','Recipient List')
     }
     addRecipient(Country ,Currencies,email){
+        cy.get('.ant-spin-nested-loading > :nth-child(1) > .ant-spin > .ant-spin-dot').should('not.exist')
         cy.get(variable1.additionalCurrenciesLocators.addRecipient).should('be.visible').click()
         cy.get(variable1.additionalCurrenciesLocators.selectCountry).should('be.visible').click()
-        .get(variable1.additionalCurrenciesLocators.countryDropDownHeading).should('be.visible').type(Country)
-        cy.get(variable1.additionalCurrenciesLocators.selectCurrency).should('be.visible').click().wait(3000).type(Currencies)
+        .get(variable1.additionalCurrenciesLocators.countryDropDownHeading).wait(3000).should('be.visible').type(Country)
+        cy.get(variable1.additionalCurrenciesLocators.selectCurrency).wait(3000).should('be.visible').click().type(Currencies)
+        cy.get('.ant-spin-dot').should('not.exist')
         cy.get(variable1.additionalCurrenciesLocators.emailHeading).should('be.visible').should('contain.text','Recipient Email Address')
         cy.get('#recipientEmail').type(email)
     }

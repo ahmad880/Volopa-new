@@ -18,9 +18,17 @@ import './commands'
 import 'cypress-if'
 import 'cypress-mochawesome-reporter/register';
 import 'cypress-real-events/support';
+// Visual regression snapshot commands
+import { addMatchImageSnapshotCommand } from '@simonsmith/cypress-image-snapshot/command';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-
+// Register visual regression snapshot command globally
+addMatchImageSnapshotCommand({
+  failureThreshold: 0.01, // 1% difference allowed
+  failureThresholdType: 'percent',
+  customDiffConfig: { threshold: 0.01 },
+  capture: 'viewport', // capture full viewport
+});
 const app = window.top;
 if (!app.document.head.querySelector('[data-hide-command-log-request]')) {
   const style = app.document.createElement('style');
@@ -38,5 +46,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes('addEventListener')) {
     return false; // Prevents test from failing
   }
+
 
 });

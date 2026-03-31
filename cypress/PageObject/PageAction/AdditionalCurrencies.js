@@ -8,15 +8,27 @@ export class AdditionalCurrencies {
         cy.get(variable.paymentsDashboardLocators.paymentsDashboardBtn).should('be.visible').click()
         cy.get(variable.paymentsDashboardLocators.paymentsDashbordHeading).should('contain.text','Payments Dashboard')
     }
-    gotoRecipientList(){
-        cy.get(variable1.additionalCurrenciesLocators.recipientList).should('be.visible').click()
-        cy.get(variable1.additionalCurrenciesLocators.recipientListHeading).should('contain.text','Recipient List')
-    }
+    gotoRecipientList() {
+  cy.get('.ant-spin-dot', { timeout: 20000 }).should('not.exist')
+  cy.get(variable1.additionalCurrenciesLocators.recipientList, { timeout: 20000 })
+    .should('be.visible')
+
+  cy.get(variable1.additionalCurrenciesLocators.recipientList, { timeout: 20000 })
+    .click()
+
+  cy.get(variable1.additionalCurrenciesLocators.recipientListHeading, { timeout: 20000 })
+    .should('contain.text', 'Recipient List')
+}
     addRecipient(Country ,Currencies,email){
         cy.get('.ant-spin-nested-loading > :nth-child(1) > .ant-spin > .ant-spin-dot').should('not.exist')
         cy.get(variable1.additionalCurrenciesLocators.addRecipient).should('be.visible').click()
-        cy.get(variable1.additionalCurrenciesLocators.selectCountry).should('be.visible').click()
-        .get(variable1.additionalCurrenciesLocators.countryDropDownHeading).wait(3000).should('be.visible').type(Country)
+        cy.get(variable1.additionalCurrenciesLocators.selectCountry, { timeout: 20000 })
+  .should('be.visible')
+  .click()
+
+cy.get(variable1.additionalCurrenciesLocators.countryDropDownHeading, { timeout: 20000 })
+  .should('be.visible')
+  .type(Country)
         cy.get(variable1.additionalCurrenciesLocators.selectCurrency).wait(3000).should('be.visible').click().type(Currencies)
         cy.get('.ant-spin-dot').should('not.exist')
         cy.get(variable1.additionalCurrenciesLocators.emailHeading).should('be.visible').should('contain.text','Recipient Email Address')
@@ -71,12 +83,27 @@ export class AdditionalCurrencies {
         cy.get('#postcode').type('R3E 2B4')
         cy.get('#state').type('ALBERTA{enter}')
     }
-    saveRecipient(){
-        cy.wait(3000)
-        cy.get(variable1.additionalCurrenciesLocators.submitBtn).click()
-        cy.get(variable1.additionalCurrenciesLocators.successMessage).should('be.visible') // success msg
-        cy.get(variable1.additionalCurrenciesLocators.payRecipient).click() //Pay this recipient
-    }
+    saveRecipient() {
+  cy.get(variable1.additionalCurrenciesLocators.submitBtn, { timeout: 20000 })
+    .should('be.visible')
+    .and('not.be.disabled')
+    .click()
+
+  
+  cy.get(variable1.additionalCurrenciesLocators.successMessage, { timeout: 20000 })
+    .should('be.visible')
+
+  cy.get('.ant-spin-dot', { timeout: 20000 }).should('not.exist')
+
+  cy.get(variable1.additionalCurrenciesLocators.payRecipient, { timeout: 20000 })
+    .should('be.visible')
+    .and('not.be.disabled')
+    .click()
+}
+    waitForStablePage() {
+  cy.get('.ant-spin-dot', { timeout: 20000 }).should('not.exist')
+  cy.get('.ant-spin-spinning', { timeout: 20000 }).should('not.exist')
+}
     addBusinessRecipient(country){
         cy.get(variable1.additionalCurrenciesLocators.businessRecipient).click()
         cy.get(variable1.additionalCurrenciesLocators.businessName).type('Bussines Automation')

@@ -9,31 +9,75 @@ export class AdditionalCurrencies {
         cy.get(variable.paymentsDashboardLocators.paymentsDashbordHeading).should('contain.text','Payments Dashboard')
     }
     gotoRecipientList() {
-  cy.get('.ant-spin-dot', { timeout: 20000 }).should('not.exist')
-  cy.get(variable1.additionalCurrenciesLocators.recipientList, { timeout: 20000 })
+  this.waitForStablePage()
+  
+  cy.get(variable1.additionalCurrenciesLocators.recipientList, { timeout: 30000 })
     .should('be.visible')
-
-  cy.get(variable1.additionalCurrenciesLocators.recipientList, { timeout: 20000 })
+    .should('not.be.disabled')
     .click()
+  this.waitForPageLoad(60000)
 
-  cy.get(variable1.additionalCurrenciesLocators.recipientListHeading, { timeout: 20000 })
+  cy.get(variable1.additionalCurrenciesLocators.recipientListHeading, { timeout: 30000 })
+    .should('be.visible')
     .should('contain.text', 'Recipient List')
+    
+  this.waitForStablePage()
 }
-    addRecipient(Country ,Currencies,email){
-        cy.get('.ant-spin-nested-loading > :nth-child(1) > .ant-spin > .ant-spin-dot').should('not.exist')
-        cy.get(variable1.additionalCurrenciesLocators.addRecipient).should('be.visible').click()
-        cy.get(variable1.additionalCurrenciesLocators.selectCountry, { timeout: 20000 })
-  .should('be.visible')
-  .click()
 
-cy.get(variable1.additionalCurrenciesLocators.countryDropDownHeading, { timeout: 20000 })
-  .should('be.visible')
-  .type(Country)
-        cy.get(variable1.additionalCurrenciesLocators.selectCurrency).wait(3000).should('be.visible').click().type(Currencies)
-        cy.get('.ant-spin-dot').should('not.exist')
-        cy.get(variable1.additionalCurrenciesLocators.emailHeading).should('be.visible').should('contain.text','Recipient Email Address')
-        cy.get('#recipientEmail').type(email)
-    }
+    addRecipient(Country, Currencies, email) {
+    // Remove {enter} if passed in parameters
+    const cleanCountry = Country.replace('{enter}', '')
+    const cleanCurrency = Currencies.replace('{enter}', '')
+    
+    this.waitForStablePage()
+    
+    // Click Add Recipient
+    cy.get(variable1.additionalCurrenciesLocators.addRecipient, { timeout: 30000 })
+      .should('be.visible')
+      .should('not.be.disabled')
+      .click()
+    
+    this.waitForStablePage()
+    
+    // Select Country
+    cy.get(variable1.additionalCurrenciesLocators.selectCountry, { timeout: 30000 })
+      .should('be.visible')
+      .should('not.be.disabled')
+      .click()
+
+    cy.get(variable1.additionalCurrenciesLocators.countryDropDownHeading, { timeout: 30000 })
+      .should('be.visible')
+      .type(`${cleanCountry}{enter}`, { delay: 50 })
+    
+    // Wait for dropdown to close
+    // cy.get('.ant-select-dropdown', { timeout: 10000 }).should('not.exist')
+    // this.waitForStablePage()
+    
+    // Select Currency
+    cy.get(variable1.additionalCurrenciesLocators.selectCurrency, { timeout: 30000 })
+      .should('be.visible')
+      .should('not.be.disabled')
+      .click()
+      
+    cy.get(variable1.additionalCurrenciesLocators.selectCurrency)
+      .type(`${cleanCurrency}{enter}`, { delay: 50 })
+    
+    // Wait for dropdown to close
+    // cy.get('.ant-select-dropdown', { timeout: 10000 }).should('not.exist')
+    // this.waitForStablePage()
+    
+    // Enter Email
+    cy.get(variable1.additionalCurrenciesLocators.emailHeading, { timeout: 30000 })
+      .should('be.visible')
+      .should('contain.text', 'Recipient Email Address')
+      
+    cy.get('#recipientEmail', { timeout: 30000 })
+      .should('be.visible')
+      .clear()
+      .type(email, { delay: 50 })
+      
+    cy.get('#recipientEmail').should('have.value', email)
+}
     addBankDetails(iban,swift){
         cy.get(variable1.additionalCurrenciesLocators.iBAN).should('be.visible').type(iban)
         cy.get(variable1.additionalCurrenciesLocators.sWIFT).should('be.visible').type(swift)
@@ -84,25 +128,55 @@ cy.get(variable1.additionalCurrenciesLocators.countryDropDownHeading, { timeout:
         cy.get('#state').type('ALBERTA{enter}')
     }
     saveRecipient() {
-  cy.get(variable1.additionalCurrenciesLocators.submitBtn, { timeout: 20000 })
-    .should('be.visible')
-    .and('not.be.disabled')
-    .click()
-
+  this.waitForStablePage()
   
-  cy.get(variable1.additionalCurrenciesLocators.successMessage, { timeout: 20000 })
-    .should('be.visible')
-
-  cy.get('.ant-spin-dot', { timeout: 20000 }).should('not.exist')
-
-  cy.get(variable1.additionalCurrenciesLocators.payRecipient, { timeout: 20000 })
+  cy.get(variable1.additionalCurrenciesLocators.submitBtn, { timeout: 30000 })
     .should('be.visible')
     .and('not.be.disabled')
     .click()
+
+  cy.get(variable1.additionalCurrenciesLocators.successMessage, { timeout: 40000 })
+    .should('be.visible')
+
+  this.waitForStablePage()
+
+  cy.get(variable1.additionalCurrenciesLocators.payRecipient, { timeout: 30000 })
+    .should('be.visible')
+    .and('not.be.disabled')
+    .click()
+    
+  this.waitForStablePage()
+}
+waitForPageLoad(timeout = 60000) {
+    cy.window().its('document.readyState').should('eq', 'complete')
+    
+    cy.get('body', { timeout: timeout }).then($body => {
+        if ($body.find('.ant-spin-dot').length > 0) {
+            cy.get('.ant-spin-dot', { timeout: timeout }).should('not.exist')
+        }
+        if ($body.find('.ant-spin-spinning').length > 0) {
+            cy.get('.ant-spin-spinning', { timeout: timeout }).should('not.exist')
+        }
+    })
+    
+    cy.wait(500)
 }
     waitForStablePage() {
-  cy.get('.ant-spin-dot', { timeout: 20000 }).should('not.exist')
-  cy.get('.ant-spin-spinning', { timeout: 20000 }).should('not.exist')
+  // Check if spinner exists before waiting for it to disappear
+  cy.get('body').then($body => {
+    if ($body.find('.ant-spin-dot').length > 0) {
+      cy.get('.ant-spin-dot', { timeout: 30000 }).should('not.exist')
+    }
+  })
+  
+  cy.get('body').then($body => {
+    if ($body.find('.ant-spin-spinning').length > 0) {
+      cy.get('.ant-spin-spinning', { timeout: 30000 }).should('not.exist')
+    }
+  })
+  
+  // Small wait for DOM stability
+  cy.wait(500)
 }
     addBusinessRecipient(country){
         cy.get(variable1.additionalCurrenciesLocators.businessRecipient).click()

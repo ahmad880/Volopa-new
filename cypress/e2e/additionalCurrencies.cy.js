@@ -23,7 +23,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SGD{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SGD',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('tester SGD','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -35,7 +35,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
+        newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.individualRecipient('QA Tester SGD','SINGAPORE{enter}')
         newRecipient.saveRecipient()
@@ -183,7 +183,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'TRY{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'TRY',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('tester TRY','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -195,7 +195,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('TURKEY{enter}' ,'TRY{enter}',email)
+        newRecipient.addRecipient('TURKEY{enter}' ,'TRY',email)
         newRecipient.addBankDetails('TR690006245145456117494371','CAYTTRIS002')
         newRecipient.individualRecipient('QA Tester TRY','TURKEY{enter}')
         newRecipient.saveRecipient()
@@ -234,7 +234,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KWD{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KWD',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA KWD','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -246,7 +246,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('KUWAIT{enter}' ,'KWD{enter}',email)
+        newRecipient.addRecipient('KUWAIT{enter}' ,'KWD',email)
         newRecipient.addBankDetails('KW81CBKU0000000000001234560101','ABKKKWKW')
         newRecipient.individualRecipient('QA KWD','KUWAIT{enter}')
         newRecipient.saveRecipient()
@@ -259,7 +259,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'OMR{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'OMR',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA OMR','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -271,7 +271,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('OMAN{enter}' ,'OMR{enter}',email)
+        newRecipient.addRecipient('OMAN{enter}' ,'OMR',email)
         newRecipient.addBankDetails('OM040280000012345678901','BDOFOMRUMIB')
         newRecipient.individualRecipient('QA OMR','OMAN{enter}')
         newRecipient.saveRecipient()
@@ -284,7 +284,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SAR{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SAR',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA SAR','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -296,7 +296,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('SAUDI ARABIA{enter}' ,'SAR{enter}',email)
+        newRecipient.addRecipient('SAUDI ARABIA{enter}' ,'SAR',email)
         newRecipient.addBankDetails('SA0380000000608010167519','AIASSARI')
         newRecipient.individualRecipient('QA SAR','SAUDI ARABIA{enter}')
         newRecipient.saveRecipient()
@@ -333,7 +333,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'QAR{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'QAR',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA QAR','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -345,7 +345,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('QATAR{enter}' ,'QAR{enter}',email)
+        newRecipient.addRecipient('QATAR{enter}' ,'QAR',email)
         newRecipient.addBankDetails('QA58DOHB00001234567890ABCDEFG','ALZAQAQA')
         newRecipient.individualRecipient('QA QAR','QATAR{enter}')
         newRecipient.saveRecipient()
@@ -358,7 +358,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'CZK{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'CZK',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA CZK','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -370,7 +370,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('Czech Republic{enter}' ,'CZK{enter}',email)
+        newRecipient.addRecipient('Czech Republic{enter}' ,'CZK',email)
         newRecipient.addBankDetails('CZ5508000000001234567899','AKCNCZP2')
         newRecipient.individualRecipient('QA CZK','Czech Republic{enter}')
         newRecipient.saveRecipient()
@@ -407,7 +407,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'RON{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'RON',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA RON','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -419,7 +419,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('ROMANIA{enter}' ,'RON{enter}',email)
+        newRecipient.addRecipient('ROMANIA{enter}' ,'RON',email)
         newRecipient.addBankDetails('RO66BACX0000001234567890','ALBPROBU')
         newRecipient.individualRecipient('QA RON','ROMANIA{enter}')
         newRecipient.saveRecipient()
@@ -456,7 +456,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'ILS{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'ILS',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA ILS','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -468,7 +468,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('ISRAEL{enter}' ,'ILS{enter}',email)
+        newRecipient.addRecipient('ISRAEL{enter}' ,'ILS',email)
         newRecipient.addBankDetails('IL170108000000012612345','ASRIILIC')
         newRecipient.individualRecipient('QA ILS','ISRAEL{enter}')
         newRecipient.saveRecipient()
@@ -481,7 +481,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'HUF{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'HUF',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA HUF','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -493,7 +493,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('HUNGARY{enter}' ,'HUF{enter}',email)
+        newRecipient.addRecipient('HUNGARY{enter}' ,'HUF',email)
         newRecipient.addBankDetails('HU42117730161111101800000000','AKKHHUHB')
         newRecipient.individualRecipient('QA HUF','HUNGARY{enter}')
         newRecipient.saveRecipient()
@@ -530,7 +530,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KES{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KES',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA KES','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -542,7 +542,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('KENYA{enter}' ,'KES{enter}',email)
+        newRecipient.addRecipient('KENYA{enter}' ,'KES',email)
         newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
         //cy.get('#bankBranch').type('city branch')
         newRecipient.individualRecipient('QA KES','KENYA{enter}')
@@ -581,7 +581,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'UGX{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'UGX',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA UGX','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -593,7 +593,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UGANDA{enter}' ,'UGX{enter}',email)
+        newRecipient.addRecipient('UGANDA{enter}' ,'UGX',email)
         newRecipient.addBankDetailsWithAccNo('CCEIUGKA','049712')
         newRecipient.individualRecipient('QA UGX','UGANDA{enter}')
         newRecipient.saveRecipient()
@@ -606,7 +606,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'BHD{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'BHD',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA BHD','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -618,7 +618,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('BAHRAIN{enter}' ,'BHD{enter}',email)
+        newRecipient.addRecipient('BAHRAIN{enter}' ,'BHD',email)
         newRecipient.addBankDetails('BH67BMAG00001299123456','ABBGBHBM')
         newRecipient.individualRecipient('QA BHD','BAHRAIN{enter}')
         newRecipient.paymentPurpose()
@@ -793,7 +793,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'AED{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'AED',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.individualRecipient('QA AED','UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -805,7 +805,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED{enter}',email)
+        newRecipient.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED',email)
         newRecipient.addBankDetails('AE070331234567890123456','AARPAEAA')
         newRecipient.individualRecipient('QA AED','UNITED ARAB EMIRATES{enter}')
         newRecipient.paymentPurpose()
@@ -1005,7 +1005,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('INDIA{downarrow}{enter}' ,'INR{enter}',email)
+        newRecipient.addRecipient('INDIA{downarrow}{enter}' ,'INR',email)
         newRecipient.addIndiaBankDetail()
         newRecipient.individualRecipient('QA IND','INDIA{downarrow}{enter}')
         newRecipient.paymentPurpose()
@@ -1033,7 +1033,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SAR{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SAR',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1045,7 +1045,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('SAUDI ARABIA{enter}' ,'SAR{enter}',email)
+        newRecipient.addRecipient('SAUDI ARABIA{enter}' ,'SAR',email)
         newRecipient.addBankDetails('SA0380000000608010167519','AIASSARI')
         newRecipient.addBusinessRecipient('SAUDI ARABIA{enter}')
         newRecipient.saveRecipient()
@@ -1082,7 +1082,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KWD{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KWD',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1094,7 +1094,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('KUWAIT{enter}' ,'KWD{enter}',email)
+        newRecipient.addRecipient('KUWAIT{enter}' ,'KWD',email)
         newRecipient.addBankDetails('KW81CBKU0000000000001234560101','ABKKKWKW')
         newRecipient.addBusinessRecipient('KUWAIT{enter}')
         newRecipient.saveRecipient()
@@ -1107,7 +1107,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'OMR{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'OMR',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1119,7 +1119,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('OMAN{enter}' ,'OMR{enter}',email)
+        newRecipient.addRecipient('OMAN{enter}' ,'OMR',email)
         newRecipient.addBankDetails('OM040280000012345678901','BDOFOMRUMIB')
         newRecipient.addBusinessRecipient('OMAN{enter}')
         newRecipient.saveRecipient()
@@ -1132,7 +1132,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'QAR{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'QAR',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1144,7 +1144,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('QATAR{enter}' ,'QAR{enter}',email)
+        newRecipient.addRecipient('QATAR{enter}' ,'QAR',email)
         newRecipient.addBankDetails('QA58DOHB00001234567890ABCDEFG','ALZAQAQA')
         newRecipient.addBusinessRecipient('QATAR{enter}')
         newRecipient.saveRecipient()
@@ -1157,7 +1157,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'CZK{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'CZK',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1169,7 +1169,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('Czech Republic{enter}' ,'CZK{enter}',email)
+        newRecipient.addRecipient('Czech Republic{enter}' ,'CZK',email)
         newRecipient.addBankDetails('CZ5508000000001234567899','AKCNCZP2')
         newRecipient.addBusinessRecipient('Czech Republic{enter}')
         newRecipient.saveRecipient()
@@ -1206,7 +1206,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'RON{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'RON',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1218,7 +1218,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('ROMANIA{enter}' ,'RON{enter}',email)
+        newRecipient.addRecipient('ROMANIA{enter}' ,'RON',email)
         newRecipient.addBankDetails('RO66BACX0000001234567890','ALBPROBU')
         newRecipient.addBusinessRecipient('ROMANIA{enter}')
         newRecipient.saveRecipient()
@@ -1255,7 +1255,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'ILS{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'ILS',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1267,7 +1267,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('ISRAEL{enter}' ,'ILS{enter}',email)
+        newRecipient.addRecipient('ISRAEL{enter}' ,'ILS',email)
         newRecipient.addBankDetails('IL170108000000012612345','ASRIILIC')
         newRecipient.addBusinessRecipient('ISRAEL{enter}')
         newRecipient.saveRecipient()
@@ -1280,7 +1280,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'HUF{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'HUF',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1292,7 +1292,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('HUNGARY{enter}' ,'HUF{enter}',email)
+        newRecipient.addRecipient('HUNGARY{enter}' ,'HUF',email)
         newRecipient.addBankDetails('HU42117730161111101800000000','AKKHHUHB')
         newRecipient.addBusinessRecipient('HUNGARY{enter}')
         newRecipient.saveRecipient()
@@ -1329,7 +1329,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KES{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'KES',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1341,7 +1341,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('KENYA{enter}' ,'KES{enter}',email)
+        newRecipient.addRecipient('KENYA{enter}' ,'KES',email)
         newRecipient.addBankDetailsWithAccNo('AFRIKENX','049712')
         //cy.get('#bankBranch').type('city branch')
         newRecipient.addBusinessRecipient('KENYA{enter}')
@@ -1380,7 +1380,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'UGX{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'UGX',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1392,7 +1392,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UGANDA{enter}' ,'UGX{enter}',email)
+        newRecipient.addRecipient('UGANDA{enter}' ,'UGX',email)
         newRecipient.addBankDetailsWithAccNo('CCEIUGKA','049712')
         newRecipient.addBusinessRecipient('UGANDA{enter}')
         newRecipient.saveRecipient()
@@ -1405,7 +1405,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'BHD{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'BHD',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1417,7 +1417,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('BAHRAIN{enter}' ,'BHD{enter}',email)
+        newRecipient.addRecipient('BAHRAIN{enter}' ,'BHD',email)
         newRecipient.addBankDetails('BH67BMAG00001299123456','ABBGBHBM')
         newRecipient.addBusinessRecipient('BAHRAIN{enter}')
         newRecipient.paymentPurpose()
@@ -1431,7 +1431,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'AED{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'AED',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1443,7 +1443,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED{enter}',email)
+        newRecipient.addRecipient('UNITED ARAB EMIRATES{enter}' ,'AED',email)
         newRecipient.addBankDetails('AE070331234567890123456','AARPAEAA')
         newRecipient.addBusinessRecipient('UNITED ARAB EMIRATES{enter}')
         newRecipient.paymentPurpose()
@@ -1533,7 +1533,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SGD{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'SGD',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1545,7 +1545,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
+        newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.addBusinessRecipient('SINGAPORE{enter}')
         newRecipient.saveRecipient()
@@ -1584,7 +1584,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'TRY{enter}',email)
+        newRecipient.addRecipient('UNITED KINGDOM{enter}' ,'TRY',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         newRecipient.addBusinessRecipient('UNITED KINGDOM{enter}')
         newRecipient.saveRecipient()
@@ -1596,7 +1596,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('TURKEY{enter}' ,'TRY{enter}',email)
+        newRecipient.addRecipient('TURKEY{enter}' ,'TRY',email)
         newRecipient.addBankDetails('TR690006245145456117494371','CAYTTRIS002')
         newRecipient.addBusinessRecipient('TURKEY{enter}')
         newRecipient.tryIncorpnumber('88878787855')
@@ -1637,7 +1637,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('United states{enter}' ,'USD{enter}',email)
+        newRecipient.addRecipient('United states{enter}' ,'USD',email)
         newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         newRecipient.individualRecipientMexico('QA USA TO USD','United states{enter}')
         newRecipient.postCodeStateUS()
@@ -1650,7 +1650,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('United states{enter}' ,'USD{enter}',email)
+        newRecipient.addRecipient('United states{enter}' ,'USD',email)
         newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         cy.get('#aba').type('026009593')
         newRecipient.individualRecipientMexico('QA USA TO USD','United states{enter}')
@@ -1664,7 +1664,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('United states{enter}' ,'EUR{enter}',email)
+        newRecipient.addRecipient('United states{enter}' ,'EUR',email)
         newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         cy.get('#aba').type('026009593')
         newRecipient.individualRecipientMexico('QA USA TO USD','United states{enter}')
@@ -1679,7 +1679,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('United states{enter}' ,'EUR{enter}',email)
+        newRecipient.addRecipient('United states{enter}' ,'EUR',email)
         newRecipient.addBankDetailsWithAccNo('USBKUS44','011401533')
         newRecipient.individualRecipientMexico('QA USA TO USD','United states{enter}')
         cy.wait(2000)
@@ -1693,7 +1693,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('United kingdom{enter}' ,'GBP{enter}',email)
+        newRecipient.addRecipient('United kingdom{enter}' ,'GBP',email)
         newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
         cy.get('#sortCode').type('770440')
         newRecipient.individualRecipient('QA GBP to UK','United Kingdom{enter}')
@@ -1706,7 +1706,7 @@ describe('Additional Currencies ',function(){
     newRecipient.gotoRecipientList()
     let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-    newRecipient.addRecipient('United kingdom{enter}' ,'USD{enter}',email)
+    newRecipient.addRecipient('United kingdom{enter}' ,'USD',email)
     newRecipient.addBankDetails('GB73BARC20039538243547','AFFLGB22')
     newRecipient.individualRecipient('QA USD to UK','United Kingdom{enter}')
     newRecipient.saveRecipient()
@@ -1720,7 +1720,7 @@ describe('Additional Currencies ',function(){
     newRecipient.gotoRecipientList()
     let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-    newRecipient.addRecipient('China{enter}' ,'CNY{enter}',email)
+    newRecipient.addRecipient('China{enter}' ,'CNY',email)
     newRecipient.addBankDetailsChina('AFFLGB22','55555555','103100000026')
     newRecipient.BusinessCNY('CNY to china','China{enter}')
     newRecipient.paymentPurpose()
@@ -1734,7 +1734,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('TURKEY{enter}' ,'USD{enter}',email)
+        newRecipient.addRecipient('TURKEY{enter}' ,'USD',email)
         newRecipient.addBankDetails('TR690006245145456117494371','CAYTTRIS002')
         newRecipient.individualRecipient('QA Tester USD TURKEY','TURKEY{enter}')
         newRecipient.saveRecipient()
@@ -1749,7 +1749,7 @@ describe('Additional Currencies ',function(){
         newRecipient.gotoRecipientList()
         let email = batchPayments.generateRandomString(5)+ '@yopmail.com'
         newRecipient.waitForStablePage()
-        newRecipient.addRecipient('SINGAPORE{enter}' ,'USD{enter}',email)
+        newRecipient.addRecipient('SINGAPORE{enter}' ,'USD',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.individualRecipient('QA Tester USD SINGAPORE','SINGAPORE{enter}')
         newRecipient.saveRecipient()
@@ -1757,5 +1757,6 @@ describe('Additional Currencies ',function(){
         newRecipient.checkSettelment('be.disabled','be.enabled')
     })
     
-
+//for the cases currently skipped need following chnages
+// remove the {enter} from currency selection
 })

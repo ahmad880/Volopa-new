@@ -3,6 +3,42 @@ const variable= require('../PageElements/PaymentsDashboard.json')
 const variable2 = require('../PageElements/BatchPayments.json')
 
 export class AdditionalCurrencies {
+    // Wait for network to be idle (no pending requests)
+waitForNetworkIdle(timeout = 10000) {
+  cy.window().then((win) => {
+    return new Cypress.Promise((resolve) => {
+      let requestCount = 0
+      const checkInterval = 100
+      let stableTime = 0
+      const requiredStableTime = 1000 // 1 second of no activity
+      
+      const observer = setInterval(() => {
+        // Check for any pending XHR/Fetch requests
+        const hasActiveRequests = win.performance
+          .getEntriesByType('resource')
+          .some(entry => !entry.responseEnd)
+        
+        if (!hasActiveRequests) {
+          stableTime += checkInterval
+          
+          if (stableTime >= requiredStableTime) {
+            clearInterval(observer)
+            resolve()
+          }
+        } else {
+          stableTime = 0
+        }
+      }, checkInterval)
+      
+      // Timeout failsafe
+      setTimeout(() => {
+        clearInterval(observer)
+        resolve()
+      }, timeout)
+    })
+  })
+}
+    
     goToPaymentsDashborad(){
         cy.get(variable.paymentsDashboardLocators.menuBtn).should('be.visible').click()
         cy.get(variable.paymentsDashboardLocators.paymentsDashboardBtn).should('be.visible').click()
@@ -162,7 +198,10 @@ waitForPageLoad(timeout = 60000) {
     cy.wait(500)
 }
     waitForStablePage() {
-  // Check if spinner exists before waiting for it to disappear
+  // Wait for network to be idle first
+  this.waitForNetworkIdle(10000)
+  
+  // Then check spinners
   cy.get('body').then($body => {
     if ($body.find('.ant-spin-dot').length > 0) {
       cy.get('.ant-spin-dot', { timeout: 30000 }).should('not.exist')
@@ -175,7 +214,7 @@ waitForPageLoad(timeout = 60000) {
     }
   })
   
-  // Small wait for DOM stability
+  // Final wait for any animations
   cy.wait(500)
 }
     addBusinessRecipient(country){

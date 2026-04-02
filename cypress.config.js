@@ -141,11 +141,11 @@ module.exports = defineConfig({
 
       return config;
     },
-    retries: { runMode: 2, openMode: 0 },
+    retries: { runMode: 1, openMode: 0 },
     baseUrl: 'https://webapp01.volopa-dev.com/',
     pageLoadTimeout: 100000,
     requestTimeout: 30000,
-    responseTimeout: 30000,
+    responseTimeout: 60000,
     defaultCommandTimeout: 100000,
     experimentalMemoryManagement: true,
     video: false,

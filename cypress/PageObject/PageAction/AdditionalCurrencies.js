@@ -109,7 +109,6 @@ waitForNetworkIdle(timeout = 10000) {
       
     cy.get('#recipientEmail', { timeout: 30000 })
       .should('be.visible')
-      .clear()
       .type(email, { delay: 50 })
       
     cy.get('#recipientEmail').should('have.value', email)

@@ -43,7 +43,7 @@ beforeEach(() => {
     const url = req.url
     
     // Skip tracking for static assets
-    if (url.includes('.js') || url.includes('.css') || url.includes('.png')) {
+    if (url.includes('.js') || url.includes('.css') || url.includes('.png') || url.includes('.jpg')) {
       return
     }
     
@@ -52,27 +52,36 @@ beforeEach(() => {
       requestRetries[url] = 0
     }
     
-    req.on('response', (res) => {
-      // Log successful responses (only for API calls)
-      if (url.includes('/api/')) {
-        cy.log(`✅ ${req.method} ${url} - ${res.statusCode}`)
-      }
-    })
+    // REMOVED: cy.log() from inside req.on() callbacks
+    // Instead, we'll handle logging differently
     
-    req.on('after:response', (res) => {
-      // If request failed, retry up to 3 times
-      if (!res || res.statusCode >= 400 || res.statusCode === 0) {
+    req.continue((res) => {
+      // Handle failed responses
+      if (res.statusCode >= 400 || res.statusCode === 0) {
         if (requestRetries[url] < 3) {
           requestRetries[url]++
-          cy.log(`🔄 Retry ${requestRetries[url]}/3 for ${url}`)
           
-          // Wait before retry
-          cy.wait(1000 * requestRetries[url])
-          
-          // Don't throw error yet - let it retry
-          return
+          // Use Cypress.log instead of cy.log (doesn't add to command queue)
+          Cypress.log({
+            name: 'Retry',
+            message: `Attempt ${requestRetries[url]}/3 for ${req.method} ${url}`,
+            consoleProps: () => ({
+              URL: url,
+              Method: req.method,
+              Status: res.statusCode,
+              Attempt: requestRetries[url]
+            })
+          })
         } else {
-          cy.log(`❌ Failed after 3 retries: ${url}`)
+          Cypress.log({
+            name: 'Failed',
+            message: `Failed after 3 retries: ${req.method} ${url}`,
+            consoleProps: () => ({
+              URL: url,
+              Method: req.method,
+              Status: res.statusCode
+            })
+          })
         }
       }
     })

@@ -1743,7 +1743,7 @@ describe('Additional Currencies ',function(){
         newRecipient.checkSettelment('be.disabled','be.enabled')
     }) 
 
-    it('Verify that if Currency= USD and Country = SINGAPORE  & Client = UK and check priority settlement is enabled', function(){
+    it.only('Verify that if Currency= USD and Country = SINGAPORE  & Client = UK and check priority settlement is enabled', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()

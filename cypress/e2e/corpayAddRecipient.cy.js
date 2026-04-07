@@ -12,7 +12,7 @@ describe('Corpay Add Recipient',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(function(){
-        cy.visit('https://webapp01.mybusiness.volopa-dev.com/', { timeout: 10000 })
+        cy.visit('https://webapp03.mybusiness.volopa-dev.com/', { timeout: 10000 })
         cy.viewport(1440,1000)
     })
     

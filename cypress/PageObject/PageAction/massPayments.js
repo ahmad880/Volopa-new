@@ -38,7 +38,7 @@ export class massPayments {
     gotoFilesinProgress(){
         cy.get('.ant-row-end > .ant-col > .ant-btn').should('be.visible').should('contain.text','Files in Progress').click()
         cy.get('.ant-modal-body').should('be.visible')
-        cy.get(':nth-child(2) > :nth-child(1) > [data-testid="container"] > .ant-card-body > :nth-child(1) > .ant-col').should('contain.text','Files in Progress')
+        cy.get('.ant-modal-body > :nth-child(1) > :nth-child(1) > [data-testid="container"] > .ant-card-body > :nth-child(1) > .ant-col > .ant-typography').should('contain.text','Files in Progress')
     }
     navigatingBackFromFip(){
         cy.get('.ant-modal-close-x').should('be.visible').click()

@@ -61,13 +61,13 @@ describe('Batch Payments',function(){
             let name1 = 'INDIVIDUAL AED ET'+' ' + lName1+'{enter}'
             batchPayments.validateSearchBar(name1)
                 //Validate Purpose on batch payment
-                cy.get('.ant-select-selector').eq(1).click()
-                cy.get('.ant-select-dropdown').eq(1).find('.ant-select-item-option-content').then(Element=>{
+                cy.get('.ant-select-selector').eq(3).click()
+                cy.get('.ant-select-dropdown').eq(2).find('.ant-select-item-option-content').then(Element=>{
                     let list = Element.text()
                     cy.log(list)
                     cy.get('@purposeList').then(purposeList=>{
                         expect(list).to.eq(purposeList)
-                        cy.get('.ant-select-selector').eq(1).click()
+                        cy.get('.ant-select-selector').eq(3).click()
                     })
                 })
                 cy.wait(1000)

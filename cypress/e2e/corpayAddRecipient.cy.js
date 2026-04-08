@@ -840,7 +840,7 @@ describe('Corpay Add Recipient',function(){
         newRecipient.addRecipient('SINGAPORE{enter}' ,'SGD{enter}',email)
         newRecipient.addBankDetailsWithAccNo('ACLPSGSG','049712')
         newRecipient.singaporeCorpayDeatails('1111','123')
-        newRecipient.addBusinessRecipientCorpay('SINGAPORE{enter}','')
+        newRecipient.addBusinessRecipientCorpay('SINGAPORE{enter}','SGD')
         newRecipient.saveRecipient()
         newRecipient.checkSettelmentEnabledBoth('be.enabled','be.enabled')
     })

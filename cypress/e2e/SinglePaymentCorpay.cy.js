@@ -22,11 +22,28 @@ describe('Single Payment Corpay',function(){
     let userName = 'Corpay_test1@volopa.com'
     let password = 'testTest1'
     beforeEach(() => {
-       const baseUrl = 'https://webapp01.mybusiness.volopa-dev.com/';
-       cy.visit(baseUrl);
-        //paymentspage.clearCache()
-        cy.viewport(1440,1000)
-    })
+
+        cy.visit('https://webapp03.mybusiness.volopa-dev.com/', { timeout: 10000 });
+        cy.viewport(1440, 1000);
+
+        cy.url().then((url) => {
+    const match = url.match(/webapp(\d+)\./);
+    const envNumber = match ? match[1] : '01';  
+
+    const apiEnv = `VolopaApiOauth2WebApp${envNumber}`;
+    Cypress.env("apiEnv", apiEnv);
+  });
+
+  // ✅ Ensure this runs AFTER url resolution
+  cy.then(() => {
+    const apiEnv = Cypress.env("apiEnv");
+
+    cy.intercept(
+      'POST',
+      `**/${apiEnv}/exchange/b2b/self/quote/temp`
+    ).as('quoteApi');
+  });
+      })  
 
     it('TC-AC-001 - Verify that if Currency = SGD and Country = UNITED KINGDOM & client = UK and check priority settlement is enabled and make a payment with GBP using Push Funds', function () {
   // ─────────────── Setup & Recipient Creation ───────────────

@@ -59,7 +59,7 @@ export class NewPayment {
         cy.get(variable1.newPaymentPageLocators.loadingIcon).should('not.exist')
     }
     addrecipientDetail(amount ,email){
-        cy.get(variable1.newPaymentPageLocators.amount).type(amount)
+        cy.get(variable1.newPaymentPageLocators.amount).clear().type(amount, { delay: 200 })
         cy.get('#email').should('contain.value',email ,{force:true})
         //cy.get(variable1.newPaymentPageLocators.reasonForPaymentDropDown).eq(0).click()
         //cy.get(variable1.newPaymentPageLocators.selectReasonForPayment).eq(0).click({force:true})

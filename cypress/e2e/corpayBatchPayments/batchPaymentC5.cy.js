@@ -408,7 +408,7 @@ it('TC-AC-047 - Verify that if Currency= USD and Country = UNITED KINGDOM & clie
     batchPayments.addrecipientDetail1(amount2, email2)
 
     // ─────────────── Settlement Validation (Batch) ───────────────
-    batchPayments.checkSettelment('be.disabled', 'be.enabled')
+    batchPayments.checkSettelments1('be.disabled', 'be.enabled')
 
     // ─────────────── Proceed with Push Funds ───────────────
     batchPayments.proceedflow('GBP', 'GBP', 'Push Fund', 'Push Fund')

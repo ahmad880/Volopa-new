@@ -5082,7 +5082,7 @@ describe('New Payment', function () {
         newPayment.validateYapilyFlow()
         //newPayment.cancelEasyTransfer()
     })
-    it.only('TC_NP_091 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
+    it('TC_NP_091 - Add 1 recipient(Business) from the "Add Recipient" page with country = France and currency = USD. After adding, make a single payment to the recipient using GBP and easy transfer.', function(){
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -8049,7 +8049,7 @@ describe('New Payment', function () {
     //Before executing Approval workflow cases, make sure no approval rule is set
     // change the approver, login user if need to run on differnt client
     //Approval workflow for single Payment
-    xit('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using push funds for single payments.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -8203,7 +8203,7 @@ describe('New Payment', function () {
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for single payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8358,7 +8358,7 @@ describe('New Payment', function () {
     newPayment.removeApprovalrule()
     newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for single payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -8513,7 +8513,7 @@ describe('New Payment', function () {
     newPayment.saveApprovalRule();
     });
     //Approval workflow for batch payments
-    xit('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Push Funds for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8675,7 +8675,7 @@ describe('New Payment', function () {
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Volopa Collection Account for Batch payment.', function () {
         signin.Login('testnew@volopa.com', password);
     
         // steps to add approval rule
@@ -8837,7 +8837,7 @@ describe('New Payment', function () {
         newPayment.removeApprovalrule();
         newPayment.saveApprovalRule();
     });
-    xit('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
+    it.only('Verify that approval workflow is working correctly for GBP using Easy Transfer for Batch payment.', function () {
         signin.Login(userName, password);
     
         // steps to add approval rule
@@ -9002,7 +9002,7 @@ describe('New Payment', function () {
     });
 
     //Single Schedued payments push funds
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+2 .', function () {
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -9154,7 +9154,7 @@ describe('New Payment', function () {
         .and('have.text', longFmt1);
     
     }); 
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for single payments for today+3 .', function () {
         signin.Login(userName, password)
         newRecipient.goToPaymentsDashborad()
         newRecipient.gotoRecipientList()
@@ -9308,7 +9308,7 @@ describe('New Payment', function () {
     
     });
     //Batch Schedued payments push funds
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+2 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();
@@ -9390,7 +9390,7 @@ describe('New Payment', function () {
         cy.get('tbody tr:nth-child(2) td:nth-child(7)').should('be.visible').should('contain.text', amount1);
     
     });
-    xit('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
+    it.only('Verify that Scheduled payment is working correctly for GBP using Push Funds for Batch payments for today+3 .', function () {
         signin.Login(userName, password);
         // create a Scheduled payment
         newRecipient.goToPaymentsDashborad();

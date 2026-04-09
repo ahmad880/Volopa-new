@@ -519,7 +519,7 @@ cy.get('.ant-col-9 > .ant-typography')
         .get(variable1.additionalCurrenciesLocators.countryDropDownHeading).should('be.visible').type(Country)
         cy.get(variable1.additionalCurrenciesLocators.selectCurrency).should('be.visible').click().wait(5000).type(Currencies)
         cy.get(variable1.additionalCurrenciesLocators.emailHeading).should('be.visible').should('contain.text','Recipient Email Address')
-        cy.get(variable1.additionalCurrenciesLocators.emailFeild).should('be.visible').type(email)
+        cy.get(variable1.additionalCurrenciesLocators.emailFeild).should('be.visible').type(email, {timeout: 4000})
     }
      //only chnina
     addBusinessRecipient(bName,country){

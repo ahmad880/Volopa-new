@@ -44,19 +44,37 @@ export class WalletDashboard {
         cy.get(variable1.walletDashboardLocators.cardDashboard).should('contain.text','Cards Dashboard')
     }
     validateRateChecker(){
-        cy.get(variable1.walletDashboardLocators.rateChecker).should('contain','Rate Checker')
-        cy.get(variable1.walletDashboardLocators.convertTo).type('AUD{enter}')
-        cy.get(variable1.walletDashboardLocators.convertFrom).type('GBP{enter}')
-        cy.get(variable1.walletDashboardLocators.convertFromValue).type(2)
-        cy.get(variable1.walletDashboardLocators.convertBtn).should('be.visible').click({force:true})
-        //cy.url().should('include','convert-balances')
-        cy.get("button[type='submit'] span").should('be.visible').click()
-        cy.wait(3000)
-        this.Verify_Convertion_Comleted()
+        cy.intercept(
+  'GET',
+  '**/company/wallet/breakdown*'
+).as('walletBreakdown')
+
+cy.get(variable1.walletDashboardLocators.rateChecker)
+  .should('contain', 'Rate Checker')
+
+cy.get(variable1.walletDashboardLocators.convertTo)
+  .type('AUD{enter}')
+
+cy.get(variable1.walletDashboardLocators.convertFrom)
+  .type('GBP{enter}')
+
+cy.get(variable1.walletDashboardLocators.convertFromValue)
+  .clear()
+  .type('2')
+
+cy.get(variable1.walletDashboardLocators.convertBtn)
+  .should('be.visible')
+  .click()
+
+cy.wait('@walletBreakdown', { timeout: 60000 })
+  .its('response.statusCode')
+  .should('be.oneOf', [200, 204])
+
+this.Verify_Convertion_Comleted()
     }
     Verify_Convertion_Comleted(){
         cy.get(variable1.walletDashboardLocators.convertBtn).click()
-        cy.wait(4000)
+        cy.wait(5000)
         cy.get(variable1.walletDashboardLocators.assertion1).should('have.text',"Conversion Complete")
           cy.wait(3000)
           //assertion to check the amount on conversion complete popup and recent activity are same
@@ -101,7 +119,7 @@ export class WalletDashboard {
     }
     fundEasyTransfer(){
     cy.get(variable.fundWalletLocators.popupheading).should('contain','Fund via Easy Transfer (Open Banking)')
-    cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(ele=>{
+    cy.get('.ant-col-16 > .ant-space > :nth-child(2) > .ant-typography').invoke('text').then(ele=>{
         let val1= ele.trim()
         cy.wrap(val1).should('contain','GBP').as('val1')
         cy.log(val1)

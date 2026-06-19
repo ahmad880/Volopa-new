@@ -30,7 +30,7 @@
         "Valuee2":".ant-row-space-between > :nth-child(1) > .ant-space-vertical > :nth-child(2) > .ant-space > :nth-child(2) > .ant-typography",
 
         "markAsRead":"a[class='medium fs-18px']",
-        "noRecentActivities":"div[class='ant-card ant-card-bordered'] span[class='ant-typography muli semi-bold fs-18px']",
+        "noRecentActivities":".ant-card-body > .ant-typography",
 
         "showAllBtn":"button[class='ant-btn ant-btn-link medium fs-18px'] span",
 

@@ -25,7 +25,7 @@ export class FundWallet {
     cy.get(variable.fundWalletLocators.amount1).type("2");
     cy.get(variable.fundWalletLocators.description1).type("script testing");
     cy.get(variable.fundWalletLocators.confirmbutton).click();
-    cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(ele=>{
+    cy.get('.ant-col-16 > .ant-space > :nth-child(2) > .ant-typography').invoke('text').then(ele=>{
         let val1= ele.trim()
         cy.wrap(val1).should('contain','GBP').as('val1')
         cy.log(val1)
@@ -197,7 +197,7 @@ export class FundWallet {
       cy.wait(5000)
       cy.get('.ant-card-grid > :nth-child(1) > .ant-col > .ant-typography')
       .should('have.text','Funding Confirmation')
-      cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(text=>{
+      cy.get('.ant-col-16 > :nth-child(2) > .ant-col > .ant-typography').invoke('text').then(text=>{
         text.trim()
         text=text.replace(/USD/g,'')
         cy.log(text)

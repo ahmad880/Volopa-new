@@ -16,7 +16,7 @@ describe('WalletDashboard',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp03.mybusiness.volopa-dev.com/')
+        cy.visit('https://webapp01.mybusiness.volopa-dev.com/')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -70,7 +70,7 @@ describe('WalletDashboard',function(){
             .should('have.text', 'Funding Confirmation');
       
           // Capture the amount shown
-          cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']")
+          cy.get(':nth-child(5) > .ant-col-16 > .ant-space > :nth-child(2) > .ant-typography')
             .invoke('text')
             .then((text) => {
               const amount = text.trim().replace(/USD/g, '');
@@ -128,7 +128,7 @@ describe('WalletDashboard',function(){
           });
         });
       });
-    it('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
+    it.only('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
         cy.wait(5000)

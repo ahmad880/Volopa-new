@@ -26,4 +26,4 @@
 import 'cypress-iframe';
 import 'cypress-if';
 import 'cypress-file-upload';
-
+Cypress.Commands.add('getByTestId', (id) => cy.get(`[data-testid="${id}"]`));

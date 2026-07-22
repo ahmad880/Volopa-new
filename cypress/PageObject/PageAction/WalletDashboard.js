@@ -43,35 +43,41 @@ export class WalletDashboard {
         cy.get(variable1.walletDashboardLocators.cardsBalance).click()
         cy.get(variable1.walletDashboardLocators.cardDashboard).should('contain.text','Cards Dashboard')
     }
-    validateRateChecker(){
-        cy.intercept(
-  'GET',
-  '**/company/wallet/breakdown*'
-).as('walletBreakdown')
+    validateRateChecker() {
 
-cy.get(variable1.walletDashboardLocators.rateChecker)
-  .should('contain', 'Rate Checker')
+  // Register intercept before triggering the API
+  cy.intercept({
+    method: 'GET',
+    pathname: '**/company/wallet/breakdown*'
+  }).as('walletBreakdown');
 
-cy.get(variable1.walletDashboardLocators.convertTo)
-  .type('AUD{enter}')
+  cy.contains('Rate Checker').should('be.visible');
 
-cy.get(variable1.walletDashboardLocators.convertFrom)
-  .type('GBP{enter}')
+  cy.get(variable1.walletDashboardLocators.convertTo)
+    .clear()
+    .type('AUD{enter}');
 
-cy.get(variable1.walletDashboardLocators.convertFromValue)
-  .clear()
-  .type('2')
+  cy.get(variable1.walletDashboardLocators.convertFrom)
+    .clear()
+    .type('GBP{enter}');
 
-cy.get(variable1.walletDashboardLocators.convertBtn)
-  .should('be.visible')
-  .click()
+  cy.get(variable1.walletDashboardLocators.convertFromValue)
+    .clear()
+    .type('2');
 
-cy.wait('@walletBreakdown', { timeout: 60000 })
-  .its('response.statusCode')
-  .should('be.oneOf', [200, 204])
+  cy.get(variable1.walletDashboardLocators.convertBtn)
+    .should('be.visible')
+    .and('not.be.disabled')
+    .click();
 
-this.Verify_Convertion_Comleted()
-    }
+  cy.wait('@walletBreakdown', { timeout: 60000 })
+    .then(({ response }) => {
+      expect(response, 'Wallet breakdown response').to.exist;
+      expect(response.statusCode).to.be.oneOf([200, 204]);
+    });
+
+  this.Verify_Convertion_Comleted();
+}
     Verify_Convertion_Comleted(){
         cy.get(variable1.walletDashboardLocators.convertBtn).click()
         cy.wait(5000)

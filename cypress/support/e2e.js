@@ -35,58 +35,26 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 })
 
 beforeEach(() => {
-  // Reset retry counter for each test
-  requestRetries = {}
-  
-  // Intercept ALL network requests with retry logic
+  requestRetries = {};
+
   cy.intercept('**/*', (req) => {
-    const url = req.url
-    
-    // Skip tracking for static assets
-    if (url.includes('.js') || url.includes('.css') || url.includes('.png') || url.includes('.jpg')) {
-      return
+
+    const url = req.url;
+
+    if (
+      url.endsWith('.js') ||
+      url.endsWith('.css') ||
+      url.endsWith('.png') ||
+      url.endsWith('.jpg')
+    ) {
+      req.continue();
+      return;
     }
-    
-    // Track retries for this URL
-    if (!requestRetries[url]) {
-      requestRetries[url] = 0
-    }
-    
-    // REMOVED: cy.log() from inside req.on() callbacks
-    // Instead, we'll handle logging differently
-    
-    req.continue((res) => {
-      // Handle failed responses
-      if (res.statusCode >= 400 || res.statusCode === 0) {
-        if (requestRetries[url] < 3) {
-          requestRetries[url]++
-          
-          // Use Cypress.log instead of cy.log (doesn't add to command queue)
-          Cypress.log({
-            name: 'Retry',
-            message: `Attempt ${requestRetries[url]}/3 for ${req.method} ${url}`,
-            consoleProps: () => ({
-              URL: url,
-              Method: req.method,
-              Status: res.statusCode,
-              Attempt: requestRetries[url]
-            })
-          })
-        } else {
-          Cypress.log({
-            name: 'Failed',
-            message: `Failed after 3 retries: ${req.method} ${url}`,
-            consoleProps: () => ({
-              URL: url,
-              Method: req.method,
-              Status: res.statusCode
-            })
-          })
-        }
-      }
-    })
-  }).as('allRequests')
-})
+
+    req.continue();
+
+  });
+});
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 // Register visual regression snapshot command globally

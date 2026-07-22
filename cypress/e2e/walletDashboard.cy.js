@@ -16,7 +16,7 @@ describe('WalletDashboard',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp01.mybusiness.volopa-dev.com/')
+        cy.visit('https://webapp06.mybusiness.volopa-dev.com/') 
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -45,11 +45,11 @@ describe('WalletDashboard',function(){
         fundWallet.fund_manual_pushGBP();
       
         cy.wait(5000);
-      
+      cy.get('.m-t-20 > .ant-col > .ant-space > [style=""] > .ant-btn').should('be.visible').should('contain.text', 'Dashboard').click();
         // Click 'Recent Transactions' button
-        cy.get('.m-t-20 > .ant-col > .ant-space > [style=""] > .ant-btn')
-          .should('be.visible')
-          .click();
+        // cy.get('.m-t-20 > .ant-col > .ant-space > [style=""] > .ant-btn')
+        //   .should('be.visible')
+        //   .click();
       
         // Wait for table to be visible
         cy.get('.ant-table-row').should('be.visible');
@@ -128,7 +128,7 @@ describe('WalletDashboard',function(){
           });
         });
       });
-    it.only('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
+    it('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
         cy.wait(5000)

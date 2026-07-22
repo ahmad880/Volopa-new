@@ -1,0 +1,19 @@
+{
+  "signinLocators": {
+    "welcomeHeading":       "[data-testid='signin-welcome-heading']",
+    "username":             "[data-testid='signin-username-input']",
+    "password":             "[data-testid='signin-password-input']",
+    "submitBtn":            "[data-testid='signin-submit-btn']",
+    "usernameError":        "[data-testid='signin-username-error']",
+    "passwordError":        "[data-testid='signin-password-error']",
+    "errorToast":           "[data-testid='signin-error-toast']",
+    "forgotPasswordLink":   "[data-testid='signin-forgot-password-link']",
+
+    "forgotInstruction":    "[data-testid='forgot-instruction-text']",
+    "forgotEmail":          "[data-testid='forgot-email-input']",
+    "forgotSubmitBtn":      "[data-testid='forgot-submit-btn']",
+    "forgotEmailError":     "[data-testid='forgot-email-error']",
+    "forgotSuccessText":    "[data-testid='forgot-success-text']",
+    "forgotBackBtn":        "[data-testid='forgot-back-btn']"
+  }
+}

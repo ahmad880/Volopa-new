@@ -1,44 +1,44 @@
 {
-    "walletDashboardLocators":{
-        "totalCompanyBalance":".ant-typography.light-green.medium.fs-28px",
-        "walletBalance":"span[class='ant-typography dark-green medium fs-28px']",
-        "cardsBalance":".ant-typography.dark-green.medium.fs-28px.pointer",
-        "convertBalances":".slick-slide.slick-active.slick-current div div div .ant-card.ant-card-bordered.ant-card-hoverable.b-g.center-align-text.hover-no-border",
-        "fundCard":"[class='ant-typography muli semi-bold fs-18px']",
-        "fundWallet":"[class='ant-typography muli semi-bold fs-18px']",
-        "RecentActivity":"[class='ant-typography dark-green medium fs-25px']",
-        "walletBreakdown":".ant-col-md-20 > :nth-child(1) > .ant-col-24 > .fs-25px",
-        "rateChecker":".ant-col-sm-18 > :nth-child(1) > .ant-col > .ant-typography",
-        "recentFundingHistory":".ant-col-sm-20 > :nth-child(1) > .ant-col > .ant-typography",
+  "walletDashboardLocators": {
+    "totalCompanyBalance":      "[data-testid='wd-total-company-balance-label']",
+    "walletBalance":            "[data-testid='wd-wallet-balance-label']",
+    "cardsBalance":             "[data-testid='wd-cards-balance-label']",
+    "convertBalances":          "[data-testid='wd-convert-balances-tile']",
+    "fundCard":                 "[data-testid='wd-fund-card-tile']",
+    "fundWallet":               "[data-testid='wd-fund-wallet-tile']",
+    "RecentActivity":           "[data-testid='wd-recent-activity-heading']",
+    "walletBreakdown":          "[data-testid='wd-wallet-breakdown-heading']",
+    "rateChecker":              "[data-testid='wd-rate-checker-heading']",
+    "recentFundingHistory":     "[data-testid='wd-recent-funding-history-heading']",
 
-        "totalCompanyBalanceValue":".ant-col-lg-10 > :nth-child(2) > .ant-col > .ant-typography",
-        "walletBalanceValue":"div[class='ant-col'] [class='ant-typography  bold fs-28px']",
-        "cardsBalanceValue":"div[class='ant-col'] [class='ant-typography  bold fs-28px pointer']",
+    "totalCompanyBalanceValue": "[data-testid='wd-total-company-balance-value']",
+    "walletBalanceValue":       "[data-testid='wd-wallet-balance-value']",
+    "cardsBalanceValue":        "[data-testid='wd-cards-balance-value']",
 
-        "cardDashboard":"[id='rc-tabs-0-tab-/cards/dashboard']",
+    "cardDashboard":            "[data-testid='cards-dashboard-tab']",
 
-        "convertTo":"#convertToCurrency",
-        "convertFrom":"#convertFromCurrency",
-        "convertFromValue":"#convertFromValue",
-        "convertBtn":"button[type='submit']",
-        "assertion1":".ant-modal-body > :nth-child(1) > .ant-col",
-        "value1":".m-t-10 > [style='flex: 1 1 auto;'] > [style='margin-left: -4px; margin-right: -4px; row-gap: 8px;'] > [style='padding-left: 4px; padding-right: 4px; flex: 1 1 auto;'] > .ant-input-number > .ant-input-number-input-wrap > .ant-input-number-input",
-        "value2":".m-t-20 > [style='flex: 1 1 auto;'] > [style='margin-left: -4px; margin-right: -4px; row-gap: 8px;'] > [style='padding-left: 4px; padding-right: 4px; flex: 1 1 auto;'] > .ant-input-number > .ant-input-number-input-wrap > .ant-input-number-input",
-        "istrecent":"div[class='slick-slide slick-active slick-current'] div[class='ant-col right-align-text'] div:nth-child(2)",
-        "dashboard":".ant-row-space-around > .ant-col > .ant-space > [style=''] > .ant-btn",
-        "Valuee1":":nth-child(2) > .ant-col > .ant-space-vertical > :nth-child(2) > .ant-space > :nth-child(2) > .ant-typography",
-        "Valuee2":".ant-row-space-between > :nth-child(1) > .ant-space-vertical > :nth-child(2) > .ant-space > :nth-child(2) > .ant-typography",
+    "convertTo":                "[data-testid='rate-convert-to-input']",
+    "convertFrom":              "[data-testid='rate-convert-from-input']",
+    "convertFromValue":         "[data-testid='rate-convert-from-amount']",
+    "convertBtn":               "[data-testid='rate-convert-submit-btn']",
+    "assertion1":               "[data-testid='conversion-complete-heading']",
+    "value1":                   "[data-testid='conversion-sell-amount']",
+    "value2":                   "[data-testid='conversion-buy-amount']",
+    "istrecent":                "[data-testid='recent-activity-latest-item']",
+    "dashboard":                "[data-testid='wd-back-to-dashboard-btn']",
+    "Valuee1":                  "[data-testid='recent-activity-sell-value']",
+    "Valuee2":                  "[data-testid='recent-activity-buy-value']",
+    "cbConvertBtn":             "[data-testid='cb-convert-btn']",
 
-        "markAsRead":"a[class='medium fs-18px']",
-        "noRecentActivities":".ant-card-body > .ant-typography",
+    "markAsRead":               "[data-testid='wd-mark-all-read-link']",
+    "noRecentActivities":       "[data-testid='wd-no-recent-activities-text']",
 
-        "showAllBtn":"button[class='ant-btn ant-btn-link medium fs-18px'] span",
+    "showAllBtn":               "[data-testid='wd-show-all-btn']",
 
-        "convertBalancesPage":"[id='rc-tabs-0-tab-/wallet/convert-balances']",
-        "fundCardSelection":"[data-testid='container'] > .ant-card-body > :nth-child(1) > .ant-col",
-        "fundWalletPage":"[id='rc-tabs-0-tab-/wallet/fund']",
-        "walletDashboard":"[id='rc-tabs-0-tab-/wallet/dashboard']",
-        "crossBtn":".ant-modal-close-x"
-
-    }
+    "convertBalancesPage":      "[data-testid='convert-balances-tab']",
+    "fundCardSelection":        "[data-testid='fund-card-selection-heading']",
+    "fundWalletPage":           "[data-testid='fund-wallet-tab']",
+    "walletDashboard":          "[data-testid='wallet-dashboard-tab']",
+    "crossBtn":                 "[data-testid='modal-close-btn']"
+  }
 }

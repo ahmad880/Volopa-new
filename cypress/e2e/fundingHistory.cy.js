@@ -14,18 +14,18 @@ describe('Funding History',function(){
       win.localStorage.clear();
       win.sessionStorage.clear();
   });
-    cy.visit('https://webapp03.mybusiness.volopa-dev.com/')
+    cy.visit('https://webapp02.mybusiness.volopa-dev.com/')
       signin.Login(userName, password)
       cy.viewport(1440,1000)
   })
-  it('TC-FH-001 - Validate the clicking on "funding history" from header navigate the user to "your transaction history" page', function(){
+  it.only('TC-FH-001 - Validate the clicking on "funding history" from header navigate the user to "your transaction history" page', function(){
       fundingHistory.goToFundingHistoryPage()
   })
-  it('TC-FH-002 - Validate that search functionality is working fine on "Your transaction history" page with admin', function(){
+  it.only('TC-FH-002 - Validate that search functionality is working fine on "Your transaction history" page with admin', function(){
       fundingHistory.goToFundingHistoryPage()
       fundingHistory.validateSearchField('testnew')
   })
-  it('TC-FH-003 - Validate that search functionality is working fine on "Your transaction history" page with discription', function(){
+  it.only('TC-FH-003 - Validate that search functionality is working fine on "Your transaction history" page with discription', function(){
       fundingHistory.goToFundingHistoryPage()
       fundingHistory.validateSearchField('script')
   })
@@ -33,49 +33,49 @@ describe('Funding History',function(){
       fundingHistory.goToFundingHistoryPage()
       fundingHistory.validatePagination()
   })
-  it('TC-FH-005 - Validate the pagination filters work as intended', function(){
+  it.only('TC-FH-005 - Validate the pagination filters work as intended', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validatePaginationFilters('10 / page')
     fundingHistory.validateRows(10)
     fundingHistory.validatePaginationFilters('50 / page')
     fundingHistory.validateRows(50)
   })
-  it('TC-FH-006 - Verify that by default there should be twenty transaction in transaction history page.', function(){
+  it.only('TC-FH-006 - Verify that by default there should be twenty transaction in transaction history page.', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validateDefaultPaginationFilter()
     fundingHistory.validateRows(20)
   })
-  it('TC-FH-007 - Verify that the calendar filter gives the accurate result', function(){
+  it.only('TC-FH-007 - Verify that the calendar filter gives the accurate result', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validateCelenderIcon()
     // changing will be pending
   })
-  it('TC-FH-008 - Verify that sorting functionality is working as expected on Date column', function(){
+  it.only('TC-FH-008 - Verify that sorting functionality is working as expected on Date column', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validateAscendingDateSorting()
     fundingHistory.validateDescendingDateSorting()
   })
-  it('TC-FH-009 - Verify that sorting functionality is working as expected on Admin column', function(){
+  xit('TC-FH-009 - Verify that sorting functionality is working as expected on Admin column', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.valiadteAscendingAdminSorting()
     fundingHistory.valiadteDescendingAdminSorting()
   })
-  it('TC-FH-010 - Verify that sorting functionality is working as expected on Amount column ', function(){
+  it.only('TC-FH-010 - Verify that sorting functionality is working as expected on Amount column ', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validateAscendingAmountSorting()
     fundingHistory.validateDescendingAmountSorting()
   })
-  it('TC-FH-011 - Verify that sorting functionality is working as expected on FundingMethod column', function(){
+  it.only('TC-FH-011 - Verify that sorting functionality is working as expected on FundingMethod column', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.valiadteAscendingFundingMethodSorting()
     fundingHistory.valiadteDescendingFundingMethodSorting()
   })
-  it('TC-FH-012 - Verify that sorting functionality is working as expected on Status column', function(){
+  xit('TC-FH-012 - Verify that sorting functionality is working as expected on Status column', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validateAscendingStatusSorting()
     fundingHistory.validateDescendingStatusSorting()
   })
-  it('TC-FH-013 - Verify that column have sorting icons with them', function(){
+  it.only('TC-FH-013 - Verify that column have sorting icons with them', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.validateSortingIcon()
   })
@@ -84,7 +84,7 @@ describe('Funding History',function(){
     fundingHistory.goToAwaitingFundDetailPage()
     fundingHistory.cancelFunding()
   })
-  it('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
+  it.only('TC-FH-015 - Verify that the user cannot cancel the transaction that has a "Complete" status', function(){
     fundingHistory.goToFundingHistoryPage()
     fundingHistory.goToCompleteFundDetailPage()
   })

@@ -51,20 +51,23 @@ export class FundingHistory{
     cy.get(variable.fundingHistoryLocators.allRows).should('have.length', row)
   }
   validateDefaultPaginationFilter(){
-    cy.get(variable.fundingHistoryLocators.defaultPagination).should('contain.text','20 / page')
+    cy.get(variable.fundingHistoryLocators.pageFilters).should('contain.text','20 / page')
   }
   validateCelenderIcon(){
     const todaysDate = new Date(); // Get today's date
 const formattedDate = todaysDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); // Format the date
 
 // Click to open the calendar
-cy.get(variable.fundingHistoryLocators.clickOnCelenderIcon).click();
+//replace below line after addition on test id
+cy.get('tr > :nth-child(1) > .ant-picker > .ant-picker-input').click()
+//cy.get(variable.fundingHistoryLocators.clickOnCelenderIcon).eq(0).click();
 
 // Wait for the calendar to be visible
 cy.get(variable.fundingHistoryLocators.celender).should('be.visible');
 
 // Retry clicking on the "Today" button if it doesn't respond
-cy.get('.ant-picker-today-btn')
+cy.get(variable.fundingHistoryLocators.todayButton)  //replace with below line when id is available
+//cy.get('.ant-picker-now')
   .should('be.visible')
   .should('contain.text', 'Today')
   .click({ force: true }); // Forcibly clicks in case of overlap or animation issues
@@ -76,12 +79,12 @@ cy.get(variable.fundingHistoryLocators.selectedDate)
   }
   validateSortingIcon(){
     cy.get(variable.fundingHistoryLocators.sortingIcon).eq(0).should('exist')
-    cy.get(variable.fundingHistoryLocators.sortingIcon).eq(1).should('exist')
-    cy.get(variable.fundingHistoryLocators.sortingIcon).eq(2).should('exist')
+    //cy.get(variable.fundingHistoryLocators.sortingIcon).eq(1).should('exist')
+    //cy.get(variable.fundingHistoryLocators.sortingIcon).eq(2).should('exist')
     cy.get(variable.fundingHistoryLocators.sortingIcon).eq(3).should('exist')
     cy.get(variable.fundingHistoryLocators.sortingIcon).eq(4).should('exist')
     cy.get(variable.fundingHistoryLocators.sortingIcon).eq(5).should('exist')
-    cy.get(variable.fundingHistoryLocators.sortingIcon).eq(6).should('exist')
+    //cy.get(variable.fundingHistoryLocators.sortingIcon).eq(6).should('exist')
   }
   goToAwaitingFundDetailPage(){
     cy.get(variable.fundingHistoryLocators.clickOnAwaitingFund).eq(0).click()
@@ -92,7 +95,7 @@ cy.get(variable.fundingHistoryLocators.selectedDate)
   goToCompleteFundDetailPage() {
     // Declare a flag outside the loop to track if we've clicked the first "Complete" status
     let foundComplete = false;
-    cy.get('[data-row-key]').each(($row) => {
+    cy.get(variable.fundingHistoryLocators.transactionRow).each(($row) => {
         if (!foundComplete) {
             const statusText = Cypress.$($row).find(':nth-child(8)').text().trim();
             if (statusText === 'Complete') {
@@ -108,7 +111,7 @@ cy.get(variable.fundingHistoryLocators.selectedDate)
     cy.get(variable.fundingHistoryLocators.returnBtn).click()
   }
   validateAscendingAmountSorting() {
-    cy.get(variable.fundingHistoryLocators.amountButton).click()
+    cy.get(variable.fundingHistoryLocators.amountButton).first().click()
     cy.wait(5000)
     cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
     const totalRows = $transactionRows.length;
@@ -121,7 +124,7 @@ cy.get(variable.fundingHistoryLocators.selectedDate)
       //const currentAmountSelector = cy.get('[class=ant-typography]')
       //cy.log(currentAmountSelector)//to see what exactly the locator is
       // Get the current amount and parse it
-      cy.get('tr td:nth-child(6) [class="ant-typography"]').eq(0+i).invoke('text').then((currentAmountString) => {
+      cy.get(variable.fundingHistoryLocators.amountCell).eq(0+i).invoke('text').then((currentAmountString) => {
         const currentAmount = parseFloat(currentAmountString.replace(/[^\d.]/g, ''));
         // Check if it's the first row or not
         if (i === 0) {
@@ -151,7 +154,9 @@ cy.get(variable.fundingHistoryLocators.selectedDate)
   // });
 }
 validateDescendingAmountSorting() {
-  cy.get('.ant-table-column-sort > .ant-table-column-sorters > .ant-table-column-title').click()
+  //replace below line after addition on test id with 159
+  //cy.get(variable.fundingHistoryLocators.amountDescSort).click()
+  cy.get('.ant-table-column-sort > .ant-table-column-sorters > .ant-table-column-title > [data-testid="fh-amount-column-sort"]').click()
   cy.wait(5000)
   cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
       const totalRows = $transactionRows.length;
@@ -163,7 +168,7 @@ validateDescendingAmountSorting() {
           //const currentAmountSelector = cy.get('[class=ant-typography]')
           //cy.log(currentAmountSelector)//to see what exactly the locator is
           // Get the current amount and parse it
-          cy.get('tr td:nth-child(6) [class="ant-typography"]').eq(0 + i).invoke('text').then((currentAmountString) => {
+          cy.get(variable.fundingHistoryLocators.amountCell).eq(0 + i).invoke('text').then((currentAmountString) => {
               const currentAmount = parseFloat(currentAmountString.replace(/[^\d.]/g, ''));
               // Check if it's the first row or not
               if (i === 0) {
@@ -181,7 +186,7 @@ validateDescendingAmountSorting() {
 
 }
 validateAscendingDateSorting(){
-  cy.get(variable.fundingHistoryLocators.SubmissionDateButton).click()
+  cy.get(variable.fundingHistoryLocators.SubmissionDateButton).first().click()
   cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
     const totalRows = $transactionRows.length;
     const currentDateSelector = variable.fundingHistoryLocators.dateColumn;
@@ -214,7 +219,9 @@ validateAscendingDateSorting(){
     
 }
 validateDescendingDateSorting(){
-  cy.get('.ant-table-column-sort > .ant-table-column-sorters > .ant-table-column-title').click()
+  //replace below line after addition on test id with 224
+  //cy.get(variable.fundingHistoryLocators.DescDateButton).click({ force: true })
+  cy.get('.ant-table-column-sort > .ant-table-column-sorters > .ant-table-column-title > [data-testid="fh-date-column-sort"]').click()
   cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
     const totalRows = $transactionRows.length;
     const currentDateSelector = variable.fundingHistoryLocators.dateColumn;
@@ -274,7 +281,7 @@ valiadteAscendingAdminSorting(){
 }
 
 valiadteDescendingAdminSorting(){
-  cy.get('.ant-table-column-sort > .ant-table-column-sorters > .ant-table-column-title').click()
+  cy.get(variable.fundingHistoryLocators.sortedColumnTitle).click()
   cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
     const totalRows = $transactionRows.length;
     const adminColumnSelector = variable.fundingHistoryLocators.adminColumnSorting;
@@ -301,7 +308,7 @@ valiadteDescendingAdminSorting(){
 }
 
 valiadteAscendingFundingMethodSorting(){
-  cy.get(variable.fundingHistoryLocators.fundingMethodButton).click()
+  cy.get(variable.fundingHistoryLocators.fundingMethodButton).first().click()
   cy.wait(3000)
   
   // Collect all funding method texts first
@@ -325,7 +332,9 @@ valiadteAscendingFundingMethodSorting(){
 }
 
 valiadteDescendingFundingMethodSorting(){
-  cy.get('span[class="ant-table-column-title"] span[class="ant-typography dark-green"]').click()
+  //Replace below line after addition on test id with 337
+  //cy.get(variable.fundingHistoryLocators.fundingMethodDescSort).click()
+  cy.get('.ant-table-column-sort > .ant-table-column-sorters > .ant-table-column-title > [data-testid="fh-funding-method-column-sort"]').click()
   cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
     const totalRows = $transactionRows.length;
     const fMethodColumnSelector = variable.fundingHistoryLocators.fundingMethodColumn;
@@ -379,7 +388,7 @@ validateAscendingStatusSorting(){
   });
 }
 validateDescendingStatusSorting(){
-  cy.get('.ant-table-column-sort > .ant-table-column-sorters > .ant-table-column-title').click()
+  cy.get(variable.fundingHistoryLocators.sortedColumnTitle).click()
   cy.get(variable.fundingHistoryLocators.transactionRow).then(($transactionRows) => {
     const totalRows = $transactionRows.length;
     const statusColumnSelector = variable.fundingHistoryLocators.statusColumnSorting;

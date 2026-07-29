@@ -14,7 +14,7 @@ describe('FundWallet ',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp03.mybusiness.volopa-dev.com/')
+        cy.visit('https://webapp02.mybusiness.volopa-dev.com/')
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -75,3 +75,5 @@ describe('FundWallet ',function(){
         fundWallet.fund_manual_pushWorngPass()
     })
 })
+
+

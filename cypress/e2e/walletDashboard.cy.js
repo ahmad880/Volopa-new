@@ -16,7 +16,7 @@ describe('WalletDashboard',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp06.mybusiness.volopa-dev.com/') 
+        cy.visit('https://webapp02.mybusiness.volopa-dev.com/') 
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -45,32 +45,34 @@ describe('WalletDashboard',function(){
         fundWallet.fund_manual_pushGBP();
       
         cy.wait(5000);
-      cy.get('.m-t-20 > .ant-col > .ant-space > [style=""] > .ant-btn').should('be.visible').should('contain.text', 'Dashboard').click();
-        // Click 'Recent Transactions' button
-        // cy.get('.m-t-20 > .ant-col > .ant-space > [style=""] > .ant-btn')
-        //   .should('be.visible')
-        //   .click();
-      
+      cy.get('[data-testid="fh-return-btn"]').should('be.visible').should('contain.text', 'Return').click();
+      cy.get('[data-testid="wallet-dashboard-tab"]').click();
+      cy.reload()
+
         // Wait for table to be visible
-        cy.get('.ant-table-row').should('be.visible');
-      
+        cy.get('[data-testid="wd-transaction-row"]').should('be.visible');
+        
         // Click on repeat button for 'Manual Push Funds'
-        cy.get('tbody tr td:nth-child(3)[class="ant-table-cell"]').contains('Manual Push Funds').then((ele) => {
-          cy.wrap(ele)
-            .parents('.ant-table-row')
-            .find('[class="ant-btn ant-btn-primary"]')
-            .first()
-            .click();
+        cy.get('@manualamount').then((manualAmount) => {
+  const amount = manualAmount.match(/\d+(\.\d+)?/)[0];
+
+  cy.get('[data-row-key="0"]')
+    .should('contain.text', 'Manual Push Funds')
+    .should('contain.text', amount)
+    .find('[data-testid="wd-repeat-transaction-btn"]')
+    .click();
+
+
       
           // Confirm repeat
-          cy.get('.ant-popover-buttons > .ant-btn-primary').click();
+          cy.get('[data-testid="wd-repeat-confirm-btn"]').click();
       
           // Verify confirmation header
-          cy.get("div[class='ant-col'] span[class='ant-typography medium fs-18px dark-green']")
+          cy.get('.ant-spin-container > :nth-child(1) > .ant-col > .ant-typography')
             .should('have.text', 'Funding Confirmation');
       
           // Capture the amount shown
-          cy.get(':nth-child(5) > .ant-col-16 > .ant-space > :nth-child(2) > .ant-typography')
+          cy.get('[data-testid="funding-amount-pf-value-repeat"]')
             .invoke('text')
             .then((text) => {
               const amount = text.trim().replace(/USD/g, '');
@@ -79,15 +81,14 @@ describe('WalletDashboard',function(){
             });
       
           // Submit the repeat funding
-          cy.get("div[class='ant-space-item'] button[type='submit']")
+          cy.get('[data-testid="repeat-pf-confirm-btn"]')
             .first()
             .should('be.visible')
             .click();
       
           cy.wait(2000);
       
-          // Verify status text
-          cy.get('.ant-typography.ant-typography-success.medium.fs-18px.center-align-text')
+          cy.get('[data-testid="repeat-funding-status-text"]')
             .first()
             .invoke('text')
             .then((text) => {
@@ -98,27 +99,27 @@ describe('WalletDashboard',function(){
               ]);
             });
       
-          // Click "Done" or return to dashboard
-          cy.get("div[class='ant-space ant-space-horizontal ant-space-align-center'] div:nth-child(1) button:nth-child(1)")
+          // Click "Done" or return to dashboard 
+          cy.get('[data-testid="wd-dashboard-btn"]')
             .click();
       
           cy.wait(3000);
       
           // Navigate to transaction history
-          cy.get("body > div:nth-child(2) > section:nth-child(1) > header:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4)")
+          cy.get('[data-testid="nav-transaction-history"]')
             .click();
       
-          cy.get('.ant-typography.medium.dark-green.fs-28px')
+          cy.get('[data-testid="transaction-history-heading"]')
             .should('have.text', 'Your Transaction History');
       
           // Click on details of second row transaction
-          cy.get('table tbody tr:nth-child(2) td:nth-child(6) > span')
+          cy.get('[data-testid="fh-transaction-row"]')
             .first()
             .click();
       
           // Verify that the amount matches previous
           cy.get('@manualamount').then((manualamount) => {
-            cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px')
+            cy.get('[data-testid="transaction-detail-amount"]')
               .first()
               .invoke('text')
               .then((ele2) => {
@@ -131,12 +132,13 @@ describe('WalletDashboard',function(){
     it('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
+        cy.get('[data-testid="yapily-return-to-dashboard"]').click()
         cy.wait(5000)
-        cy.get('.ant-tabs-nav-list > :nth-child(1)').should('be.visible').click()
+        cy.get('[data-testid="wd-transaction-row"]').should('be.visible').first().click()
         cy.get('.ant-table-row').should('be.visible')
-        cy.get('tbody tr td:nth-child(3)[class="ant-table-cell"]').contains('Easy Transfer').if().then(ele=>{
-            ele.parents('.ant-table-row').find('[class="ant-btn ant-btn-primary"]').click()
-            cy.get('.ant-popover-buttons > .ant-btn-primary').click()
+        cy.get('[data-testid="wd-recent-tx-first-tab"]').contains('Easy Transfer').if().then(ele=>{
+            ele.parents('.ant-table-row').find('[data-testid="wd-repeat-transaction-btn"]').click()
+            cy.get('[data-testid="wd-repeat-confirm-btn"]').click()
             cy.wait(3000)
             walletpage.fundEasyTransfer()
         })

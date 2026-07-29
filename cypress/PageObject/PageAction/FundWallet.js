@@ -2,12 +2,12 @@ const variable= require('../PageElements/FundWallet.json')
 
 export class FundWallet {
     goTOFundWalletPage(){
-        cy.get(variable.fundWalletLocators.fundWallet).click()
-        cy.get(variable.fundWalletLocators.fundWalletNavbar).should('contain.text','Fund Wallet')
+        //cy.get(variable.fundWalletLocators.fundWallet).click()
+        cy.get(variable.fundWalletLocators.fundWalletNavbar).should('contain.text','Fund Wallet').click()
     }
     validateAllContent(){
         cy.get(variable.fundWalletLocators.fundWalletHeading).should('contain.text','Fund Your Company Wallet')
-        cy.get(variable.fundWalletLocators.fundWalletByAmount).should('contain.text','Fund Wallet By Amount')
+        cy.get(variable.fundWalletLocators.fundWalletByAmount1).should('contain.text','Fund Wallet By Amount')
         cy.get(variable.fundWalletLocators.walletBalance).should('contain.text','Company Wallet Balance')
     }
     viewAllCurrencies(){
@@ -25,7 +25,7 @@ export class FundWallet {
     cy.get(variable.fundWalletLocators.amount1).type("2");
     cy.get(variable.fundWalletLocators.description1).type("script testing");
     cy.get(variable.fundWalletLocators.confirmbutton).click();
-    cy.get('.ant-col-16 > .ant-space > :nth-child(2) > .ant-typography').invoke('text').then(ele=>{
+    cy.get(variable.fundWalletLocators.fundingAmountETValue).invoke('text').then(ele=>{
         let val1= ele.trim()
         cy.wrap(val1).should('contain','GBP').as('val1')
         cy.log(val1)
@@ -95,7 +95,7 @@ export class FundWallet {
     Cypress.on("uncaught:exception", () => false);
     
     cy.get(".ant-spin-dot", { timeout: 30000 }).should("not.exist");
-    cy.get(".ant-typography.muli.semi-bold.fs-24px.purple", { timeout: 20000 })
+    cy.get('[data-testid="funding-eta-text"]', { timeout: 20000 })
         .should("contain.text", "Funds could take up to 2 hours to be posted.");
 }
 
@@ -107,33 +107,34 @@ export class FundWallet {
       
         //cy.get(variable.fundWalletLocators.currency1).click()
         cy.get(variable.fundWalletLocators.currency1).type(funding1)
-        cy.get('.ant-input-number-input-wrap').type(2)
-        cy.get('.ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector > .ant-select-selection-item').click()
-        cy.contains('Manual Push Fund').click()
+        cy.get(variable.fundWalletLocators.amount1).type(2)
+        cy.get(variable.fundWalletLocators.fundingMethodSelect).click()
+        cy.get(variable.fundWalletLocators.manualPushFundOption).eq(0).click({ force: true })
+        cy.get('body').click(0, 0);
         cy.get(variable.fundWalletLocators.description1).type('script testing')
         cy.get(variable.fundWalletLocators.confirmbutton).should('be.visible').click()
         cy.wait(5000)
-        cy.get('.ant-card-grid > :nth-child(1) > .ant-col > .ant-typography')
+        cy.get(variable.fundWalletLocators.fundingConfirmationHeading)
         .should('have.text','Funding Confirmation')
-        cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(text=>{
+        cy.get(variable.fundWalletLocators.fundingAmountValue).invoke('text').then(text=>{
           text.trim()
           text=text.replace(/USD/g,'')
           cy.log(text)
           cy.wrap(text).as('manualamount')
         })
        // cy.get('#password').type('testTest1')
-        cy.get("button[type='submit'] span").click({force:true}).wait(2000)
-        cy.get(".ant-typography.ant-typography-success.medium.fs-18px.center-align-text").invoke('text')
+        cy.get(variable.fundWalletLocators.fundingSubmitBtn).click({force:true}).wait(2000)
+        cy.get(variable.fundWalletLocators.fundingStatusText).invoke('text')
         .then((text) => {
         expect(text.trim()).to.be.oneOf(['Funding Complete', 'Pending Funds'])
         })
-        cy.get("div[class='ant-space ant-space-horizontal ant-space-align-center'] div:nth-child(1) button:nth-child(1)").click()
+        cy.get(variable.fundWalletLocators.popupconfirmbutton).click()
         cy.wait(3000)
-        cy.get("body > div:nth-child(2) > section:nth-child(1) > header:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4)").click()
-        cy.get('.ant-typography.medium.dark-green.fs-28px').should('have.text','Your Transaction History')
-        cy.get(variable.fundWalletLocators.validationamoungt).click()
+        cy.get(variable.fundWalletLocators.transactionHistoryNav).click()
+        cy.get(variable.fundWalletLocators.transactionHistoryHeading).should('have.text','Your Transaction History')
+        cy.get(variable.fundWalletLocators.validationamoungt).first().click()
         cy.get('@manualamount').then(manualamount=>{
-          cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele2=>{
+          cy.get(variable.fundWalletLocators.transactionDetailAmount).invoke('text').then(ele2=>{
           let val=ele2.trim()
           cy.wrap(val).should('contain',val)
           //val=val.replace(/USD/g,'')
@@ -148,33 +149,33 @@ export class FundWallet {
       
         //cy.get(variable.fundWalletLocators.currency1).click()
         cy.get(variable.fundWalletLocators.currency1).type(funding1)
-        cy.get('.ant-input-number-input-wrap').type(2)
-        cy.get('.ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector > .ant-select-selection-item').click()
-        cy.contains('Volopa Collection Account').click()
+        cy.get(variable.fundWalletLocators.amount1).type(2)
+        cy.get(variable.fundWalletLocators.fundingMethodSelect).click()
+        cy.get(variable.fundWalletLocators.collectionAccountOption).click()
         cy.get(variable.fundWalletLocators.description1).type('script testing')
         cy.get(variable.fundWalletLocators.confirmbutton).should('be.visible').click()
         cy.wait(5000)
-        cy.get('.ant-card-grid > :nth-child(1) > .ant-col > .ant-typography')
+        cy.get(variable.fundWalletLocators.fundingConfirmationHeading)
         .should('have.text','Funding Confirmation')
-        cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(text=>{
+        cy.get(variable.fundWalletLocators.fundingAmountValue).invoke('text').then(text=>{
           text.trim()
           text=text.replace(/USD/g,'')
           cy.log(text)
           cy.wrap(text).as('manualamount')
         })
        // cy.get('#password').type('testTest1')
-        cy.get("button[type='submit'] span").click({force:true}).wait(2000)
-        cy.get(".ant-typography.ant-typography-success.medium.fs-18px.center-align-text").invoke('text')
+        cy.get(variable.fundWalletLocators.fundingSubmitBtn).click({force:true}).wait(2000)
+        cy.get(variable.fundWalletLocators.fundingStatusText).invoke('text')
         .then((text) => {
         expect(text.trim()).to.be.oneOf(['Funding Complete', 'Pending Funds'])
         })
-        cy.get("div[class='ant-space ant-space-horizontal ant-space-align-center'] div:nth-child(1) button:nth-child(1)").click()
+        cy.get(variable.fundWalletLocators.popupconfirmbutton).click()
         cy.wait(3000)
-        cy.get("body > div:nth-child(2) > section:nth-child(1) > header:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4)").click()
-        cy.get('.ant-typography.medium.dark-green.fs-28px').should('have.text','Your Transaction History')
-        cy.get(variable.fundWalletLocators.validationamoungt).click()
+        cy.get(variable.fundWalletLocators.transactionHistoryNav).click()
+        cy.get(variable.fundWalletLocators.transactionHistoryHeading).should('have.text','Your Transaction History')
+        cy.get(variable.fundWalletLocators.validationamoungt).first().click()
         cy.get('@manualamount').then(manualamount=>{
-          cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele2=>{
+          cy.get(variable.fundWalletLocators.transactionDetailAmount).invoke('text').then(ele2=>{
           let val=ele2.trim()
           cy.wrap(val).should('contain',val)
           //val=val.replace(/USD/g,'')
@@ -189,22 +190,39 @@ export class FundWallet {
     
       //cy.get(variable.fundWalletLocators.currency1).click()
       cy.get(variable.fundWalletLocators.currency1).type('GBP{enter}')
-      cy.get('.ant-input-number-input-wrap').type(2)
-      cy.get('.ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector > .ant-select-selection-item').click()
-      cy.contains('Manual Push Fund').click()
+      cy.get(variable.fundWalletLocators.amount1).type(7)
+      cy.get(variable.fundWalletLocators.fundingMethodSelect).click()
+        cy.get(variable.fundWalletLocators.manualPushFundOption).click()
       cy.get(variable.fundWalletLocators.description1).type('script testing')
       cy.get(variable.fundWalletLocators.confirmbutton).should('be.visible').click()
       cy.wait(5000)
-      cy.get('.ant-card-grid > :nth-child(1) > .ant-col > .ant-typography')
+      cy.get(variable.fundWalletLocators.fundingConfirmationHeading)
       .should('have.text','Funding Confirmation')
-      cy.get('.ant-col-16 > :nth-child(2) > .ant-col > .ant-typography').invoke('text').then(text=>{
+      cy.get('[data-testid="funding-amount-value"]').invoke('text').then(text=>{
         text.trim()
         text=text.replace(/USD/g,'')
         cy.log(text)
         cy.wrap(text).as('manualamount')
       })
       //cy.get('#password').type('testTest1')
-      cy.get("button[type='submit'] span").click({force:true}).wait(2000)
+      cy.get(variable.fundWalletLocators.fundingSubmitBtn).click({force:true}).wait(2000)
+        cy.get(variable.fundWalletLocators.fundingStatusText).invoke('text')
+        .then((text) => {
+        expect(text.trim()).to.be.oneOf(['Funding Complete', 'Pending Funds'])
+        })
+        cy.get(variable.fundWalletLocators.popupconfirmbutton).click()
+        cy.wait(3000)
+        cy.get(variable.fundWalletLocators.transactionHistoryNav).click()
+        cy.get(variable.fundWalletLocators.transactionHistoryHeading).should('have.text','Your Transaction History')
+        cy.get(variable.fundWalletLocators.validationamoungt).first().click()
+        cy.get('@manualamount').then(manualamount=>{
+          cy.get(variable.fundWalletLocators.transactionDetailAmount).invoke('text').then(ele2=>{
+          let val=ele2.trim()
+          cy.wrap(val).should('contain',val)
+          //val=val.replace(/USD/g,'')
+          //cy.wrap(parseFloat(manualamount)).should('eq',parseFloat(val))
+        })
+        })
     }
     fund_manual_pushWorngPass(){
       cy.get(variable.fundWalletLocators.fundWallet).click()
@@ -213,23 +231,23 @@ export class FundWallet {
     
       //cy.get(variable.fundWalletLocators.currency1).click()
       cy.get(variable.fundWalletLocators.currency1).type('GBP{enter}')
-      cy.get('.ant-input-number-input-wrap').type(2)
-      cy.get('.ant-col-xs-24 > .ant-form-item > .ant-row > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector > .ant-select-selection-item').click()
-      cy.contains('Manual Push Fund').click()
+      cy.get(variable.fundWalletLocators.amount1).type(2)
+      cy.get(variable.fundWalletLocators.fundingMethodSelect).click()
+        cy.get(variable.fundWalletLocators.manualPushFundOption).click()
       cy.get(variable.fundWalletLocators.description1).type('script testing')
       cy.get(variable.fundWalletLocators.confirmbutton).should('be.visible').click()
       cy.wait(5000)
-      cy.get("div[class='ant-col'] span[class='ant-typography medium fs-18px dark-green']")
+      cy.get(variable.fundWalletLocators.fundingConfirmationHeading)
       .should('have.text','Funding Confirmation')
-      cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(text=>{
+      cy.get(variable.fundWalletLocators.fundingAmountValue).invoke('text').then(text=>{
         text.trim()
         text=text.replace(/USD/g,'')
         cy.log(text)
         cy.wrap(text).as('manualamount')
       })
      // cy.get('#password').type('testTest')
-      cy.get("button[type='submit'] span").click({force:true}).wait(2000)
-      cy.get('.ant-notification-notice').should('exist')
+      cy.get(variable.fundWalletLocators.fundingSubmitBtn).click({force:true}).wait(2000)
+      cy.get(variable.fundWalletLocators.errorToast).should('exist')
     }
     validateCompanyWalletBalance(){
       cy.get(variable.fundWalletLocators.walletBalance).should('contain.text','Company Wallet Balance')
@@ -250,7 +268,8 @@ export class FundWallet {
         cy.get(variable.fundWalletLocators.confirmbutton).should('be.visible').click({force:true})
         cy.wait(3000)
         cy.get(variable.fundWalletLocators.popupheading).should('contain','Fund via Easy Transfer (Open Banking)')
-        cy.get("div[class='ant-col ant-col-16'] span[class='ant-typography muli light fs-18px dark-green']").invoke('text').then(ele=>{
+        //need to replace with test id [data-testid='funding-amount-value']
+        cy.get('[data-testid="funding-amount-et-value"]').invoke('text').then(ele=>{
         let val1= ele.trim()
         cy.wrap(val1).should('contain','EUR').as('val1')
         cy.log(val1)
@@ -320,13 +339,13 @@ export class FundWallet {
             Cypress.on("uncaught:exception", () => false);
             
             cy.get('.ant-spin-dot', { timeout: 30000 }).should('not.exist')
-            cy.get('[class="ant-typography muli semi-bold fs-24px purple"]', { timeout: 20000 })
+            cy.get('[data-testid="funding-eta-text"]', { timeout: 20000 })
                 .should('contain.text','Funds could take up to 2 hours to be posted.')
-            cy.get(':nth-child(2) > .ant-btn').click()
-            cy.get(variable.fundWalletLocators.validationamoungt).click()
+            cy.get('[data-testid="yapily-view-payment"]').click()
+            cy.get(variable.fundWalletLocators.validationamoungt).first().click()
             
             cy.get('@val1').then(val1=>{
-                cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
+                cy.get(variable.fundWalletLocators.transactionDetailAmount).invoke('text').then(ele1=>{
                     let ele = ele1.split('.')
                     let val= ele[0].trim()
                     cy.wrap(val).should('contain','EUR')

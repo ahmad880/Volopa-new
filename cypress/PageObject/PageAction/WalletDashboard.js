@@ -6,8 +6,8 @@ export class WalletDashboard {
         cy.get(variable1.walletDashboardLocators.walletBalance).should('contain.text','Wallet Balance')
         cy.get(variable1.walletDashboardLocators.cardsBalance).should('contain.text','Cards Balance')
         cy.get(variable1.walletDashboardLocators.convertBalances).should('contain.text','Convert Balances')
-        cy.get(variable1.walletDashboardLocators.fundCard).eq(1).should('contain.text','Fund Card')
-        cy.get(variable1.walletDashboardLocators.fundWallet).eq(2).should('contain.text','Fund Wallet')
+        cy.get(variable1.walletDashboardLocators.fundCard).should('contain.text','Fund Card')
+        cy.get(variable1.walletDashboardLocators.fundWallet).should('contain.text','Fund Wallet')
         cy.get(variable1.walletDashboardLocators.RecentActivity).should('contain.text','Recent Activity - ')
         cy.get(variable1.walletDashboardLocators.walletBreakdown).should('contain.text','Wallet Breakdown')
         cy.get(variable1.walletDashboardLocators.rateChecker).should('contain.text','Rate Checker')
@@ -21,7 +21,7 @@ export class WalletDashboard {
         cy.log(Total)
         let wbalance, cbalance
         cy.wait(2000)
-        cy.get(variable1.walletDashboardLocators.walletBalanceValue).eq(1).then((ele)=>{
+        cy.get(variable1.walletDashboardLocators.walletBalanceValue).then((ele)=>{
          wbalance= ele.text().trim()
          wbalance = wbalance.replace(/,/g, '').replace(/[\p{Sc}]/gu, ' ');
          cy.log(wbalance)
@@ -54,16 +54,13 @@ export class WalletDashboard {
   cy.contains('Rate Checker').should('be.visible');
 
   cy.get(variable1.walletDashboardLocators.convertTo)
-    .clear()
     .type('AUD{enter}');
 
   cy.get(variable1.walletDashboardLocators.convertFrom)
-    .clear()
     .type('GBP{enter}');
 
   cy.get(variable1.walletDashboardLocators.convertFromValue)
-    .clear()
-    .type('2');
+    .type('3');
 
   cy.get(variable1.walletDashboardLocators.convertBtn)
     .should('be.visible')
@@ -79,7 +76,7 @@ export class WalletDashboard {
   this.Verify_Convertion_Comleted();
 }
     Verify_Convertion_Comleted(){
-        cy.get(variable1.walletDashboardLocators.convertBtn).click()
+        cy.get(variable1.walletDashboardLocators.cbConvertBtn).click()
         cy.wait(5000)
         cy.get(variable1.walletDashboardLocators.assertion1).should('have.text',"Conversion Complete")
           cy.wait(3000)
@@ -98,7 +95,7 @@ export class WalletDashboard {
               cy.wait(3000)
           cy.get(variable1.walletDashboardLocators.dashboard).click()
           cy.reload()
-          cy.get(variable1.walletDashboardLocators.istrecent).click()
+          cy.get(variable1.walletDashboardLocators.istrecent).first().click()
           cy.get(variable1.walletDashboardLocators.Valuee1).invoke('text').should('contain',c1)
           cy.get(variable1.walletDashboardLocators.Valuee2).invoke('text').should('contain',c2)
         })
@@ -117,20 +114,20 @@ export class WalletDashboard {
         cy.get(variable1.walletDashboardLocators.convertBalances).click()
         cy.get(variable1.walletDashboardLocators.convertBalancesPage).should('contain.text','Convert Balances')
         cy.get(variable1.walletDashboardLocators.walletDashboard).click()
-        cy.get(variable1.walletDashboardLocators.fundCard).eq(1).click()
+        cy.get(variable1.walletDashboardLocators.fundCard).click()
         cy.get(variable1.walletDashboardLocators.fundCardSelection).should('contain.text','Fund Card Selection')
         cy.get(variable1.walletDashboardLocators.crossBtn).click()
-        cy.get(variable1.walletDashboardLocators.fundWallet).eq(2).click()
+        cy.get(variable1.walletDashboardLocators.fundWallet).click()
         cy.get(variable1.walletDashboardLocators.fundWalletPage).should('contain.text','Fund Wallet')
     }
     fundEasyTransfer(){
-    cy.get(variable.fundWalletLocators.popupheading).should('contain','Fund via Easy Transfer (Open Banking)')
-    cy.get('.ant-col-16 > .ant-space > :nth-child(2) > .ant-typography').invoke('text').then(ele=>{
+    cy.get(variable.fundWalletLocators.popupheadingrepeat)   
+    cy.get("[data-testid='funding-amount-et-value-repeat']").invoke('text').then(ele=>{
         let val1= ele.trim()
         cy.wrap(val1).should('contain','GBP').as('val1')
         cy.log(val1)
     })
-    cy.get(variable.fundWalletLocators.popupconfirmxpath).click()
+    cy.get('[data-testid="repeat-confirm-btn"]').click()
     
     // ---------------------------------
     // YAPILY FLOW
@@ -195,13 +192,14 @@ export class WalletDashboard {
     Cypress.on("uncaught:exception", () => false);
     
     cy.get('.ant-spin-dot', { timeout: 30000 }).should('not.exist')
-    cy.get('[class="ant-typography muli semi-bold fs-24px purple"]', { timeout: 20000 })
+    cy.get('[data-testid="funding-eta-text"]', { timeout: 20000 })
         .should('contain.text','Funds could take up to 2 hours to be posted.')
-    cy.get(':nth-child(2) > .ant-btn').click()
-    cy.get(variable.fundWalletLocators.validationamoungt).click()
+        //Replace with data-testid when available for yapily view button
+   cy.get('[data-testid="yapily-view-payment"]').click()
+    cy.get(variable.fundWalletLocators.validationamoungt).first().click()
     
     cy.get('@val1').then(val1=>{
-        cy.get('.ant-typography.m-t-10.m-l-10.medium.bold.fs-18px').invoke('text').then(ele1=>{
+        cy.get('[data-testid="transaction-detail-amount"]').invoke('text').then(ele1=>{
             let ele = ele1.split('.')
             let val= ele[0].trim()
             cy.wrap(val).should('contain','GBP')

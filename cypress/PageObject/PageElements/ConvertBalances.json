@@ -1,15 +1,15 @@
 {
-    "convertBalances":{
-        "convertBalance":"[id='rc-tabs-0-tab-/wallet/convert-balances']",
-        "mainHeading":".ant-typography.medium.dark-green.fs-28px",
-        "companyWalletBalance":"span[class='ant-typography medium fs-18px dark-green']",
-        "viewAllCurrenciesBtn":"button[class='ant-btn ant-btn-link medium fs-18px right-align-text'] span",
-        "convertTo":":nth-child(2) > [style='padding-left: 4px; padding-right: 4px; flex: 0 0 90px;'] > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector",
-        "convertFrom":":nth-child(4) > [style='padding-left: 4px; padding-right: 4px; flex: 0 0 90px;'] > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-select > .ant-select-selector",
-        "convertToValue":"#convertToValue",
-        "convertFromValue":"#convertFromValue",
-        "convertBtn":".right-align-text > .ant-btn",
-        "insufficientPopUp":".ant-modal-body > :nth-child(1) > .ant-col",
-        "convertMoreBtn":".ant-space > :nth-child(2) > .ant-btn"
-    }
+  "convertBalances": {
+    "convertBalance":        "[data-testid='convert-balances-tab']",      
+    "mainHeading":           "[data-testid='convert-balances-heading']",  
+    "companyWalletBalance":  "[data-testid='cb-company-balance-label']",  
+    "viewAllCurrenciesBtn":  "[data-testid='cb-view-all-currencies-btn']",
+    "convertTo":             "[data-testid='cb-convert-to-select']",      
+    "convertFrom":           "[data-testid='cb-convert-from-select']",    
+    "convertToValue":        "[data-testid='cb-convert-to-value-input']", 
+    "convertFromValue":      "[data-testid='cb-convert-from-value-input']",
+    "convertBtn":            "[data-testid='cb-convert-btn']",            
+    "insufficientPopUp":     "[data-testid='cb-insufficient-popup']",     
+    "convertMoreBtn":        "[data-testid='cb-convert-more-btn']"        
+  }
 }

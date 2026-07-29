@@ -7,8 +7,8 @@ const signin = new SigninPage
 const fundingHistory = new FundingHistory
 
 describe('Funding History',function(){
-  let userName = 'testnew@volopa.com'
-  let password = 'testTest1@'
+  let userName = 'UAT_Col_UK@gmail.com'
+  let password = 'testTest1'
   beforeEach(() => {
     cy.window().then((win) => {
       win.localStorage.clear();

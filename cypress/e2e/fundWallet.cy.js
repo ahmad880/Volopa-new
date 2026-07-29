@@ -7,7 +7,7 @@ const signin = new SigninPage
 const fundWallet = new FundWallet
 
 describe('FundWallet ',function(){
-    let userName = 'uk_test_1@volopa.com'
+    let userName = 'UAT_Col_UK@gmail.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.window().then((win) => {

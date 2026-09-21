@@ -1,0 +1,12 @@
+{
+  "expenseApprovalLocators": {
+    "filterApprovalStatusBtn":      "[data-testid='filter-approval-status-btn']",
+    "filterApprovalStatusReset":    "[data-testid='filter-approval-status-reset']",
+    "filterApprovalStatusRadio":    "[data-testid='filter-approval-status-radio-{value}']",
+
+    "transactionTableRows":         ".custom-table .ant-table-tbody > tr.ant-table-row",
+    "transactionTableLoadingSpin":  ".custom-table .ant-spin-spinning",
+    "transactionTableEmptyState":   ".custom-table .ant-empty",
+    "transactionTableEmptyText":    ".custom-table .ant-empty-description"
+  }
+}

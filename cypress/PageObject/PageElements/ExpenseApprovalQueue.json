@@ -1,0 +1,65 @@
+{
+  "expenseApprovalQueueLocators": {
+    "pageContainer":                  "[data-testid='expense-approvals-page']",
+    "queuePane":                      "[data-testid='expense-approvals-pane-queue']",
+    "queueActiveRow":                 "[data-testid='expense-approvals-pane-queue'] [data-active='true']",
+    "queueRows":                      "[data-testid='expense-approvals-pane-queue'] [data-testid^='queue-row-'][data-active]",
+    "queueRowCheckboxPrefix":         "queue-row-checkbox-",
+    "queueScroller":                  "[data-testid='queue-pane'] .overflow-y-auto",
+    "queueCheckForMoreBtn":           "[data-testid='queue-check-for-more-btn']",
+    "queueNextPageSpinner":           "[data-testid='queue-next-page-spinner']",
+
+    "detailTabTransaction":           "[data-testid='detail-tab-transaction-details']",
+    "detailTabExpense":               "[data-testid='detail-tab-expense-information']",
+    "detailPaneSpinner":              "[data-testid='expense-detail-pane'] .ant-spin-spinning",
+
+    "detailCardholderValue":          "[data-testid='detail-cardholder-value']",
+    "detailCardNumberValue":          "[data-testid='detail-card-number-value']",
+    "detailTransactionIdValue":       "[data-testid='detail-transaction-id-value']",
+    "detailTransactionDateValue":     "[data-testid='detail-transaction-date-value']",
+    "detailTransactionStatusValue":   "[data-testid='detail-transaction-status-value']",
+    "detailMerchantNameValue":        "[data-testid='detail-merchant-name-value']",
+    "detailMerchantDescriptionValue": "[data-testid='detail-merchant-description-value']",
+    "detailMerchantLocationValue":    "[data-testid='detail-merchant-location-value']",
+    "detailCurrencyValue":            "[data-testid='detail-currency-value']",
+    "detailAmountValue":              "[data-testid='detail-amount-value']",
+
+    "detailNotesValue":               "[data-testid='detail-notes-value']",
+    "detailCategoryValue":            "[data-testid='detail-category-value']",
+    "detailCustomField1Value":        "[data-testid='detail-custom-field-1-value']",
+    "detailCustomField2Value":        "[data-testid='detail-custom-field-2-value']",
+    "detailTrackingCode1Value":       "[data-testid='detail-tracking-code-1-value']",
+    "detailTrackingCode2Value":       "[data-testid='detail-tracking-code-2-value']",
+    "detailProjectIdValue":           "[data-testid='detail-project-id-value']",
+    "detailVatValue":                 "[data-testid='detail-vat-value']",
+    "detailAdditionalFieldPrefix":    "detail-additional-field-",
+    "detailAdditionalFieldSuffix":    "-value",
+
+    "attachmentViewerCounter":        "[data-testid='attachment-viewer-counter']",
+
+    "detailRejectBtn":                "[data-testid='detail-reject-btn']",
+    "detailApproveBtn":               "[data-testid='detail-approve-btn']",
+    "detailRequestMoreInfoBtn":       "[data-testid='detail-request-more-information-btn']",
+
+    "reasonModal":                    "[data-testid='reason-modal']",
+    "reasonModalSelect":              "[data-testid='reason-modal-select']",
+    "reasonModalNotesInput":          "[data-testid='reason-modal-notes-input']",
+    "reasonModalConfirmBtn":          "[data-testid='reason-modal-confirm-btn']",
+    "reasonModalCancelBtn":           "[data-testid='reason-modal-cancel-btn']",
+    "reasonModalDropdownOption":      ".ant-select-dropdown .ant-select-item-option",
+
+    "decisionSummaryFailures":        "[data-testid='decision-summary-failures']",
+
+    "specificAttachmentItems":        ".transaction-upload-component .ant-upload-list-item-container",
+    "specificNotesField":             "#notes",
+    "specificCategoryField":          "#category",
+    "specificCategoryNameField":      "#categoryName",
+    "specificField1":                 "#field_1_value",
+    "specificField2":                 "#field_2_value",
+    "specificTrackingCode1":          "#trackingCodeI",
+    "specificTrackingCode2":          "#trackingCodeII",
+    "specificProjectId":              "#projectId",
+    "specificVat":                    "#vat",
+    "specificAdditionalFieldPrefix":  "#additionalField"
+  }
+}

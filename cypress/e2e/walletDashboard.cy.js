@@ -9,14 +9,14 @@ const walletpage = new WalletDashboard
 const fundWallet = new FundWallet
 
 describe('WalletDashboard',function(){
-    let userName = 'UAT_Col_UK@gmail.com'
+    let userName = 'CTS_client_UK@gmail.com'
     let password = 'testTest1'
     beforeEach(() => {
         cy.window().then((win) => {
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp04.mybusiness.volopa-dev.com/') 
+        cy.visit('https://webapp02.mybusiness.volopa-dev.com/') 
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })

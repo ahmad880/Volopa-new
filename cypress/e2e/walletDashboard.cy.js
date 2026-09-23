@@ -16,7 +16,7 @@ describe('WalletDashboard',function(){
             win.localStorage.clear();
             win.sessionStorage.clear();
         });
-        cy.visit('https://webapp02.mybusiness.volopa-dev.com/') 
+        cy.visit('https://webapp04.mybusiness.volopa-dev.com/') 
         signin.Login(userName, password)
         cy.viewport(1440,1000)
     })
@@ -129,7 +129,7 @@ describe('WalletDashboard',function(){
           });
         });
       });
-    it('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
+    it.only('TC_WD_008 -Validate the user can repeat recent transactions as Easy Transfer from wallet dashboard', function(){
         fundWallet.goTOFundWalletPage() 
         fundWallet.validate_Fund_Wallet('GBP{enter}')
         cy.get('[data-testid="yapily-return-to-dashboard"]').click()

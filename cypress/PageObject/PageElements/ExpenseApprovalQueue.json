@@ -8,9 +8,11 @@
     "queueScroller":                  "[data-testid='queue-pane'] .overflow-y-auto",
     "queueCheckForMoreBtn":           "[data-testid='queue-check-for-more-btn']",
     "queueNextPageSpinner":           "[data-testid='queue-next-page-spinner']",
+    "queueAutoloadSentinel":          "[data-testid='queue-autoload-sentinel']",
 
     "detailTabTransaction":           "[data-testid='detail-tab-transaction-details']",
     "detailTabExpense":               "[data-testid='detail-tab-expense-information']",
+    "detailPaneContainer":            "[data-testid='expense-detail-pane']",
     "detailPaneSpinner":              "[data-testid='expense-detail-pane'] .ant-spin-spinning",
 
     "detailCardholderValue":          "[data-testid='detail-cardholder-value']",
@@ -60,6 +62,27 @@
     "specificTrackingCode2":          "#trackingCodeII",
     "specificProjectId":              "#projectId",
     "specificVat":                    "#vat",
-    "specificAdditionalFieldPrefix":  "#additionalField"
+    "specificAdditionalFieldPrefix":  "#additionalField",
+
+    "txnListRows":                    "[data-testid^='txn-list-row-']",
+    "specificApprovalStatusBadge":    "[data-testid='txn-detail-approval-status-badge']",
+    "specificApprovalOverrideBadge":  "[data-testid='txn-detail-approval-override-badge']",
+    "specificSubmitBtn":              "[data-testid='txn-detail-submit-approval-btn']",
+
+    "navBarBellTrigger":              ".ant-badge > .ant-btn",
+    "bellInReviewItem":               "[data-testid='bell-in-review-item']",
+    "bellInReviewCount":              "[data-testid='bell-in-review-count']",
+    "bellInReviewBtn":                "[data-testid='bell-in-review-btn']",
+
+    "detailTabsList":                 "[data-testid='detail-tabs']",
+
+    "expenseApprovalStatusToggle":       "[data-testid='expense-approval-status-toggle']",
+    "expenseApprovalStatusApproveBtn":   "[data-testid='expense-approval-status-approve-btn']",
+    "expenseApprovalStatusRejectBtn":    "[data-testid='expense-approval-status-reject-btn']",
+    "expenseApprovalStatusMoreInfoBtn":  "[data-testid='expense-approval-status-more-info-btn']",
+    "expenseApprovalStatusInReviewBtn":  "[data-testid='expense-approval-status-in-review-btn']",
+
+    "specificDecisionReasonValue":    "[data-testid='txn-detail-decision-reason-value']",
+    "specificDecisionCommentValue":   "[data-testid='txn-detail-decision-comment-value']"
   }
 }

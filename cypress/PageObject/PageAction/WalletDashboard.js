@@ -76,7 +76,7 @@ export class WalletDashboard {
   this.Verify_Convertion_Comleted();
 }
     Verify_Convertion_Comleted(){
-        cy.get(variable1.walletDashboardLocators.cbConvertBtn).click()
+        cy.get(variable1.walletDashboardLocators.convertBtn).click()
         cy.wait(5000)
         cy.get(variable1.walletDashboardLocators.assertion1).should('have.text',"Conversion Complete")
           cy.wait(3000)

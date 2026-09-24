@@ -14,8 +14,8 @@ const users = {
 }
 
 // Single place to change the environment URL for the whole file.
-const DEFAULT_BASE_URL = 'https://webapp02.mybusiness.volopa-dev.com/'
-const BULK_MOCK_BASE_URL = 'https://webapp02.mybusiness.volopa-dev.com/'
+const DEFAULT_BASE_URL = 'https://webapp03.mybusiness.volopa-dev.com/'
+const BULK_MOCK_BASE_URL = 'https://webapp03.mybusiness.volopa-dev.com/'
 
 describe('Expense Approval Tests', function () {
     const loginAs = (user, baseUrl = DEFAULT_BASE_URL) => {
